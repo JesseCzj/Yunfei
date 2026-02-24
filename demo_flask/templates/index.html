@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HCI Empathy Bridge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="top-header">
+        <h1 class="app-title">HCI Empathy Bridge</h1>
+      </header>
+
+      <div class="main-panels">
+        <aside class="script-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Interview Script</h2>
+          </div>
+          <div class="script-content">
+            {% if guide_text and guide_text.strip() %}
+              <div class="script-display">
+                <pre class="script-text">{{ guide_text }}</pre>
+              </div>
+            {% else %}
+              <div class="script-empty">
+                <div class="empty-icon">📄</div>
+                <div class="empty-text">No script uploaded yet</div>
+              </div>
+            {% endif %}
+
+            <div class="upload-section">
+              <form method="post" enctype="multipart/form-data" class="upload-form">
+                <input type="hidden" name="action" value="upload_guide" />
+                <div class="file-input-wrapper">
+                  <input type="file" name="guide_file" id="guideFile" accept=".txt,.docx,.pdf" class="file-input" />
+                  <label for="guideFile" class="file-label">
+                    <span class="file-icon">📄</span>
+                    <span class="file-text">Choose file (txt, docx, pdf)</span>
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-secondary">Upload</button>
+                {% if guide_error %}
+                  <div class="error-message">{{ guide_error }}</div>
+                {% endif %}
+              </form>
+            </div>
+          </div>
+        </aside>
+
+        <main class="main-content">
+        <div class="chat-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Interview Session</h2>
+            <div class="panel-actions">
+              <span class="message-count">{{ messages|length }} messages</span>
+            </div>
+          </div>
+
+          <div class="chat-window" id="chatWindow">
+            {% if messages|length == 0 %}
+              <div class="empty-state">
+                <div class="empty-icon">💬</div>
+                <div class="empty-text">Start the interview by sending a question.</div>
+                <div class="empty-hint">The researcher asks questions, the expert responds.</div>
+              </div>
+            {% endif %}
+
+            {% for msg in messages %}
+              {% if msg.role == "researcher" %}
+                {% set has_hci_terms = msg.hci_terms is defined and msg.hci_terms|length > 0 %}
+                <div class="message-row researcher-row">
+                  <div class="message-card researcher-card">
+                    <div class="message-header">
+                      <span class="message-role">Researcher</span>
+                      {% if msg.source is defined and msg.source == "voice" %}
+                        <span class="badge badge-voice">Voice</span>
+                      {% endif %}
+                    </div>
+                    <div class="message-content" 
+                      {% if has_hci_terms %}data-hci-terms='{{ msg.hci_terms|tojson }}'{% endif %}
+                    >{{ msg.content }}</div>
+                    {% if has_hci_terms %}
+                      <div class="hci-terms-annotation">
+                        {% for term in msg.hci_terms %}
+                          <span class="hci-term-tag">{{ term.term }} <span class="term-explanation">({{ term.explanation }})</span></span>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="message-avatar researcher-avatar">🧑‍💻</div>
+                </div>
+              {% else %}
+                {# Expert message with progressive disclosure #}
+                {% set has_jargon = msg.jargon is defined and msg.jargon|length > 0 %}
+                {% set has_mismap = msg.mismap is defined and msg.mismap.detected %}
+                {% set has_manual_mismap = msg.manual_mismap is defined and msg.manual_mismap %}
+                {% set show_mismap = has_mismap or has_manual_mismap %}
+                {% set mismap_data = msg.mismap if msg.mismap is defined else {} %}
+                
+                {# Check for on-demand generated content #}
+                {% set has_refinement = msg.refinement is defined and msg.refinement %}
+                {% set has_contexts = msg.contexts is defined and (msg.contexts.Coarse or msg.contexts.Balanced or msg.contexts.Fine) %}
+                {% set has_explanation = msg.explanation is defined and msg.explanation %}
+                {% set contexts = msg.contexts if msg.contexts is defined else {} %}
+
+                <div class="message-row expert-row" data-msg-index="{{ loop.index0 }}">
+                  <input type="checkbox" class="expert-select-checkbox" data-msg-index="{{ loop.index0 }}" />
+                  <div class="message-avatar expert-avatar">👨‍⚕️</div>
+                  <div class="message-card expert-card">
+                    <div class="message-header">
+                      <span class="message-role">Expert</span>
+                      {% if msg.source is defined and msg.source == "voice" %}
+                        <span class="badge badge-voice">Voice</span>
+                      {% endif %}
+                    </div>
+                    <div
+                      class="message-content expert-content"
+                      data-jargon='{{ (msg.jargon if msg.jargon is defined else [])|tojson }}'
+                    >{{ msg.content }}</div>
+
+                    <div class="analysis-section">
+                      {# 1. Mis-map Card - Show type/reason + action buttons + nested results #}
+                      {% if show_mismap %}
+                        <div class="analysis-card mismap-card collapsible">
+                          <div class="analysis-header">
+                            <span class="analysis-icon">⚠️</span>
+                            <span class="analysis-title">Mis-map Detected</span>
+                            <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
+                              <span class="collapse-icon">▼</span>
+                            </button>
+                          </div>
+                          <div class="card-body">
+                            <div class="analysis-content">
+                              {% if mismap_data.type %}
+                                <div class="mismap-type"><strong>Type:</strong> {{ mismap_data.type }}</div>
+                              {% endif %}
+                              <div class="mismap-reason">
+                                <strong>Reason:</strong> {{ mismap_data.reason if mismap_data.reason else "Manually tagged by researcher." }}
+                              </div>
+                            </div>
+                            
+                            {# Action buttons for on-demand assistance - hide when generated #}
+                            <div class="action-buttons">
+                              {% if not has_refinement %}
+                                <button
+                                  type="button"
+                                  class="action-btn action-btn-refinement"
+                                  data-action="refinement"
+                                  data-msg-index="{{ loop.index0 }}"
+                                >
+                                  <span class="action-icon">✏️</span>
+                                  <span class="action-text">Get Refinement</span>
+                                </button>
+                              {% endif %}
+                              {% if not has_contexts %}
+                                <button
+                                  type="button"
+                                  class="action-btn action-btn-examples"
+                                  data-action="examples"
+                                  data-msg-index="{{ loop.index0 }}"
+                                >
+                                  <span class="action-icon">💡</span>
+                                  <span class="action-text">Get Examples</span>
+                                </button>
+                              {% endif %}
+                            </div>
+
+                            {# Nested Refinement Result #}
+                            {% if has_refinement %}
+                              <div class="nested-card refinement-nested collapsible">
+                                <div class="nested-header">
+                                  <span class="nested-icon">✏️</span>
+                                  <span class="nested-title">Refined Question</span>
+                                  <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
+                                    <span class="collapse-icon">▼</span>
+                                  </button>
+                                </div>
+                                <div class="card-body">
+                                  <div class="nested-content">{{ msg.refinement }}</div>
+                                </div>
+                              </div>
+                            {% endif %}
+
+                            {# Nested Context Examples Result #}
+                            {% if has_contexts %}
+                              <div class="nested-card context-nested collapsible">
+                                <div class="nested-header">
+                                  <span class="nested-icon">💡</span>
+                                  <span class="nested-title">Examples for Explaining Your Question</span>
+                                  <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
+                                    <span class="collapse-icon">▼</span>
+                                  </button>
+                                </div>
+                                <div class="card-body">
+                                  <div
+                                    class="context-slider"
+                                    data-coarse="{{ contexts.Coarse }}"
+                                    data-balanced="{{ contexts.Balanced }}"
+                                    data-fine="{{ contexts.Fine }}"
+                                  >
+                                    <div class="slider-wrapper">
+                                      <input type="range" min="0" max="2" step="1" value="1" class="granularity-slider" />
+                                      <div class="slider-labels">
+                                        <span>Coarse</span>
+                                        <span>Balanced</span>
+                                        <span>Fine</span>
+                                      </div>
+                                    </div>
+                                    <div class="context-output">{{ contexts.Balanced }}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      {# 5. Suggest Follow-ups Button & Card #}
+                      {% if msg.followups is defined and msg.followups|length > 0 %}
+                        <div class="analysis-card followups-card collapsible">
+                          <div class="analysis-header">
+                            <span class="analysis-icon">💭</span>
+                            <span class="analysis-title">Suggested Follow-up Questions</span>
+                            <span class="followups-hint">(click to use)</span>
+                            <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
+                              <span class="collapse-icon">▼</span>
+                            </button>
+                          </div>
+                          <div class="card-body">
+                            <ul class="followups-list">
+                              {% for fq in msg.followups %}
+                                <li class="followup-item clickable-followup" data-question="{{ fq }}">{{ fq }}</li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      {# 6. HCI Mapping Results Card (merged Extract + Mapping) #}
+                      {% set has_hci_mapping = msg.hci_mapping is defined and msg.hci_mapping|length > 0 %}
+                      {% if has_hci_mapping %}
+                        <div class="analysis-card hci-mapping-card collapsible">
+                          <div class="analysis-header">
+                            <span class="analysis-icon">🔄</span>
+                            <span class="analysis-title">Mapped to HCI Domain</span>
+                            <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
+                              <span class="collapse-icon">▼</span>
+                            </button>
+                          </div>
+                          <div class="card-body">
+                            <div class="hci-mapping-content">
+                              {% for item in msg.hci_mapping %}
+                                <div class="hci-mapping-item">
+                                  <div class="mapping-row">
+                                    <div class="mapping-from">
+                                      <span class="mapping-label">Expert Domain:</span>
+                                      <span class="mapping-value">{{ item.expert_concept }}</span>
+                                    </div>
+                                    <div class="mapping-arrow">→</div>
+                                    <div class="mapping-to">
+                                      <span class="mapping-label">HCI Domain:</span>
+                                      <span class="mapping-value">{{ item.hci_equivalent }}</span>
+                                    </div>
+                                  </div>
+                                  {% if item.explanation %}
+                                    <div class="mapping-detail">{{ item.explanation }}</div>
+                                  {% endif %}
+                                </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      {# Action buttons row - only show buttons that haven't generated content yet #}
+                      {% set has_any_button = not (msg.followups is defined and msg.followups|length > 0) or not has_hci_mapping or not show_mismap %}
+                      {% if has_any_button %}
+                        <div class="expert-action-buttons">
+                          {% if not (msg.followups is defined and msg.followups|length > 0) %}
+                            <button
+                              type="button"
+                              class="action-btn action-btn-followups"
+                              data-action="followups"
+                              data-msg-index="{{ loop.index0 }}"
+                            >
+                              <span class="action-icon">💭</span>
+                              <span class="action-text">Suggest Follow-ups</span>
+                            </button>
+                          {% endif %}
+                          {% if not has_hci_mapping %}
+                            <button
+                              type="button"
+                              class="action-btn action-btn-hci-mapping"
+                              data-action="hci-mapping"
+                              data-msg-index="{{ loop.index0 }}"
+                            >
+                              <span class="action-icon">🔄</span>
+                              <span class="action-text">Map to HCI</span>
+                            </button>
+                          {% endif %}
+                          {# Flag as Mis-map - only show when NOT detected #}
+                          {% if not show_mismap %}
+                            <button
+                              type="button"
+                              class="action-btn action-btn-mismap"
+                              data-action="flag-mismap"
+                              data-msg-index="{{ loop.index0 }}"
+                            >
+                              <span class="action-icon">🚩</span>
+                              <span class="action-text">Flag as Mis-map</span>
+                            </button>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="input-panel">
+          <div class="input-columns">
+            <div class="input-section researcher-input">
+              <div class="input-header">
+                <span class="input-label">HCI Researcher</span>
+              </div>
+              <form method="post" id="researcherForm">
+                <input type="hidden" name="action" value="chat" />
+                <input type="hidden" name="researcher_source" id="researcherSource" value="text" />
+                <div class="voice-row">
+                  <button type="button" class="mic-btn" id="researcherMicBtn" data-role="researcher">
+                    <span class="mic-icon">🎤</span>
+                    <span class="mic-text">Start Mic</span>
+                  </button>
+                  <span class="mic-status" id="researcherStatus">Ready</span>
+                </div>
+                <div class="transcript-box" id="researcherTranscript">Voice transcript will appear here...</div>
+                <div class="input-row">
+                  <textarea
+                    name="researcher_input"
+                    id="researcherInput"
+                    placeholder="Type your question here..."
+                    rows="2"
+                  ></textarea>
+                  <button type="submit" class="btn btn-send">Send</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="input-section expert-input">
+              <div class="input-header">
+                <span class="input-label">Domain Expert</span>
+              </div>
+              <form method="post" id="expertForm">
+                <input type="hidden" name="action" value="chat" />
+                <input type="hidden" name="expert_source" id="expertSource" value="text" />
+                <div class="voice-row">
+                  <button type="button" class="mic-btn" id="expertMicBtn" data-role="expert">
+                    <span class="mic-icon">🎤</span>
+                    <span class="mic-text">Start Mic</span>
+                  </button>
+                  <span class="mic-status" id="expertStatus">Ready</span>
+                </div>
+                <div class="transcript-box" id="expertTranscript">Voice transcript will appear here...</div>
+                <div class="input-row">
+                  <textarea
+                    name="expert_input"
+                    id="expertInput"
+                    placeholder="Type your response here..."
+                    rows="2"
+                  ></textarea>
+                  <button type="submit" class="btn btn-send">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+      </div>
+    </div>
+
+    <div id="selectionTooltip" class="selection-tooltip hidden" role="status"></div>
+
+    {# Modal for Key Points Result #}
+    <div id="keypointsModal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">📋 Extracted Key Points</h3>
+          <button type="button" class="modal-close" id="closeKeypointsModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <ul id="keypointsList" class="keypoints-list"></ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="copyKeypoints">Copy to Clipboard</button>
+          <button type="button" class="btn btn-primary" id="closeKeypointsBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    {# Selection Mode Floating Bar #}
+    <div id="selectionBar" class="selection-bar hidden">
+      <span class="selection-count"><span id="selectedCount">0</span> messages selected</span>
+      <button type="button" class="btn btn-primary" id="confirmExtractBtn">Extract Key Points</button>
+      <button type="button" class="btn btn-outline" id="cancelSelectionBtn">Cancel</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

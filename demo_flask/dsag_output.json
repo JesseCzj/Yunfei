@@ -1,0 +1,1808 @@
+{
+  "topic": "Virtual cell AI models for gene perturbation experiments (CellForge)",
+  "researcher_bg": "HCI/visualization researcher studying explainable AI for virtual cell models and gene prediction workflows",
+  "expert_bg": "Molecular biologist conducting gene perturbation experiments and evaluating virtual cell model reliability",
+  "expert_tree": {
+    "tower": "expert",
+    "root_id": "shared_root",
+    "nodes": {
+      "shared_root": {
+        "id": "shared_root",
+        "tower": "shared",
+        "layer": "root",
+        "label": "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "description": "Interview topic: Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "parent_id": null,
+        "children_ids": [
+          "exp_L1_00",
+          "exp_L1_01",
+          "exp_L1_02",
+          "exp_L1_03"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L1_00": {
+        "id": "exp_L1_00",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Model Biological Fidelity",
+        "description": "Concerns about whether virtual cell models accurately reflect real biological systems and mechanisms.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_00_00",
+          "exp_L2_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_00_00": {
+        "id": "exp_L2_00_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Mechanistic Plausibility",
+        "description": "Whether the model’s internal logic aligns with known molecular pathways and regulatory logic.",
+        "parent_id": "exp_L1_00",
+        "children_ids": [
+          "exp_leaf_00_00_00",
+          "exp_leaf_00_00_01",
+          "exp_leaf_00_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_00_00": {
+        "id": "exp_leaf_00_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Black-box predictions contradict established pathway logic",
+        "description": "AI outputs suggest gene knockouts produce effects that violate canonical signaling cascades or feedback loops, raising doubts about underlying assumptions.",
+        "parent_id": "exp_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_00_01": {
+        "id": "exp_leaf_00_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Inability to distinguish direct vs. indirect effects",
+        "description": "Models often conflate primary perturbation consequences with downstream ripple effects, making causal inference unreliable.",
+        "parent_id": "exp_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_00_02": {
+        "id": "exp_leaf_00_00_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Feels like the model ignores spatial compartmentalization",
+        "description": "Intuitively, predictions seem off because they don’t account for subcellular localization (e.g., nuclear vs. cytoplasmic proteins), which is critical in gene regulation.",
+        "parent_id": "exp_L2_00_00",
+        "children_ids": [],
+        "attributes": [
+          "Contextual Cues",
+          "Decision Heuristics"
+        ],
+        "aliases": []
+      },
+      "exp_L2_00_01": {
+        "id": "exp_L2_00_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Cell-Type Specificity",
+        "description": "Challenges in capturing the unique transcriptional and regulatory landscapes of different cell types.",
+        "parent_id": "exp_L1_00",
+        "children_ids": [
+          "exp_leaf_00_01_00",
+          "exp_leaf_00_01_01",
+          "exp_leaf_00_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_01_00": {
+        "id": "exp_leaf_00_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Model trained on generic cell lines fails in primary cells",
+        "description": "Predictions derived from immortalized lines (e.g., HEK293) do not generalize to differentiated or patient-derived cells due to epigenetic and expression differences.",
+        "parent_id": "exp_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_01_01": {
+        "id": "exp_leaf_00_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Can't trust predictions for rare cell states",
+        "description": "Models perform poorly when simulating perturbations in transient or low-abundance cell states (e.g., stem-like or senescent populations).",
+        "parent_id": "exp_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_01_02": {
+        "id": "exp_leaf_00_01_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Gut feeling that chromatin accessibility isn't being modeled",
+        "description": "Even when expression data looks plausible, predictions feel wrong because the model doesn’t incorporate ATAC-seq or DNase hypersensitivity cues that gate regulatory potential.",
+        "parent_id": "exp_L2_00_01",
+        "children_ids": [],
+        "attributes": [
+          "Data Characteristics",
+          "Contextual Cues"
+        ],
+        "aliases": []
+      },
+      "exp_L1_01": {
+        "id": "exp_L1_01",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Experimental Validation Burden",
+        "description": "The practical and resource-related challenges of verifying AI-generated hypotheses in wet-lab settings.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_01_00",
+          "exp_L2_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_01_00": {
+        "id": "exp_L2_01_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Resource Efficiency",
+        "description": "Mismatch between model output volume and lab capacity to test predictions.",
+        "parent_id": "exp_L1_01",
+        "children_ids": [
+          "exp_leaf_01_00_00",
+          "exp_leaf_01_00_01",
+          "exp_leaf_01_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_00_00": {
+        "id": "exp_leaf_01_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Too many high-confidence but biologically redundant predictions",
+        "description": "The model suggests dozens of similar perturbations (e.g., paralog knockouts) that are unlikely to yield novel insights, wasting screening resources.",
+        "parent_id": "exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_00_01": {
+        "id": "exp_leaf_01_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "High cost of validating edge-case predictions",
+        "description": "Validating low-probability but high-impact predictions often requires custom reagents or complex assays that exceed budget or timeline constraints.",
+        "parent_id": "exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_00_02": {
+        "id": "exp_leaf_01_00_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Sense that the model overestimates effect sizes",
+        "description": "Predicted fold-changes or phenotypic shifts consistently appear larger than what is observed experimentally, leading to disappointment and wasted effort.",
+        "parent_id": "exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [
+          "Value Trade-offs",
+          "Data Characteristics"
+        ],
+        "aliases": []
+      },
+      "exp_L2_01_01": {
+        "id": "exp_L2_01_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Reproducibility Across Platforms",
+        "description": "Difficulty replicating model-guided results across different experimental modalities or labs.",
+        "parent_id": "exp_L1_01",
+        "children_ids": [
+          "exp_leaf_01_01_00",
+          "exp_leaf_01_01_01",
+          "exp_leaf_01_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_01_00": {
+        "id": "exp_leaf_01_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "CRISPRi vs. CRISPRko discrepancies unaccounted for",
+        "description": "Model treats all perturbation types as equivalent, but partial knockdown (CRISPRi) often yields qualitatively different outcomes than full knockout.",
+        "parent_id": "exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_01_01": {
+        "id": "exp_leaf_01_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Batch effects invalidate cross-study validation",
+        "description": "Model trained on one dataset fails when tested against independent perturbation screens due to technical variability in library prep or sequencing depth.",
+        "parent_id": "exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_01_02": {
+        "id": "exp_leaf_01_01_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Just know the model won’t work in my hands",
+        "description": "Based on subtle differences in cell culture conditions or reagent batches, experienced researchers anticipate failure even when metrics look good.",
+        "parent_id": "exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [
+          "Contextual Cues",
+          "Decision Heuristics"
+        ],
+        "aliases": []
+      },
+      "exp_L1_02": {
+        "id": "exp_L1_02",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Interpretability and Trust",
+        "description": "Barriers to understanding why the model makes certain predictions and whether those can be trusted for hypothesis generation.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_02_00",
+          "exp_L2_02_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_02_00": {
+        "id": "exp_L2_02_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Causal Transparency",
+        "description": "Lack of clear mechanistic rationale behind model predictions.",
+        "parent_id": "exp_L1_02",
+        "children_ids": [
+          "exp_leaf_02_00_00",
+          "exp_leaf_02_00_01",
+          "exp_leaf_02_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_00_00": {
+        "id": "exp_leaf_02_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "No way to trace which genes or pathways drove a prediction",
+        "description": "Feature importance methods (e.g., SHAP) highlight dozens of genes without clarifying functional relationships or directionality.",
+        "parent_id": "exp_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_00_01": {
+        "id": "exp_leaf_02_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Model confounds correlation with causation",
+        "description": "Predicts strong effects for co-expressed but non-functional gene pairs, misleading experimental design.",
+        "parent_id": "exp_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_00_02": {
+        "id": "exp_leaf_02_00_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Feels like the model is memorizing rather than reasoning",
+        "description": "When presented with novel perturbations, responses seem interpolated from training examples rather than derived from biological principles.",
+        "parent_id": "exp_L2_02_00",
+        "children_ids": [],
+        "attributes": [
+          "Data Characteristics",
+          "Predictability over Accuracy"
+        ],
+        "aliases": []
+      },
+      "exp_L2_02_01": {
+        "id": "exp_L2_02_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Uncertainty Quantification",
+        "description": "Inadequate communication of prediction confidence or boundary conditions.",
+        "parent_id": "exp_L1_02",
+        "children_ids": [
+          "exp_leaf_02_01_00",
+          "exp_leaf_02_01_01",
+          "exp_leaf_02_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_01_00": {
+        "id": "exp_leaf_02_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Confidence scores don’t correlate with experimental success rate",
+        "description": "High-confidence predictions fail as often as low-confidence ones, undermining prioritization strategies.",
+        "parent_id": "exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_01_01": {
+        "id": "exp_leaf_02_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "No indication of out-of-distribution inputs",
+        "description": "Model provides confident outputs for gene combinations never seen in training data, with no warning flags.",
+        "parent_id": "exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_01_02": {
+        "id": "exp_leaf_02_01_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Instinctively distrust predictions near decision boundaries",
+        "description": "When small input changes flip the predicted outcome, it feels unstable—like the model lacks robustness to biological noise.",
+        "parent_id": "exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [
+          "Visual clutter level",
+          "Noise level > 80dB"
+        ],
+        "aliases": []
+      },
+      "exp_L1_03": {
+        "id": "exp_L1_03",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Data and Training Limitations",
+        "description": "Constraints imposed by the quality, scope, and biases of available training data for virtual cell models.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_03_00",
+          "exp_L2_03_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_03_00": {
+        "id": "exp_L2_03_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Coverage Gaps",
+        "description": "Missing biological contexts or perturbation types in training datasets.",
+        "parent_id": "exp_L1_03",
+        "children_ids": [
+          "exp_leaf_03_00_00",
+          "exp_leaf_03_00_01",
+          "exp_leaf_03_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_03_00_00": {
+        "id": "exp_leaf_03_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Underrepresentation of essential genes",
+        "description": "Essential genes are often excluded from CRISPR screens due to lethality, creating blind spots in model behavior for critical regulators.",
+        "parent_id": "exp_L2_03_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_03_00_01": {
+        "id": "exp_leaf_03_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Poor modeling of combinatorial perturbations",
+        "description": "Most training data comes from single-gene perturbations; models extrapolate poorly to double or triple knockouts.",
+        "parent_id": "exp_L2_03_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_03_00_02": {
+        "id": "exp_leaf_03_00_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Sense that non-coding regions are ignored",
+        "description": "Despite growing evidence of regulatory roles, models trained only on coding-gene perturbations feel incomplete for studying enhancer or lncRNA biology.",
+        "parent_id": "exp_L2_03_00",
+        "children_ids": [],
+        "attributes": [
+          "Data Characteristics",
+          "Class imbalance"
+        ],
+        "aliases": []
+      },
+      "exp_L2_03_01": {
+        "id": "exp_L2_03_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Temporal Dynamics",
+        "description": "Inability to capture time-resolved responses to perturbations.",
+        "parent_id": "exp_L1_03",
+        "children_ids": [
+          "exp_leaf_03_01_00",
+          "exp_leaf_03_01_01",
+          "exp_leaf_03_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_03_01_00": {
+        "id": "exp_leaf_03_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Static snapshots miss adaptive responses",
+        "description": "Models trained on endpoint measurements fail to predict transient states or compensatory feedback that emerge hours post-perturbation.",
+        "parent_id": "exp_L2_03_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_03_01_01": {
+        "id": "exp_leaf_03_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "No distinction between acute vs. chronic effects",
+        "description": "Predictions don’t differentiate immediate transcriptional changes from long-term phenotypic adaptations.",
+        "parent_id": "exp_L2_03_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_03_01_02": {
+        "id": "exp_leaf_03_01_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Timing just feels off in the simulations",
+        "description": "Even when qualitative trends match, the inferred kinetics (e.g., peak response time) rarely align with live-cell imaging data.",
+        "parent_id": "exp_L2_03_01",
+        "children_ids": [],
+        "attributes": [
+          "Contextual Cues",
+          "Decision Heuristics"
+        ],
+        "aliases": []
+      }
+    }
+  },
+  "researcher_tree": {
+    "tower": "researcher",
+    "root_id": "shared_root",
+    "nodes": {
+      "shared_root": {
+        "id": "shared_root",
+        "tower": "shared",
+        "layer": "root",
+        "label": "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "description": "Interview topic: Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "parent_id": null,
+        "children_ids": [
+          "res_L1_00",
+          "res_L1_01",
+          "res_L1_02",
+          "res_L1_03",
+          "res_L1_04"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L1_00": {
+        "id": "res_L1_00",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "Model Interpretability & Explainability",
+        "description": "Understanding how domain experts make sense of AI predictions in virtual cell models and what explanations they need to trust or act on results.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_00_00",
+          "res_L2_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_00_00": {
+        "id": "res_L2_00_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Explanation Content Needs",
+        "description": "What types of explanatory information experts require to understand model behavior under gene perturbations.",
+        "parent_id": "res_L1_00",
+        "children_ids": [
+          "res_leaf_00_00_00",
+          "res_leaf_00_00_01",
+          "res_leaf_00_00_02",
+          "res_leaf_00_00_03"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_00_00_00": {
+        "id": "res_leaf_00_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify which gene changes lead to changes in other genes",
+        "description": "Experts want to trace causal or correlative relationships between perturbed genes and downstream expression changes.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "causal attribution",
+          "counterfactual explanation"
+        ]
+      },
+      "res_leaf_00_00_01": {
+        "id": "res_leaf_00_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Understand why perturbation of a particular gene leads to changes in expression of other genes",
+        "description": "Experts seek mechanistic or biological rationale behind model-predicted regulatory effects.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "model reasoning",
+          "explanatory depth"
+        ]
+      },
+      "res_leaf_00_00_02": {
+        "id": "res_leaf_00_00_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Assess the model's confidence in predictions under perturbation",
+        "description": "Experts need uncertainty quantification to judge reliability of in silico perturbation outcomes.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "prediction confidence",
+          "uncertainty visualization"
+        ]
+      },
+      "res_leaf_00_00_03": {
+        "id": "res_leaf_00_00_03",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Link gene perturbations to phenotypic or cellular trait changes",
+        "description": "Experts aim to connect molecular-level predictions to higher-order cellular behaviors or disease states.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "multi-scale explanation",
+          "phenotype mapping"
+        ]
+      },
+      "res_L2_00_01": {
+        "id": "res_L2_00_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Explanation Modalities & Sources",
+        "description": "How different forms of evidence or data can support understanding of AI outputs.",
+        "parent_id": "res_L1_00",
+        "children_ids": [
+          "res_leaf_00_01_00",
+          "res_leaf_00_01_01",
+          "res_leaf_00_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_00_01_00": {
+        "id": "res_leaf_00_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Evaluate utility of literature-derived knowledge for grounding explanations",
+        "description": "Experts may rely on published biological knowledge to validate or contextualize model predictions.",
+        "parent_id": "res_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "knowledge grounding",
+          "external evidence integration"
+        ]
+      },
+      "res_leaf_00_01_01": {
+        "id": "res_leaf_00_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Assess effectiveness of XAI techniques (e.g., saliency maps, feature importance) for gene networks",
+        "description": "Determine which explainable AI methods align with experts’ mental models of gene regulation.",
+        "parent_id": "res_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "saliency visualization",
+          "feature attribution"
+        ]
+      },
+      "res_leaf_00_01_02": {
+        "id": "res_leaf_00_01_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify preferred formats for presenting perturbation impact (e.g., pathways, networks, heatmaps)",
+        "description": "Understand how visual or textual representations influence comprehension of complex gene interactions.",
+        "parent_id": "res_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "representation fidelity",
+          "cognitive fit"
+        ]
+      },
+      "res_L1_01": {
+        "id": "res_L1_01",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "Trust & Reliability Assessment",
+        "description": "How experts evaluate whether a virtual cell AI model is trustworthy and suitable for scientific use.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_01_00",
+          "res_L2_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_01_00": {
+        "id": "res_L2_01_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Evaluation Criteria & Metrics",
+        "description": "What quantitative or qualitative indicators experts use to judge model reliability.",
+        "parent_id": "res_L1_01",
+        "children_ids": [
+          "res_leaf_01_00_00",
+          "res_leaf_01_00_01",
+          "res_leaf_01_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_01_00_00": {
+        "id": "res_leaf_01_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Elicit domain-specific metrics used to assess model reliability",
+        "description": "Capture which performance measures (e.g., correlation with wet-lab data, pathway coherence) matter most to experts.",
+        "parent_id": "res_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "domain validity",
+          "ecological validity"
+        ]
+      },
+      "res_leaf_01_00_01": {
+        "id": "res_leaf_01_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Understand role of biological plausibility in trust formation",
+        "description": "Determine how alignment with known biology influences expert confidence in model outputs.",
+        "parent_id": "res_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "plausibility heuristic",
+          "face validity"
+        ]
+      },
+      "res_leaf_01_00_02": {
+        "id": "res_leaf_01_00_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify thresholds for acceptable prediction error in perturbation contexts",
+        "description": "Learn how much deviation from expected outcomes experts tolerate before distrusting the model.",
+        "parent_id": "res_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "error tolerance",
+          "risk perception"
+        ]
+      },
+      "res_L2_01_01": {
+        "id": "res_L2_01_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Challenges in Trust Calibration",
+        "description": "Barriers that prevent accurate judgment of when to trust or distrust model predictions.",
+        "parent_id": "res_L1_01",
+        "children_ids": [
+          "res_leaf_01_01_00",
+          "res_leaf_01_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_01_01_00": {
+        "id": "res_leaf_01_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Characterize difficulties in interpreting AI predictions without biological context",
+        "description": "Explore cases where model outputs are statistically sound but biologically opaque.",
+        "parent_id": "res_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "trust miscalibration",
+          "automation bias"
+        ]
+      },
+      "res_leaf_01_01_01": {
+        "id": "res_leaf_01_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Map common failure modes that erode expert confidence",
+        "description": "Identify specific scenarios (e.g., out-of-distribution perturbations) where models lose credibility.",
+        "parent_id": "res_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "failure transparency",
+          "boundary awareness"
+        ]
+      },
+      "res_L1_02": {
+        "id": "res_L1_02",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "Workflow Integration & Utility",
+        "description": "How virtual cell models fit into existing experimental design and hypothesis generation practices.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_02_00",
+          "res_L2_02_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_02_00": {
+        "id": "res_L2_02_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Current Experimental Workflow",
+        "description": "Understanding manual or traditional approaches to gene perturbation to identify integration points.",
+        "parent_id": "res_L1_02",
+        "children_ids": [
+          "res_leaf_02_00_00",
+          "res_leaf_02_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_02_00_00": {
+        "id": "res_leaf_02_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Document typical steps in manual genetic perturbation experiments",
+        "description": "Capture the end-to-end process experts follow when designing and interpreting wet-lab perturbations.",
+        "parent_id": "res_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "workflow mapping",
+          "task analysis"
+        ]
+      },
+      "res_leaf_02_00_01": {
+        "id": "res_leaf_02_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify bottlenecks or inefficiencies in current workflows",
+        "description": "Pinpoint time-consuming, costly, or uncertain stages where AI could add value.",
+        "parent_id": "res_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "pain point identification",
+          "opportunity mapping"
+        ]
+      },
+      "res_L2_02_01": {
+        "id": "res_L2_02_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Desired Model Capabilities & Use Cases",
+        "description": "What problems experts hope to solve using AI-based virtual cell models.",
+        "parent_id": "res_L1_02",
+        "children_ids": [
+          "res_leaf_02_01_00",
+          "res_leaf_02_01_01",
+          "res_leaf_02_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_02_01_00": {
+        "id": "res_leaf_02_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Discover key genes or drug targets influencing disease via in silico perturbation",
+        "description": "Experts aim to prioritize candidates for validation based on model simulations.",
+        "parent_id": "res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "hypothesis generation",
+          "candidate prioritization"
+        ]
+      },
+      "res_leaf_02_01_01": {
+        "id": "res_leaf_02_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Simulate combinatorial or high-dimensional perturbations impractical in lab",
+        "description": "Leverage AI to explore complex genetic interactions beyond experimental feasibility.",
+        "parent_id": "res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "what-if exploration",
+          "design space navigation"
+        ]
+      },
+      "res_leaf_02_01_02": {
+        "id": "res_leaf_02_01_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Reduce experimental cost and iteration cycles through predictive screening",
+        "description": "Use virtual models to pre-filter unpromising perturbations before wet-lab testing.",
+        "parent_id": "res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "pre-screening",
+          "resource optimization"
+        ]
+      },
+      "res_L1_03": {
+        "id": "res_L1_03",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "User Experience & Interaction Design",
+        "description": "How interface and interaction patterns affect expert engagement with virtual cell models.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_03_00",
+          "res_L2_03_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_03_00": {
+        "id": "res_L2_03_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Cognitive & Perceptual Demands",
+        "description": "Mental effort required to interpret model outputs and explanations.",
+        "parent_id": "res_L1_03",
+        "children_ids": [
+          "res_leaf_03_00_00",
+          "res_leaf_03_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_03_00_00": {
+        "id": "res_leaf_03_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Assess cognitive load when interpreting multi-gene perturbation results",
+        "description": "Understand how complexity of output scales with number of perturbed genes and affects usability.",
+        "parent_id": "res_L2_03_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "cognitive load",
+          "information overload"
+        ]
+      },
+      "res_leaf_03_00_01": {
+        "id": "res_leaf_03_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify mismatches between model output format and expert mental models",
+        "description": "Detect representation gaps that hinder intuitive understanding of gene regulatory logic.",
+        "parent_id": "res_L2_03_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "mental model alignment",
+          "conceptual mismatch"
+        ]
+      },
+      "res_L2_03_01": {
+        "id": "res_L2_03_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Interaction Requirements",
+        "description": "Needed controls and feedback mechanisms for effective model interrogation.",
+        "parent_id": "res_L1_03",
+        "children_ids": [
+          "res_leaf_03_01_00",
+          "res_leaf_03_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_03_01_00": {
+        "id": "res_leaf_03_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Determine desired interactivity for exploring perturbation scenarios",
+        "description": "Capture needs for dynamic adjustment of perturbation parameters and real-time feedback.",
+        "parent_id": "res_L2_03_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "direct manipulation",
+          "interactive simulation"
+        ]
+      },
+      "res_leaf_03_01_01": {
+        "id": "res_leaf_03_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Elicit requirements for comparing multiple perturbation outcomes side-by-side",
+        "description": "Support comparative analysis across conditions, genes, or model versions.",
+        "parent_id": "res_L2_03_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "comparative visualization",
+          "multi-view coordination"
+        ]
+      },
+      "res_L1_04": {
+        "id": "res_L1_04",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "Adoption Barriers & Familiarity",
+        "description": "Factors influencing whether and how experts adopt AI-driven virtual cell tools.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_04_00",
+          "res_L2_04_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_04_00": {
+        "id": "res_L2_04_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Prior Experience & Exposure",
+        "description": "Extent and nature of experts’ previous engagement with similar AI models.",
+        "parent_id": "res_L1_04",
+        "children_ids": [
+          "res_leaf_04_00_00",
+          "res_leaf_04_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_04_00_00": {
+        "id": "res_leaf_04_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Gauge familiarity with virtual cell models like CellForge",
+        "description": "Assess baseline awareness and prior usage to tailor onboarding and explanation depth.",
+        "parent_id": "res_L2_04_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "technology readiness",
+          "prior exposure"
+        ]
+      },
+      "res_leaf_04_00_01": {
+        "id": "res_leaf_04_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Characterize past experiences with gene prediction AI models",
+        "description": "Understand successes, frustrations, or expectations shaped by earlier tools.",
+        "parent_id": "res_L2_04_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "user history",
+          "expectation setting"
+        ]
+      },
+      "res_L2_04_01": {
+        "id": "res_L2_04_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Perceived Usability & Learning Curve",
+        "description": "Expert perceptions of how easy or difficult it is to learn and use the system effectively.",
+        "parent_id": "res_L1_04",
+        "children_ids": [
+          "res_leaf_04_01_00",
+          "res_leaf_04_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_04_01_00": {
+        "id": "res_leaf_04_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify perceived barriers to adopting AI-based perturbation tools",
+        "description": "Uncover concerns about complexity, interpretability, or integration effort.",
+        "parent_id": "res_L2_04_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "perceived usability",
+          "adoption resistance"
+        ]
+      },
+      "res_leaf_04_01_01": {
+        "id": "res_leaf_04_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Assess need for training or scaffolding to achieve proficiency",
+        "description": "Determine what support (tutorials, tooltips, examples) is needed for effective use.",
+        "parent_id": "res_L2_04_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "scaffolding",
+          "learnability"
+        ]
+      }
+    }
+  },
+  "links": [
+    {
+      "expert_leaf_id": "exp_leaf_00_00_02",
+      "researcher_leaf_id": "res_leaf_03_00_01",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Biological Fidelity",
+        "Mechanistic Plausibility",
+        "Feels like the model ignores spatial compartmentalization"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "User Experience & Interaction Design",
+        "Cognitive & Perceptual Demands",
+        "Identify mismatches between model output format and expert mental models"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Feels like the model ignores spatial compartmentalization",
+        "researcher_branch": "Identify mismatches between model output format and expert mental models"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of spatial compartmentalization as a missing 'context layer' in the model’s output—just as a map without terrain features misleads navigation, gene regulation predictions without subcellular context mislead biological intuition.",
+        "balanced": "Your concern about spatial compartmentalization reflects a specific instance of a broader mismatch: the model’s output doesn’t encode biological context that experts rely on to interpret regulatory logic. By identifying how output formats fail to represent mental models—like omitting nuclear vs. cytoplasmic localization cues—we can redesign visualizations or data structures to restore that intuitive grounding.",
+        "fine": "For example, when CellForge predicts TF knockout effects, it may show altered target gene expression but not indicate whether the TF was nuclear-localized (active) or sequestered in the cytoplasm (inactive). This omission breaks expert mental models that assume spatial context governs regulatory potential. Metrics like 'localization-aware prediction alignment' or user eye-tracking on compartment-labeled vs. unlabeled outputs could quantify this gap. Addressing it might involve augmenting model outputs with compartment probability scores or interactive spatial annotations."
+      },
+      "weight": 6.0,
+      "checkout_template": "If we identify and fix mismatches between the model’s output format and your mental model—such as explicitly representing subcellular localization in predictions—would that resolve your concern that the model ignores spatial compartmentalization?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_01_02",
+      "researcher_leaf_id": "res_leaf_04_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Experimental Validation Burden",
+        "Reproducibility Across Platforms",
+        "Just know the model won’t work in my hands"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Adoption Barriers & Familiarity",
+        "Perceived Usability & Learning Curve",
+        "Identify perceived barriers to adopting AI-based perturbation tools"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Just know the model won’t work in my hands",
+        "researcher_branch": "Identify perceived barriers to adopting AI-based perturbation tools"
+      },
+      "relation_type": "LexicalGap",
+      "bridge_templates": {
+        "coarse": "You might call it 'the model won’t work in my hands' due to hidden lab variability, while we frame it as a perceived usability barrier—both point to a lack of trust in consistent performance across real-world conditions.",
+        "balanced": "Your concern about subtle differences in cell culture or reagents causing models to fail reflects an implicit expectation that tools should be robust to everyday lab variation. Our research on adoption barriers captures this as part of 'perceived reliability'—a dimension of usability that includes whether users believe the tool will behave consistently in their specific context.",
+        "fine": "When you say 'the model won’t work in my hands,' it often stems from undocumented shifts in passage number, serum batch, or confluency that aren’t captured in training data. In HCI and AI adoption studies, we categorize this under 'contextual robustness concerns'—a sub-type of perceived usability measured via survey items like 'I worry this tool won’t generalize to my lab’s protocols.' For example, if CellForge’s validation metrics don’t report performance across multiple culture conditions, experts rightly distrust deployment—even if accuracy looks high on paper."
+      },
+      "weight": 6.5,
+      "checkout_template": "If we identify and address contextual robustness as a key perceived barrier—by designing validation protocols that account for your lab’s variable conditions—would that reduce your concern that 'the model won’t work in my hands'?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_01_02",
+      "researcher_leaf_id": "res_leaf_03_00_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Interpretability and Trust",
+        "Uncertainty Quantification",
+        "Instinctively distrust predictions near decision boundaries"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "User Experience & Interaction Design",
+        "Cognitive & Perceptual Demands",
+        "Assess cognitive load when interpreting multi-gene perturbation results"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Instinctively distrust predictions near decision boundaries",
+        "researcher_branch": "Assess cognitive load when interpreting multi-gene perturbation results"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of cognitive load during multi-gene interpretation as a proxy for biological instability—when outputs become too complex to parse, it mimics the expert’s unease near decision boundaries where small changes cause large, unpredictable shifts.",
+        "balanced": "Your concern about predictions flipping near decision boundaries reflects a need for robustness in biologically plausible outcomes. Similarly, when researchers assess cognitive load from multi-gene perturbations, they’re identifying when output complexity obscures reliable interpretation—which often coincides with regions of high model uncertainty or boundary proximity.",
+        "fine": "High cognitive load during interpretation of 5+ gene perturbations often occurs precisely where the model’s confidence drops and decision boundaries are dense—e.g., when perturbing TP53 and MYC together yields conflicting lineage predictions with <60% confidence. By measuring task completion time, error rates, and subjective workload (NASA-TLX), we can flag these zones as both cognitively overwhelming and biologically suspect, aligning your distrust with measurable interaction patterns."
+      },
+      "weight": 6.0,
+      "checkout_template": "If we identify and simplify interface elements that cause high cognitive load during multi-gene interpretation—especially in low-confidence prediction regions—would that help address your instinctive distrust of unstable outcomes near decision boundaries?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_03_00_02",
+      "researcher_leaf_id": "res_leaf_00_00_03",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Data and Training Limitations",
+        "Coverage Gaps",
+        "Sense that non-coding regions are ignored"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Link gene perturbations to phenotypic or cellular trait changes"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Sense that non-coding regions are ignored",
+        "researcher_branch": "Link gene perturbations to phenotypic or cellular trait changes"
+      },
+      "relation_type": "ScopeGap",
+      "bridge_templates": {
+        "coarse": "You're concerned that non-coding regions are left out of the model’s scope, while I’m trying to connect any perturbation—coding or not—to observable cellular outcomes; expanding the model to include non-coding elements could actually strengthen those phenotype links.",
+        "balanced": "Your worry about non-coding regions being ignored stems from a data coverage gap, but my goal of linking perturbations to phenotypic changes depends on having a complete genomic representation—including enhancers and lncRNAs. If we incorporate non-coding perturbations into CellForge, we not only address your concern but also enrich the causal chain from molecular intervention to cellular trait.",
+        "fine": "For example, if CellForge currently predicts expression changes only for protein-coding genes after CRISPRi, it misses regulatory effects from silencing an enhancer that modulates a disease-relevant pathway. By training the model on perturbations targeting non-coding regions (e.g., using MPRA or Perturb-seq data), we can generate predictions that tie enhancer knockdowns to downstream traits like cell migration or proliferation—directly supporting your need for broader genomic coverage and my need for interpretable phenotype mappings. Metrics like attribution scores from SHAP or integrated gradients could then highlight how non-coding perturbations propagate through the model to influence phenotypic readouts."
+      },
+      "weight": 5.0,
+      "checkout_template": "If we extend CellForge to link non-coding region perturbations to cellular phenotypes, would that address your concern about them being ignored?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_03_01_00",
+      "researcher_leaf_id": "res_leaf_02_01_01",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Data and Training Limitations",
+        "Temporal Dynamics",
+        "Static snapshots miss adaptive responses"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Simulate combinatorial or high-dimensional perturbations impractical in lab"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Static snapshots miss adaptive responses",
+        "researcher_branch": "Simulate combinatorial or high-dimensional perturbations impractical in lab"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of combinatorial perturbation simulations as a high-dimensional map—you need temporal resolution to see not just where you end up, but how the system navigates there through adaptive responses.",
+        "balanced": "Your concern about missing adaptive responses highlights a critical gap in current static models. If we simulate combinatorial perturbations with explicit time-series modeling—rather than endpoint-only predictions—we can capture both the high-dimensional interaction space and the dynamic feedback mechanisms that unfold over hours.",
+        "fine": "To align both goals, we can extend CellForge’s combinatorial simulation framework to output pseudo-temporal trajectories (e.g., using latent ODEs or recurrent architectures) trained on sparse time-series data. For example, simulating a 5-gene knockout could generate expression profiles at 0h, 6h, 12h, and 24h, revealing transient compensatory loops that static 24h-only models miss. Metrics like trajectory fidelity (measured via DTW distance against real time-course data) and feedback loop recovery rate would validate whether high-dimensional simulations also resolve temporal dynamics."
+      },
+      "weight": 5.5,
+      "checkout_template": "If we simulate combinatorial perturbations using time-resolved AI models that output multi-hour trajectories instead of single endpoints, would that address your concern about missing adaptive responses?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_03_01_02",
+      "researcher_leaf_id": "res_leaf_01_00_01",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Data and Training Limitations",
+        "Temporal Dynamics",
+        "Timing just feels off in the simulations"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Trust & Reliability Assessment",
+        "Evaluation Criteria & Metrics",
+        "Understand role of biological plausibility in trust formation"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Timing just feels off in the simulations",
+        "researcher_branch": "Understand role of biological plausibility in trust formation"
+      },
+      "relation_type": "TacitGap",
+      "bridge_templates": {
+        "coarse": "Your intuition that 'timing feels off' is actually a form of biological plausibility—specifically kinetic plausibility—which directly shapes whether experts trust the model’s predictions.",
+        "balanced": "When you notice timing mismatches in simulations versus live-cell imaging, you’re applying an implicit plausibility check based on dynamic biological behavior. Our research goal is to formalize how such kinetic alignment—not just static pathway correctness—contributes to expert trust in models like CellForge.",
+        "fine": "For example, if a simulated p53 response peaks at 2 hours post-perturbation but live imaging shows it at 4 hours, that discrepancy violates kinetic plausibility—even if the activation direction is correct. We propose measuring this using time-to-peak error, half-life deviation, or dynamic trajectory similarity (e.g., DTW distance) against empirical imaging data. Incorporating these temporal fidelity metrics into trust assessments could directly address your concern about simulations feeling 'off.'"
+      },
+      "weight": 5.0,
+      "checkout_template": "If we incorporate kinetic plausibility—like aligning simulated peak response times with your live-cell imaging data—into our definition of biological plausibility, would that resolve your concern that the timing 'just feels off'?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_00_00_00",
+      "researcher_leaf_id": "res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Biological Fidelity",
+        "Mechanistic Plausibility",
+        "Black-box predictions contradict established pathway logic"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Trust & Reliability Assessment",
+        "Challenges in Trust Calibration",
+        "Characterize difficulties in interpreting AI predictions without biological context"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_00",
+      "researcher_lca_id": "res_L1_01",
+      "conflict": {
+        "expert_branch": "Black-box predictions contradict established pathway logic",
+        "researcher_branch": "Characterize difficulties in interpreting AI predictions without biological context"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about biologically implausible predictions aligns with my goal of diagnosing when AI outputs lack contextual grounding—both stem from a breakdown between statistical patterns and mechanistic reasoning.",
+        "balanced": "You're evaluating whether model predictions violate known pathway logic, while I'm systematically mapping where and why those violations occur due to missing biological context. By characterizing interpretation challenges—like ambiguous gene-gene interaction signatures—we can jointly identify which black-box behaviors reflect true novelty versus modeling artifacts.",
+        "fine": "For instance, if CellForge predicts that knocking out PTEN increases AKT phosphorylation (contradicting canonical PI3K-AKT feedback), your pain point is the mechanistic implausibility. My research goal would analyze whether this stems from training data gaps (e.g., cell-type-specific phosphoproteomics missing) or opaque feature weighting. Metrics like pathway consistency scores (PCS) or counterfactual stability across perturbation magnitudes could quantify how 'context-free' the prediction is—and whether recalibrating with prior knowledge resolves the conflict."
+      },
+      "weight": 4.38945481366094,
+      "checkout_template": "If we characterize the specific conditions under which AI predictions become biologically opaque—such as missing pathway priors or context-agnostic embeddings—would that help resolve contradictions with established signaling logic?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_00_00_01",
+      "researcher_leaf_id": "res_leaf_00_00_02",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Biological Fidelity",
+        "Mechanistic Plausibility",
+        "Inability to distinguish direct vs. indirect effects"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Assess the model's confidence in predictions under perturbation"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_00_00",
+      "researcher_lca_id": "res_L2_00_00",
+      "conflict": {
+        "expert_branch": "Inability to distinguish direct vs. indirect effects",
+        "researcher_branch": "Assess the model's confidence in predictions under perturbation"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of model confidence under perturbation like a diagnostic tool that flags when predictions might be mixing direct and indirect effects—high uncertainty could signal causal ambiguity.",
+        "balanced": "Your concern about conflating direct and indirect effects stems from unclear causal pathways in the model's response. If we quantify the model’s confidence—such as through prediction entropy or ensemble variance—we can identify scenarios where the output is unstable, which often coincide with cases where indirect effects dominate or obscure the primary signal.",
+        "fine": "For instance, using Bayesian neural networks or Monte Carlo dropout in CellForge, we can compute epistemic uncertainty for each perturbed gene’s predicted expression profile. High uncertainty intervals around key downstream genes may indicate that the model is uncertain whether changes are due to direct regulation or propagated network effects. By correlating these uncertainty metrics with known pathway hierarchies (e.g., from KEGG), we can flag predictions where indirect effects likely contaminate causal interpretation—directly addressing your fidelity concern."
+      },
+      "weight": 5.354829610369212,
+      "checkout_template": "If we provide calibrated uncertainty estimates for each perturbation prediction, would that help you distinguish cases where the model is likely conflating direct and indirect effects?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_00_01_00",
+      "researcher_leaf_id": "res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Biological Fidelity",
+        "Cell-Type Specificity",
+        "Model trained on generic cell lines fails in primary cells"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Discover key genes or drug targets influencing disease via in silico perturbation"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_01_00",
+      "researcher_lca_id": "res_L2_02_01",
+      "conflict": {
+        "expert_branch": "Model trained on generic cell lines fails in primary cells",
+        "researcher_branch": "Discover key genes or drug targets influencing disease via in silico perturbation"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of this like needing a weather model trained on real-world local climates—not just a generic lab simulation—to accurately predict storms in a specific region; your disease target discovery only works if the virtual cell reflects the actual patient cell biology.",
+        "balanced": "Your goal of identifying disease-relevant genes through in silico perturbation depends on the model’s ability to reflect true cellular behavior. If the underlying AI is trained only on immortalized lines like HEK293, its predictions won’t capture the epigenetic and transcriptional landscape of primary or patient-derived cells—making candidate targets unreliable for validation.",
+        "fine": "For example, a model trained on HEK293 may predict that knocking out Gene X strongly suppresses a disease pathway, but in primary neurons—where chromatin accessibility and co-factor expression differ—the same perturbation shows no effect. To ensure your in silico hits translate to wet-lab success, the model must incorporate cell-type-specific omics data (e.g., scRNA-seq, ATAC-seq from relevant tissues) and be validated against perturbation responses in primary cells. Metrics like cell-type-specific prediction accuracy (e.g., AUPRC on held-out CRISPRi screens in iPSC-derived cells) can quantify this fidelity gap."
+      },
+      "weight": 5.914529874277048,
+      "checkout_template": "If we discover key disease genes using a model that incorporates primary cell data and validates perturbation responses in patient-derived cells, would that address your concern about biological fidelity?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_00_01_01",
+      "researcher_leaf_id": "res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Biological Fidelity",
+        "Cell-Type Specificity",
+        "Can't trust predictions for rare cell states"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Trust & Reliability Assessment",
+        "Challenges in Trust Calibration",
+        "Characterize difficulties in interpreting AI predictions without biological context"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_00",
+      "researcher_lca_id": "res_L1_01",
+      "conflict": {
+        "expert_branch": "Can't trust predictions for rare cell states",
+        "researcher_branch": "Characterize difficulties in interpreting AI predictions without biological context"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about unreliable predictions in rare cell states aligns with my goal of diagnosing when AI outputs lack biological interpretability—both stem from gaps between statistical confidence and biological plausibility.",
+        "balanced": "When you simulate perturbations in rare cell states like senescent or stem-like populations, the model may produce high-confidence outputs that don’t reflect known biology. My work characterizes exactly those cases where predictions appear valid statistically but can’t be grounded in biological mechanisms or prior knowledge, which directly impacts trust in those low-abundance contexts.",
+        "fine": "For example, CellForge might predict strong upregulation of a proliferation gene in a quiescent stem cell state with high certainty (e.g., prediction probability >0.95), yet this contradicts established markers of quiescence like p21 or low Ki-67. By mapping such discrepancies to biological ontologies or pathway coherence scores (e.g., GO term consistency or Reactome pathway enrichment), we can flag predictions that are mathematically sound but biologically implausible—especially critical for rare states where training data is sparse and model priors dominate."
+      },
+      "weight": 5.077440055180453,
+      "checkout_template": "If we characterize when AI predictions are statistically confident but biologically opaque—particularly in low-abundance cell states—would that help address your concern about not trusting predictions for rare cell states?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_00_01_02",
+      "researcher_leaf_id": "res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Biological Fidelity",
+        "Cell-Type Specificity",
+        "Gut feeling that chromatin accessibility isn't being modeled"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Trust & Reliability Assessment",
+        "Challenges in Trust Calibration",
+        "Characterize difficulties in interpreting AI predictions without biological context"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_00",
+      "researcher_lca_id": "res_L1_01",
+      "conflict": {
+        "expert_branch": "Gut feeling that chromatin accessibility isn't being modeled",
+        "researcher_branch": "Characterize difficulties in interpreting AI predictions without biological context"
+      },
+      "relation_type": "TacitGap",
+      "bridge_templates": {
+        "coarse": "Your gut feeling about missing chromatin cues may actually be a specific instance of the broader issue I'm studying: AI predictions that seem statistically valid but lack interpretable biological grounding.",
+        "balanced": "When you sense predictions are 'off' despite plausible expression outputs, it’s likely because the model omits regulatory constraints like chromatin accessibility—exactly the kind of biologically opaque behavior my research aims to characterize. By documenting when and why such gaps arise, we can pinpoint whether missing ATAC-seq integration is a systematic blind spot.",
+        "fine": "For example, if CellForge predicts strong upregulation of a gut-specific transcription factor after perturbation, but that gene’s promoter is closed in ATAC-seq data from the same cell type, the prediction violates regulatory reality—even if RNA-level metrics look fine. My work catalogs these mismatches using case studies where statistical confidence (e.g., high prediction R²) diverges from biological plausibility scores derived from epigenomic annotations. This directly tests whether unmodeled chromatin states drive your intuition that something is wrong."
+      },
+      "weight": 4.711747975363204,
+      "checkout_template": "If we systematically characterize cases where AI predictions conflict with known chromatin accessibility constraints, would that address your concern that regulatory potential isn’t being modeled?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_00_00",
+      "researcher_leaf_id": "res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Experimental Validation Burden",
+        "Resource Efficiency",
+        "Too many high-confidence but biologically redundant predictions"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Discover key genes or drug targets influencing disease via in silico perturbation"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_01_00",
+      "researcher_lca_id": "res_L2_02_01",
+      "conflict": {
+        "expert_branch": "Too many high-confidence but biologically redundant predictions",
+        "researcher_branch": "Discover key genes or drug targets influencing disease via in silico perturbation"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about redundant predictions stems from the same step where I aim to extract high-value targets—both hinge on refining the model’s output before validation.",
+        "balanced": "The researcher wants to use CellForge to surface a shortlist of high-impact, non-redundant gene or drug targets for disease. This aligns with your goal of reducing wasted validation effort—if we filter out biologically redundant predictions early, we directly serve both efficient resource use and novel target discovery.",
+        "fine": "For example, if CellForge predicts knockouts of paralogs like SMARCA4 and SMARCA2 with near-identical phenotypic effects, clustering them by functional similarity or pathway context could collapse them into a single representative candidate. Metrics like perturbation uniqueness score (based on downstream transcriptomic divergence) or novelty-adjusted confidence could prioritize only one per redundant group—turning dozens of high-confidence hits into a lean, diverse set ready for validation."
+      },
+      "weight": 4.02215043035644,
+      "checkout_template": "If we prioritize only non-redundant, high-impact gene or drug targets using functional diversity metrics, would that reduce your experimental validation burden while still supporting novel biological insights?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_00_01",
+      "researcher_leaf_id": "res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Experimental Validation Burden",
+        "Resource Efficiency",
+        "High cost of validating edge-case predictions"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Discover key genes or drug targets influencing disease via in silico perturbation"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_01_00",
+      "researcher_lca_id": "res_L2_02_01",
+      "conflict": {
+        "expert_branch": "High cost of validating edge-case predictions",
+        "researcher_branch": "Discover key genes or drug targets influencing disease via in silico perturbation"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about costly edge-case validation aligns with my goal: by using in silico perturbation to prioritize only the highest-impact gene targets, we reduce the number of expensive validations needed.",
+        "balanced": "I run virtual perturbations across thousands of genes to rank candidates by predicted disease impact. If we jointly define thresholds for 'high-impact' predictions—such as effect size or pathway centrality—we can filter out low-value edge cases before wet-lab validation, directly addressing your cost concerns.",
+        "fine": "For example, CellForge simulates CRISPRi knockdowns across 20,000 genes and outputs a ranked list based on downstream pathway disruption scores (e.g., NF-κB activation change >2σ). By setting a minimum effect-size cutoff (e.g., top 5% of predictions) and excluding genes requiring custom reagents (flagged via reagent availability APIs), we can limit validation to ~100 high-confidence targets instead of chasing rare edge cases. This reduces assay costs by an estimated 60–70% while preserving discovery potential."
+      },
+      "weight": 5.197006792411084,
+      "checkout_template": "If we use in silico perturbation to pre-filter and prioritize only high-impact, assay-feasible gene targets for validation, would that meaningfully reduce your burden of validating costly edge-case predictions?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_00_02",
+      "researcher_leaf_id": "res_leaf_00_00_01",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Experimental Validation Burden",
+        "Resource Efficiency",
+        "Sense that the model overestimates effect sizes"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Understand why perturbation of a particular gene leads to changes in expression of other genes"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_01",
+      "researcher_lca_id": "res_L2_00_00",
+      "conflict": {
+        "expert_branch": "Sense that the model overestimates effect sizes",
+        "researcher_branch": "Understand why perturbation of a particular gene leads to changes in expression of other genes"
+      },
+      "relation_type": "TacitGap",
+      "bridge_templates": {
+        "coarse": "Your concern about inflated effect sizes may stem from the model’s lack of mechanistic grounding—understanding *why* a gene perturbation causes downstream changes could reveal whether the magnitude is biologically plausible or an artifact of opaque prediction.",
+        "balanced": "When you observe that predicted fold-changes are consistently larger than experimental results, it might be because the model isn’t constrained by known regulatory logic. If we can trace how perturbing Gene A propagates through interpretable pathways to affect Gene B, we can assess whether the predicted effect size aligns with established biological mechanisms—or if it’s overamplified due to unvalidated assumptions.",
+        "fine": "For example, if CellForge predicts a 5-fold upregulation of Gene X after knocking out Gene Y, but experiments show only 1.5-fold, examining the model’s internal attention weights or causal subnetworks might reveal it’s relying on spurious correlations rather than validated TF-gene interactions. By mapping the predicted regulatory path (e.g., Y → TF Z → X) and checking against databases like TRRUST or ChIP-seq evidence, we can calibrate effect sizes to reflect realistic signal propagation. This not only explains *why* X changes but also flags when magnitudes exceed what known biology supports."
+      },
+      "weight": 4.965554216166558,
+      "checkout_template": "If we uncover the mechanistic pathway explaining why perturbing a gene leads to specific expression changes, would that help you assess whether the model’s effect sizes are biologically plausible or overestimated?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_01_00",
+      "researcher_leaf_id": "res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Experimental Validation Burden",
+        "Reproducibility Across Platforms",
+        "CRISPRi vs. CRISPRko discrepancies unaccounted for"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Discover key genes or drug targets influencing disease via in silico perturbation"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_01",
+      "researcher_lca_id": "res_L1_02",
+      "conflict": {
+        "expert_branch": "CRISPRi vs. CRISPRko discrepancies unaccounted for",
+        "researcher_branch": "Discover key genes or drug targets influencing disease via in silico perturbation"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about CRISPRi vs. CRISPRko discrepancies directly impacts the reliability of in silico gene prioritization—since treating perturbations as equivalent could mislead target discovery.",
+        "balanced": "To reliably discover disease-relevant genes through in silico perturbation, the model must distinguish between partial (CRISPRi) and complete (CRISPRko) knockdowns, as their biological effects often diverge. Accounting for this difference would both reduce experimental validation burden and improve reproducibility across platforms.",
+        "fine": "For example, if CellForge simulates a tumor suppressor gene using CRISPRko assumptions but the wet-lab validation uses CRISPRi, the model may overestimate phenotypic impact due to incomplete knockdown—leading to false positives in target prioritization. Incorporating perturbation-type-specific response curves (e.g., dose-response profiles or residual expression levels) into the virtual cell model would align simulation outputs with empirical outcomes, improving both reproducibility and candidate selection accuracy. Metrics like precision@k for top-ranked targets or validation success rate could quantify this improvement."
+      },
+      "weight": 5.390661419369396,
+      "checkout_template": "If we enhance the model to differentiate CRISPRi and CRISPRko effects during in silico perturbation, would that address your concern about unaccounted discrepancies and improve downstream validation reliability?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_01_01",
+      "researcher_leaf_id": "res_leaf_02_01_02",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Experimental Validation Burden",
+        "Reproducibility Across Platforms",
+        "Batch effects invalidate cross-study validation"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Reduce experimental cost and iteration cycles through predictive screening"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_01",
+      "researcher_lca_id": "res_L1_02",
+      "conflict": {
+        "expert_branch": "Batch effects invalidate cross-study validation",
+        "researcher_branch": "Reduce experimental cost and iteration cycles through predictive screening"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about batch effects undermining cross-study validation is directly tied to my goal: if we can build predictive models robust to technical variability, we reduce both experimental cost and validation failures.",
+        "balanced": "I aim to use CellForge to pre-screen perturbations and cut wet-lab experiments, but that only works if predictions generalize across datasets. Addressing your batch effect issue—by incorporating batch-aware training or normalization—would make the model reliable enough for real-world screening, aligning validation integrity with cost reduction.",
+        "fine": "For example, if CellForge integrates ComBat or domain-adversarial training during model development, it could maintain high AUPRC (>0.85) on held-out screens from different labs (e.g., Broad vs. Sanger CRISPR libraries). This would ensure that the top 10% of predicted hits remain enriched for true positives despite differences in sequencing depth or guide RNA design—directly reducing failed validations while lowering experimental burden."
+      },
+      "weight": 4.688114342667199,
+      "checkout_template": "If we develop a CellForge model that maintains prediction accuracy across independent perturbation screens by explicitly correcting for batch effects, would that address your concern about cross-study validation while enabling cost-effective pre-screening?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_00_00",
+      "researcher_leaf_id": "res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Interpretability and Trust",
+        "Causal Transparency",
+        "No way to trace which genes or pathways drove a prediction"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Identify which gene changes lead to changes in other genes"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_00",
+      "researcher_lca_id": "res_L2_00_00",
+      "conflict": {
+        "expert_branch": "No way to trace which genes or pathways drove a prediction",
+        "researcher_branch": "Identify which gene changes lead to changes in other genes"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your need to trace which genes or pathways drove a prediction aligns with my goal of mapping how perturbing one gene causes downstream expression changes—both seek causal clarity in the model’s behavior.",
+        "balanced": "While you’re concerned that current interpretability methods like SHAP list important genes without revealing functional relationships, I’m trying to reconstruct directional gene-to-gene effects from perturbation experiments. If we can link feature importance to actual causal pathways inferred from perturbation responses, we address both your transparency gap and my explanatory goal.",
+        "fine": "SHAP may highlight 30 top genes influencing a prediction, but without directionality or pathway context, it’s hard to act on those insights. My approach uses perturbation-response pairs in CellForge to infer which upstream gene changes consistently alter downstream targets—e.g., knocking out TP53 leads to consistent downregulation of CDKN1A across simulations. By overlaying these causal edges onto SHAP rankings, we could annotate which high-importance genes are drivers versus passengers, directly addressing your need for traceable, mechanistic explanations."
+      },
+      "weight": 4.782434010973761,
+      "checkout_template": "If we identify which gene perturbations causally lead to specific downstream expression changes, would that give you the traceable pathway-level insight you need to trust the model’s predictions?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_00_01",
+      "researcher_leaf_id": "res_leaf_00_00_03",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Interpretability and Trust",
+        "Causal Transparency",
+        "Model confounds correlation with causation"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Link gene perturbations to phenotypic or cellular trait changes"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_00",
+      "researcher_lca_id": "res_L2_00_00",
+      "conflict": {
+        "expert_branch": "Model confounds correlation with causation",
+        "researcher_branch": "Link gene perturbations to phenotypic or cellular trait changes"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about spurious correlations misleading causal inference aligns with my need to ensure that gene-to-phenotype links reflect true biological mechanisms—not just co-expression patterns.",
+        "balanced": "When I aim to link gene perturbations to cellular traits, I rely on the model’s output to prioritize experiments. If the model confounds correlation with causation—like flagging co-expressed but non-functional gene pairs as high-impact—it risks sending me down false leads. Ensuring causal transparency directly strengthens the reliability of those phenotype predictions.",
+        "fine": "For example, if CellForge predicts that knocking out Gene A strongly affects mitochondrial morphology because it's co-expressed with Gene B (a known regulator), but Gene A has no direct role, that misattribution corrupts both your interpretability goal and my experimental design. Metrics like perturbation consistency scores or counterfactual stability (e.g., do effects persist when co-expressed partners are held constant?) could jointly validate causal plausibility and phenotypic relevance. Integrating such checks would filter out correlation-driven artifacts before I commit to wet-lab validation."
+      },
+      "weight": 4.4629316388780405,
+      "checkout_template": "If we rigorously link gene perturbations to phenotypic changes using only causally plausible mechanisms—filtering out co-expression artifacts—would that address your concern about the model confounding correlation with causation?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_00_02",
+      "researcher_leaf_id": "res_leaf_00_00_02",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Interpretability and Trust",
+        "Causal Transparency",
+        "Feels like the model is memorizing rather than reasoning"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Assess the model's confidence in predictions under perturbation"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_00",
+      "researcher_lca_id": "res_L2_00_00",
+      "conflict": {
+        "expert_branch": "Feels like the model is memorizing rather than reasoning",
+        "researcher_branch": "Assess the model's confidence in predictions under perturbation"
+      },
+      "relation_type": "TacitGap",
+      "bridge_templates": {
+        "coarse": "Your concern about memorization versus reasoning is closely tied to whether the model can signal when it’s extrapolating beyond reliable knowledge—quantifying its confidence helps reveal if it’s truly reasoning or just interpolating from past examples.",
+        "balanced": "When you observe that responses feel like interpolation rather than principled reasoning, it often stems from the model lacking mechanisms to express uncertainty. By quantifying prediction confidence under novel perturbations—such as through Bayesian uncertainty or ensemble variance—we can distinguish cases where the model is confidently applying learned biological rules versus uncertainly stitching together training data.",
+        "fine": "For example, if CellForge predicts expression changes for a double-knockout it hasn’t seen, low confidence (e.g., high predictive entropy or wide credible intervals from Monte Carlo dropout) would flag that result as potentially unreliable interpolation. Conversely, high confidence aligned with known pathway logic suggests genuine reasoning. Metrics like epistemic uncertainty or calibration error can directly surface whether the model’s behavior aligns with biological plausibility or mere pattern matching."
+      },
+      "weight": 5.438917676288611,
+      "checkout_template": "If we provide calibrated confidence estimates that clearly indicate when predictions are extrapolative or uncertain, would that help you distinguish between memorization and genuine biological reasoning?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_01_01",
+      "researcher_leaf_id": "res_leaf_00_00_02",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Interpretability and Trust",
+        "Uncertainty Quantification",
+        "No indication of out-of-distribution inputs"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Assess the model's confidence in predictions under perturbation"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_01",
+      "researcher_lca_id": "res_L2_00_00",
+      "conflict": {
+        "expert_branch": "No indication of out-of-distribution inputs",
+        "researcher_branch": "Assess the model's confidence in predictions under perturbation"
+      },
+      "relation_type": "ProcessGap",
+      "bridge_templates": {
+        "coarse": "Your concern about the model giving confident answers on unseen gene combinations is directly addressed by quantifying prediction confidence—this lets us flag when perturbations fall outside the training distribution.",
+        "balanced": "When you run a gene perturbation in CellForge, the model currently doesn’t signal whether that specific combination was seen during training. By implementing uncertainty quantification—such as predictive entropy or epistemic uncertainty—we can generate confidence scores that drop for out-of-distribution inputs, aligning your need for reliability assessment with the expert’s need for warning signals.",
+        "fine": "For example, using Monte Carlo dropout or ensemble-based uncertainty estimation, we can compute a confidence interval or entropy score for each perturbation prediction. If a gene pair like CRISPRi-KRAS + overexpression-TP53 wasn’t observed in training, the model’s uncertainty would spike—triggering a visual flag or low-confidence label. This directly maps the researcher’s goal of assessing confidence under perturbation to the expert’s requirement for out-of-distribution detection without retraining or architectural changes."
+      },
+      "weight": 5.474502434814774,
+      "checkout_template": "If we implement uncertainty quantification that lowers confidence scores for unseen gene perturbations, would that address your concern about the model providing unwarranted certainty on out-of-distribution inputs?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_03_00_00",
+      "researcher_leaf_id": "res_leaf_02_01_02",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Data and Training Limitations",
+        "Coverage Gaps",
+        "Underrepresentation of essential genes"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Workflow Integration & Utility",
+        "Desired Model Capabilities & Use Cases",
+        "Reduce experimental cost and iteration cycles through predictive screening"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Underrepresentation of essential genes",
+        "researcher_branch": "Reduce experimental cost and iteration cycles through predictive screening"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of predictive screening not just as a cost-saving tool, but as a way to strategically infer the effects of perturbing essential genes—whose direct experimental data is missing—by leveraging patterns from non-lethal perturbations in the same pathways.",
+        "balanced": "Your concern about essential gene underrepresentation creates blind spots in model predictions, while my goal is to use the model to avoid costly dead-end experiments. By training the model to extrapolate from synthetic lethality or partial knockdowns of related genes, we can jointly improve coverage of essential genes and reduce wet-lab iterations.",
+        "fine": "Current CRISPR screens exclude essential genes because full knockouts cause cell death, leading to sparse training data for those regulators. However, if the virtual cell model incorporates auxiliary data—like hypomorphic alleles, RNAi results, or co-expression networks—it can simulate plausible essential gene perturbation outcomes. This would both fill your coverage gaps and let me pre-filter high-risk targets, cutting down validation cycles by an estimated 30–50% based on pilot studies in kinase families."
+      },
+      "weight": 5.508756837721403,
+      "checkout_template": "If we use predictive screening to infer essential gene effects through indirect perturbations and pathway context, would that address your concern about underrepresentation in the model?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_03_00_01",
+      "researcher_leaf_id": "res_leaf_00_00_02",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Data and Training Limitations",
+        "Coverage Gaps",
+        "Poor modeling of combinatorial perturbations"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Assess the model's confidence in predictions under perturbation"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "Poor modeling of combinatorial perturbations",
+        "researcher_branch": "Assess the model's confidence in predictions under perturbation"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of combinatorial perturbation modeling like navigating a dark room with only single-flashlight data—you need uncertainty estimates to know when your path (prediction) is likely to lead you astray in uncharted multi-gene territory.",
+        "balanced": "Your concern about poor performance on double or triple knockouts stems from limited training data, while my focus on confidence quantification helps flag exactly those high-risk predictions. By integrating uncertainty metrics—like predictive entropy or ensemble variance—we can identify when the model is extrapolating beyond its reliable scope, directly highlighting where combinatorial gaps matter most.",
+        "fine": "Current CellForge models trained mostly on single-gene perturbations often assign high-confidence outputs to combinatorial knockouts even when those regions are sparsely covered in training data. If we implement Bayesian neural networks or Monte Carlo dropout to generate prediction intervals, we can produce calibrated uncertainty scores—for example, showing >80% epistemic uncertainty for a TP53+BRCA1 double knockout. This would let you filter or prioritize only those combinatorial predictions with low uncertainty, effectively turning confidence assessment into a diagnostic tool for coverage gaps."
+      },
+      "weight": 4.5588194375135735,
+      "checkout_template": "If we provide calibrated uncertainty estimates that flag low-confidence predictions for combinatorial perturbations, would that help you identify and mitigate the impact of poor modeling in those regions?"
+    },
+    {
+      "expert_leaf_id": "exp_leaf_03_01_01",
+      "researcher_leaf_id": "res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Data and Training Limitations",
+        "Temporal Dynamics",
+        "No distinction between acute vs. chronic effects"
+      ],
+      "aligned_path_researcher": [
+        "Virtual cell AI models for gene perturbation experiments (CellForge)",
+        "Model Interpretability & Explainability",
+        "Explanation Content Needs",
+        "Identify which gene changes lead to changes in other genes"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "shared_root",
+      "researcher_lca_id": "shared_root",
+      "conflict": {
+        "expert_branch": "No distinction between acute vs. chronic effects",
+        "researcher_branch": "Identify which gene changes lead to changes in other genes"
+      },
+      "relation_type": "ConceptualGap",
+      "bridge_templates": {
+        "coarse": "Think of gene regulatory effects like a ripple in water: the immediate splash is the acute response, while the spreading waves represent chronic adaptations—your goal to trace gene-to-gene changes needs to account for both time scales to fully explain causality.",
+        "balanced": "Your aim to map which perturbed genes drive downstream expression changes aligns with the expert’s need to separate acute from chronic effects. If we model gene influence over time—capturing early transcriptional shifts versus later adaptive states—we can satisfy both the interpretability goal and the temporal resolution gap.",
+        "fine": "To bridge this, consider tracking dynamic gene influence using time-resolved perturbation data (e.g., scRNA-seq at 2h, 24h, 72h post-knockout). Metrics like time-lagged Granger causality or impulse-response functions in neural ODEs could distinguish whether Gene A directly causes short-term changes in Gene B (acute) or indirectly reshapes its expression via feedback loops (chronic). This would let you identify causal chains while explicitly labeling their temporal nature—addressing both your tracing goal and the expert’s concern about conflated effect types."
+      },
+      "weight": 5.896496590448097,
+      "checkout_template": "If we identify which gene changes lead to downstream expression shifts while explicitly separating immediate from long-term effects, would that address your concern about not distinguishing acute versus chronic responses?"
+    }
+  ],
+  "metadata": {
+    "created_at": "2026-02-07T12:31:32.345640",
+    "llm_provider": "openai",
+    "expert_leaves": 24,
+    "researcher_leaves": 25,
+    "link_count": 23,
+    "alignment_stats": {
+      "leaf_alignments": 36,
+      "concept_alignments": 10,
+      "misaligned_leaves": 23
+    },
+    "construction_method": "math-based",
+    "templates_generated": true
+  }
+}

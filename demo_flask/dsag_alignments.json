@@ -1,0 +1,328 @@
+{
+  "leaf_alignments": [
+    {
+      "expert_node_id": "exp_leaf_00_00_00",
+      "researcher_node_id": "res_leaf_00_00_01",
+      "is_aligned": true,
+      "reason": "Both address the need for mechanistic or biological rationale behind model predictions. The expert expresses concern that black-box outputs contradict known pathways, while the researcher seeks explanations grounded in biological reasoning.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_leaf_00_00_01",
+      "researcher_node_id": "res_leaf_00_00_00",
+      "is_aligned": true,
+      "reason": "The expert’s concern about models conflating direct vs. indirect effects maps directly to the researcher’s desire to trace causal relationships between perturbed and downstream genes.",
+      "semantic_similarity": 0.9
+    },
+    {
+      "expert_node_id": "exp_leaf_00_00_02",
+      "researcher_node_id": "res_leaf_03_00_01",
+      "is_aligned": false,
+      "reason": "The expert highlights a specific biological gap (spatial compartmentalization) as a contextual cue affecting trust, while the researcher focuses on general mismatches between output format and mental models. The expert’s concern is domain-specific; the researcher’s is cognitive/interface-oriented.",
+      "semantic_similarity": 0.4
+    },
+    {
+      "expert_node_id": "exp_leaf_00_01_00",
+      "researcher_node_id": "res_leaf_01_00_01",
+      "is_aligned": true,
+      "reason": "Both emphasize biological plausibility: the expert notes poor generalization from generic to primary cells due to biological differences, and the researcher identifies alignment with known biology as key to trust formation.",
+      "semantic_similarity": 0.8
+    },
+    {
+      "expert_node_id": "exp_leaf_00_01_02",
+      "researcher_node_id": "res_leaf_00_01_00",
+      "is_aligned": true,
+      "reason": "The expert’s intuition that chromatin accessibility is missing reflects reliance on external biological knowledge (e.g., ATAC-seq), which aligns with the researcher’s focus on using literature-derived knowledge to ground explanations.",
+      "semantic_similarity": 0.75
+    },
+    {
+      "expert_node_id": "exp_leaf_01_00_00",
+      "researcher_node_id": "res_leaf_02_01_02",
+      "is_aligned": true,
+      "reason": "Both address resource efficiency: the expert complains about redundant predictions wasting screening effort, while the researcher seeks AI to reduce experimental cost through predictive pre-screening.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_leaf_01_00_02",
+      "researcher_node_id": "res_leaf_01_00_02",
+      "is_aligned": true,
+      "reason": "The expert’s observation that effect sizes are overestimated relates directly to the researcher’s interest in understanding acceptable error thresholds—both concern calibration of prediction accuracy against experimental reality.",
+      "semantic_similarity": 0.8
+    },
+    {
+      "expert_node_id": "exp_leaf_01_01_00",
+      "researcher_node_id": "res_leaf_01_01_01",
+      "is_aligned": true,
+      "reason": "The expert notes that models treat CRISPRi and CRISPRko as equivalent despite biological differences, which exemplifies a failure mode that erodes trust—directly matching the researcher’s focus on mapping failure modes that undermine credibility.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_leaf_01_01_02",
+      "researcher_node_id": "res_leaf_04_01_00",
+      "is_aligned": false,
+      "reason": "The expert expresses an intuitive, experience-based distrust rooted in subtle lab condition differences (a contextual cue), whereas the researcher frames adoption barriers in terms of perceived usability or system complexity. Different root causes of skepticism.",
+      "semantic_similarity": 0.35
+    },
+    {
+      "expert_node_id": "exp_leaf_02_00_00",
+      "researcher_node_id": "res_leaf_00_01_01",
+      "is_aligned": true,
+      "reason": "The expert’s frustration with uninterpretable feature importance (e.g., SHAP highlighting dozens of genes) directly corresponds to the researcher’s evaluation of XAI techniques like saliency maps for gene networks.",
+      "semantic_similarity": 0.9
+    },
+    {
+      "expert_node_id": "exp_leaf_02_00_01",
+      "researcher_node_id": "res_leaf_00_00_00",
+      "is_aligned": true,
+      "reason": "Confounding correlation with causation (expert) maps to the need to identify true causal relationships between genes (researcher), both targeting the same interpretability gap.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_leaf_02_00_02",
+      "researcher_node_id": "res_leaf_01_01_00",
+      "is_aligned": true,
+      "reason": "The expert’s sense that the model memorizes rather than reasons reflects a case where outputs are statistically plausible but biologically opaque—exactly the scenario described by the researcher as 'statistically sound but biologically opaque.'",
+      "semantic_similarity": 0.9
+    },
+    {
+      "expert_node_id": "exp_leaf_02_01_00",
+      "researcher_node_id": "res_leaf_00_00_02",
+      "is_aligned": true,
+      "reason": "Both address uncertainty quantification: the expert observes that confidence scores don’t predict experimental success, while the researcher seeks reliable confidence assessment to judge reliability.",
+      "semantic_similarity": 0.9
+    },
+    {
+      "expert_node_id": "exp_leaf_02_01_01",
+      "researcher_node_id": "res_leaf_01_01_01",
+      "is_aligned": true,
+      "reason": "The expert’s concern about confident out-of-distribution predictions aligns with the researcher’s focus on boundary awareness and failure transparency for such scenarios.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_leaf_02_01_02",
+      "researcher_node_id": "res_leaf_03_00_00",
+      "is_aligned": false,
+      "reason": "The expert’s distrust near decision boundaries stems from perceived biological instability, while the researcher’s concern is about cognitive load from complex multi-gene outputs. Different domains: biological robustness vs. perceptual overload.",
+      "semantic_similarity": 0.4
+    },
+    {
+      "expert_node_id": "exp_leaf_03_00_01",
+      "researcher_node_id": "res_leaf_02_01_01",
+      "is_aligned": true,
+      "reason": "Poor modeling of combinatorial perturbations (expert) directly matches the researcher’s desired use case of simulating high-dimensional perturbations impractical in the lab—highlighting both a limitation and an aspirational capability.",
+      "semantic_similarity": 0.8
+    },
+    {
+      "expert_node_id": "exp_leaf_03_00_02",
+      "researcher_node_id": "res_leaf_00_00_03",
+      "is_aligned": false,
+      "reason": "The expert laments the omission of non-coding regions as a data gap, while the researcher wants to link perturbations to phenotypic traits. These are related but distinct: one is about genomic scope, the other about multi-scale outcome mapping.",
+      "semantic_similarity": 0.5
+    },
+    {
+      "expert_node_id": "exp_leaf_03_01_00",
+      "researcher_node_id": "res_leaf_02_01_01",
+      "is_aligned": false,
+      "reason": "The expert criticizes static models for missing adaptive responses over time, while the researcher’s combinatorial simulation goal doesn’t inherently address temporal dynamics. Temporal vs. combinatorial dimensions are different axes of model limitation/aspiration.",
+      "semantic_similarity": 0.45
+    },
+    {
+      "expert_node_id": "exp_leaf_03_01_02",
+      "researcher_node_id": "res_leaf_01_00_01",
+      "is_aligned": false,
+      "reason": "The expert’s intuition that timing feels off is a contextual cue based on live-cell imaging experience, whereas the researcher’s plausibility heuristic refers to static biological coherence, not kinetic accuracy.",
+      "semantic_similarity": 0.5
+    },
+    {
+      "expert_node_id": "exp_leaf_00_00_00",
+      "researcher_node_id": "res_leaf_01_01_00",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.56, lca=root)",
+      "semantic_similarity": 0.561054518633906
+    },
+    {
+      "expert_node_id": "exp_leaf_00_00_01",
+      "researcher_node_id": "res_leaf_00_00_02",
+      "is_aligned": false,
+      "reason": "ConceptualGap: fallback mismatch (sim=0.46, lca=root)",
+      "semantic_similarity": 0.46451703896307883
+    },
+    {
+      "expert_node_id": "exp_leaf_00_01_00",
+      "researcher_node_id": "res_leaf_02_01_00",
+      "is_aligned": false,
+      "reason": "ConceptualGap: fallback mismatch (sim=0.41, lca=root)",
+      "semantic_similarity": 0.40854701257229525
+    },
+    {
+      "expert_node_id": "exp_leaf_00_01_01",
+      "researcher_node_id": "res_leaf_01_01_00",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.49, lca=root)",
+      "semantic_similarity": 0.49225599448195473
+    },
+    {
+      "expert_node_id": "exp_leaf_00_01_02",
+      "researcher_node_id": "res_leaf_01_01_00",
+      "is_aligned": false,
+      "reason": "TacitGap: fallback mismatch (sim=0.53, lca=root)",
+      "semantic_similarity": 0.5288252024636796
+    },
+    {
+      "expert_node_id": "exp_leaf_01_00_00",
+      "researcher_node_id": "res_leaf_02_01_00",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.60, lca=root)",
+      "semantic_similarity": 0.597784956964356
+    },
+    {
+      "expert_node_id": "exp_leaf_01_00_01",
+      "researcher_node_id": "res_leaf_02_01_00",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.48, lca=root)",
+      "semantic_similarity": 0.4802993207588916
+    },
+    {
+      "expert_node_id": "exp_leaf_01_00_02",
+      "researcher_node_id": "res_leaf_00_00_01",
+      "is_aligned": false,
+      "reason": "TacitGap: fallback mismatch (sim=0.50, lca=root)",
+      "semantic_similarity": 0.5034445783833442
+    },
+    {
+      "expert_node_id": "exp_leaf_01_01_00",
+      "researcher_node_id": "res_leaf_02_01_00",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.46, lca=root)",
+      "semantic_similarity": 0.46093385806306036
+    },
+    {
+      "expert_node_id": "exp_leaf_01_01_01",
+      "researcher_node_id": "res_leaf_02_01_02",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.53, lca=root)",
+      "semantic_similarity": 0.5311885657332801
+    },
+    {
+      "expert_node_id": "exp_leaf_02_00_00",
+      "researcher_node_id": "res_leaf_00_00_00",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.52, lca=root)",
+      "semantic_similarity": 0.5217565989026239
+    },
+    {
+      "expert_node_id": "exp_leaf_02_00_01",
+      "researcher_node_id": "res_leaf_00_00_03",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.55, lca=root)",
+      "semantic_similarity": 0.553706836112196
+    },
+    {
+      "expert_node_id": "exp_leaf_02_00_02",
+      "researcher_node_id": "res_leaf_00_00_02",
+      "is_aligned": false,
+      "reason": "TacitGap: fallback mismatch (sim=0.46, lca=root)",
+      "semantic_similarity": 0.45610823237113896
+    },
+    {
+      "expert_node_id": "exp_leaf_02_01_01",
+      "researcher_node_id": "res_leaf_00_00_02",
+      "is_aligned": false,
+      "reason": "ProcessGap: fallback mismatch (sim=0.45, lca=root)",
+      "semantic_similarity": 0.45254975651852264
+    },
+    {
+      "expert_node_id": "exp_leaf_03_00_00",
+      "researcher_node_id": "res_leaf_02_01_02",
+      "is_aligned": false,
+      "reason": "ConceptualGap: fallback mismatch (sim=0.45, lca=root)",
+      "semantic_similarity": 0.44912431622785964
+    },
+    {
+      "expert_node_id": "exp_leaf_03_00_01",
+      "researcher_node_id": "res_leaf_00_00_02",
+      "is_aligned": false,
+      "reason": "ConceptualGap: fallback mismatch (sim=0.54, lca=root)",
+      "semantic_similarity": 0.5441180562486426
+    },
+    {
+      "expert_node_id": "exp_leaf_03_01_01",
+      "researcher_node_id": "res_leaf_00_00_00",
+      "is_aligned": false,
+      "reason": "ConceptualGap: fallback mismatch (sim=0.41, lca=root)",
+      "semantic_similarity": 0.4103503409551903
+    }
+  ],
+  "concept_alignments": [
+    {
+      "expert_node_id": "shared_root",
+      "researcher_node_id": "shared_root",
+      "is_aligned": true,
+      "reason": "Both trees share the identical root topic: Virtual cell AI models for gene perturbation experiments (CellForge).",
+      "semantic_similarity": 1.0
+    },
+    {
+      "expert_node_id": "exp_L1_00",
+      "researcher_node_id": "res_L1_01",
+      "is_aligned": true,
+      "reason": "Expert’s 'Model Biological Fidelity' and Researcher’s 'Trust & Reliability Assessment' both center on whether the model reflects real biology—a core determinant of trust. Fidelity is a key component of reliability.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_L1_01",
+      "researcher_node_id": "res_L1_02",
+      "is_aligned": true,
+      "reason": "Expert’s 'Experimental Validation Burden' maps to Researcher’s 'Workflow Integration & Utility'—both address how AI fits into (or burdens) real-world experimental pipelines and resource constraints.",
+      "semantic_similarity": 0.8
+    },
+    {
+      "expert_node_id": "exp_L1_02",
+      "researcher_node_id": "res_L1_00",
+      "is_aligned": true,
+      "reason": "Expert’s 'Interpretability and Trust' and Researcher’s 'Model Interpretability & Explainability' are nearly synonymous, both focusing on understanding model behavior to establish trust.",
+      "semantic_similarity": 0.95
+    },
+    {
+      "expert_node_id": "exp_L1_03",
+      "researcher_node_id": "res_L1_04",
+      "is_aligned": false,
+      "reason": "Expert’s 'Data and Training Limitations' focuses on technical/data gaps (coverage, dynamics), while Researcher’s 'Adoption Barriers & Familiarity' concerns user-side factors like experience and learning curve. Different levels of analysis: system vs. user.",
+      "semantic_similarity": 0.4
+    },
+    {
+      "expert_node_id": "exp_L2_00_00",
+      "researcher_node_id": "res_L2_00_00",
+      "is_aligned": true,
+      "reason": "Both address the need for mechanistic or causal understanding: Expert’s 'Mechanistic Plausibility' and Researcher’s 'Explanation Content Needs' converge on requiring biologically grounded rationales.",
+      "semantic_similarity": 0.9
+    },
+    {
+      "expert_node_id": "exp_L2_01_00",
+      "researcher_node_id": "res_L2_02_01",
+      "is_aligned": true,
+      "reason": "Expert’s 'Resource Efficiency' (validation burden) aligns with Researcher’s 'Desired Model Capabilities' like resource optimization and pre-screening—both aim to reduce wasted experimental effort.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_L2_02_00",
+      "researcher_node_id": "res_L2_00_00",
+      "is_aligned": true,
+      "reason": "Expert’s 'Causal Transparency' directly matches Researcher’s 'Explanation Content Needs,' especially around tracing gene-to-gene effects and understanding regulatory rationale.",
+      "semantic_similarity": 0.9
+    },
+    {
+      "expert_node_id": "exp_L2_02_01",
+      "researcher_node_id": "res_L2_00_00",
+      "is_aligned": true,
+      "reason": "Expert’s 'Uncertainty Quantification' is explicitly covered under Researcher’s explanation content needs, particularly the requirement to assess model confidence.",
+      "semantic_similarity": 0.85
+    },
+    {
+      "expert_node_id": "exp_L2_03_01",
+      "researcher_node_id": "res_L2_02_01",
+      "is_aligned": false,
+      "reason": "Expert’s 'Temporal Dynamics' addresses a specific modeling gap (time-resolved responses), while Researcher’s 'Desired Model Capabilities' includes broader goals like combinatorial simulation. Temporal modeling is not explicitly highlighted in the researcher tree.",
+      "semantic_similarity": 0.5
+    }
+  ]
+}

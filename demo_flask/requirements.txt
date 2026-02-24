@@ -1,0 +1,7 @@
+flask
+langchain
+langchain-core
+langchain-openai
+python-dotenv
+python-docx
+pdfplumber
