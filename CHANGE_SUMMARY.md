@@ -223,11 +223,49 @@ Old cached DSAG graphs (built with `BridgeTemplates`) are **incompatible** with 
 
 ---
 
+## Polish Agent Upgrade (2026-02-24)
+
+### Problem
+
+The original `_polish_assistance()` in `runtime.py` had 3 issues:
+
+1. **ProcessGap was blanket-skipped** — `expected_steps[].description`, `tunnel_vision_risks[]`, `drift_alerts[]` are all prose that should be polished, but were returned raw.
+2. **ConceptualGap and ScopeGap had no polishing rules** — only LexicalGap (rule #5) and TacitGap (rule #6) had type-specific instructions. The LLM could corrupt `source_concept`, `structural_mapping`, `limitation`, or `research_goal`.
+3. **No FROZEN/POLISHABLE field distinction** — the LLM had to guess which fields are structural data vs polishable prose, risking key corruption or fact alteration.
+
+### Solution
+
+Rewrote `_polish_assistance()` with a class-level `_POLISH_RULES_BY_TYPE` dict that provides per-type polishing specifications.
+
+**Design principle**: every field in every type's payload is explicitly classified as either **FROZEN** (copy verbatim) or **POLISHABLE** (make natural, weave in expert's wording).
+
+#### Per-type FROZEN / POLISHABLE designation:
+
+| Type | FROZEN fields | POLISHABLE fields |
+|------|--------------|-------------------|
+| **LexicalGap** | `term_mapping.expert_term`, `term_mapping.researcher_term` | `term_mapping.explanation` |
+| **ConceptualGap** | `analogy.source_concept`, `analogy.structural_mapping.*`, `scenario.*` | `analogy.explanation`, `followup_questions[].question` |
+| **TacitGap** | `attributes`, `probes[].attribute`, `probes[].choices`, `hypothetical_scenarios` | `probes[].question`, `followup_questions[].question` |
+| **ScopeGap** | `pivot.limitation`, `pivot.research_goal` | `validate_focus`, `pivot.compelling_reason`, `pivot.coarse_scenario` |
+| **ProcessGap** | `timeline`, `current_topic`, `expected_steps[].order`, `expected_steps[].label` | `expected_steps[].description`, `tunnel_vision_risks[]`, `drift_alerts[]` |
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `dsag/runtime.py` | Removed ProcessGap blanket skip. Added `_POLISH_RULES_BY_TYPE` class dict with 5 type-specific rule blocks. Rewrote polish prompt to include general rules (6 universal) + type-specific rules injected via `{type_specific_rules}` variable. |
+
+### What's NOT changed
+
+- Factory prompts (all 5 type-specific prompts in `factory.py`) — reviewed, confirmed correct against `mismatch_types.md`
+- Alignment judge prompt (`ALIGNMENT_JUDGE_PROMPT`) — reviewed, confirmed correct
+- `generate_assistance()` runtime branches — no changes
+- Schema, embedding index, frontend — no changes
+
+---
+
 ## What's Next
 
 - **Frontend**: Update `static/app.js` to render type-specific assistance cards (not yet started)
 - **End-to-end test**: Run `python visualize_dsag.py` or the Flask app with real API calls to verify full pipeline
 - **Tuning**: Adjust the 5 factory prompts based on real interview data quality
-
-Resume this session with:
-claude --resume b38a530f-615b-4615-99af-7f53aacf5ad2

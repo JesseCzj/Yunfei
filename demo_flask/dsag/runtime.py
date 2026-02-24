@@ -232,6 +232,95 @@ class RuntimeEngine:
             self._llm = _build_light_llm()
         return self._llm
 
+    # ---- Type-specific polishing instructions ----
+    # Each entry specifies which fields are FROZEN (keep verbatim) vs POLISHABLE
+    # (make more natural, weave in expert's wording).
+
+    _POLISH_RULES_BY_TYPE = {
+        RelationType.LEXICAL_GAP.value: """## LexicalGap polishing rules
+FROZEN fields (copy verbatim — do NOT alter):
+  - term_mapping.expert_term
+  - term_mapping.researcher_term
+
+POLISHABLE fields:
+  - term_mapping.explanation — make it a crisp, natural-sounding sentence
+    that a researcher could say aloud. Weave in the expert's phrasing when
+    possible (e.g. "When the expert says '…', it corresponds to '…'").
+
+No follow-up questions expected for this type.""",
+
+        RelationType.CONCEPTUAL_GAP.value: """## ConceptualGap polishing rules
+FROZEN fields (copy verbatim — do NOT alter):
+  - analogy.source_concept (keep the concept name exactly)
+  - analogy.structural_mapping.inputs
+  - analogy.structural_mapping.logic
+  - analogy.structural_mapping.outputs
+  - scenario.inputs
+  - scenario.outputs
+  - scenario.edge_cases
+
+POLISHABLE fields:
+  - analogy.explanation — make it a fluent sentence the researcher could speak
+    naturally. Reference the expert's actual vocabulary from their answer.
+  - followup_questions[].question — make the question sound conversational and
+    empathetic, but keep the ExpandScope intent.
+
+The analogy and scenario are PARALLEL strategies (no required order).
+Do not merge them or remove either one.""",
+
+        RelationType.TACIT_GAP.value: """## TacitGap polishing rules
+FROZEN fields (copy verbatim — do NOT alter):
+  - attributes (the list of attribute names)
+  - probes[].attribute
+  - probes[].choices (the option labels must stay exactly as-is)
+  - hypothetical_scenarios (keep the variable-change structure intact)
+
+POLISHABLE fields:
+  - probes[].question — rephrase for naturalness, but it MUST remain a
+    multiple-choice question (NEVER convert to open-ended "Why …?").
+    Reference the expert's recent answer where possible.
+  - followup_questions[].question — make DeepDive questions sound
+    conversational and reference the expert's wording.
+
+The 3-step order (attributes → probes → hypothetical checkout) is strict.
+Do not reorder or collapse steps.""",
+
+        RelationType.SCOPE_GAP.value: """## ScopeGap polishing rules
+FROZEN fields (copy verbatim — do NOT alter):
+  - pivot.limitation (the factual limitation statement)
+  - pivot.research_goal (the factual research goal)
+
+POLISHABLE fields:
+  - validate_focus — this is the empathetic acknowledgment of the expert's
+    practical concern. Rewrite it to echo the expert's OWN words and tone.
+    It should feel genuinely validating, not formulaic.
+  - pivot.compelling_reason — make it persuasive and concrete. Show what the
+    expert GAINS. Do NOT just say "it's a necessary step."
+  - pivot.coarse_scenario — a 2-3 sentence "day after adoption" narrative.
+    Keep it at story level, NO technical details, NO budget arguments.
+    Make it vivid and relatable to the expert's world.
+
+The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
+
+        RelationType.PROCESS_GAP.value: """## ProcessGap polishing rules
+FROZEN fields (copy verbatim — do NOT alter):
+  - timeline (the entire list — structural tracking data)
+  - current_topic (label string)
+  - expected_steps[].order (numeric ordering)
+  - expected_steps[].label (step names)
+
+POLISHABLE fields:
+  - expected_steps[].description — make each step description read naturally,
+    referencing the expert's terminology and recent answer.
+  - tunnel_vision_risks[] — rephrase each risk alert so it sounds like
+    a gentle, constructive interviewer note (not a harsh warning).
+  - drift_alerts[] — rephrase each drift alert so it reads as a helpful
+    suggestion, referencing the expert's own topic labels.
+
+Do NOT alter the ORDER of expected_steps.
+Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
+    }
+
     def _polish_assistance(
         self,
         assistance: Assistance,
@@ -239,41 +328,51 @@ class RuntimeEngine:
         expert_answer: str,
         context_summary: str,
     ) -> Assistance:
-        """Polish assistance text with a low-latency LLM."""
+        """
+        Polish assistance text with a low-latency LLM.
+
+        Each of the 5 mismatch types gets type-specific polishing instructions
+        that specify which fields are FROZEN (structural / factual data) and
+        which are POLISHABLE (prose that should sound natural and reference
+        the expert's actual wording).
+        """
         if not assistance or not assistance.payload:
             return assistance
 
-        # Skip polishing for ProcessGap (timeline data, not prose)
-        if assistance.relation_type == RelationType.PROCESS_GAP.value:
+        relation = assistance.relation_type
+        type_rules = self._POLISH_RULES_BY_TYPE.get(relation, "")
+        if not type_rules:
+            # Unknown type — return unpolished to avoid corruption
             return assistance
 
         llm = _build_polish_llm()
         prompt = ChatPromptTemplate.from_messages([
-            ("user", """You are polishing interview assistance for a researcher.
+            ("user", """You are polishing interview assistance so it sounds natural and directly speakable by the researcher during a live interview.
 
-Type of mismatch: {relation_type}
+## Mismatch type: {relation_type}
 
-Inputs:
-- Expert answer: "{expert_answer}"
-- Researcher question: "{researcher_question}"
-- Recent context summary: "{context_summary}"
+## Conversation context
+- Expert's latest answer: "{expert_answer}"
+- Researcher's latest question: "{researcher_question}"
+- Recent conversation summary: "{context_summary}"
 
-Assistance to polish (keep structure, improve naturalness, reference expert's wording):
+## Assistance to polish
 {assistance_json}
 
-Rules:
-1) Keep the EXACT same JSON keys and structure.
-2) Make wording natural, concise, and directly speakable by the researcher.
-3) Do NOT add new facts.
-4) Questions must remain questions.
-5) For LexicalGap: keep term_mapping exact; only polish the explanation.
-6) For TacitGap: probe choices must stay as-is; only polish question phrasing.
-7) Output ONLY valid JSON.
+## General rules (apply to ALL types)
+1. Keep the EXACT same JSON keys and nesting structure.
+2. Make polishable text natural, concise, and directly speakable.
+3. Reference the expert's OWN vocabulary and phrasing where possible.
+4. Do NOT invent new facts or concepts.
+5. Questions MUST remain questions.
+6. Output ONLY valid JSON (same top-level keys: "payload", "followup_questions").
+
+{type_specific_rules}
 """)
         ])
         chain = prompt | llm
         response = chain.invoke({
-            "relation_type": assistance.relation_type,
+            "relation_type": relation,
             "expert_answer": expert_answer[:500],
             "researcher_question": researcher_question[:300],
             "context_summary": context_summary[:600],
@@ -281,6 +380,7 @@ Rules:
                 {"payload": assistance.payload, "followup_questions": assistance.followup_questions},
                 ensure_ascii=False,
             ),
+            "type_specific_rules": type_rules,
         })
         content = getattr(response, "content", str(response))
         parsed = _parse_json_from_text(content)
