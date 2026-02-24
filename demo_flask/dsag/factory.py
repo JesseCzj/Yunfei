@@ -549,15 +549,30 @@ def _depth_to_layer(depth: int) -> str:
 def _infer_relation_type(reason: str) -> str:
     """
     Infer RelationType from the misalignment reason text.
-    Uses keyword matching aligned with the new mismatch categories.
+
+    Uses a **counting mechanism** instead of first-match-wins:
+    - Multi-word phrases score 2 (more discriminative).
+    - Single words score 1.
+    - The category with the highest total score wins.
+    - On tie → default to ConceptualGap.
+
+    This is a *fallback* classifier; Agent C's explicit ``relation_type``
+    is always preferred when available.
     """
     reason_lower = reason.lower()
 
+    # ---- keyword lists ----
+    # NOTE: "aim" removed (false-matches "claim"/"main"; covered by "objective"/"goal")
+    # NOTE: "phase" removed (false-matches "emphasis"; covered by "stage")
+    # NOTE: "detail" removed (too generic, matches almost anything)
+    # NOTE: "depends"/"varies" moved from Process → Tacit (context-dependent judgment)
+
     lexical_keywords = [
-    "term", "terminology", "vocabulary", "word", "definition", "language",
-    "jargon", "acronym", "abbreviation", "translate", "synonym", "same thing",
-    "shorthand", "notation", "label", "call it", "refer to", "known as",
-    "stands for", "phrase", "lingo", "buzzword", "technical term",
+        "term", "terminology", "vocabulary", "word", "definition", "language",
+        "jargon", "acronym", "abbreviation", "translate", "synonym", "same thing",
+        "shorthand", "notation", "label", "call it", "refer to", "known as",
+        "stands for", "phrase", "lingo", "buzzword", "technical term",
+        "nomenclature", "refers to the same", "equivalent term",
     ]
 
     conceptual_keywords = [
@@ -566,6 +581,7 @@ def _infer_relation_type(reason: str) -> str:
         "picture", "framework", "idea", "mental image", "how it works",
         "big picture", "visualize", "wrap my head around", "think of it as",
         "assumption", "different understanding", "not the same idea",
+        "structural difference", "mental model",
     ]
 
     tacit_keywords = [
@@ -575,40 +591,50 @@ def _infer_relation_type(reason: str) -> str:
         "ballpark", "roughly", "approximate", "threshold", "good enough",
         "you'd know it when you see it", "hard to pin down", "vague", "fuzzy",
         "rule of thumb",
+        "depends", "varies",
+        "difficult to articulate", "non-quantifiable", "implicit judgment",
     ]
 
     scope_keywords = [
-        "scope", "focus", "goal", "aim", "objective", "constraint",
-        "resource", "priority", "tradeoff", "detail", "boundary",
+        "scope", "focus", "goal", "objective", "constraint",
+        "resource", "priority", "tradeoff", "boundary",
         "practical", "real-world", "useful", "clinical", "research", "academic",
         "theoretical", "publish", "deploy", "patient", "user", "impact", "value",
         "too detailed", "too high-level", "not relevant", "out of scope",
         "why does that matter", "bigger picture", "day-to-day",
+        "misaligned", "divergent",
     ]
 
     process_keywords = [
-        "process", "workflow", "step", "sequence", "procedure", "stage", "phase",
+        "process", "workflow", "step", "sequence", "procedure", "stage",
         "routine", "pipeline", "order", "skip",
         "before", "after", "then", "next", "first", "always", "never", "usually",
-        "depends", "varies", "in our system", "the way we do it",
+        "in our system", "the way we do it",
         "actually that's not right", "that's not how it works", "missing a step",
         "in reality", "edge case", "exception", "corner case",
     ]
 
+    # ---- scoring: multi-word phrases = 2, single words = 1 ----
+    category_lists = [
+        (RelationType.LEXICAL_GAP.value, lexical_keywords),
+        (RelationType.CONCEPTUAL_GAP.value, conceptual_keywords),
+        (RelationType.TACIT_GAP.value, tacit_keywords),
+        (RelationType.SCOPE_GAP.value, scope_keywords),
+        (RelationType.PROCESS_GAP.value, process_keywords),
+    ]
 
-    if any(kw in reason_lower for kw in lexical_keywords):
-        return RelationType.LEXICAL_GAP.value
-    if any(kw in reason_lower for kw in conceptual_keywords):
+    scores: dict[str, int] = {}
+    for relation_type, keywords in category_lists:
+        score = 0
+        for kw in keywords:
+            if kw in reason_lower:
+                score += 2 if " " in kw else 1
+        scores[relation_type] = score
+
+    best_type = max(scores, key=scores.get)  # type: ignore[arg-type]
+    if scores[best_type] == 0:
         return RelationType.CONCEPTUAL_GAP.value
-    if any(kw in reason_lower for kw in tacit_keywords):
-        return RelationType.TACIT_GAP.value
-    if any(kw in reason_lower for kw in process_keywords):
-        return RelationType.PROCESS_GAP.value
-    if any(kw in reason_lower for kw in scope_keywords):
-        return RelationType.SCOPE_GAP.value
-
-    # Default to Conceptual Gap
-    return RelationType.CONCEPTUAL_GAP.value
+    return best_type
 
 
 def _find_path_between(leaf_id: str, ancestor_id: str, tree: TaxonomyTree) -> List[str]:
