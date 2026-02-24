@@ -233,7 +233,7 @@ Instructions:
 3. Mark pairs as "aligned" (true) if they represent the same or very similar concept
 4. Mark pairs as "misaligned" (false) if they represent different perspectives or concepts
 5. Provide a reason explaining WHY they are aligned or misaligned
-6. For every MISALIGNED pair, also set "relation_type" to the single best-fitting gap category (see below)
+6. For every MISALIGNED pair (is_aligned=false), you MUST set "relation_type" to exactly one of the 5 gap categories below. Do NOT omit this field for misaligned pairs.
 
 IMPORTANT:
 - Root nodes are always considered aligned (they share the same topic)
@@ -248,8 +248,10 @@ Gap type definitions for "relation_type" (misaligned pairs only):
 - "LexicalGap": The two sides use different terms, jargon, or labels for the same or related concept.
 - "ConceptualGap": The two sides hold different mental models, analogies, or interpretations of the concept.
 - "TacitGap": The expert relies on intuition, implicit knowledge, or experience that the researcher cannot easily observe or quantify.
-- "ScopeGap": The two sides differ in focus boundary — one is too detailed, too high-level, or out of scope for the other.
-- "ProcessGap": The two sides differ in workflow, sequence, or procedure — how steps are ordered or executed.
+- "ScopeGap": The two sides differ in purpose or expectations — the expert focuses on practical utility while the researcher focuses on research value, leading to inconsistent goals about "what to do."
+- "ProcessGap": Factual errors disrupt the discussion, or the expert lacks standardized procedures or falls into narrow narratives (tunnel vision), causing workflow/sequence misalignment.
+
+Classification hint: Expert leaf nodes that contain a non-empty "attributes" list indicate tacit, intuition-based knowledge (Tacit Knowledge Facets). When such a leaf is part of a misaligned pair, strongly prefer "TacitGap" as the relation_type.
 
 Return ONLY valid JSON with this schema:
 {{
@@ -260,7 +262,7 @@ Return ONLY valid JSON with this schema:
       "is_aligned": true/false,
       "reason": "Explanation of why they are aligned/misaligned",
       "semantic_similarity": 0.0-1.0,
-      "relation_type": "LexicalGap | ConceptualGap | TacitGap | ScopeGap | ProcessGap (misaligned only, omit or null if aligned)"
+      "relation_type": "REQUIRED when is_aligned=false. One of: LexicalGap | ConceptualGap | TacitGap | ScopeGap | ProcessGap. Omit only when is_aligned=true."
     }}
   ],
   "concept_alignments": [
@@ -561,57 +563,79 @@ def _infer_relation_type(reason: str) -> str:
     """
     reason_lower = reason.lower()
 
-    # ---- keyword lists ----
-    # NOTE: "aim" removed (false-matches "claim"/"main"; covered by "objective"/"goal")
-    # NOTE: "phase" removed (false-matches "emphasis"; covered by "stage")
-    # NOTE: "detail" removed (too generic, matches almost anything)
-    # NOTE: "depends"/"varies" moved from Process → Tacit (context-dependent judgment)
+    # ---- Two-tier keyword lists (Agent-C analytical style) ----
+    # Tier 1: single words (1pt) — broad recall, tolerate mild overlap
+    # Tier 2: multi-word phrases (2pt) — high precision, discriminative
+    #
+    # Design principle: keywords mirror Agent C's formal analytical register.
+    # Conversational phrases ("wrap my head around", "you'd know it when you
+    # see it", "the way we do it", etc.) are removed — Agent C never writes them.
 
     lexical_keywords = [
-        "term", "terminology", "vocabulary", "word", "definition", "language",
-        "jargon", "acronym", "abbreviation", "translate", "synonym", "same thing",
-        "shorthand", "notation", "label", "call it", "refer to", "known as",
-        "stands for", "phrase", "lingo", "buzzword", "technical term",
-        "nomenclature", "refers to the same", "equivalent term",
+        # -- Tier 1 (1pt) --
+        "term", "terminology", "vocabulary", "definition", "language",
+        "jargon", "acronym", "abbreviation", "synonym", "nomenclature",
+        "shorthand", "notation", "label", "translate",
+        # -- Tier 2 (2pt) --
+        "technical term", "equivalent term", "refers to the same",
+        "same thing", "known as", "refer to", "call it", "stands for",
+        "different terminology", "different label",
     ]
 
     conceptual_keywords = [
+        # -- Tier 1 (1pt) --
         "concept", "model", "analogy", "mechanism", "principle",
         "representation", "misunderstanding", "interpretation",
-        "picture", "framework", "idea", "mental image", "how it works",
-        "big picture", "visualize", "wrap my head around", "think of it as",
-        "assumption", "different understanding", "not the same idea",
-        "structural difference", "mental model",
+        "framework", "assumption", "visualize",
+        # -- Tier 2 (2pt) --
+        "mental model", "mental image", "structural difference",
+        "different understanding", "different interpretation",
+        "conceptual mismatch", "how it works", "big picture",
+        "think of it as", "not the same idea", "different framework",
     ]
 
     tacit_keywords = [
-        "intuition", "intuitive", "gut", "feeling", "implicit", "unspoken",
-        "quantify", "measure", "subjective", "hard to explain", "can't explain",
-        "experience", "just know", "over the years", "sense", "feel like", "instinct",
-        "ballpark", "roughly", "approximate", "threshold", "good enough",
-        "you'd know it when you see it", "hard to pin down", "vague", "fuzzy",
-        "rule of thumb",
-        "depends", "varies",
-        "difficult to articulate", "non-quantifiable", "implicit judgment",
+        # -- Tier 1 (1pt) --
+        "intuition", "intuitive", "implicit", "unspoken",
+        "subjective", "experience", "instinct",
+        "quantify", "measure", "approximate", "threshold",
+        "vague", "fuzzy", "depends", "varies",
+        # -- Tier 2 (2pt) --
+        "contextual cue", "domain-specific", "experience-based",
+        "implicit knowledge", "tacit knowledge", "implicit judgment",
+        "difficult to articulate", "hard to explain", "hard to pin down",
+        "non-quantifiable", "rule of thumb", "good enough",
+        "can't explain",
     ]
 
     scope_keywords = [
-        "scope", "focus", "goal", "objective", "constraint",
-        "resource", "priority", "tradeoff", "boundary",
-        "practical", "real-world", "useful", "clinical", "research", "academic",
-        "theoretical", "publish", "deploy", "patient", "user", "impact", "value",
-        "too detailed", "too high-level", "not relevant", "out of scope",
-        "why does that matter", "bigger picture", "day-to-day",
+        # -- Tier 1 (1pt) --
+        "scope", "objective", "constraint", "boundary",
+        "resource", "priority", "tradeoff",
+        "practical", "useful", "academic", "theoretical",
         "misaligned", "divergent",
+        "focus", "goal", "value",        # weak votes; disambiguated by Tier 2
+        # -- Tier 2 (2pt) --
+        "different focus", "divergent focus", "misaligned focus",
+        "research goal", "different goal",
+        "practical value", "research value",
+        "different scope", "different priority",
+        "different level", "different levels of analysis",
+        "too detailed", "too high-level", "not relevant", "out of scope",
+        "bigger picture", "real-world", "day-to-day",
     ]
 
     process_keywords = [
-        "process", "workflow", "step", "sequence", "procedure", "stage",
+        # -- Tier 1 (1pt) --
+        "process", "workflow", "sequence", "procedure", "stage",
         "routine", "pipeline", "order", "skip",
-        "before", "after", "then", "next", "first", "always", "never", "usually",
-        "in our system", "the way we do it",
-        "actually that's not right", "that's not how it works", "missing a step",
-        "in reality", "edge case", "exception", "corner case",
+        "exception",
+        # -- Tier 2 (2pt) --
+        "different workflow", "different ordering", "different procedure",
+        "procedural difference", "procedural mismatch",
+        "operational mismatch", "methodological difference",
+        "missing a step", "edge case", "corner case",
+        "in reality",
     ]
 
     # ---- scoring: multi-word phrases = 2, single words = 1 ----
@@ -871,6 +895,9 @@ CONCEPTUAL_GAP_PROMPT = """You are generating conceptual bridges for an intervie
 - Label: {researcher_label}
 - Description: {researcher_description}
 
+**Expert's Related Concepts (siblings under same category):**
+{expert_siblings}
+
 **Divergence Point:** {lca_layer}
 **Conflict:** Expert focuses on "{expert_branch}", Researcher focuses on "{researcher_branch}"
 **Misalignment Reason:** {misalignment_reason}
@@ -878,7 +905,7 @@ CONCEPTUAL_GAP_PROMPT = """You are generating conceptual bridges for an intervie
 Their mental models differ. Generate TWO parallel explanation strategies (no required order):
 
 Strategy 1 — Analogy Construction:
-- Identify a "Sibling Concept" the expert already knows that is structurally similar.
+- Consider the expert's related concepts listed above as potential analogy sources — they are concepts the expert already articulated at the same abstraction level. You may also use a different concept if it provides a stronger structural mapping.
 - Do NOT merely swap nouns. Map the relational structure: Inputs, Logic, Outputs.
 - Explain how the researcher's concept behaves similarly to the expert's familiar concept.
 
@@ -895,7 +922,8 @@ Return ONLY valid JSON:
       "inputs": "What goes in (mapped to expert's frame)",
       "logic": "How it transforms (mapped to expert's frame)",
       "outputs": "What comes out (mapped to expert's frame)"
-    }}
+    }},
+    "explanation": "How the researcher's concept behaves similarly to the source concept"
   }},
   "scenario": {{
     "inputs": "Concrete input example the expert would recognize",
@@ -930,8 +958,8 @@ Step 2: For each attribute, generate a MULTIPLE-CHOICE probe question to guide t
   "Is your concern related to [Attribute A] or [Attribute B]?" or
   "Which matters more: A, B, or C?"
 
-Step 3: Generate ONE hypothetical scenario for optional checkout.
-  RULE: Alter only ONE variable at a time to test the boundaries of their intuition.
+Step 3: Generate 2-3 hypothetical scenarios for optional checkout.
+  RULE: Each scenario alters only ONE variable at a time to test the boundaries of their intuition.
 
 Return ONLY valid JSON:
 {{
@@ -943,7 +971,10 @@ Return ONLY valid JSON:
       "choices": ["Option A", "Option B"]
     }}
   ],
-  "hypothetical_scenario": "If [single variable] changed from X to Y, would your judgment about '{expert_label}' change?"
+  "hypothetical_scenarios": [
+    "If [variable A] changed from X to Y, would your judgment about '{expert_label}' change?",
+    "If [variable B] changed from P to Q, would your judgment about '{expert_label}' change?"
+  ]
 }}
 """
 
@@ -1063,6 +1094,16 @@ def generate_assistance_payload_for_link(
 
     prompt_template = prompt_map.get(link.relation_type, CONCEPTUAL_GAP_PROMPT)
 
+    # Collect expert siblings for ConceptualGap analogy candidates
+    expert_siblings_text = "None available"
+    if link.relation_type == RelationType.CONCEPTUAL_GAP.value:
+        siblings = expert_tree.get_siblings(link.expert_leaf_id)
+        if siblings:
+            sibling_lines = []
+            for sib in siblings[:5]:  # cap at 5 to limit token cost
+                sibling_lines.append(f"- \"{sib.label}\": {sib.description}")
+            expert_siblings_text = "\n".join(sibling_lines)
+
     variables = {
         "expert_path": " > ".join(link.aligned_path_expert),
         "expert_label": exp_node.label,
@@ -1076,6 +1117,7 @@ def generate_assistance_payload_for_link(
         "researcher_branch": link.conflict.get("researcher_branch", ""),
         "misalignment_reason": misalignment_reason,
         "attributes": ", ".join(exp_node.attributes) if exp_node.attributes else "none",
+        "expert_siblings": expert_siblings_text,
     }
 
     prompt = ChatPromptTemplate.from_messages([("user", prompt_template)])
@@ -1370,6 +1412,7 @@ class GraphFactory:
                             is_aligned=False,
                             reason=f"{gap_type}: fallback mismatch (sim={sim:.2f}, lca={lca_layer})",
                             semantic_similarity=sim,
+                            relation_type=gap_type,
                         ))
                         existing_pairs.add(pair)
                         misaligned_expert.add(exp_leaf.id)

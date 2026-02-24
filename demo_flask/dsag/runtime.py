@@ -164,10 +164,10 @@ class Assistance:
 
     Payload shapes by type:
     - LexicalGap:    {"term_mapping": {"expert_term", "researcher_term", "explanation"}}
-    - ConceptualGap: {"analogy": {"source_concept", "structural_mapping": {inputs, logic, outputs}},
-                      "scenario": {"inputs", "outputs", "edge_cases"}}
+    - ConceptualGap: {"analogy": {"source_concept", "structural_mapping": {inputs, logic, outputs},
+                      "explanation"}, "scenario": {"inputs", "outputs", "edge_cases"}}
     - TacitGap:      {"attributes": [...], "probes": [{attribute, question, choices}],
-                      "hypothetical_scenario": "..."}
+                      "hypothetical_scenarios": ["...", "..."]}
     - ScopeGap:      {"validate_focus": "...", "pivot": {limitation, research_goal,
                       compelling_reason, coarse_scenario}}
     - ProcessGap:    {"timeline": [...], "drift_alerts": [...], "current_topic": "..."}
