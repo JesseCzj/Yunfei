@@ -584,8 +584,8 @@ def _infer_relation_type(reason: str) -> str:
 
     conceptual_keywords = [
         # -- Tier 1 (1pt) --
-        "concept", "model", "analogy", "mechanism", "principle",
-        "representation", "misunderstanding", "interpretation",
+        "concept", "conceptual", "model", "analogy", "mechanism", "principle",
+        "theory", "abstract", "representation", "misunderstanding", "interpretation",
         "framework", "assumption", "visualize",
         # -- Tier 2 (2pt) --
         "mental model", "mental image", "structural difference",
@@ -596,8 +596,8 @@ def _infer_relation_type(reason: str) -> str:
 
     tacit_keywords = [
         # -- Tier 1 (1pt) --
-        "intuition", "intuitive", "implicit", "unspoken",
-        "subjective", "experience", "instinct",
+        "intuition", "intuitive", "tacit", "implicit", "unspoken",
+        "subjective", "experience", "instinct", "criteria",
         "quantify", "measure", "approximate", "threshold",
         "vague", "fuzzy", "depends", "varies",
         # -- Tier 2 (2pt) --
@@ -610,8 +610,8 @@ def _infer_relation_type(reason: str) -> str:
 
     scope_keywords = [
         # -- Tier 1 (1pt) --
-        "scope", "objective", "constraint", "boundary",
-        "resource", "priority", "tradeoff",
+        "scope", "aim", "objective", "expectation", "constraint", "boundary",
+        "limitation", "resource", "priority", "tradeoff",
         "practical", "useful", "academic", "theoretical",
         "misaligned", "divergent",
         "focus", "goal", "value",        # weak votes; disambiguated by Tier 2
@@ -627,8 +627,8 @@ def _infer_relation_type(reason: str) -> str:
 
     process_keywords = [
         # -- Tier 1 (1pt) --
-        "process", "workflow", "sequence", "procedure", "stage",
-        "routine", "pipeline", "order", "skip",
+        "process", "workflow", "step", "sequence", "procedure", "stage", "phase",
+        "method", "methodology", "routine", "pipeline", "order", "skip",
         "exception",
         # -- Tier 2 (2pt) --
         "different workflow", "different ordering", "different procedure",
