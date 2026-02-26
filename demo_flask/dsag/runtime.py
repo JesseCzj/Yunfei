@@ -262,8 +262,6 @@ FROZEN fields (copy verbatim — do NOT alter):
 POLISHABLE fields:
   - analogy.explanation — make it a fluent sentence the researcher could speak
     naturally. Reference the expert's actual vocabulary from their answer.
-  - followup_questions[].question — make the question sound conversational and
-    empathetic, but keep the ExpandScope intent.
 
 The analogy and scenario are PARALLEL strategies (no required order).
 Do not merge them or remove either one.""",
@@ -279,8 +277,6 @@ POLISHABLE fields:
   - probes[].question — rephrase for naturalness, but it MUST remain a
     multiple-choice question (NEVER convert to open-ended "Why …?").
     Reference the expert's recent answer where possible.
-  - followup_questions[].question — make DeepDive questions sound
-    conversational and reference the expert's wording.
 
 The 3-step order (attributes → probes → hypothetical checkout) is strict.
 Do not reorder or collapse steps.""",
@@ -365,7 +361,7 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
 3. Reference the expert's OWN vocabulary and phrasing where possible.
 4. Do NOT invent new facts or concepts.
 5. Questions MUST remain questions.
-6. Output ONLY valid JSON (same top-level keys: "payload", "followup_questions").
+6. Output ONLY valid JSON with top-level key "payload" (same structure as the input).
 
 {type_specific_rules}
 """)
@@ -377,7 +373,7 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
             "researcher_question": researcher_question[:300],
             "context_summary": context_summary[:600],
             "assistance_json": json.dumps(
-                {"payload": assistance.payload, "followup_questions": assistance.followup_questions},
+                {"payload": assistance.payload},
                 ensure_ascii=False,
             ),
             "type_specific_rules": type_rules,
@@ -389,7 +385,6 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
 
         polished = Assistance(relation_type=assistance.relation_type)
         polished.payload = parsed.get("payload", assistance.payload)
-        polished.followup_questions = parsed.get("followup_questions", assistance.followup_questions)
         return polished
 
     def locate_positions(
@@ -497,33 +492,15 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
         if relation == RelationType.LEXICAL_GAP.value:
             pass
 
-        # ---- ConceptualGap: analogy + scenario (no order). ExpandScope follow-ups. ----
+        # ---- ConceptualGap: analogy + scenario (no order). ----
         elif relation == RelationType.CONCEPTUAL_GAP.value:
-            if expert_leaf_id and expert_node:
-                siblings = self.graph.expert_tree.get_siblings(expert_leaf_id)
-                for sibling in siblings[:3]:
-                    assistance.followup_questions.append({
-                        "type": "ExpandScope",
-                        "question": (
-                            f"After '{expert_node.label}', do you typically "
-                            f"also deal with '{sibling.label}'?"
-                        ),
-                    })
+            pass
 
-        # ---- TacitGap: strict 3-step pipeline. DeepDive follow-ups. ----
+        # ---- TacitGap: strict 3-step pipeline. ----
         elif relation == RelationType.TACIT_GAP.value:
             # Merge live attributes from node into payload
             if expert_node and expert_node.attributes:
                 payload["attributes"] = expert_node.attributes
-                # DeepDive follow-ups using attributes
-                for attr in expert_node.attributes[:3]:
-                    assistance.followup_questions.append({
-                        "type": "DeepDive",
-                        "question": (
-                            f"When you think about '{expert_node.label}', "
-                            f"is '{attr}' something that factors into your judgment?"
-                        ),
-                    })
             assistance.payload = payload
 
         # ---- ScopeGap: strict 2-step (validate then pivot). No follow-ups. ----
