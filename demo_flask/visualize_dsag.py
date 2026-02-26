@@ -434,10 +434,6 @@ def main():
             for key, val in assistance.payload.items():
                 val_str = str(val)[:120]
                 print(f"      {key}: {val_str}...")
-            if assistance.followup_questions:
-                print(f"    Follow-ups: {len(assistance.followup_questions)}")
-                sample = assistance.followup_questions[0]
-                print(f"      Sample ({sample.get('type', '')}): {sample.get('question', '')}")
         
         print("\n  Runtime analysis completed!")
         

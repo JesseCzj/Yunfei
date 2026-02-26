@@ -607,8 +607,7 @@ def api_dsag_analyze_turn():
             "divergence": {...},
             "assistance": {
                 "relation_type": "LexicalGap|ConceptualGap|TacitGap|ScopeGap|ProcessGap",
-                "payload": {...},
-                "followup_questions": [...]
+                "payload": {...}
             },
             ...
         }

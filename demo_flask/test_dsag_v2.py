@@ -425,8 +425,7 @@ def test_runtime_type_branching():
     assistance = engine.generate_assistance("exp_leaf_00_00_00", links[0])
     assert assistance.relation_type == RelationType.LEXICAL_GAP.value
     assert "term_mapping" in assistance.payload
-    assert assistance.followup_questions == [], "LexicalGap should have no follow-ups"
-    print("  [OK] LexicalGap: term_mapping present, no follow-ups")
+    print("  [OK] LexicalGap: term_mapping present")
 
     # Test 2: TacitGap assistance
     assistance = engine.generate_assistance("exp_leaf_00_00_01", links[1])
@@ -434,21 +433,15 @@ def test_runtime_type_branching():
     assert "probes" in assistance.payload
     assert "attributes" in assistance.payload
     assert len(assistance.payload["attributes"]) == 2, "Should merge node attributes"
-    assert len(assistance.followup_questions) > 0, "TacitGap should have DeepDive follow-ups"
-    assert assistance.followup_questions[0]["type"] == "DeepDive"
     print(f"  [OK] TacitGap: {len(assistance.payload['probes'])} probes, "
-          f"{len(assistance.followup_questions)} DeepDive follow-ups")
+          f"{len(assistance.payload['attributes'])} attributes")
 
     # Test 3: ConceptualGap assistance
     assistance = engine.generate_assistance("exp_leaf_00_00_02", links[2])
     assert assistance.relation_type == RelationType.CONCEPTUAL_GAP.value
     assert "analogy" in assistance.payload
     assert "scenario" in assistance.payload
-    # Should have ExpandScope follow-ups (siblings of exp_leaf_00_00_02)
-    assert len(assistance.followup_questions) > 0, "ConceptualGap should have ExpandScope follow-ups"
-    assert assistance.followup_questions[0]["type"] == "ExpandScope"
-    print(f"  [OK] ConceptualGap: analogy + scenario present, "
-          f"{len(assistance.followup_questions)} ExpandScope follow-ups")
+    print("  [OK] ConceptualGap: analogy + scenario present")
 
     # Test 4: ProcessGap with timeline
     process_link = GapLink(
@@ -486,7 +479,7 @@ def test_runtime_type_branching():
     assist_dict = assistance.to_dict()
     assert "relation_type" in assist_dict
     assert "payload" in assist_dict
-    assert "followup_questions" in assist_dict
+    assert "followup_questions" not in assist_dict, "followup_questions removed"
     assert "bridge_templates" not in assist_dict, "Old field should not exist"
     assert "checkout_template" not in assist_dict, "Old field should not exist"
     print("  [OK] Assistance.to_dict() has correct shape (no old fields)")
@@ -554,7 +547,7 @@ def test_full_dsag_generation(skip_if_no_key=True):
     if analysis.assistance:
         print(f"       Assistance type: {analysis.assistance.relation_type}")
         print(f"       Payload keys: {list(analysis.assistance.payload.keys())}")
-        print(f"       Follow-ups: {len(analysis.assistance.followup_questions)}")
+        print(f"       Payload keys: {list(analysis.assistance.payload.keys())}")
 
     print("  Full DSAG v2 generation test passed!")
     return True

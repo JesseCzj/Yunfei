@@ -174,13 +174,11 @@ class Assistance:
     """
     relation_type: str = ""
     payload: Dict[str, Any] = field(default_factory=dict)
-    followup_questions: List[Dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
             "relation_type": self.relation_type,
             "payload": self.payload,
-            "followup_questions": self.followup_questions,
         }
 
 

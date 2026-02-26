@@ -193,7 +193,7 @@ def test_full_dsag_generation(skip_if_no_key=True):
         print(f"       Divergence: LCA={analysis.divergence.lca_layer}")
     
     if analysis.assistance:
-        print(f"       Follow-ups: {len(analysis.assistance.followup_questions)}")
+        print(f"       Payload keys: {list(analysis.assistance.payload.keys())}")
     
     print("  Full DSAG generation test passed!")
     return True
