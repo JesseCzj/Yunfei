@@ -15,3 +15,7 @@
 5. **5 Prompt Bug Fixes** — Cross-referenced `mismatch_types.md` against prompts. Fixed: ScopeGap definition (granularity → purpose), ProcessGap definition (added factual-error + tunnel-vision triggers), TacitGap `attributes` classification hint, `hypothetical_scenario` → plural array, ConceptualGap missing `explanation` field. (`factory.py`, `runtime.py`)
 
 6. **ConceptualGap Sibling Injection** — Analogy prompt now receives up to 5 expert sibling leaves as grounded source candidates instead of hallucinating. (`factory.py`)
+
+## 2026-02-26
+
+7. **Polish Process Cleanup** — Removed ExpandScope and DeepDive followup_questions from `generate_assistance()` (not in spec). Polish LLM now only polishes `payload`, no longer handles `followup_questions`. Fully removed `followup_questions` field from `Assistance` dataclass, API response, and all test/visualization references. (`runtime.py`, `test_dsag_v2.py`, `test_dsag.py`, `visualize_dsag.py`, `app.py`)

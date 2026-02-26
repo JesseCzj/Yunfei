@@ -43,7 +43,23 @@
 ---
 
 ### 5. Process Gap
-- **Description**: Factual errors disrupt the discussion process, as do a lack of standardized procedures or narrow expert narratives.
-- **Solution**: Provide a real-time timeline or flowchart based on the ongoing interview to map the conversation, and issue alerts when the expert drifts off-topic or falls into narrative tunnel vision.
+- **Description**: A lack of standardized procedures or narrow expert narratives disrupts the discussion process.
+- **Solution** (Entirely runtime-driven — no offline pre-computation):
+  1. **Monitoring Layer**: Maintain a real-time timeline that accumulates the actual step→step conversation history. Use this timeline together with the expert tree structure to detect three types of drift: repeated topics, tunnel vision, and coverage gaps.
+  2. **Redirect Layer**: When drift is detected, make a runtime LLM call with full conversation context (timeline + expert's actual words + tree structure) to generate a natural, context-aware redirect — a sentence the researcher can directly speak.
+- **Key Design Principle**: Process Gap is fundamentally different from the other 4 types. The other types address *static* structural mismatches that can be pre-computed offline. Process Gap addresses *dynamic* conversational flow problems that only materialize during the interview. Therefore, it uses no offline scaffold or pre-generated templates — all assistance is generated at runtime from real data.
 - **Implementation**:
-  - **Presentation Form**: Dynamically generate and display a visual timeline/flowchart that maps the covered topics based on the current interview transcript.
+  - **Offline**: Agent C classifies the GapLink as ProcessGap. No dedicated prompt, no scaffold, no pre-generated payload. `assistance_payload` remains empty.
+  - **Runtime Data Sources** (all grounded, no LLM hypotheses):
+    1. `interview_timeline` — the real step→step conversation history, accumulated each turn.
+    2. Expert tree structure — sibling leaves (related topics under the same L2 category) and parent categories provide the "topic universe" for coverage analysis.
+    3. Current turn's `expert_answer` and `researcher_question` — allows the LLM to reference the expert's actual words in the redirect.
+  - **Drift Detection** (rule-based, no LLM involved):
+    1. **Repeated Topic**: Current `topic_label` already exists in timeline history. No external reference needed — purely based on actual conversation data.
+    2. **Tunnel Vision**: The same `topic_label` or the same L2 category dominates the last N turns (threshold: ≥3 consecutive or near-consecutive turns on the same leaf/L2), while sibling leaves remain unvisited.
+    3. **Coverage Gap**: Sibling leaves of the current expert leaf that have never appeared in the timeline. This uses the expert tree as the reference — a real, grounded structure, not an LLM-generated scaffold.
+  - **Redirect Generation** (runtime LLM call, only when drift is detected):
+    - Input: drift type + timeline summary + current expert answer + unvisited sibling labels + misalignment reason.
+    - Output: one natural redirect sentence that references the expert's actual words and transitions to an unvisited topic.
+    - When no drift is detected: return only the coverage map (structured data, no LLM call needed).
+  - **Advisory Principle**: All alerts are suggestions, not directives. The researcher may dismiss any alert.

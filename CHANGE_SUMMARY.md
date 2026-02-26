@@ -223,3 +223,30 @@ Added `{expert_siblings}` field to `CONCEPTUAL_GAP_PROMPT` — up to 5 sibling l
 |------|--------|
 | `factory.py` | `CONCEPTUAL_GAP_PROMPT` — added `{expert_siblings}` field + rewrote Strategy 1 instruction |
 | `factory.py` | `generate_assistance_payload_for_link()` — collect siblings, build text, inject into variables |
+
+---
+
+## 2026-02-26 — Polish Process Cleanup: Remove followup_questions
+
+### Problem
+
+The polish LLM was handling `followup_questions` alongside `payload`, which went beyond its intended role of pure text polishing. Additionally, `generate_assistance()` was generating ExpandScope (ConceptualGap) and DeepDive (TacitGap) follow-up questions — artifacts of an earlier design that are not defined in `mismatch_types.md`. The system should follow the spec table exactly; no mismatch type requires follow-up question generation.
+
+### Solution
+
+1. Removed ExpandScope follow-up generation from ConceptualGap branch in `generate_assistance()`
+2. Removed DeepDive follow-up generation from TacitGap branch in `generate_assistance()` (attribute merge into payload retained)
+3. Removed `followup_questions` references from `_POLISH_RULES_BY_TYPE` for ConceptualGap and TacitGap
+4. Polish prompt now only sends and expects `{"payload": ...}` — no longer includes or parses `followup_questions`
+5. **Fully removed** `followup_questions` field from `Assistance` dataclass and `to_dict()` — no longer part of the data model or API response
+6. Cleaned up all test/visualization references to the removed field
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `dsag/runtime.py` | `generate_assistance()` — removed ExpandScope (ConceptualGap) and DeepDive (TacitGap) followup generation. `_POLISH_RULES_BY_TYPE` — removed `followup_questions[].question` from ConceptualGap and TacitGap POLISHABLE fields. `_polish_assistance()` — prompt output instruction changed from `"payload", "followup_questions"` to `"payload"` only; input JSON no longer includes `followup_questions`; output parsing no longer reads `followup_questions`. `Assistance` dataclass — removed `followup_questions` field and its `to_dict()` serialization. |
+| `test_dsag_v2.py` | Removed 6 `followup_questions` assertions (LexicalGap empty check, TacitGap DeepDive check, ConceptualGap ExpandScope check, serialization check). Changed serialization assertion to `"followup_questions" not in assist_dict`. |
+| `visualize_dsag.py` | Removed `followup_questions` display block. |
+| `test_dsag.py` | Replaced `followup_questions` print with `payload.keys()` print. |
+| `app.py` | Updated `/api/dsag/analyze_turn` docstring — removed `followup_questions` from response schema. |
