@@ -1,6 +1,6 @@
 # DSAG — Change Summary
 
-**Scope:** All backend changes from 2026-02-22 to 2026-02-24
+**Scope:** All backend changes from 2026-02-22 to 2026-02-26
 
 ---
 
@@ -250,3 +250,53 @@ The polish LLM was handling `followup_questions` alongside `payload`, which went
 | `visualize_dsag.py` | Removed `followup_questions` display block. |
 | `test_dsag.py` | Replaced `followup_questions` print with `payload.keys()` print. |
 | `app.py` | Updated `/api/dsag/analyze_turn` docstring — removed `followup_questions` from response schema. |
+
+---
+
+## 2026-02-27 — LexicalGap Definition: "same or related" → "same"
+
+### Problem
+
+The LexicalGap definition in `ALIGNMENT_JUDGE_PROMPT` read: *"The two sides use different terms, jargon, or labels for the same **or related** concept."* The phrase "or related concept" is too permissive — pairs where the underlying constructs differ (i.e., ConceptualGap) could be misclassified as purely terminological. `mismatch_types.md` defines LexicalGap strictly as "different words for the **same** concept."
+
+### Fix
+
+Removed "or related" from the definition. New definition: *"The two sides use different terms, jargon, or labels for the same concept."* This aligns exactly with `mismatch_types.md` and keeps the Lexical/Conceptual boundary sharp: if a shared label would not fully close the gap, the pair must be evaluated for ConceptualGap or another type.
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `dsag/factory.py` | `ALIGNMENT_JUDGE_PROMPT` — LexicalGap definition: removed "or related" |
+
+---
+
+## 2026-02-26 -- ALIGNMENT_JUDGE_PROMPT: Examples, Edge Cases & LexicalGap Definition Fix
+
+### Problem
+
+`ALIGNMENT_JUDGE_PROMPT` provided only one-line definitions for each gap type. Agent C had no grounded reference for boundary cases where two types share surface features, leading to misclassification at the four most confusable type boundaries: Lexical/Conceptual, Conceptual/Tacit, Conceptual/Scope, and Tacit/Scope. Additionally, the LexicalGap definition included "or related concept," which was too permissive and invited over-classification of ConceptualGap pairs as LexicalGap.
+
+### Changes
+
+1. **LexicalGap definition tightened** -- Removed "or related concept." New definition: "The two sides use different terms, jargon, or labels for the **same** concept." This prevents pairs where the underlying constructs differ from being misclassified as purely terminological.
+
+2. **One canonical example per gap type added** (ProcessGap excluded -- it is runtime-driven with no offline example value):
+   - Each example is written as expert-leaf / researcher-leaf node pairs (label + description), matching the exact input format Agent C receives
+   - Each example ends with a one-sentence explanation naming the discriminating condition
+
+3. **One boundary edge case per type-pair added** (6 pairs total: Lexical/Conceptual, Lexical/Tacit, Lexical/Scope, Conceptual/Tacit, Conceptual/Scope, Tacit/Scope):
+   - Each edge case shows a node pair that superficially resembles one type but correctly classifies as another
+   - Each ends with "X (NOT Y): [reason why Y does not apply]" -- the contrastive phrasing forces Agent C to evaluate the discriminating condition rather than pattern-match to a prototype
+
+### Design Decisions
+
+- Examples and edge cases use the medical/clinical domain (consistent with the system's primary use case and existing prompt examples in `process_gap.md`)
+- ProcessGap excluded from examples: its classification depends on dynamic runtime signals (tunnel vision, procedural drift) that cannot be demonstrated with static tree node pairs
+- New content is inserted between the existing `Classification hint` and `Return ONLY valid JSON` -- the optimal position for few-shot examples to influence output classification
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `dsag/factory.py` | `ALIGNMENT_JUDGE_PROMPT` -- LexicalGap definition ("same or related" to "same"); added 4 canonical examples + 6 boundary edge cases between classification hint and JSON schema |

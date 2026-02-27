@@ -19,3 +19,7 @@
 ## 2026-02-26
 
 7. **Polish Process Cleanup** — Removed ExpandScope and DeepDive followup_questions from `generate_assistance()` (not in spec). Polish LLM now only polishes `payload`, no longer handles `followup_questions`. Fully removed `followup_questions` field from `Assistance` dataclass, API response, and all test/visualization references. (`runtime.py`, `test_dsag_v2.py`, `test_dsag.py`, `visualize_dsag.py`, `app.py`)
+
+8. **LexicalGap Definition Tightened** — Removed "or related concept" from the LexicalGap definition in `ALIGNMENT_JUDGE_PROMPT`. Now reads "same concept" only, matching `mismatch_types.md` strictly. Prevents ConceptualGap pairs from being misclassified as purely terminological. (`factory.py`)
+
+9. **ALIGNMENT_JUDGE_PROMPT — Examples & Edge Cases** — Added one canonical example per gap type (4 types, ProcessGap excluded) and one boundary edge case per type-pair (6 pairs) to the alignment prompt. Each edge case explicitly names the correct type and states why the alternative does not apply, targeting the four most common misclassification boundaries (Lexical/Conceptual, Conceptual/Tacit, Conceptual/Scope, Tacit/Scope). Also tightened LexicalGap definition: changed "same or related concept" to "same concept" to prevent over-classification of ConceptualGap pairs as Lexical. (`factory.py`)

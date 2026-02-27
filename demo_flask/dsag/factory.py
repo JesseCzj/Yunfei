@@ -245,13 +245,73 @@ IMPORTANT:
 - It is acceptable to pair one expert leaf with multiple researcher leaves if that creates meaningful gaps
 
 Gap type definitions for "relation_type" (misaligned pairs only):
-- "LexicalGap": The two sides use different terms, jargon, or labels for the same or related concept.
+- "LexicalGap": The two sides use different terms, jargon, or labels for the same concept.
 - "ConceptualGap": The two sides hold different mental models, analogies, or interpretations of the concept.
 - "TacitGap": The expert relies on intuition, implicit knowledge, or experience that the researcher cannot easily observe or quantify.
 - "ScopeGap": The two sides differ in purpose or expectations — the expert focuses on practical utility while the researcher focuses on research value, leading to inconsistent goals about "what to do."
 - "ProcessGap": Factual errors disrupt the discussion, or the expert lacks standardized procedures or falls into narrow narratives (tunnel vision), causing workflow/sequence misalignment.
 
 Classification hint: Expert leaf nodes that contain a non-empty "attributes" list indicate tacit, intuition-based knowledge (Tacit Knowledge Facets). When such a leaf is part of a misaligned pair, strongly prefer "TacitGap" as the relation_type.
+
+---
+
+**One canonical example per gap type** (node format: label — description):
+
+LexicalGap example:
+  Expert:     "EHR audit trail" — The log of all actions performed on a patient's record, used by clinicians for accountability.
+  Researcher: "Activity log" — A timestamped record of system interactions stored in the database, used for access-control analysis.
+  → LexicalGap: Both sides describe the same artifact. The difference is purely terminological — adopting a shared label would fully close the gap.
+
+ConceptualGap example:
+  Expert:     "Clinical reliability" — A system that is always available when I need it during rounds — no downtime, no lag.
+  Researcher: "System reliability" — The degree to which a system produces consistent, reproducible outputs under repeated testing conditions.
+  → ConceptualGap: Both use "reliability" but hold fundamentally different mental models — uptime/availability vs. statistical reproducibility. Agreeing on a term would not resolve the disagreement; the underlying constructs differ.
+
+TacitGap example:
+  Expert:     "Deterioration judgment" — Recognizing when a patient is about to decline based on subtle cues — skin tone, breathing rhythm, demeanor — before vitals change. [attributes: "skin color change", "respiratory pattern shift", "patient demeanor", "nurse intuition threshold"]
+  Researcher: "Early deterioration signal" — A quantifiable indicator that precedes a clinical deterioration event, suitable for inclusion in a predictive model.
+  → TacitGap: The expert possesses valid, structured knowledge (confirmed by non-empty attributes list) but it exists as implicit pattern recognition. The knowledge is real — it has not yet been surfaced and made explicit.
+
+ScopeGap example:
+  Expert:     "Alarm threshold tuning" — Adjusting alert thresholds to reduce false positives and make the alarm system practical for daily clinical use.
+  Researcher: "Alarm fatigue measurement" — Quantifying the systemic cognitive burden that high alarm volumes impose on clinical staff, as a variable in a human-factors study.
+  → ScopeGap: The expert's goal is practical utility (make alarms less disruptive); the researcher's goal is research value (measure alarm fatigue as a construct). They disagree on what this work should produce — not on what the concept means.
+
+---
+
+**One boundary edge case per pair of types** (what looks like X but is actually Y):
+
+[LexicalGap vs ConceptualGap]
+  Expert:     "Patient risk score" — The number the system gives a patient; high means they need attention soon.
+  Researcher: "Risk stratification" — Classifying patients into probabilistic risk tiers based on weighted feature combinations in a predictive model.
+  → ConceptualGap (NOT LexicalGap): The expert's concept is a simple output number for triage priority; the researcher's concept is a multi-step classification process. These are different mental models of what risk assessment IS — not the same concept under different labels. A shared label would not close the gap.
+
+[LexicalGap vs TacitGap]
+  Expert:     "Clinical intuition" — The sense that something is wrong with a patient even when numbers look normal — experienced nurses develop this over years.
+  Researcher: "Non-quantifiable clinical signal" — An expert-identified indicator that lacks a formal operational definition.
+  → TacitGap (NOT LexicalGap): The researcher's label is an attempt to formalize what the expert experiences as intuition. Simply agreeing on a shared term would not help the researcher extract the actual knowledge — the gap is about surfacing implicit experiential knowledge, not about aligning vocabulary.
+
+[LexicalGap vs ScopeGap]
+  Expert:     "Medication reconciliation" — Checking that drugs listed in the system match what the patient is actually taking at every care transition.
+  Researcher: "Drug list validation" — Verifying the completeness and accuracy of the pharmacological record in the EHR.
+  → LexicalGap (NOT ScopeGap): Both sides describe the same process and share the same goal — understand this verification step. The difference is vocabulary only ("medication reconciliation" vs. "drug list validation"). There is no divergence in purpose or expectations.
+
+[ConceptualGap vs TacitGap]
+  Expert:     "Patient severity assessment" — I look at labs, vitals, how the patient looks, and just know whether they're sick. Hard to explain, but you learn it. [attributes: "lab trend pattern", "vital sign cluster", "patient appearance", "gut feeling threshold"]
+  Researcher: "Acuity scoring" — A structured composite score based on weighted physiological parameters that classifies patient severity on a standardized scale.
+  → TacitGap (NOT ConceptualGap): The expert is not operating on a different model of what "severity" means — they agree it involves labs, vitals, and patient state. The problem is that their assessment process is experiential and unarticulated, confirmed by the non-empty attributes list. A ConceptualGap would require fundamental disagreement about what "severity" IS.
+
+[ConceptualGap vs ScopeGap]
+  Expert:     "Workflow efficiency" — Getting through the patient list faster by reducing the number of steps and screens needed to document each encounter.
+  Researcher: "Workflow optimization" — Identifying cognitive bottlenecks in clinical workflows that can be modeled and reduced through system redesign.
+  → ConceptualGap (NOT ScopeGap): Both sides want to improve workflows — their interview goals are aligned. The gap is in their mental models of what "optimization" means: reducing manual steps vs. modeling cognitive bottlenecks. This is a disagreement about how the concept works, not about what the interview should produce.
+
+[TacitGap vs ScopeGap]
+  Expert:     "Drug dosing judgment" — Adjusting doses based on weight, age, renal function, and what's worked before — I know when to deviate from the protocol. [attributes: "patient weight", "renal function marker", "prior drug response", "experience threshold"]
+  Researcher: "Dosing parameter study" — Identifying which patient variables most influence clinician deviation from standard protocols, to inform future guideline development.
+  → TacitGap (NOT ScopeGap): The researcher's goal — extract dosing variables — is fully aligned with the interview purpose. The problem is that the expert's decisions are driven by implicit pattern recognition (confirmed by attributes). There is no divergence in expectations; there is an articulability problem. A ScopeGap would require the expert to want the interview to produce something entirely different.
+
+---
 
 Return ONLY valid JSON with this schema:
 {{
