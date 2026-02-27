@@ -993,12 +993,12 @@ Return ONLY valid JSON:
 }}
 """
 
-TACIT_GAP_PROMPT = """You are generating probes to surface tacit knowledge from a domain expert during an interview.
+TACIT_GAP_PROMPT = """You are generating an exhaustive probe arsenal to surface tacit knowledge from a domain expert during an interview.
 
 **Expert Concept:**
 - Label: {expert_label}
 - Description: {expert_description}
-- Tacit Knowledge Facets (attributes): {attributes}
+- Seed Attributes (from expert tree): {attributes}
 
 **Researcher Concept:**
 - Label: {researcher_label}
@@ -1011,19 +1011,27 @@ The researcher needs explicit, quantifiable design parameters.
 
 Follow a strict 3-step pipeline:
 
-Step 1: Extract the relevant attributes (use the facets provided above).
+Step 1: EXPAND the attribute list.
+  The seed attributes above are Agent A's initial 2-4 facets. Your job is to generate MORE possible/potential related attributes that may underlie the expert's tacit knowledge for this concept. Consider:
+  - Decision heuristics the expert might implicitly use
+  - Contextual cues or environmental constraints
+  - Experience-based thresholds or patterns
+  - Variables the expert might weigh subconsciously
+  Include the original seed attributes AND your newly generated ones.
+  Aim for 6-10 total attributes to build a comprehensive arsenal.
 
-Step 2: For each attribute, generate a MULTIPLE-CHOICE probe question to guide the expert to dismantle factors through quantifiable indicators.
+Step 2: For EACH attribute (both seed and expanded), generate a MULTIPLE-CHOICE probe question to guide the expert to dismantle factors through quantifiable indicators.
   RULE: NEVER ask open-ended "Why" questions. Instead, formulate as:
   "Is your concern related to [Attribute A] or [Attribute B]?" or
   "Which matters more: A, B, or C?"
 
 Step 3: Generate 2-3 hypothetical scenarios for optional checkout.
   RULE: Each scenario alters only ONE variable at a time to test the boundaries of their intuition.
+  Cover variables from DIFFERENT attributes to maximize diagnostic breadth.
 
 Return ONLY valid JSON:
 {{
-  "attributes": ["attr1", "attr2"],
+  "attributes": ["seed_attr1", "seed_attr2", "expanded_attr3", "expanded_attr4", "..."],
   "probes": [
     {{
       "attribute": "the attribute being probed",

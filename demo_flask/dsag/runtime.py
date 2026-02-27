@@ -203,7 +203,8 @@ class Assistance:
     - ConceptualGap: {"analogy": {"source_concept", "structural_mapping": {inputs, logic, outputs},
                       "explanation"}, "scenario": {"inputs", "outputs", "edge_cases"}}
     - TacitGap:      {"attributes": [...], "probes": [{attribute, question, choices}],
-                      "hypothetical_scenarios": ["...", "..."]}
+                      "hypothetical_scenarios": ["...", "..."],
+                      "mentioned_attributes": [...]}  // added by polish after filtering
     - ScopeGap:      {"validate_focus": "...", "pivot": {limitation, research_goal,
                       compelling_reason, coarse_scenario}}
     - ProcessGap:    {"coverage": {"visited": [...], "unvisited_siblings": [...],
@@ -304,19 +305,39 @@ The analogy and scenario are PARALLEL strategies (no required order).
 Do not merge them or remove either one.""",
 
         RelationType.TACIT_GAP.value: """## TacitGap polishing rules
+The offline payload contains an EXHAUSTIVE arsenal of attributes, probes, and scenarios.
+Your primary job is INTELLIGENT FILTERING, then polishing.
+
+### Step A — Extract already-mentioned attributes
+Read the expert's latest answer and the conversation context carefully.
+Identify which attributes from the "attributes" list the expert has ALREADY
+articulated, explained, or demonstrated knowledge of (even partially or
+using different words). List them internally.
+
+### Step B — Filter
+REMOVE from the output:
+  - Any attribute that the expert has already mentioned/articulated.
+  - The corresponding probe(s) for those removed attributes.
+  - Any hypothetical_scenario whose altered variable maps to an already-mentioned attribute.
+Keep ONLY the attributes (and their probes/scenarios) that the expert
+has NOT yet surfaced.
+
+### Step C — Polish the remaining items
 FROZEN fields (copy verbatim — do NOT alter):
-  - attributes (the list of attribute names)
+  - The remaining attribute names
   - probes[].attribute
   - probes[].choices (the option labels must stay exactly as-is)
-  - hypothetical_scenarios (keep the variable-change structure intact)
 
 POLISHABLE fields:
   - probes[].question — rephrase for naturalness, but it MUST remain a
     multiple-choice question (NEVER convert to open-ended "Why …?").
     Reference the expert's recent answer where possible.
 
-The 3-step order (attributes → probes → hypothetical checkout) is strict.
-Do not reorder or collapse steps.""",
+### Output requirements
+- The 3-step structure (attributes → probes → hypothetical_scenarios) is strict.
+- If ALL attributes have been mentioned, return empty lists for all three fields.
+- Add a top-level field "mentioned_attributes": [...] listing the attributes
+  you identified as already articulated by the expert (for transparency).""",
 
         RelationType.SCOPE_GAP.value: """## ScopeGap polishing rules
 FROZEN fields (copy verbatim — do NOT alter):
@@ -586,11 +607,14 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
         elif relation == RelationType.CONCEPTUAL_GAP.value:
             pass
 
-        # ---- TacitGap: strict 3-step pipeline. ----
+        # ---- TacitGap: exhaustive offline arsenal → runtime filtering via polish. ----
         elif relation == RelationType.TACIT_GAP.value:
-            # Merge live attributes from node into payload
-            if expert_node and expert_node.attributes:
-                payload["attributes"] = expert_node.attributes
+            # The offline payload already contains the expanded attribute list
+            # (Agent A's seed attributes + LLM-generated expansions) with
+            # probes and scenarios for ALL of them.
+            # No mutation needed here — the polish step will handle intelligent
+            # filtering (extract expert's already-mentioned attributes, remove
+            # them, present only the unmentioned remainder).
             assistance.payload = payload
 
         # ---- ScopeGap: strict 2-step (validate then pivot). No follow-ups. ----

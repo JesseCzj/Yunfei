@@ -386,4 +386,39 @@ Priority: Repeated Topic > Tunnel Vision. Only one drift type per turn (mutually
 
 - `app.py` — timeline accumulation logic unchanged
 - `schema.py` — `GapLink.assistance_payload` is `Dict[str, Any]`, accepts any shape
-- All other gap types — no changes to Lexical, Conceptual, Tacit, Scope pipelines
+- All other gap types — no changes to Lexical, Conceptual, Scope pipelines
+
+---
+
+## 2026-02-27 — TacitGap Two-Phase Design: Exhaustive Offline → Intelligent Runtime Filtering
+
+### Problem
+
+The original TacitGap pipeline had two weaknesses:
+
+1. **Attribute list too narrow**: Agent A generates only 2-4 seed attributes per intuition-based leaf. The `TACIT_GAP_PROMPT` simply used these as-is, producing a small set of probes/scenarios. Many relevant tacit dimensions went unprobed.
+2. **Polish was dumb rephrasing**: The runtime polish step only rephrased probe questions for naturalness. It had no awareness of what the expert had already articulated during the live interview, so it would present probes for attributes the expert had already explained — redundant and potentially annoying.
+
+### Solution: Two-Phase Design
+
+| Phase | Before | After |
+|-------|--------|-------|
+| **Offline (payload generation)** | Use Agent A's 2-4 seed attributes directly | **Expand**: use seed attributes as starting points, generate 6-10 total attributes covering decision heuristics, contextual cues, experience thresholds, subconscious variables. Generate probes + scenarios for ALL of them. |
+| **Runtime (polish)** | Simple rephrasing of probe questions | **Intelligent filtering**: extract which attributes the expert has already mentioned → remove those attributes + their probes/scenarios → polish only the remaining unmentioned items |
+
+### Design Rationale
+
+- **Offline = exhaustive arsenal**: One-time LLM call with full context produces higher quality. Generate everything possible upfront.
+- **Runtime = smart filtering**: Lightweight step that uses real conversation data to select what's actually needed. No wasted probes on already-surfaced knowledge.
+- The polish LLM now outputs a `"mentioned_attributes"` field for transparency — the researcher can see which attributes the system detected as already discussed.
+
+### Touch Points
+
+| File | Change |
+|------|--------|
+| `dsag/factory.py` | `TACIT_GAP_PROMPT` — Step 1 rewritten from "extract" to "expand" (seed → 6-10 attributes). Steps 2-3 updated to cover all attributes. |
+| `dsag/runtime.py` | `_POLISH_RULES_BY_TYPE[TacitGap]` — rewritten from simple rephrasing to 3-phase filtering (extract mentioned → filter → polish remainder). Added `mentioned_attributes` output field. |
+| `dsag/runtime.py` | `generate_assistance()` TacitGap branch — removed old attribute-override logic (no longer needed; expanded attributes live in offline payload). |
+| `dsag/runtime.py` | `Assistance` docstring — updated TacitGap payload shape to include `mentioned_attributes`. |
+| `mismatch_types.md` | Added "Two-Phase Design" section under Tacit Gap. |
+| `improvement_goal.md` | Added "Two-Phase Design" section under Tacit Gap. |
