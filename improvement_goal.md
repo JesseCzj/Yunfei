@@ -45,6 +45,12 @@
   1. Extract attributes from expert answers.
   2. Guide experts to dismantle factors through quantifiable indicators.
   3. Come up with some hypothetical scenarios for checkout (allow user to decide whether to generate).
+- **Two-Phase Design** (offline exhaustive preparation → runtime intelligent filtering):
+  - **Offline Phase (Payload Generation)**: When processing a TacitGap link, the system should **expand the attribute list** beyond Agent A's initial 2-4 attributes. Given the mismatch information and Agent A's initial attributes as seeds, generate more possible/potential related attributes. Then for ALL attributes (original + expanded), generate step 2 multi-select probes and step 3 hypothetical scenario checkouts. The goal is to pre-compute an exhaustive set of probes and scenarios.
+  - **Runtime Phase (Polish LLM)**: The polish LLM performs **intelligent filtering** instead of simple rephrasing:
+    1. **Extract** which attributes the expert has already articulated during the live interview.
+    2. **Filter out** the already-mentioned attributes from the full attribute list.
+    3. **Present** probes and scenarios only for the **remaining unmentioned attributes**.
 - **Implementation**:
   - **Probing Rule**: Never ask open-ended "Why" questions. Instead, formulate a multiple-choice probe using known domain attributes (e.g., "Is your concern related to [Attribute A] or [Attribute B]?").
   - **Checkout Design**: Alter only one variable in the hypothetical scenario at a time to test the boundaries of their intuition.

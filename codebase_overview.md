@@ -152,7 +152,7 @@ After links are built, one LLM call per link generates the type-specific `assist
 | **ConceptualGap** | `{analogy: {source_concept, structural_mapping, explanation}, scenario: {inputs, outputs, edge_cases}}` — receives `{expert_siblings}` as grounded analogy candidates |
 | **TacitGap** | `{probes: [{attribute, question, choices}], hypothetical_scenarios: [...]}` |
 | **ScopeGap** | `{validate_focus, pivot: {limitation, research_goal, compelling_reason, coarse_scenario}}` |
-| **ProcessGap** | `{initial_topics: [...]}` |
+| **ProcessGap** | `{misalignment_reason}` *(no LLM call — stores Agent C reason for runtime redirect prompt)* |
 
 ### LLM Configuration in factory.py
 
@@ -207,7 +207,7 @@ Uses `_build_llm()` which reads:
    - **ConceptualGap**: copies offline `analogy` + `scenario`; generates **ExpandScope** follow-ups from researcher tree siblings
    - **TacitGap**: merges offline probes with live `node.attributes`; includes `hypothetical_scenarios`; generates **DeepDive** follow-ups
    - **ScopeGap**: copies offline `validate_focus` + `pivot`; no follow-ups
-   - **ProcessGap**: injects `interview_timeline`, runs drift detection (repeated topics / uncovered siblings); payload includes `timeline`, `drift_alerts`, `current_topic`
+   - **ProcessGap**: entirely runtime-driven (no offline LLM call). Uses `interview_timeline` for drift detection (2 alert types: repeated topic / tunnel vision) plus coverage info (always computed, info-only). When drift is detected, makes an on-demand LLM call (`PROCESS_GAP_REDIRECT_PROMPT`) to generate a context-aware redirect sentence referencing the expert's actual words. Coverage gap is informational only and does not trigger redirect. Payload: `{coverage, drift_detected, drift_type, drift_detail, redirect}`
 
 5. **Polish step** (`_polish_assistance`):
    - Uses cheap/fast model (`OPENAI_MODEL_POLISH`, default `"qwen-turbo"`)

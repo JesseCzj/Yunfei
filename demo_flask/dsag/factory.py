@@ -1083,44 +1083,8 @@ Return ONLY valid JSON:
 }}
 """
 
-PROCESS_GAP_PROMPT = """You are analyzing a process/workflow mismatch between an expert and a researcher.
-
-**Expert Concept:**
-- Path: {expert_path}
-- Label: {expert_label}
-- Description: {expert_description}
-
-**Researcher Concept:**
-- Path: {researcher_path}
-- Label: {researcher_label}
-- Description: {researcher_description}
-
-**Misalignment Reason:** {misalignment_reason}
-
-The expert and researcher think about this workflow in a different order or with different steps.
-Factual errors, lack of standardized procedures, or narrow expert narratives disrupt the discussion.
-
-Your task: Reconstruct the expected workflow from the expert's perspective, so the interviewer can track coverage, detect skipped steps, and notice when the expert falls into tunnel vision.
-
-Instructions:
-1. Identify the key process steps the expert likely follows, IN ORDER, based on the expert concept and its context.
-2. For each step, write a short description of what happens and WHY the expert considers it important.
-3. Flag 1-2 "tunnel vision risks" — specific steps where the expert is likely to over-elaborate or get stuck in a narrow narrative, neglecting other steps.
-
-Return ONLY valid JSON:
-{{
-  "expected_steps": [
-    {{
-      "label": "Short step name",
-      "description": "What happens in this step and why it matters to the expert",
-      "order": 1
-    }}
-  ],
-  "tunnel_vision_risks": [
-    "Step X — reason why the expert tends to over-focus here"
-  ]
-}}
-"""
+# PROCESS_GAP_PROMPT removed — Process Gap is entirely runtime-driven.
+# No offline scaffold or pre-generated templates. See process_gap.md for design rationale.
 
 
 def generate_assistance_payload_for_link(
@@ -1144,12 +1108,16 @@ def generate_assistance_payload_for_link(
         print(f"[GraphFactory] Warning: Could not find nodes for payload generation")
         return {}
 
+    # ProcessGap is entirely runtime-driven — no offline LLM call.
+    # Store misalignment_reason for runtime redirect prompt consumption.
+    if link.relation_type == RelationType.PROCESS_GAP.value:
+        return {"misalignment_reason": misalignment_reason}
+
     prompt_map = {
         RelationType.LEXICAL_GAP.value: LEXICAL_GAP_PROMPT,
         RelationType.CONCEPTUAL_GAP.value: CONCEPTUAL_GAP_PROMPT,
         RelationType.TACIT_GAP.value: TACIT_GAP_PROMPT,
         RelationType.SCOPE_GAP.value: SCOPE_GAP_PROMPT,
-        RelationType.PROCESS_GAP.value: PROCESS_GAP_PROMPT,
     }
 
     prompt_template = prompt_map.get(link.relation_type, CONCEPTUAL_GAP_PROMPT)

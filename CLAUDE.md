@@ -46,9 +46,9 @@ The system builds a knowledge graph before the interview starts, then uses it fo
 4. **Runtime** (`dsag/runtime.py`) — Per-turn analysis:
    - Locates positions by embedding the Q&A into both trees.
    - Queries relevant GapLinks between matched leaves.
-   - Outputs exactly 3 assistance types: `bridge_templates`, `checkout_template`, `followup_questions`.
-   - Follow-up strategy: **DeepDive** (vertical, when leaf has `attributes`) or **ExpandScope** (horizontal, via siblings).
-   - **Polish step:** Uses a faster/cheaper model (`OPENAI_MODEL_POLISH`) to refine assistance text using recent conversation context.
+   - Generates type-specific `Assistance` payloads (structure varies by `relation_type`).
+   - **ProcessGap is entirely runtime-driven** — no offline payload. Uses `interview_timeline` for drift detection (repeated topic / tunnel vision / coverage gap) and an on-demand LLM call to generate a context-aware redirect sentence when drift is detected.
+   - **Polish step:** Uses a faster/cheaper model (`OPENAI_MODEL_POLISH`) to refine assistance text using recent conversation context. ProcessGap skips this step (its redirect is already LLM-generated with full context).
 
 ### Flask Application (app.py)
 

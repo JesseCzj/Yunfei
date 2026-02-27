@@ -112,6 +112,42 @@ def _parse_json_from_text(text: str) -> Dict[str, Any]:
     return {}
 
 
+# ============== Process Gap Runtime Prompt ==============
+
+PROCESS_GAP_REDIRECT_PROMPT = """You are helping a researcher redirect an interview conversation that has drifted.
+
+**Drift type:** {drift_type}
+**Drift detail:** {drift_detail}
+
+**Current topic the expert is discussing:**
+- Label: {current_topic_label}
+- Description: {current_topic_description}
+
+**Expert's latest answer (verbatim excerpt):**
+"{expert_answer}"
+
+**Unvisited related topics the researcher has NOT yet explored:**
+{unvisited_siblings_text}
+
+**Misalignment context:** {misalignment_reason}
+
+**Recent conversation flow (last few turns):**
+{timeline_summary}
+
+Your task: Generate ONE natural redirect sentence that the researcher can speak directly to steer the conversation. Rules:
+1. Reference the expert's actual words or phrasing from their latest answer — show you were listening.
+2. Validate what the expert just said before transitioning.
+3. Use an exploratory question to introduce the unvisited topic — never assert or correct.
+4. Keep it to 1-2 sentences, natural and conversational.
+5. Do NOT use jargon the expert hasn't used.
+
+Return ONLY valid JSON:
+{{
+  "redirect": "Your single redirect sentence here"
+}}
+"""
+
+
 # ============== Result Data Classes ==============
 
 @dataclass
@@ -170,7 +206,10 @@ class Assistance:
                       "hypothetical_scenarios": ["...", "..."]}
     - ScopeGap:      {"validate_focus": "...", "pivot": {limitation, research_goal,
                       compelling_reason, coarse_scenario}}
-    - ProcessGap:    {"timeline": [...], "drift_alerts": [...], "current_topic": "..."}
+    - ProcessGap:    {"coverage": {"visited": [...], "unvisited_siblings": [...],
+                      "coverage_ratio": "2/5"}, "drift_detected": bool,
+                      "drift_type": str|null, "drift_detail": str|null,
+                      "redirect": str|null}
     """
     relation_type: str = ""
     payload: Dict[str, Any] = field(default_factory=dict)
@@ -296,23 +335,9 @@ POLISHABLE fields:
 
 The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
 
-        RelationType.PROCESS_GAP.value: """## ProcessGap polishing rules
-FROZEN fields (copy verbatim — do NOT alter):
-  - timeline (the entire list — structural tracking data)
-  - current_topic (label string)
-  - expected_steps[].order (numeric ordering)
-  - expected_steps[].label (step names)
-
-POLISHABLE fields:
-  - expected_steps[].description — make each step description read naturally,
-    referencing the expert's terminology and recent answer.
-  - tunnel_vision_risks[] — rephrase each risk alert so it sounds like
-    a gentle, constructive interviewer note (not a harsh warning).
-  - drift_alerts[] — rephrase each drift alert so it reads as a helpful
-    suggestion, referencing the expert's own topic labels.
-
-Do NOT alter the ORDER of expected_steps.
-Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
+        # ProcessGap is runtime-driven. Its redirect is already LLM-generated
+        # with full context, so it skips the polish step entirely.
+        # No entry needed here.
     }
 
     def _polish_assistance(
@@ -466,14 +491,81 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
 
         return divergence
 
+    def _generate_process_redirect(
+        self,
+        drift_type: str,
+        drift_detail: str,
+        expert_node: DSAGNode,
+        expert_answer: str,
+        unvisited: List[DSAGNode],
+        selected_link: Optional[GapLink],
+        timeline: List[Dict[str, Any]],
+    ) -> Optional[str]:
+        """
+        Generate a context-aware redirect sentence via LLM when drift is detected.
+        Returns the redirect string, or None if the LLM call fails.
+        """
+        # Build unvisited siblings text
+        if unvisited:
+            unvisited_lines = [f"- {s.label}: {s.description}" for s in unvisited[:4]]
+            unvisited_text = "\n".join(unvisited_lines)
+        else:
+            unvisited_text = "(no specific unvisited siblings)"
+
+        # Build a concise timeline summary (last 4 entries)
+        recent = timeline[-4:] if len(timeline) > 4 else timeline
+        tl_lines = []
+        for i, entry in enumerate(recent, 1):
+            tl_lines.append(
+                f"  Turn {entry.get('turn_index', i)}: "
+                f"[{entry.get('topic_label', '?')}] "
+                f"{entry.get('summary', '')[:80]}"
+            )
+        timeline_summary = "\n".join(tl_lines) if tl_lines else "(first turn)"
+
+        # Misalignment reason from the link
+        misalignment_reason = ""
+        if selected_link and selected_link.assistance_payload:
+            misalignment_reason = selected_link.assistance_payload.get(
+                "misalignment_reason", ""
+            )
+
+        variables = {
+            "drift_type": drift_type,
+            "drift_detail": drift_detail,
+            "current_topic_label": expert_node.label,
+            "current_topic_description": expert_node.description,
+            "expert_answer": expert_answer[:500],
+            "unvisited_siblings_text": unvisited_text,
+            "misalignment_reason": misalignment_reason,
+            "timeline_summary": timeline_summary,
+        }
+
+        try:
+            llm = self._get_llm()
+            prompt = ChatPromptTemplate.from_messages([
+                ("user", PROCESS_GAP_REDIRECT_PROMPT)
+            ])
+            chain = prompt | llm
+            response = chain.invoke(variables)
+            content = getattr(response, "content", str(response))
+            parsed = _parse_json_from_text(content)
+            return parsed.get("redirect") if parsed else None
+        except Exception as e:
+            print(f"[RuntimeEngine] ProcessGap redirect generation failed: {e}")
+            return None
+
     def generate_assistance(
         self,
         expert_leaf_id: Optional[str],
         selected_link: Optional[GapLink],
         interview_timeline: Optional[List[Dict[str, Any]]] = None,
+        expert_answer: str = "",
+        researcher_question: str = "",
     ) -> Assistance:
         """
         Generate type-specific assistance based on the selected link's relation_type.
+        For ProcessGap, this is entirely runtime-driven (no offline payload).
         """
         if not selected_link:
             return Assistance()
@@ -505,83 +597,74 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
         elif relation == RelationType.SCOPE_GAP.value:
             pass
 
-        # ---- ProcessGap: accumulated timeline + drift detection. ----
+        # ---- ProcessGap: fully runtime-driven. ----
         elif relation == RelationType.PROCESS_GAP.value:
             timeline = interview_timeline or []
-            payload["timeline"] = timeline
 
-            drift_alerts = []
-            if expert_node:
-                current_label = expert_node.label
-                covered_labels = [entry.get("topic_label", "") for entry in timeline]
+            # --- 1. Coverage Analysis ---
+            current_label = expert_node.label if expert_node else ""
+            covered_ids = {entry.get("expert_leaf_id", "") for entry in timeline}
+            visited_labels = [entry.get("topic_label", "") for entry in timeline]
 
-                # Alert if topic was already discussed
-                if current_label in covered_labels:
-                    prev_turn = covered_labels.index(current_label) + 1
-                    drift_alerts.append(
-                        f"Topic '{current_label}' has been discussed before "
-                        f"(turn {prev_turn}). Consider probing a different aspect."
+            siblings = self.graph.expert_tree.get_siblings(
+                selected_link.expert_leaf_id
+            ) if selected_link else []
+            unvisited = [s for s in siblings if s.id not in covered_ids]
+
+            total_siblings = len(siblings) + 1  # include current node
+            visited_count = total_siblings - len(unvisited)
+
+            coverage_info = {
+                "visited": list(dict.fromkeys(visited_labels)),  # deduplicated, ordered
+                "unvisited_siblings": [s.label for s in unvisited[:5]],
+                "coverage_ratio": f"{visited_count}/{total_siblings}",
+            }
+
+            # --- 2. Drift Detection (3 types) ---
+            drift_type = None
+            drift_detail = None
+
+            # (a) Repeated Topic — same topic appears ≥2 times
+            if current_label:
+                topic_count = sum(1 for v in visited_labels if v == current_label)
+                if topic_count >= 2:
+                    drift_type = "repeated_topic"
+                    drift_detail = (
+                        f"Topic '{current_label}' has been discussed {topic_count} times. "
+                        "The conversation may be circling."
                     )
 
-                # Detect skipped steps using expected_steps from factory
-                expected_steps = payload.get("expected_steps", [])
-                if expected_steps and covered_labels:
-                    step_labels = [s.get("label", "") for s in expected_steps]
-                    # Find which expected steps have been covered
-                    covered_step_orders = []
-                    for step in expected_steps:
-                        if step.get("label", "") in covered_labels:
-                            covered_step_orders.append(step.get("order", 0))
-                    # If current topic matches a later step, flag skipped earlier ones
-                    current_step_order = None
-                    for step in expected_steps:
-                        if step.get("label", "") == current_label:
-                            current_step_order = step.get("order", 0)
-                            break
-                    if current_step_order is not None:
-                        skipped = [
-                            s for s in expected_steps
-                            if s.get("order", 0) < current_step_order
-                            and s.get("label", "") not in covered_labels
-                        ]
-                        if skipped:
-                            skipped_names = ", ".join(
-                                s.get("label", "") for s in skipped
-                            )
-                            drift_alerts.append(
-                                f"Skipped steps: {skipped_names}. "
-                                "Consider circling back to these."
-                            )
+            # (b) Tunnel Vision — expert stays in one sub-branch too long
+            #     AND there are unvisited siblings (if all siblings covered, depth is fine)
+            if not drift_type and len(timeline) >= 4 and unvisited:
+                recent_ids = [entry.get("expert_leaf_id", "") for entry in timeline[-4:]]
+                if len(set(recent_ids)) == 1 and recent_ids[0]:
+                    drift_type = "tunnel_vision"
+                    drift_detail = (
+                        f"The last {len(recent_ids)} turns all discuss the same concept. "
+                        "Consider broadening the scope."
+                    )
 
-                # Tunnel vision detection
-                tunnel_risks = payload.get("tunnel_vision_risks", [])
-                if tunnel_risks:
-                    turn_counts = {}
-                    for entry in timeline:
-                        lbl = entry.get("topic_label", "")
-                        turn_counts[lbl] = turn_counts.get(lbl, 0) + 1
-                    for risk in tunnel_risks:
-                        for lbl, count in turn_counts.items():
-                            if lbl in risk and count >= 2:
-                                drift_alerts.append(
-                                    f"Tunnel vision warning: {risk}"
-                                )
-                                break
-
-                # Suggest uncovered sibling topics
-                siblings = self.graph.expert_tree.get_siblings(
-                    selected_link.expert_leaf_id
+            # --- 3. Runtime Redirect (LLM call only when drift detected) ---
+            redirect_text = None
+            if drift_type and expert_node:
+                redirect_text = self._generate_process_redirect(
+                    drift_type=drift_type,
+                    drift_detail=drift_detail or "",
+                    expert_node=expert_node,
+                    expert_answer=expert_answer,
+                    unvisited=unvisited,
+                    selected_link=selected_link,
+                    timeline=timeline,
                 )
-                covered_ids = {entry.get("expert_leaf_id", "") for entry in timeline}
-                uncovered = [s for s in siblings if s.id not in covered_ids]
-                if uncovered:
-                    labels = ", ".join(s.label for s in uncovered[:3])
-                    drift_alerts.append(
-                        f"Related uncovered topics: {labels}"
-                    )
 
-            payload["drift_alerts"] = drift_alerts
-            payload["current_topic"] = expert_node.label if expert_node else ""
+            payload = {
+                "coverage": coverage_info,
+                "drift_detected": drift_type is not None,
+                "drift_type": drift_type,
+                "drift_detail": drift_detail,
+                "redirect": redirect_text,
+            }
             assistance.payload = payload
 
         return assistance
@@ -633,15 +716,19 @@ Do NOT remove any drift_alerts or tunnel_vision_risks entries.""",
             analysis.located.best_expert_leaf_id,
             analysis.selected_link,
             interview_timeline=interview_timeline,
+            expert_answer=expert_answer,
+            researcher_question=researcher_question,
         )
 
         if analysis.assistance and analysis.assistance.payload:
-            analysis.assistance = self._polish_assistance(
-                analysis.assistance,
-                researcher_question,
-                expert_answer,
-                context_summary,
-            )
+            # ProcessGap redirect is already LLM-generated with full context — skip polish
+            if analysis.assistance.relation_type != RelationType.PROCESS_GAP.value:
+                analysis.assistance = self._polish_assistance(
+                    analysis.assistance,
+                    researcher_question,
+                    expert_answer,
+                    context_summary,
+                )
 
         return analysis
 
