@@ -488,6 +488,66 @@ def test_runtime_type_branching():
     return True
 
 
+def test_tacit_postprocess_extracted_attributes():
+    """TacitGap should display extracted attributes and remove their probes/scenarios."""
+    print("\n=== Testing TacitGap Extracted Attributes Postprocess ===")
+
+    from dsag.schema import RelationType
+    from dsag.runtime import RuntimeEngine
+
+    class DummyEngine(RuntimeEngine):
+        pass
+
+    # Bypass __init__ requirements; this test only calls a pure helper.
+    engine = DummyEngine.__new__(DummyEngine)
+
+    payload = {
+        "attributes": ["confidence level", "patient history completeness", "signal quality"],
+        "probes": [
+            {
+                "attribute": "confidence level",
+                "question": "Is it low confidence or inconsistent confidence?",
+                "choices": ["Low confidence", "Inconsistent confidence"],
+            },
+            {
+                "attribute": "signal quality",
+                "question": "Is signal quality mostly noisy or sparse?",
+                "choices": ["Noisy", "Sparse"],
+            },
+        ],
+        "hypothetical_scenarios": [
+            "If confidence level rose from 60% to 95%, would your judgment change?",
+            "If signal quality improved with less noise, would your judgment change?",
+        ],
+        "mentioned_attributes": ["confidence level"],
+    }
+
+    out = engine._postprocess_tacit_payload(payload)
+
+    assert out["extracted_attributes"] == ["confidence level"]
+    assert out["mentioned_attributes"] == ["confidence level"]
+    assert out["attributes"] == ["patient history completeness", "signal quality"]
+    assert len(out["probes"]) == 1
+    assert out["probes"][0]["attribute"] == "signal quality"
+    assert len(out["hypothetical_scenarios"]) == 1
+    assert "confidence level" not in out["hypothetical_scenarios"][0].lower()
+    print("  [OK] Extracted attributes are displayed and filtered from probes/scenarios")
+
+    # Also verify alias input key is supported.
+    payload2 = {
+        "attributes": ["a", "b"],
+        "probes": [],
+        "hypothetical_scenarios": [],
+        "extracted_attributes": ["a"],
+    }
+    out2 = engine._postprocess_tacit_payload(payload2)
+    assert out2["attributes"] == ["b"]
+    assert out2["mentioned_attributes"] == ["a"]
+    print("  [OK] extracted_attributes alias is normalized")
+
+    return True
+
+
 def test_full_dsag_generation(skip_if_no_key=True):
     """Test full DSAG generation with real API calls."""
     print("\n=== Testing Full DSAG Generation (v2) ===")
@@ -584,6 +644,14 @@ def main():
         print(f"  [FAIL] Runtime test: {e}")
         import traceback; traceback.print_exc()
         results["runtime_v2"] = False
+
+    # Test 3b: Tacit extracted-attributes postprocess
+    try:
+        results["tacit_postprocess_v2"] = test_tacit_postprocess_extracted_attributes()
+    except Exception as e:
+        print(f"  [FAIL] Tacit postprocess test: {e}")
+        import traceback; traceback.print_exc()
+        results["tacit_postprocess_v2"] = False
 
     # Test 4: Full generation (optional)
     try:

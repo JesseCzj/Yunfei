@@ -14,6 +14,46 @@
 
       <div class="main-panels">
         <aside class="script-panel">
+          {# ====== DSAG Initialization Section ====== #}
+          <div class="dsag-init-section">
+            <div class="panel-header">
+              <h2 class="panel-title">DSAG Setup</h2>
+              <span class="dsag-status-badge" id="dsagStatusBadge">
+                {% if dsag_ready %}
+                  <span class="badge badge-ready">Ready</span>
+                {% else %}
+                  <span class="badge badge-inactive">Not initialized</span>
+                {% endif %}
+              </span>
+            </div>
+            {% if not dsag_ready %}
+            <form id="dsagInitForm" class="dsag-init-form">
+              <div class="dsag-field">
+                <label for="dsagTopic">Topic</label>
+                <input type="text" id="dsagTopic" placeholder="e.g. AI-assisted Medical Diagnosis" required />
+              </div>
+              <div class="dsag-field">
+                <label for="dsagResearcherBg">Researcher Background</label>
+                <input type="text" id="dsagResearcherBg" placeholder="e.g. HCI researcher studying explainable AI" required />
+              </div>
+              <div class="dsag-field">
+                <label for="dsagExpertBg">Expert Background</label>
+                <input type="text" id="dsagExpertBg" placeholder="e.g. Radiologist with 10 years experience" required />
+              </div>
+              <button type="submit" class="btn btn-primary dsag-init-btn" id="dsagInitBtn">
+                Initialize DSAG
+              </button>
+              <div class="dsag-init-status" id="dsagInitStatus"></div>
+            </form>
+            {% else %}
+            <div class="dsag-ready-info">
+              <p class="dsag-ready-text">DSAG graph is ready. Assistance will appear automatically on each expert response.</p>
+            </div>
+            {% endif %}
+          </div>
+
+          <hr class="panel-divider" />
+
           <div class="panel-header">
             <h2 class="panel-title">Interview Script</h2>
           </div>
@@ -68,7 +108,6 @@
 
             {% for msg in messages %}
               {% if msg.role == "researcher" %}
-                {% set has_hci_terms = msg.hci_terms is defined and msg.hci_terms|length > 0 %}
                 <div class="message-row researcher-row">
                   <div class="message-card researcher-card">
                     <div class="message-header">
@@ -77,35 +116,18 @@
                         <span class="badge badge-voice">Voice</span>
                       {% endif %}
                     </div>
-                    <div class="message-content" 
-                      {% if has_hci_terms %}data-hci-terms='{{ msg.hci_terms|tojson }}'{% endif %}
-                    >{{ msg.content }}</div>
-                    {% if has_hci_terms %}
-                      <div class="hci-terms-annotation">
-                        {% for term in msg.hci_terms %}
-                          <span class="hci-term-tag">{{ term.term }} <span class="term-explanation">({{ term.explanation }})</span></span>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
+                    <div class="message-content">{{ msg.content }}</div>
                   </div>
                   <div class="message-avatar researcher-avatar">🧑‍💻</div>
                 </div>
               {% else %}
                 {# Expert message with progressive disclosure #}
-                {% set has_jargon = msg.jargon is defined and msg.jargon|length > 0 %}
                 {% set has_mismap = msg.mismap is defined and msg.mismap.detected %}
                 {% set has_manual_mismap = msg.manual_mismap is defined and msg.manual_mismap %}
                 {% set show_mismap = has_mismap or has_manual_mismap %}
                 {% set mismap_data = msg.mismap if msg.mismap is defined else {} %}
-                
-                {# Check for on-demand generated content #}
-                {% set has_refinement = msg.refinement is defined and msg.refinement %}
-                {% set has_contexts = msg.contexts is defined and (msg.contexts.Coarse or msg.contexts.Balanced or msg.contexts.Fine) %}
-                {% set has_explanation = msg.explanation is defined and msg.explanation %}
-                {% set contexts = msg.contexts if msg.contexts is defined else {} %}
 
                 <div class="message-row expert-row" data-msg-index="{{ loop.index0 }}">
-                  <input type="checkbox" class="expert-select-checkbox" data-msg-index="{{ loop.index0 }}" />
                   <div class="message-avatar expert-avatar">👨‍⚕️</div>
                   <div class="message-card expert-card">
                     <div class="message-header">
@@ -116,203 +138,213 @@
                     </div>
                     <div
                       class="message-content expert-content"
-                      data-jargon='{{ (msg.jargon if msg.jargon is defined else [])|tojson }}'
+                      data-jargon='[]'
                     >{{ msg.content }}</div>
 
                     <div class="analysis-section">
-                      {# 1. Mis-map Card - Show type/reason + action buttons + nested results #}
-                      {% if show_mismap %}
-                        <div class="analysis-card mismap-card collapsible">
+
+                      {# DSAG Assistance Card #}
+                      {% set has_dsag = msg.dsag_analysis is defined and msg.dsag_analysis and msg.dsag_analysis.assistance is defined and msg.dsag_analysis.assistance and msg.dsag_analysis.assistance.relation_type and msg.dsag_analysis.assistance.payload %}
+                      {% if has_dsag %}
+                        {% set dsag = msg.dsag_analysis %}
+                        {% set assist = dsag.assistance if dsag.assistance is defined else {} %}
+                        {% set rtype = assist.relation_type if assist.relation_type is defined else "" %}
+                        {% set payload = assist.payload if assist.payload is defined else {} %}
+                        <div class="analysis-card dsag-card collapsible">
                           <div class="analysis-header">
-                            <span class="analysis-icon">⚠️</span>
-                            <span class="analysis-title">Mis-map Detected</span>
+                            <span class="analysis-icon">🧭</span>
+                            <span class="analysis-title">DSAG Assistance</span>
+                            {% if rtype %}
+                              <span class="badge badge-dsag-type">{{ rtype }}</span>
+                            {% endif %}
                             <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
                               <span class="collapse-icon">▼</span>
                             </button>
                           </div>
                           <div class="card-body">
-                            <div class="analysis-content">
-                              {% if mismap_data.type %}
-                                <div class="mismap-type"><strong>Type:</strong> {{ mismap_data.type }}</div>
-                              {% endif %}
-                              <div class="mismap-reason">
-                                <strong>Reason:</strong> {{ mismap_data.reason if mismap_data.reason else "Manually tagged by researcher." }}
-                              </div>
-                            </div>
-                            
-                            {# Action buttons for on-demand assistance - hide when generated #}
-                            <div class="action-buttons">
-                              {% if not has_refinement %}
-                                <button
-                                  type="button"
-                                  class="action-btn action-btn-refinement"
-                                  data-action="refinement"
-                                  data-msg-index="{{ loop.index0 }}"
-                                >
-                                  <span class="action-icon">✏️</span>
-                                  <span class="action-text">Get Refinement</span>
-                                </button>
-                              {% endif %}
-                              {% if not has_contexts %}
-                                <button
-                                  type="button"
-                                  class="action-btn action-btn-examples"
-                                  data-action="examples"
-                                  data-msg-index="{{ loop.index0 }}"
-                                >
-                                  <span class="action-icon">💡</span>
-                                  <span class="action-text">Get Examples</span>
-                                </button>
-                              {% endif %}
-                            </div>
-
-                            {# Nested Refinement Result #}
-                            {% if has_refinement %}
-                              <div class="nested-card refinement-nested collapsible">
-                                <div class="nested-header">
-                                  <span class="nested-icon">✏️</span>
-                                  <span class="nested-title">Refined Question</span>
-                                  <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
-                                    <span class="collapse-icon">▼</span>
-                                  </button>
+                            {# Divergence info #}
+                            {% if dsag.divergence is defined and dsag.divergence %}
+                              <div class="dsag-divergence">
+                                <div class="divergence-label">Divergence ({{ dsag.divergence.lca_layer }}):</div>
+                                <div class="divergence-detail">
+                                  Expert: <strong>{{ dsag.divergence.expert_branch }}</strong> &harr;
+                                  Researcher: <strong>{{ dsag.divergence.researcher_branch }}</strong>
                                 </div>
-                                <div class="card-body">
-                                  <div class="nested-content">{{ msg.refinement }}</div>
-                                </div>
+                                {% if dsag.divergence.explanation %}
+                                  <div class="divergence-explanation">{{ dsag.divergence.explanation }}</div>
+                                {% endif %}
                               </div>
                             {% endif %}
 
-                            {# Nested Context Examples Result #}
-                            {% if has_contexts %}
-                              <div class="nested-card context-nested collapsible">
-                                <div class="nested-header">
-                                  <span class="nested-icon">💡</span>
-                                  <span class="nested-title">Examples for Explaining Your Question</span>
-                                  <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
-                                    <span class="collapse-icon">▼</span>
-                                  </button>
+                            {# ---- LexicalGap ---- #}
+                            {% if rtype == "LexicalGap" and payload.term_mapping is defined %}
+                              <div class="dsag-lexical">
+                                <div class="term-mapping-row">
+                                  <span class="term-expert">{{ payload.term_mapping.expert_term }}</span>
+                                  <span class="term-arrow">&rarr;</span>
+                                  <span class="term-researcher">{{ payload.term_mapping.researcher_term }}</span>
                                 </div>
-                                <div class="card-body">
-                                  <div
-                                    class="context-slider"
-                                    data-coarse="{{ contexts.Coarse }}"
-                                    data-balanced="{{ contexts.Balanced }}"
-                                    data-fine="{{ contexts.Fine }}"
-                                  >
-                                    <div class="slider-wrapper">
-                                      <input type="range" min="0" max="2" step="1" value="1" class="granularity-slider" />
-                                      <div class="slider-labels">
-                                        <span>Coarse</span>
-                                        <span>Balanced</span>
-                                        <span>Fine</span>
+                                {% if payload.term_mapping.explanation %}
+                                  <div class="term-explanation-text">{{ payload.term_mapping.explanation }}</div>
+                                {% endif %}
+                              </div>
+
+                            {# ---- ConceptualGap ---- #}
+                            {% elif rtype == "ConceptualGap" %}
+                              <div class="dsag-conceptual">
+                                {% if payload.analogy is defined %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Analogy (How to explain the concept)</div>
+                                    <div class="analogy-source">
+                                      <strong>Source concept:</strong>
+                                      <span>{{ payload.analogy.source_concept }}</span>
+                                    </div>
+                                    {% if payload.analogy.structural_mapping is defined %}
+                                      <div class="analogy-mapping">
+                                        <span><strong>Input (starting condition):</strong> {{ payload.analogy.structural_mapping.inputs }}</span>
+                                        <span><strong>Logic (what happens):</strong> {{ payload.analogy.structural_mapping.logic }}</span>
+                                        <span><strong>Output (result):</strong> {{ payload.analogy.structural_mapping.outputs }}</span>
                                       </div>
-                                    </div>
-                                    <div class="context-output">{{ contexts.Balanced }}</div>
+                                    {% endif %}
+                                    {% if payload.analogy.explanation %}
+                                      <div class="analogy-explanation">{{ payload.analogy.explanation }}</div>
+                                    {% endif %}
                                   </div>
-                                </div>
+                                {% endif %}
+                                {% if payload.scenario is defined %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Scenario (Concrete real-world example)</div>
+                                    <div class="scenario-detail">
+                                      <div><strong>Input (situation):</strong> {{ payload.scenario.inputs }}</div>
+                                      <div><strong>Output (observable outcome):</strong> {{ payload.scenario.outputs }}</div>
+                                      <div><strong>Edge case (where confusion may happen):</strong> {{ payload.scenario.edge_cases }}</div>
+                                    </div>
+                                  </div>
+                                {% endif %}
                               </div>
+
+                            {# ---- TacitGap ---- #}
+                            {% elif rtype == "TacitGap" %}
+                              <div class="dsag-tacit">
+                                {% if payload.extracted_attributes is defined and payload.extracted_attributes|length > 0 %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Expert Already Mentioned</div>
+                                    <div class="tacit-tags">
+                                      {% for attr in payload.extracted_attributes %}
+                                        <span class="tacit-tag tacit-tag-mentioned">{{ attr }}</span>
+                                      {% endfor %}
+                                    </div>
+                                  </div>
+                                {% endif %}
+                                {% if payload.attributes is defined and payload.attributes|length > 0 %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Still to Explore</div>
+                                    <div class="tacit-tags">
+                                      {% for attr in payload.attributes %}
+                                        <span class="tacit-tag tacit-tag-remaining">{{ attr }}</span>
+                                      {% endfor %}
+                                    </div>
+                                  </div>
+                                {% endif %}
+                                {% if payload.probes is defined and payload.probes|length > 0 %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Probes</div>
+                                    {% for probe in payload.probes %}
+                                      <div class="probe-item">
+                                        <div class="probe-attribute">{{ probe.attribute }}</div>
+                                        <div class="probe-question">{{ probe.question }}</div>
+                                        {% if probe.choices is defined %}
+                                          <div class="probe-choices">
+                                            {% for choice in probe.choices %}
+                                              <span class="probe-choice">{{ choice }}</span>
+                                            {% endfor %}
+                                          </div>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  </div>
+                                {% endif %}
+                                {% if payload.hypothetical_scenarios is defined and payload.hypothetical_scenarios|length > 0 %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Hypothetical Scenarios</div>
+                                    <ul class="scenario-list">
+                                      {% for sc in payload.hypothetical_scenarios %}
+                                        <li>{{ sc }}</li>
+                                      {% endfor %}
+                                    </ul>
+                                  </div>
+                                {% endif %}
+                              </div>
+
+                            {# ---- ScopeGap ---- #}
+                            {% elif rtype == "ScopeGap" %}
+                              <div class="dsag-scope">
+                                {% if payload.validate_focus %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Validate</div>
+                                    <div class="scope-text">{{ payload.validate_focus }}</div>
+                                  </div>
+                                {% endif %}
+                                {% if payload.pivot is defined %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Pivot</div>
+                                    {% if payload.pivot.limitation %}
+                                      <div class="scope-row"><strong>Limitation:</strong> {{ payload.pivot.limitation }}</div>
+                                    {% endif %}
+                                    {% if payload.pivot.research_goal %}
+                                      <div class="scope-row"><strong>Research Goal:</strong> {{ payload.pivot.research_goal }}</div>
+                                    {% endif %}
+                                    {% if payload.pivot.compelling_reason %}
+                                      <div class="scope-row"><strong>Why it matters:</strong> {{ payload.pivot.compelling_reason }}</div>
+                                    {% endif %}
+                                    {% if payload.pivot.coarse_scenario %}
+                                      <div class="scope-scenario">{{ payload.pivot.coarse_scenario }}</div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                              </div>
+
+                            {# ---- ProcessGap ---- #}
+                            {% elif rtype == "ProcessGap" %}
+                              <div class="dsag-process">
+                                {% if payload.coverage is defined %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Coverage ({{ payload.coverage.coverage_ratio }})</div>
+                                    {% if payload.coverage.unvisited_siblings is defined and payload.coverage.unvisited_siblings|length > 0 %}
+                                      <div class="coverage-unvisited">
+                                        Unvisited topics:
+                                        {% for topic in payload.coverage.unvisited_siblings %}
+                                          <span class="tacit-tag tacit-tag-remaining">{{ topic }}</span>
+                                        {% endfor %}
+                                      </div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                                {% if payload.drift_detected %}
+                                  <div class="dsag-subsection dsag-drift-alert">
+                                    <div class="dsag-subsection-title">Drift Alert: {{ payload.drift_type }}</div>
+                                    {% if payload.drift_detail %}
+                                      <div class="drift-detail">{{ payload.drift_detail }}</div>
+                                    {% endif %}
+                                    {% if payload.redirect %}
+                                      <div class="drift-redirect">
+                                        <strong>Suggested redirect:</strong>
+                                        <div class="redirect-text clickable-followup" data-question="{{ payload.redirect }}">{{ payload.redirect }}</div>
+                                      </div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {# Confidence warning #}
+                            {% if dsag.confidence_warning %}
+                              <div class="dsag-confidence-warning">{{ dsag.confidence_warning }}</div>
                             {% endif %}
                           </div>
                         </div>
                       {% endif %}
 
-                      {# 5. Suggest Follow-ups Button & Card #}
-                      {% if msg.followups is defined and msg.followups|length > 0 %}
-                        <div class="analysis-card followups-card collapsible">
-                          <div class="analysis-header">
-                            <span class="analysis-icon">💭</span>
-                            <span class="analysis-title">Suggested Follow-up Questions</span>
-                            <span class="followups-hint">(click to use)</span>
-                            <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
-                              <span class="collapse-icon">▼</span>
-                            </button>
-                          </div>
-                          <div class="card-body">
-                            <ul class="followups-list">
-                              {% for fq in msg.followups %}
-                                <li class="followup-item clickable-followup" data-question="{{ fq }}">{{ fq }}</li>
-                              {% endfor %}
-                            </ul>
-                          </div>
-                        </div>
-                      {% endif %}
-
-                      {# 6. HCI Mapping Results Card (merged Extract + Mapping) #}
-                      {% set has_hci_mapping = msg.hci_mapping is defined and msg.hci_mapping|length > 0 %}
-                      {% if has_hci_mapping %}
-                        <div class="analysis-card hci-mapping-card collapsible">
-                          <div class="analysis-header">
-                            <span class="analysis-icon">🔄</span>
-                            <span class="analysis-title">Mapped to HCI Domain</span>
-                            <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
-                              <span class="collapse-icon">▼</span>
-                            </button>
-                          </div>
-                          <div class="card-body">
-                            <div class="hci-mapping-content">
-                              {% for item in msg.hci_mapping %}
-                                <div class="hci-mapping-item">
-                                  <div class="mapping-row">
-                                    <div class="mapping-from">
-                                      <span class="mapping-label">Expert Domain:</span>
-                                      <span class="mapping-value">{{ item.expert_concept }}</span>
-                                    </div>
-                                    <div class="mapping-arrow">→</div>
-                                    <div class="mapping-to">
-                                      <span class="mapping-label">HCI Domain:</span>
-                                      <span class="mapping-value">{{ item.hci_equivalent }}</span>
-                                    </div>
-                                  </div>
-                                  {% if item.explanation %}
-                                    <div class="mapping-detail">{{ item.explanation }}</div>
-                                  {% endif %}
-                                </div>
-                              {% endfor %}
-                            </div>
-                          </div>
-                        </div>
-                      {% endif %}
-
-                      {# Action buttons row - only show buttons that haven't generated content yet #}
-                      {% set has_any_button = not (msg.followups is defined and msg.followups|length > 0) or not has_hci_mapping or not show_mismap %}
-                      {% if has_any_button %}
-                        <div class="expert-action-buttons">
-                          {% if not (msg.followups is defined and msg.followups|length > 0) %}
-                            <button
-                              type="button"
-                              class="action-btn action-btn-followups"
-                              data-action="followups"
-                              data-msg-index="{{ loop.index0 }}"
-                            >
-                              <span class="action-icon">💭</span>
-                              <span class="action-text">Suggest Follow-ups</span>
-                            </button>
-                          {% endif %}
-                          {% if not has_hci_mapping %}
-                            <button
-                              type="button"
-                              class="action-btn action-btn-hci-mapping"
-                              data-action="hci-mapping"
-                              data-msg-index="{{ loop.index0 }}"
-                            >
-                              <span class="action-icon">🔄</span>
-                              <span class="action-text">Map to HCI</span>
-                            </button>
-                          {% endif %}
-                          {# Flag as Mis-map - only show when NOT detected #}
-                          {% if not show_mismap %}
-                            <button
-                              type="button"
-                              class="action-btn action-btn-mismap"
-                              data-action="flag-mismap"
-                              data-msg-index="{{ loop.index0 }}"
-                            >
-                              <span class="action-icon">🚩</span>
-                              <span class="action-text">Flag as Mis-map</span>
-                            </button>
-                          {% endif %}
-                        </div>
-                      {% endif %}
                     </div>
                   </div>
                 </div>
@@ -383,31 +415,6 @@
     </div>
 
     <div id="selectionTooltip" class="selection-tooltip hidden" role="status"></div>
-
-    {# Modal for Key Points Result #}
-    <div id="keypointsModal" class="modal hidden">
-      <div class="modal-overlay"></div>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">📋 Extracted Key Points</h3>
-          <button type="button" class="modal-close" id="closeKeypointsModal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <ul id="keypointsList" class="keypoints-list"></ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="copyKeypoints">Copy to Clipboard</button>
-          <button type="button" class="btn btn-primary" id="closeKeypointsBtn">Close</button>
-        </div>
-      </div>
-    </div>
-
-    {# Selection Mode Floating Bar #}
-    <div id="selectionBar" class="selection-bar hidden">
-      <span class="selection-count"><span id="selectedCount">0</span> messages selected</span>
-      <button type="button" class="btn btn-primary" id="confirmExtractBtn">Extract Key Points</button>
-      <button type="button" class="btn btn-outline" id="cancelSelectionBtn">Cancel</button>
-    </div>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>

@@ -1,20 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask_session import Session
 import io
 import os
 import uuid
 import threading
 from typing import Any, Dict, Optional
-
-from llm_backend import (
-    analyze_exchange,
-    generate_refinement,
-    generate_context_examples,
-    explain_expert_response,
-    extract_key_points,
-    suggest_followup_questions,
-    detect_hci_terms,
-    map_to_hci,
-)
 
 # Import DSAG modules
 from dsag import (
@@ -29,6 +19,14 @@ from dsag import (
 
 app = Flask(__name__)
 app.secret_key = "demo_secret_key"
+
+# Use server-side session storage to avoid oversized cookie payloads.
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = os.path.join(app.root_path, ".flask_session")
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+os.makedirs(app.config["SESSION_FILE_DIR"], exist_ok=True)
+Session(app)
 
 
 # ============== Server-Side DSAG State ==============
@@ -226,238 +224,6 @@ def clear_session():
     clear_dsag_state()
     session.clear()
     return redirect(url_for("index"))
-
-
-# ============== API Routes for On-Demand Assistance ==============
-
-@app.route("/api/get_refinement", methods=["POST"])
-def api_get_refinement():
-    """Generate and store question refinement for a specific message."""
-    try:
-        data = request.get_json()
-        msg_index = int(data.get("msg_index", -1))
-        messages = get_messages()
-        
-        if not (0 <= msg_index < len(messages)):
-            return jsonify({"success": False, "error": "Invalid message index"})
-        
-        target = messages[msg_index]
-        if target.get("role") != "expert":
-            return jsonify({"success": False, "error": "Not an expert message"})
-        
-        # Find the question that preceded this answer
-        question = find_last_question(messages, msg_index)
-        if not question:
-            return jsonify({"success": False, "error": "No prior question found"})
-        
-        answer = target.get("content", "")
-        mismap = target.get("mismap", {})
-        reason = mismap.get("reason", "")
-        
-        # Generate refinement
-        refinement = generate_refinement(question, answer, reason)
-        if not refinement:
-            return jsonify({"success": False, "error": "Failed to generate refinement"})
-        
-        # Store in message and save
-        target["refinement"] = refinement
-        session["messages"] = messages
-        
-        return jsonify({"success": True, "data": refinement})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)})
-
-
-@app.route("/api/get_examples", methods=["POST"])
-def api_get_examples():
-    """Generate and store context examples for a specific message."""
-    try:
-        data = request.get_json()
-        msg_index = int(data.get("msg_index", -1))
-        messages = get_messages()
-        
-        if not (0 <= msg_index < len(messages)):
-            return jsonify({"success": False, "error": "Invalid message index"})
-        
-        target = messages[msg_index]
-        if target.get("role") != "expert":
-            return jsonify({"success": False, "error": "Not an expert message"})
-        
-        # Find the question that preceded this answer
-        question = find_last_question(messages, msg_index)
-        if not question:
-            return jsonify({"success": False, "error": "No prior question found"})
-        
-        answer = target.get("content", "")
-        mismap = target.get("mismap", {})
-        reason = mismap.get("reason", "")
-        
-        # Generate context examples
-        contexts = generate_context_examples(question, answer, reason)
-        if not any(contexts.values()):
-            return jsonify({"success": False, "error": "Failed to generate examples"})
-        
-        # Store in message and save
-        target["contexts"] = contexts
-        session["messages"] = messages
-        
-        return jsonify({"success": True, "data": contexts})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)})
-
-
-@app.route("/api/explain", methods=["POST"])
-def api_explain():
-    """Generate and store explanation for expert's response."""
-    try:
-        data = request.get_json()
-        msg_index = int(data.get("msg_index", -1))
-        messages = get_messages()
-        
-        if not (0 <= msg_index < len(messages)):
-            return jsonify({"success": False, "error": "Invalid message index"})
-        
-        target = messages[msg_index]
-        if target.get("role") != "expert":
-            return jsonify({"success": False, "error": "Not an expert message"})
-        
-        # Find the question that preceded this answer
-        question = find_last_question(messages, msg_index)
-        if not question:
-            return jsonify({"success": False, "error": "No prior question found"})
-        
-        answer = target.get("content", "")
-        
-        # Generate explanation
-        explanation = explain_expert_response(question, answer)
-        if not explanation:
-            return jsonify({"success": False, "error": "Failed to generate explanation"})
-        
-        # Store in message and save
-        target["explanation"] = explanation
-        session["messages"] = messages
-        
-        return jsonify({"success": True, "data": explanation})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)})
-
-
-@app.route("/api/extract_keypoints", methods=["POST"])
-def api_extract_keypoints():
-    """Extract key points from multiple selected expert messages."""
-    try:
-        data = request.get_json()
-        msg_indices = data.get("msg_indices", [])
-        messages = get_messages()
-        
-        if not msg_indices:
-            return jsonify({"success": False, "error": "No messages selected"})
-        
-        # Validate all indices and collect answers
-        answers = []
-        for idx in msg_indices:
-            if not (0 <= idx < len(messages)):
-                continue
-            target = messages[idx]
-            if target.get("role") == "expert":
-                answers.append(target.get("content", ""))
-        
-        if not answers:
-            return jsonify({"success": False, "error": "No valid expert messages found"})
-        
-        # Find the most recent researcher question
-        question = ""
-        for m in reversed(messages):
-            if m.get("role") == "researcher":
-                question = m.get("content", "")
-                break
-        
-        # Generate key points
-        keypoints = extract_key_points(question, answers)
-        if not keypoints:
-            return jsonify({"success": False, "error": "Failed to extract key points"})
-        
-        # Store in session for display (not in individual messages)
-        session["keypoints_result"] = {
-            "msg_indices": msg_indices,
-            "keypoints": keypoints,
-        }
-        
-        return jsonify({"success": True, "data": keypoints})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)})
-
-
-@app.route("/api/suggest_followups", methods=["POST"])
-def api_suggest_followups():
-    """Generate follow-up questions for a specific expert message."""
-    try:
-        data = request.get_json()
-        msg_index = int(data.get("msg_index", -1))
-        messages = get_messages()
-        
-        if not (0 <= msg_index < len(messages)):
-            return jsonify({"success": False, "error": "Invalid message index"})
-        
-        target = messages[msg_index]
-        if target.get("role") != "expert":
-            return jsonify({"success": False, "error": "Not an expert message"})
-        
-        # Find the question that preceded this answer
-        question = find_last_question(messages, msg_index)
-        if not question:
-            return jsonify({"success": False, "error": "No prior question found"})
-        
-        answer = target.get("content", "")
-        
-        # Generate follow-up questions
-        followups = suggest_followup_questions(question, answer)
-        if not followups:
-            return jsonify({"success": False, "error": "Failed to generate follow-ups"})
-        
-        # Store in message and save
-        target["followups"] = followups
-        session["messages"] = messages
-        
-        return jsonify({"success": True, "data": followups})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)})
-
-
-@app.route("/api/hci_mapping", methods=["POST"])
-def api_hci_mapping():
-    """Map expert concepts to HCI domain."""
-    try:
-        data = request.get_json()
-        msg_index = int(data.get("msg_index", -1))
-        messages = get_messages()
-        
-        if not (0 <= msg_index < len(messages)):
-            return jsonify({"success": False, "error": "Invalid message index"})
-        
-        target = messages[msg_index]
-        if target.get("role") != "expert":
-            return jsonify({"success": False, "error": "Not an expert message"})
-        
-        # Find the question that preceded this answer
-        question = find_last_question(messages, msg_index)
-        if not question:
-            return jsonify({"success": False, "error": "No prior question found"})
-        
-        answer = target.get("content", "")
-        
-        # Generate HCI domain mappings
-        mappings = map_to_hci(question, answer)
-        if not mappings:
-            return jsonify({"success": False, "error": "No domain concepts found to map"})
-        
-        # Store in message and save
-        target["hci_mapping"] = mappings
-        session["messages"] = messages
-        
-        return jsonify({"success": True, "data": mappings})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)})
 
 
 # ============== DSAG API Routes ==============
@@ -761,10 +527,6 @@ def index():
                 "content": researcher_text,
                 "source": researcher_source,
             }
-            # Detect HCI terms in researcher's question
-            hci_terms = detect_hci_terms(researcher_text)
-            if hci_terms:
-                researcher_msg["hci_terms"] = hci_terms
             messages.append(researcher_msg)
 
         if expert_text:
@@ -775,26 +537,63 @@ def index():
                     last_question = m["content"]
                     break
 
-            # Lightweight analysis: only detect jargon and mis-map
-            if last_question:
-                analysis = analyze_exchange(last_question, expert_text)
-                if analysis.get("jargon"):
-                    msg["jargon"] = analysis["jargon"]
+            # ---- DSAG auto-analysis ----
+            dsag_state = get_dsag_state()
+            if dsag_state and dsag_state.is_ready() and last_question:
+                try:
+                    embedding_index = EmbeddingIndex(dsag_state.graph)
+                    embedding_index.load_embeddings_data({
+                        "expert": dsag_state.expert_leaf_embeddings,
+                        "researcher": dsag_state.researcher_leaf_embeddings,
+                    })
+                    context_summary = build_context_summary(messages)
+                    engine = RuntimeEngine(dsag_state.graph, embedding_index)
+                    dsag_analysis = engine.analyze_turn(
+                        last_question,
+                        expert_text,
+                        context_summary=context_summary,
+                        interview_timeline=dsag_state.interview_timeline,
+                    )
 
-                mismap = analysis.get("mismap", {})
-                if mismap.get("detected"):
-                    msg["mismap"] = mismap
+                    # Accumulate timeline entry
+                    if dsag_analysis.located.best_expert_leaf_id:
+                        expert_node = dsag_state.graph.expert_tree.get_node(
+                            dsag_analysis.located.best_expert_leaf_id
+                        )
+                        timeline_entry = {
+                            "turn_index": len(dsag_state.interview_timeline) + 1,
+                            "topic_label": expert_node.label if expert_node else "",
+                            "expert_leaf_id": dsag_analysis.located.best_expert_leaf_id or "",
+                            "researcher_leaf_id": dsag_analysis.located.best_researcher_leaf_id or "",
+                            "relation_type": (
+                                dsag_analysis.selected_link.relation_type
+                                if dsag_analysis.selected_link else ""
+                            ),
+                            "summary": f"Q: {last_question[:80]} | A: {expert_text[:80]}",
+                        }
+                        with DSAG_LOCK:
+                            dsag_state.interview_timeline.append(timeline_entry)
+
+                    # Store analysis result in message for template rendering
+                    msg["dsag_analysis"] = dsag_analysis.to_dict()
+                except Exception as dsag_exc:
+                    print(f"[DSAG auto-analysis] Error: {dsag_exc}")
 
             messages.append(msg)
 
         session["messages"] = messages
         return redirect(url_for("index"))
 
+    # Check if DSAG is ready for template rendering
+    dsag_state = get_dsag_state()
+    dsag_ready = dsag_state is not None and dsag_state.is_ready()
+
     return render_template(
         "index.html",
         messages=messages,
         guide_text=get_guide_text(),
         guide_error=session.get("guide_error"),
+        dsag_ready=dsag_ready,
     )
 
 

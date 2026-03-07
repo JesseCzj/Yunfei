@@ -56,6 +56,80 @@ document.querySelectorAll(".context-slider").forEach((block) => {
   }
 });
 
+// ============== DSAG Initialization ==============
+
+const dsagInitForm = document.getElementById("dsagInitForm");
+const dsagInitBtn = document.getElementById("dsagInitBtn");
+const dsagInitStatus = document.getElementById("dsagInitStatus");
+
+if (dsagInitForm) {
+  dsagInitForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const topic = document.getElementById("dsagTopic").value.trim();
+    const researcherBg = document.getElementById("dsagResearcherBg").value.trim();
+    const expertBg = document.getElementById("dsagExpertBg").value.trim();
+
+    if (!topic || !researcherBg || !expertBg) {
+      if (dsagInitStatus) dsagInitStatus.textContent = "All fields are required.";
+      return;
+    }
+
+    // Disable button and show loading
+    if (dsagInitBtn) {
+      dsagInitBtn.disabled = true;
+      dsagInitBtn.textContent = "Building graph (30-60s)...";
+    }
+    if (dsagInitStatus) {
+      dsagInitStatus.textContent = "Generating DSAG graph... This may take 30-60 seconds.";
+      dsagInitStatus.className = "dsag-init-status dsag-status-building";
+    }
+
+    try {
+      const response = await fetch("/api/dsag/init", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: topic,
+          researcher_bg: researcherBg,
+          expert_bg: expertBg,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        if (dsagInitStatus) {
+          dsagInitStatus.textContent = result.cached
+            ? "DSAG graph loaded from cache. Ready!"
+            : "DSAG graph built successfully. Ready!";
+          dsagInitStatus.className = "dsag-init-status dsag-status-ready";
+        }
+        // Reload page to update the status badge and enable auto-analysis
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        if (dsagInitStatus) {
+          dsagInitStatus.textContent = `Error: ${result.error || "Failed to build graph"}`;
+          dsagInitStatus.className = "dsag-init-status dsag-status-error";
+        }
+        if (dsagInitBtn) {
+          dsagInitBtn.disabled = false;
+          dsagInitBtn.textContent = "Initialize DSAG";
+        }
+      }
+    } catch (error) {
+      if (dsagInitStatus) {
+        dsagInitStatus.textContent = `Network error: ${error.message}`;
+        dsagInitStatus.className = "dsag-init-status dsag-status-error";
+      }
+      if (dsagInitBtn) {
+        dsagInitBtn.disabled = false;
+        dsagInitBtn.textContent = "Initialize DSAG";
+      }
+    }
+  });
+}
+
 // ============== Inline Jargon Highlighting ==============
 // Highlight jargon terms directly in expert message text with hover tooltips
 
@@ -299,283 +373,7 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// ============== Action Buttons for On-Demand Assistance ==============
-
-/**
- * Generic handler for action buttons that call backend API
- * @param {string} endpoint - API endpoint (e.g., '/api/get_refinement')
- * @param {number} msgIndex - Message index
- * @param {HTMLButtonElement} button - The button element
- */
-async function callAssistanceAPI(endpoint, msgIndex, button) {
-  const originalText = button.querySelector(".action-text")?.textContent || "Loading...";
-  const actionText = button.querySelector(".action-text");
-  
-  // Show loading state
-  button.disabled = true;
-  button.classList.add("loading");
-  if (actionText) actionText.textContent = "Generating...";
-  
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ msg_index: msgIndex }),
-    });
-    
-    const result = await response.json();
-    
-    if (result.success) {
-      // Save scroll position and reload page to show the persisted result
-      saveScrollPosition();
-      window.location.reload();
-    } else {
-      // Show error and reset button
-      button.disabled = false;
-      button.classList.remove("loading");
-      if (actionText) actionText.textContent = originalText;
-      alert(`Error: ${result.error || "Failed to generate assistance"}`);
-    }
-  } catch (error) {
-    // Network error - reset button
-    button.disabled = false;
-    button.classList.remove("loading");
-    if (actionText) actionText.textContent = originalText;
-    alert(`Network error: ${error.message}`);
-  }
-}
-
-/**
- * Handle "Get Refinement" button click
- */
-function handleRefinementClick(event) {
-  const button = event.currentTarget;
-  const msgIndex = parseInt(button.dataset.msgIndex, 10);
-  if (isNaN(msgIndex)) return;
-  callAssistanceAPI("/api/get_refinement", msgIndex, button);
-}
-
-/**
- * Handle "Get Examples" button click
- */
-function handleExamplesClick(event) {
-  const button = event.currentTarget;
-  const msgIndex = parseInt(button.dataset.msgIndex, 10);
-  if (isNaN(msgIndex)) return;
-  callAssistanceAPI("/api/get_examples", msgIndex, button);
-}
-
-// Attach event listeners to action buttons (refinement, examples)
-document.querySelectorAll('.action-btn[data-action="refinement"]').forEach((btn) => {
-  btn.addEventListener("click", handleRefinementClick);
-});
-
-document.querySelectorAll('.action-btn[data-action="examples"]').forEach((btn) => {
-  btn.addEventListener("click", handleExamplesClick);
-});
-
-// ============== Multi-Select Key Points Extraction ==============
-
-let selectionMode = false;
-const selectedMessages = new Set();
-
-const extractKeyPointsBtn = document.getElementById("extractKeyPointsBtn");
-const selectionBar = document.getElementById("selectionBar");
-const selectedCountEl = document.getElementById("selectedCount");
-const confirmExtractBtn = document.getElementById("confirmExtractBtn");
-const cancelSelectionBtn = document.getElementById("cancelSelectionBtn");
-const keypointsModal = document.getElementById("keypointsModal");
-const keypointsList = document.getElementById("keypointsList");
-const closeKeypointsModal = document.getElementById("closeKeypointsModal");
-const closeKeypointsBtn = document.getElementById("closeKeypointsBtn");
-const copyKeypointsBtn = document.getElementById("copyKeypoints");
-
-function updateSelectionUI() {
-  selectedCountEl.textContent = selectedMessages.size;
-  
-  // Update checkbox states
-  document.querySelectorAll(".expert-select-checkbox").forEach((cb) => {
-    const idx = parseInt(cb.dataset.msgIndex, 10);
-    cb.checked = selectedMessages.has(idx);
-  });
-  
-  // Update card visual states
-  document.querySelectorAll(".expert-row").forEach((row) => {
-    const idx = parseInt(row.dataset.msgIndex, 10);
-    row.classList.toggle("selected", selectedMessages.has(idx));
-  });
-}
-
-function enterSelectionMode() {
-  selectionMode = true;
-  document.body.classList.add("selection-mode");
-  selectionBar.classList.remove("hidden");
-  extractKeyPointsBtn.classList.add("active");
-  updateSelectionUI();
-}
-
-function exitSelectionMode() {
-  selectionMode = false;
-  selectedMessages.clear();
-  document.body.classList.remove("selection-mode");
-  selectionBar.classList.add("hidden");
-  extractKeyPointsBtn.classList.remove("active");
-  updateSelectionUI();
-}
-
-function toggleMessageSelection(index) {
-  if (selectedMessages.has(index)) {
-    selectedMessages.delete(index);
-  } else {
-    selectedMessages.add(index);
-  }
-  updateSelectionUI();
-}
-
-// Handle checkbox clicks
-document.querySelectorAll(".expert-select-checkbox").forEach((cb) => {
-  cb.addEventListener("change", (e) => {
-    const idx = parseInt(e.target.dataset.msgIndex, 10);
-    if (!isNaN(idx)) {
-      if (e.target.checked) {
-        selectedMessages.add(idx);
-      } else {
-        selectedMessages.delete(idx);
-      }
-      updateSelectionUI();
-    }
-  });
-});
-
-// Handle card clicks in selection mode
-document.querySelectorAll(".expert-row").forEach((row) => {
-  row.addEventListener("click", (e) => {
-    if (!selectionMode) return;
-    // Don't toggle if clicking on buttons or checkboxes
-    if (e.target.closest("button") || e.target.closest("input") || e.target.closest(".action-btn")) return;
-    
-    const idx = parseInt(row.dataset.msgIndex, 10);
-    if (!isNaN(idx)) {
-      toggleMessageSelection(idx);
-    }
-  });
-});
-
-// Extract Key Points button in header
-if (extractKeyPointsBtn) {
-  extractKeyPointsBtn.addEventListener("click", () => {
-    if (selectionMode) {
-      exitSelectionMode();
-    } else {
-      enterSelectionMode();
-    }
-  });
-}
-
-// Cancel selection
-if (cancelSelectionBtn) {
-  cancelSelectionBtn.addEventListener("click", exitSelectionMode);
-}
-
-// Confirm extraction
-if (confirmExtractBtn) {
-  confirmExtractBtn.addEventListener("click", async () => {
-    if (selectedMessages.size === 0) {
-      alert("Please select at least one expert message.");
-      return;
-    }
-    
-    const indices = Array.from(selectedMessages);
-    confirmExtractBtn.disabled = true;
-    confirmExtractBtn.textContent = "Extracting...";
-    
-    try {
-      const response = await fetch("/api/extract_keypoints", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ msg_indices: indices }),
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        // Show modal with key points
-        showKeypointsModal(result.data);
-        exitSelectionMode();
-      } else {
-        alert(`Error: ${result.error || "Failed to extract key points"}`);
-      }
-    } catch (error) {
-      alert(`Network error: ${error.message}`);
-    } finally {
-      confirmExtractBtn.disabled = false;
-      confirmExtractBtn.textContent = "Extract Key Points";
-    }
-  });
-}
-
-function showKeypointsModal(keypoints) {
-  if (!keypointsModal || !keypointsList) return;
-  
-  keypointsList.innerHTML = keypoints.map((kp) => `<li>${kp}</li>`).join("");
-  keypointsModal.classList.remove("hidden");
-}
-
-function hideKeypointsModal() {
-  if (keypointsModal) keypointsModal.classList.add("hidden");
-}
-
-if (closeKeypointsModal) closeKeypointsModal.addEventListener("click", hideKeypointsModal);
-if (closeKeypointsBtn) closeKeypointsBtn.addEventListener("click", hideKeypointsModal);
-
-// Copy key points to clipboard
-if (copyKeypointsBtn) {
-  copyKeypointsBtn.addEventListener("click", () => {
-    const items = keypointsList.querySelectorAll("li");
-    const text = Array.from(items).map((li, i) => `${i + 1}. ${li.textContent}`).join("\n");
-    navigator.clipboard.writeText(text).then(() => {
-      copyKeypointsBtn.textContent = "Copied!";
-      setTimeout(() => {
-        copyKeypointsBtn.textContent = "Copy to Clipboard";
-      }, 2000);
-    });
-  });
-}
-
-// Close modal on overlay click
-if (keypointsModal) {
-  keypointsModal.querySelector(".modal-overlay")?.addEventListener("click", hideKeypointsModal);
-}
-
-// ============== Suggest Follow-ups (per expert message) ==============
-
-function handleFollowupsClick(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  const button = event.currentTarget;
-  const msgIndex = parseInt(button.dataset.msgIndex, 10);
-  if (isNaN(msgIndex)) return;
-  callAssistanceAPI("/api/suggest_followups", msgIndex, button);
-}
-
-document.querySelectorAll('.action-btn[data-action="followups"]').forEach((btn) => {
-  btn.addEventListener("click", handleFollowupsClick);
-});
-
-// ============== HCI Mapping (map expert concepts to HCI domain) ==============
-
-function handleHCIMappingClick(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  const button = event.currentTarget;
-  const msgIndex = parseInt(button.dataset.msgIndex, 10);
-  if (isNaN(msgIndex)) return;
-  callAssistanceAPI("/api/hci_mapping", msgIndex, button);
-}
-
-document.querySelectorAll('.action-btn[data-action="hci-mapping"]').forEach((btn) => {
-  btn.addEventListener("click", handleHCIMappingClick);
-});
+// Legacy llm_backend on-demand actions removed; DSAG-only UI now.
 
 // ============== Flag as Mis-map ==============
 

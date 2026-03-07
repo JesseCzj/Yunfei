@@ -204,7 +204,7 @@ class Assistance:
                       "explanation"}, "scenario": {"inputs", "outputs", "edge_cases"}}
     - TacitGap:      {"attributes": [...], "probes": [{attribute, question, choices}],
                       "hypothetical_scenarios": ["...", "..."],
-                      "mentioned_attributes": [...]}  // added by polish after filtering
+                      "extracted_attributes": [...], "mentioned_attributes": [...]}  // extracted/mentioned attrs are displayed for transparency
     - ScopeGap:      {"validate_focus": "...", "pivot": {limitation, research_goal,
                       compelling_reason, coarse_scenario}}
     - ProcessGap:    {"coverage": {"visited": [...], "unvisited_siblings": [...],
@@ -336,8 +336,11 @@ POLISHABLE fields:
 ### Output requirements
 - The 3-step structure (attributes → probes → hypothetical_scenarios) is strict.
 - If ALL attributes have been mentioned, return empty lists for all three fields.
-- Add a top-level field "mentioned_attributes": [...] listing the attributes
-  you identified as already articulated by the expert (for transparency).""",
+- Add a top-level field "extracted_attributes": [...] listing the attributes
+  you identified as already articulated by the expert (for transparency).
+- Also include "mentioned_attributes": [...] with the same content for backward compatibility.
+- The extracted/mentioned attributes are DISPLAY-ONLY. Do NOT generate probes or
+  hypothetical_scenarios for them.""",
 
         RelationType.SCOPE_GAP.value: """## ScopeGap polishing rules
 FROZEN fields (copy verbatim — do NOT alter):
@@ -425,11 +428,107 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
         content = getattr(response, "content", str(response))
         parsed = _parse_json_from_text(content)
         if not parsed:
+            if assistance.relation_type == RelationType.TACIT_GAP.value:
+                fallback = Assistance(relation_type=assistance.relation_type)
+                fallback_payload = dict(assistance.payload)
+                fallback_payload["_expert_answer_hint"] = expert_answer
+                fallback.payload = self._postprocess_tacit_payload(fallback_payload)
+                return fallback
             return assistance
 
         polished = Assistance(relation_type=assistance.relation_type)
         polished.payload = parsed.get("payload", assistance.payload)
+        if polished.relation_type == RelationType.TACIT_GAP.value:
+            polished.payload["_expert_answer_hint"] = expert_answer
+            polished.payload = self._postprocess_tacit_payload(polished.payload)
         return polished
+
+    def _postprocess_tacit_payload(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Normalize TacitGap payload so extracted attributes are explicitly displayed
+        and never accompanied by probes/scenarios.
+        """
+        if not isinstance(payload, dict):
+            return {
+                "attributes": [],
+                "probes": [],
+                "hypothetical_scenarios": [],
+                "extracted_attributes": [],
+                "mentioned_attributes": [],
+            }
+
+        def _norm_list(value: Any) -> List[str]:
+            if not isinstance(value, list):
+                return []
+            out: List[str] = []
+            for item in value:
+                s = str(item).strip()
+                if s and s not in out:
+                    out.append(s)
+            return out
+
+        attributes = _norm_list(payload.get("attributes", []))
+        if isinstance(payload.get("probes", []), list):
+            for probe in payload.get("probes", []):
+                if isinstance(probe, dict):
+                    probe_attr = str(probe.get("attribute", "")).strip()
+                    if probe_attr and probe_attr not in attributes:
+                        attributes.append(probe_attr)
+
+        extracted = _norm_list(
+            payload.get("extracted_attributes", payload.get("mentioned_attributes", []))
+        )
+        expert_answer = str(payload.get("_expert_answer_hint", "")).strip().lower()
+        if not extracted and expert_answer and attributes:
+            for attr in attributes:
+                attr_lower = attr.lower().strip()
+                if not attr_lower:
+                    continue
+                if attr_lower in expert_answer:
+                    extracted.append(attr)
+                    continue
+                tokens = [t for t in re.findall(r"[a-z0-9]+", attr_lower) if len(t) >= 4]
+                if not tokens:
+                    continue
+                hit_count = sum(1 for t in tokens if t in expert_answer)
+                if (len(tokens) == 1 and hit_count == 1) or (
+                    len(tokens) > 1 and hit_count >= max(1, len(tokens) - 1)
+                ):
+                    extracted.append(attr)
+        extracted_lower = {a.lower() for a in extracted}
+
+        # Keep only not-yet-mentioned attributes in the actionable list.
+        remaining_attrs = [a for a in attributes if a.lower() not in extracted_lower]
+
+        # Remove probes targeting extracted attributes.
+        probes_in = payload.get("probes", [])
+        probes_out: List[Dict[str, Any]] = []
+        if isinstance(probes_in, list):
+            for probe in probes_in:
+                if not isinstance(probe, dict):
+                    continue
+                attr = str(probe.get("attribute", "")).strip()
+                if attr and attr.lower() in extracted_lower:
+                    continue
+                probes_out.append(probe)
+
+        # Remove scenarios that mention extracted attributes (best-effort text filter).
+        scenarios_in = _norm_list(payload.get("hypothetical_scenarios", []))
+        scenarios_out: List[str] = []
+        for scenario in scenarios_in:
+            lower_scenario = scenario.lower()
+            if any(attr in lower_scenario for attr in extracted_lower):
+                continue
+            scenarios_out.append(scenario)
+
+        payload["attributes"] = remaining_attrs
+        payload["probes"] = probes_out
+        payload["hypothetical_scenarios"] = scenarios_out
+        payload["extracted_attributes"] = extracted
+        # Keep old field for compatibility with existing clients/docs.
+        payload["mentioned_attributes"] = extracted
+        payload.pop("_expert_answer_hint", None)
+        return payload
 
     def locate_positions(
         self,
@@ -717,13 +816,18 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
         # 1. Locate positions
         analysis.located = self.locate_positions(researcher_question, expert_answer)
 
-        # Check confidence
-        if analysis.located.expert_confidence < 0.45:
+        # Confidence gate: below threshold -> do not show gap/assistance.
+        try:
+            confidence_threshold = float(os.getenv("DSAG_MATCH_CONFIDENCE_THRESHOLD", "0.45"))
+        except Exception:
+            confidence_threshold = 0.45
+        if analysis.located.expert_confidence < confidence_threshold:
             analysis.confidence_warning = (
                 f"Low confidence matching expert's statement "
                 f"(score={analysis.located.expert_confidence:.2f}). "
-                "Suggestions may not be accurate."
+                f"Below threshold ({confidence_threshold:.2f}), so no gap/assistance is shown."
             )
+            return analysis
 
         # 2. Find best link
         analysis.selected_link = self.find_best_link(

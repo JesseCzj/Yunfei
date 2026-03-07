@@ -16,6 +16,8 @@ Flow:
 import json
 import os
 import re
+import concurrent.futures
+import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -1175,9 +1177,11 @@ def generate_all_assistance_payloads(
     researcher_tree: TaxonomyTree,
     alignments: TreeAlignments,
 ) -> List[GapLink]:
-    """Generate type-specific assistance payloads for all GapLinks."""
-    print(f"[GraphFactory] Generating assistance payloads for {len(links)} links...")
-    llm = _build_llm(temperature=0.7)
+    """Generate type-specific assistance payloads for all GapLinks concurrently."""
+    print(f"[GraphFactory] Generating assistance payloads for {len(links)} links concurrently...")
+
+    # Keep this configurable to match provider rate limits.
+    max_workers = max(1, int(os.getenv("DSAG_PAYLOAD_MAX_WORKERS", "5")))
 
     # Build lookup for misalignment reasons
     reason_lookup = {}
@@ -1185,7 +1189,9 @@ def generate_all_assistance_payloads(
         key = (align.expert_node_id, align.researcher_node_id)
         reason_lookup[key] = align.reason
 
-    for link in links:
+    def process_single_link(link: GapLink) -> GapLink:
+        # Use a per-thread/per-task LLM client to avoid shared-client race issues.
+        local_llm = _build_llm(temperature=0.7)
         key = (link.expert_leaf_id, link.researcher_leaf_id)
         reason = reason_lookup.get(key, "")
 
@@ -1194,9 +1200,14 @@ def generate_all_assistance_payloads(
             expert_tree=expert_tree,
             researcher_tree=researcher_tree,
             misalignment_reason=reason,
-            llm=llm,
+            llm=local_llm,
         )
         link.assistance_payload = payload
+        return link
+
+    # Process links concurrently. map preserves input order.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        list(executor.map(process_single_link, links))
 
     print("[GraphFactory] Assistance payload generation complete")
     return links
@@ -1216,25 +1227,67 @@ class GraphFactory:
         if self.llm is None:
             self.llm = _build_llm(temperature=0.3)
         return self.llm
+
+    def _invoke_tree_prompt_with_retry(
+        self,
+        prompt_text: str,
+        variables: Dict[str, Any],
+        tree_name: str,
+    ) -> Dict[str, Any]:
+        """
+        Invoke a tree-generation prompt with retries and strict JSON validation.
+        Uses a fresh LLM client per attempt for thread-safety in concurrent mode.
+        """
+        max_attempts = max(1, int(os.getenv("DSAG_TREE_MAX_RETRIES", "3")))
+        last_content = ""
+        last_error: Optional[Exception] = None
+
+        for attempt in range(1, max_attempts + 1):
+            try:
+                llm = _build_llm(temperature=0.3)
+                prompt = ChatPromptTemplate.from_messages([("user", prompt_text)])
+                chain = prompt | llm
+                response = chain.invoke(variables)
+                content = getattr(response, "content", str(response))
+                last_content = content
+                parsed = _parse_json(content)
+                perspectives = parsed.get("perspectives")
+                if isinstance(perspectives, list) and perspectives:
+                    return parsed
+
+                print(
+                    f"[GraphFactory] {tree_name} attempt {attempt}/{max_attempts}: "
+                    "no valid perspectives in response"
+                )
+            except Exception as exc:
+                last_error = exc
+                print(
+                    f"[GraphFactory] {tree_name} attempt {attempt}/{max_attempts} failed: {exc}"
+                )
+
+            # Small exponential backoff: 0.8s, 1.6s, 2.4s...
+            if attempt < max_attempts:
+                time.sleep(0.8 * attempt)
+
+        if last_error is not None:
+            raise ValueError(
+                f"Failed to generate {tree_name.lower()} after {max_attempts} attempts: {last_error}"
+            )
+        raise ValueError(
+            f"Failed to generate {tree_name.lower()}: no perspectives returned. "
+            f"Last raw response preview: {str(last_content)[:240]}"
+        )
     
     def generate_expert_tree(self, topic: str, expert_bg: str) -> TaxonomyTree:
         """Agent A: Generate expert taxonomy tree."""
-        llm = self._get_llm()
-        prompt = ChatPromptTemplate.from_messages([
-            ("user", EXPERT_PERSONA_PROMPT)
-        ])
-        chain = prompt | llm
-        
-        response = chain.invoke({
+        parsed = self._invoke_tree_prompt_with_retry(
+            prompt_text=EXPERT_PERSONA_PROMPT,
+            variables={
             "topic": topic,
             "expert_bg": expert_bg,
-        })
-        content = getattr(response, "content", str(response))
-        parsed = _parse_json(content)
-        
-        if not parsed.get("perspectives"):
-            raise ValueError("Failed to generate expert tree: no perspectives returned")
-        
+            },
+            tree_name="Expert tree",
+        )
         return _build_expert_tree(parsed, topic)
     
     def generate_researcher_tree(
@@ -1244,23 +1297,15 @@ class GraphFactory:
         questionnaire: str = "",
     ) -> TaxonomyTree:
         """Agent B: Generate researcher taxonomy tree."""
-        llm = self._get_llm()
-        prompt = ChatPromptTemplate.from_messages([
-            ("user", RESEARCHER_PERSONA_PROMPT)
-        ])
-        chain = prompt | llm
-        
-        response = chain.invoke({
+        parsed = self._invoke_tree_prompt_with_retry(
+            prompt_text=RESEARCHER_PERSONA_PROMPT,
+            variables={
             "topic": topic,
             "researcher_bg": researcher_bg,
             "questionnaire": questionnaire or "",
-        })
-        content = getattr(response, "content", str(response))
-        parsed = _parse_json(content)
-        
-        if not parsed.get("perspectives"):
-            raise ValueError("Failed to generate researcher tree: no perspectives returned")
-        
+            },
+            tree_name="Researcher tree",
+        )
         return _build_researcher_tree(parsed, topic)
     
     def generate_alignments(
@@ -1565,16 +1610,47 @@ class GraphFactory:
             Complete DSAGGraph
         """
         print(f"[GraphFactory] Starting DSAG generation for topic: {topic}")
-        
-        # Step 1 & 2: Generate both trees
-        # In production, these could be parallelized
-        print("[GraphFactory] Agent A: Generating expert tree...")
-        expert_tree = self.generate_expert_tree(topic, expert_bg)
-        print(f"[GraphFactory] Expert tree generated: {len(expert_tree.get_leaves())} leaves")
-        
-        print("[GraphFactory] Agent B: Generating researcher tree...")
-        researcher_tree = self.generate_researcher_tree(topic, researcher_bg, questionnaire)
-        print(f"[GraphFactory] Researcher tree generated: {len(researcher_tree.get_leaves())} leaves")
+
+        # Step 1 & 2: Generate both trees (parallel preferred, serial fallback)
+        tree_concurrent = os.getenv("DSAG_TREE_CONCURRENT", "1").strip().lower() not in (
+            "0", "false", "no"
+        )
+        tree_workers = max(1, int(os.getenv("DSAG_TREE_MAX_WORKERS", "2")))
+
+        expert_tree: TaxonomyTree
+        researcher_tree: TaxonomyTree
+
+        if tree_concurrent and tree_workers > 1:
+            print(f"[GraphFactory] Agent A & B: Generating trees concurrently (workers={tree_workers})...")
+            try:
+                with concurrent.futures.ThreadPoolExecutor(max_workers=tree_workers) as executor:
+                    future_expert = executor.submit(self.generate_expert_tree, topic, expert_bg)
+                    future_researcher = executor.submit(
+                        self.generate_researcher_tree,
+                        topic,
+                        researcher_bg,
+                        questionnaire,
+                    )
+                    expert_tree = future_expert.result()
+                    researcher_tree = future_researcher.result()
+            except Exception as exc:
+                # Weak networks/proxies may fail under simultaneous long requests.
+                # Fall back to serial generation for higher success rate.
+                print(f"[GraphFactory] Concurrent tree generation failed: {exc}")
+                print("[GraphFactory] Falling back to serial tree generation...")
+                expert_tree = self.generate_expert_tree(topic, expert_bg)
+                researcher_tree = self.generate_researcher_tree(topic, researcher_bg, questionnaire)
+        else:
+            print("[GraphFactory] Agent A: Generating expert tree (serial mode)...")
+            expert_tree = self.generate_expert_tree(topic, expert_bg)
+            print("[GraphFactory] Agent B: Generating researcher tree (serial mode)...")
+            researcher_tree = self.generate_researcher_tree(topic, researcher_bg, questionnaire)
+
+        print(
+            "[GraphFactory] Trees generated. "
+            f"Expert leaves: {len(expert_tree.get_leaves())}, "
+            f"Researcher leaves: {len(researcher_tree.get_leaves())}"
+        )
         
         # Step 3-5: Generate links using new flow
         # (Agent C judges alignments -> Math algorithm builds links -> Generate templates)

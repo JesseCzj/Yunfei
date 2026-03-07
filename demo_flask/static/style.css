@@ -1589,3 +1589,384 @@ body.selection-mode .expert-row.selected .expert-card {
     flex-wrap: wrap;
   }
 }
+
+/* ============== DSAG Initialization Section ============== */
+
+.dsag-init-section {
+  padding: 0 0 12px 0;
+}
+
+.dsag-init-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.dsag-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dsag-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.dsag-field input {
+  padding: 8px 10px;
+  border: 1px solid #d0d0d8;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: border-color 0.2s;
+}
+
+.dsag-field input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.dsag-init-btn {
+  margin-top: 4px;
+}
+
+.dsag-init-status {
+  font-size: 0.8rem;
+  padding: 4px 0;
+  min-height: 1.2em;
+}
+
+.dsag-status-building {
+  color: #d97706;
+}
+
+.dsag-status-ready {
+  color: #059669;
+  font-weight: 600;
+}
+
+.dsag-status-error {
+  color: #dc2626;
+}
+
+.dsag-ready-info {
+  padding: 8px 0;
+}
+
+.dsag-ready-text {
+  font-size: 0.82rem;
+  color: #059669;
+  margin: 0;
+}
+
+.panel-divider {
+  border: none;
+  border-top: 1px solid #e8e8ef;
+  margin: 12px 0;
+}
+
+.badge-ready {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badge-inactive {
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+}
+
+.dsag-status-badge {
+  margin-left: auto;
+}
+
+/* ============== DSAG Assistance Card ============== */
+
+.dsag-card {
+  border-left: 3px solid #6366f1;
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+}
+
+.dsag-card .analysis-header {
+  gap: 8px;
+}
+
+.badge-dsag-type {
+  background: #6366f1;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Divergence info */
+.dsag-divergence {
+  background: rgba(99, 102, 241, 0.06);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+}
+
+.divergence-label {
+  font-weight: 600;
+  color: #4338ca;
+  margin-bottom: 2px;
+}
+
+.divergence-detail {
+  color: #374151;
+}
+
+.divergence-explanation {
+  color: #6b7280;
+  font-size: 0.78rem;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Subsections */
+.dsag-subsection {
+  margin-bottom: 10px;
+}
+
+.dsag-subsection-title {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #4338ca;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* LexicalGap */
+.term-mapping-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+
+.term-expert {
+  font-weight: 700;
+  color: #b45309;
+}
+
+.term-arrow {
+  color: #9ca3af;
+  font-size: 1.1rem;
+}
+
+.term-researcher {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.term-explanation-text {
+  font-size: 0.82rem;
+  color: #4b5563;
+  margin-top: 6px;
+  padding: 0 4px;
+}
+
+/* ConceptualGap */
+.analogy-source {
+  font-size: 0.84rem;
+  margin-bottom: 4px;
+}
+
+.analogy-mapping {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.8rem;
+  color: #4b5563;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.analogy-explanation {
+  font-size: 0.82rem;
+  color: #374151;
+  margin-top: 4px;
+}
+
+.scenario-detail {
+  font-size: 0.82rem;
+  color: #4b5563;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+/* TacitGap */
+.tacit-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tacit-tag {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.tacit-tag-mentioned {
+  background: #d1fae5;
+  color: #065f46;
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
+.tacit-tag-remaining {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.probe-item {
+  background: #fff;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+}
+
+.probe-attribute {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6366f1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+}
+
+.probe-question {
+  font-size: 0.84rem;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.probe-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.probe-choice {
+  background: #ede9fe;
+  color: #4338ca;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.probe-choice:hover {
+  background: #c4b5fd;
+}
+
+.scenario-list {
+  font-size: 0.82rem;
+  color: #4b5563;
+  padding-left: 18px;
+  margin: 0;
+}
+
+.scenario-list li {
+  margin-bottom: 4px;
+}
+
+/* ScopeGap */
+.scope-text {
+  font-size: 0.84rem;
+  color: #374151;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.scope-row {
+  font-size: 0.82rem;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.scope-scenario {
+  font-size: 0.82rem;
+  color: #4b5563;
+  font-style: italic;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+/* ProcessGap */
+.coverage-unvisited {
+  font-size: 0.82rem;
+  color: #374151;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.dsag-drift-alert {
+  background: #fef2f2;
+  border-radius: 6px;
+  padding: 8px 10px;
+  border-left: 3px solid #ef4444;
+}
+
+.drift-detail {
+  font-size: 0.82rem;
+  color: #991b1b;
+  margin-bottom: 6px;
+}
+
+.drift-redirect {
+  font-size: 0.84rem;
+}
+
+.redirect-text {
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-top: 4px;
+  cursor: pointer;
+  border: 1px dashed #d1d5db;
+  transition: border-color 0.15s;
+}
+
+.redirect-text:hover {
+  border-color: #6366f1;
+}
+
+/* Confidence warning */
+.dsag-confidence-warning {
+  font-size: 0.78rem;
+  color: #d97706;
+  font-style: italic;
+  margin-top: 6px;
+  padding: 4px 0;
+}
