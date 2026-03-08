@@ -1,0 +1,376 @@
+Three-Layer DSAG Test Suite
+
+Purpose
+This file turns the three-layer test plan into a runnable manual test suite for the current DSAG app.
+It keeps realistic mixed dialogue as the core evaluation layer, while adding a small number of cleaner anchors
+and boundary controls so failures are easier to interpret.
+
+Recommended app setup
+- Topic: AI-assisted Medical Diagnosis
+- Researcher background: HCI researcher studying explainable AI
+- Expert background: Radiologist with 10 years experience
+- UI mode: manual paired entry
+- Stable server mode:
+  python -m dotenv run -- python -c "from app import app; app.run(host='127.0.0.1', port=5000, debug=False, use_reloader=False)"
+
+Important interpretation rules
+- Layer 1 = canonical anchors. Intended type should be the dominant visible outcome.
+- Layer 2 = robustness probes. Exact labels may vary; the main question is whether the output is directionally useful and not misleading.
+- Layer 3 = boundary and negative controls. These are for diagnosis, not clean pass/fail on the primary label alone.
+- Process behavior should be judged separately from the main message card, because current process alerting is still gap-type-gated.
+- Low-confidence behavior should be recorded explicitly whenever no visible DSAG card appears.
+
+Suggested verdict labels
+- pass
+- soft_pass
+- diagnostic_fail
+
+==================================================
+LAYER 1: CANONICAL ANCHORS
+==================================================
+
+Case L1
+Name: Lexical anchor
+Intent: Pure term translation with minimal extra reasoning.
+Researcher
+When you say a case is "out-of-distribution", do you mean it does not look like the kind of chest CT cases the model was trained on?
+Expert
+Yes. That is what I mean here. "Out-of-distribution" means the scan or patient context does not resemble the chest CT cases the model usually saw during training.
+Target primary outcome: LexicalGap
+Acceptable secondary outcome: none preferred
+Failure pattern to watch:
+- ConceptualGap means the system over-read a simple term-alignment turn.
+
+Case L2
+Name: Conceptual anchor
+Intent: Shared term is not the issue; the issue is operational logic.
+Researcher
+How do you tell whether the heatmap is actually tracking the model's decision rather than just looking convincing on the chest CT?
+Expert
+If the highlighted lesion changes, the malignancy score or decision should change with it. If the highlighted region moves but the decision barely changes, the heatmap is only decorative.
+Target primary outcome: ConceptualGap
+Acceptable secondary outcome: LexicalGap only as a weak near-miss
+Failure pattern to watch:
+- LexicalGap suggests the system flattened a mental-model distinction into terminology.
+
+Case L3
+Name: Tacit anchor
+Intent: Elicit implicit experiential cues rather than explicit rule logic.
+Researcher
+In a borderline lung nodule case, when the AI score looks acceptable but you still hesitate, what are you actually sensing?
+Expert
+It is often a gestalt judgment. The margins feel a little too sharp for the predicted risk, the texture does not match the score, and the case resembles prior borderline nodules that later behaved more aggressively.
+Target primary outcome: TacitGap
+Acceptable secondary outcome: ConceptualGap only as a weak near-miss
+Failure pattern to watch:
+- ConceptualGap is plausible, but it should not dominate if tacit cues are captured well.
+
+Case L4
+Name: Scope anchor
+Intent: Goal conflict between research insight and clinical actionability.
+Researcher
+Would showing the model's internal feature interactions over time help you decide what to do with a suspicious lung nodule?
+Expert
+Only if it changes management. I need to know whether to reassure the patient, order a biopsy, or schedule short-interval follow-up. Internal feature interactions are interesting for model research, but they do not help me unless they change the next clinical step.
+Target primary outcome: ScopeGap
+Acceptable secondary outcome: ConceptualGap only as a weak near-miss
+Failure pattern to watch:
+- ConceptualGap suggests the system treated a goal mismatch as a pure understanding mismatch.
+
+Case L5
+Name: Process anchor sequence
+Intent: Repeated same-topic accumulation with minimal wording drift.
+Run rule: Same session only. Do not reset between turns.
+Turn 1
+Researcher
+Let us stay on the decision threshold. If the AI score is right at the decision threshold, what do you check first?
+Expert
+I first ask whether the score is just above or below the decision threshold and whether the visible lesion is strong enough to justify crossing that threshold.
+Turn 2
+Researcher
+Still on the decision threshold, what matters most if the score is 0.61?
+Expert
+I check whether 0.61 is just barely above the decision threshold, whether the lesion looks convincing, and whether nearby slices support the same finding.
+Turn 3
+Researcher
+Still on the decision threshold, how do you think about 0.64?
+Expert
+I still compare it with the decision threshold, ask whether the image evidence is convincing, and avoid acting on the number alone.
+Turn 4
+Researcher
+One more on the decision threshold: how do you separate 0.58 from 0.68?
+Expert
+At 0.58 I usually hold back unless the morphology is compelling. At 0.68 I pay more attention, but I still anchor on image evidence and clinical context.
+Turn 5
+Researcher
+Let us stay on that same decision-threshold logic. What if calibration is uncertain for this subgroup?
+Expert
+Then I trust the number less, lean more on the image pattern, and ask whether that decision threshold was validated for this subgroup.
+Target primary outcome: Process signal should accumulate; repeated_topic is the first expected alert
+Acceptable secondary outcome:
+- ConceptualGap on message cards while process trail still shows fixation
+- No explicit ProcessGap card if gap-type gating blocks it
+Failure pattern to watch:
+- If the topic trail does not visibly stabilize around one branch, the sequence is not mapping consistently enough.
+
+Case L6
+Name: Uncertain interpretation anchor
+Intent: Force competition across distant expert concepts rather than one local cluster.
+Researcher
+In a borderline chest CT case, what makes you hesitate before acting on the AI output?
+Expert
+Sometimes the malignancy score may not be calibrated for this subgroup, sometimes the nodule pattern looks inconsistent across slices, and sometimes the recommendation becomes harder to use during handoff because responsibility is unclear.
+Target primary outcome: low-confidence warning and uncertain_interpretation path
+Acceptable secondary outcome:
+- Any visible ambiguity handling that surfaces multiple competing expert concepts
+Failure pattern to watch:
+- A clean single-gap answer may mean the system collapsed distant ideas into one branch too aggressively.
+
+==================================================
+LAYER 2: ROBUSTNESS PROBES
+==================================================
+
+Case R1
+Name: Lexical-surface trustworthiness probe
+Intent: Natural dialogue with lexical overlap but conceptual core.
+Researcher
+When the saliency map highlights a region, how do you decide whether that explanation is trustworthy?
+Expert
+If the heatmap lands on the lesion rather than on a rib edge, motion artifact, or some irrelevant bright spot, I trust it more.
+Preferred interpretation:
+- primary: ConceptualGap
+- lexical overlap is expected, but should not dominate
+Pass rule:
+- pass if assistance is directionally about operational trust criteria rather than term translation alone
+
+Case R2
+Name: Faithful versus plausible probe
+Intent: Natural conceptual mismatch with abstract research framing.
+Researcher
+How do you tell whether an explanation is faithful rather than merely plausible?
+Expert
+I think about it this way: if the suspicious area changes, the model's reasoning should change with it. If the highlighted region moves around but the diagnosis barely changes, then the explanation is just decoration.
+Preferred interpretation:
+- primary: ConceptualGap
+Pass rule:
+- pass if the system bridges structural logic rather than only rephrasing terms
+
+Case R3
+Name: Tacit gestalt probe
+Intent: Naturalistic tacit cue elicitation.
+Researcher
+When the AI output looks reasonable on paper but you still hesitate, what are you actually sensing?
+Expert
+It is usually a gestalt judgment. The margins feel subtly wrong, the texture does not fit the score, and the case reminds me of borderline scans that later turned out worse than expected.
+Preferred interpretation:
+- primary: TacitGap
+- conceptual near-miss is possible
+Pass rule:
+- pass if assistance surfaces remaining tacit dimensions rather than only summarizing the answer
+
+Case R4
+Name: Research value versus clinical action probe
+Intent: Natural scope conflict.
+Researcher
+Would a system that exposes internal feature interactions over time help your diagnostic work?
+Expert
+Only if it changes management. I need to know whether to reassure the patient, order a biopsy, or schedule short-interval follow-up. Internal feature interactions are interesting for research, but they are not useful if they do not lead to a clearer next step.
+Preferred interpretation:
+- primary: ScopeGap
+Pass rule:
+- pass if output validates the practical focus and then pivots toward why the research goal could still matter
+
+Case R5
+Name: Process stress block
+Intent: Natural repeated-topic fixation over multiple turns.
+Run rule: Same session only. Do not reset between turns.
+Turn 1
+Researcher
+Let us focus only on the operating threshold. When the AI score is right around your action boundary, what do you look at first?
+Expert
+First I ask whether the score is just above or below the action threshold and whether the visible finding is strong enough to justify crossing it.
+Turn 2
+Researcher
+Stay on that boundary point. If the score is 0.61 and the lesion is subtle, what matters most?
+Expert
+Then I compare it with prior scans, check consistency across adjacent slices, and ask whether the case sits barely above the threshold or clearly beyond it.
+Turn 3
+Researcher
+Still on the threshold itself, what if the score rises from 0.61 to 0.67?
+Expert
+That change matters only if the image evidence also becomes more convincing; a small numeric shift alone does not make me act.
+Turn 4
+Researcher
+One more on thresholding: how do you mentally separate 0.58 from 0.68?
+Expert
+At 0.58 I usually hold back unless the morphology is compelling; at 0.68 I pay more attention, but I still anchor on the image and the clinical context.
+Turn 5
+Researcher
+Let us stay with that threshold logic. What if the case is from a subgroup where calibration is uncertain?
+Expert
+Then I trust the number less and lean even more on the image pattern, priors, and whether that threshold was validated for this subgroup.
+Preferred interpretation:
+- primary: process fixation should become visible
+- message cards may still stay in a non-Process type
+Pass rule:
+- pass if the process panel or timeline behavior makes the repeated local focus obvious, even if a ProcessGap card does not appear
+
+Case R6
+Name: Low-confidence stress probe
+Intent: Natural mixed cue answer that may or may not trigger uncertainty.
+Researcher
+Let us stay specifically on confidence calibration. If the AI score is 0.62 in an ambiguous case, what exactly goes through your mind?
+Expert
+I ask whether that number is calibrated for this subgroup, whether neighboring slices agree, and whether the case is close to the operating threshold.
+Preferred interpretation:
+- this is a robustness probe for overconfidence, not a guaranteed uncertainty trigger
+Pass rule:
+- pass if the system either shows a reasonable local conceptual interpretation or gracefully acknowledges ambiguity
+- diagnostic_fail if it gives a highly specific but obviously overconfident interpretation that ignores the mixed cues
+
+==================================================
+LAYER 3: BOUNDARY AND NEGATIVE CONTROLS
+==================================================
+
+Case B1A
+Name: Lexical side of lexical-versus-conceptual pair
+Researcher
+When you say a case is "out-of-distribution", do you just mean it does not look like the kind of chest CT the model was trained on?
+Expert
+Yes. In this context that is what I mean.
+Target distinction:
+- should behave like LexicalGap
+
+Case B1B
+Name: Conceptual side of lexical-versus-conceptual pair
+Researcher
+When the heatmap highlights a lung nodule, how do you decide whether that explanation is actually tracking the model's decision?
+Expert
+I trust it more when the highlighted region matches the actual lesion and the model's score changes with it, rather than just lighting up an artifact or some irrelevant bright structure.
+Target distinction:
+- should not behave like a pure LexicalGap
+- should lean ConceptualGap
+Diagnostic use:
+- if B1A and B1B collapse to the same behavior, lexical and operational-logic boundaries are too blurred
+
+Case B2A
+Name: Conceptual side of conceptual-versus-tacit pair
+Researcher
+What tells you that the highlighted lung nodule is actually linked to the model's reasoning?
+Expert
+If the relevant lesion features change, the model output should change too. If the highlight moves but the malignancy decision stays the same, it is not truly tracking the reasoning.
+Target distinction:
+- should lean ConceptualGap
+
+Case B2B
+Name: Tacit side of conceptual-versus-tacit pair
+Researcher
+What are you sensing when a borderline lung nodule case feels wrong even though the AI output looks acceptable?
+Expert
+It is a pattern-recognition feeling. The nodule has the wrong texture, the margins feel off, and it resembles prior borderline nodules that later proved malignant.
+Target distinction:
+- should lean TacitGap
+Diagnostic use:
+- if B2A and B2B collapse together, explicit reasoning and felt-experience cues are not being separated well
+
+Case B3A
+Name: Scope side of scope-versus-conceptual pair
+Researcher
+Would exposing more of the model's internal feature interactions help your work on suspicious lung nodules?
+Expert
+Only if that changes what I do for the patient. If it does not affect biopsy, follow-up, or reassurance decisions, it is not useful to me in practice.
+Target distinction:
+- should lean ScopeGap
+
+Case B3B
+Name: Conceptual side of scope-versus-conceptual pair
+Researcher
+What do you mean when you say a lung nodule explanation is useful?
+Expert
+I mean it should point to the actual lesion and its influence should line up with the malignancy decision, rather than looking convincing without changing the reasoning.
+Target distinction:
+- should lean ConceptualGap
+Diagnostic use:
+- if B3A and B3B collapse together, goal conflict and explanation logic are being conflated
+
+Case B4
+Name: Repeated-topic without visible ProcessGap control
+Intent: Confirm current implementation caveat rather than treat it as a clean failure.
+Run rule: Same session only. Do not reset between turns.
+Use: Re-run either L5 or R5.
+Expected diagnostic pattern:
+- Recent Topic Trail should reveal repetition
+- Coverage View should remain local to the branch
+- Latest Process Signal may remain empty if the main selected link is not ProcessGap
+Diagnostic use:
+- if panel repetition is visible but no process alert appears, that confirms the known gap-type-gating limitation
+
+Case B5A
+Name: True ambiguity side of low-confidence pair
+Researcher
+Why might you hesitate with the AI output in this borderline chest CT case?
+Expert
+Part of it is calibration for this subgroup, part of it is disagreement across slices, and part of it is that the recommendation becomes harder to use safely during handoff because responsibility is unclear.
+Target distinction:
+- should be more likely to trigger uncertainty or at least multi-concept competition
+
+Case B5B
+Name: Stable local cluster side of low-confidence pair
+Researcher
+Why might you hesitate with the AI output in this borderline chest CT case?
+Expert
+I think about whether the score is calibrated for this subgroup, whether nearby slices agree, whether the lesion pattern is stable, and whether the case sits close to the operating threshold.
+Target distinction:
+- may still map strongly to one local branch
+- should be less ambiguous than B5A
+Diagnostic use:
+- if B5A and B5B behave the same way, the system may not distinguish true cross-branch ambiguity from dense local clustering
+
+==================================================
+RUN ORDER RECOMMENDATION
+==================================================
+
+Suggested first pass
+1. Run all Layer 1 cases once.
+2. Run Layer 2 cases once in natural order.
+3. Run Layer 3 only after you have seen where Layer 1 and Layer 2 fail.
+
+Suggested stable order
+- L1
+- L2
+- L3
+- L4
+- L6
+- R1
+- R2
+- R3
+- R4
+- B1A
+- B1B
+- B2A
+- B2B
+- B3A
+- B3B
+- B5A
+- B5B
+- L5 in a fresh session
+- R5 in a fresh session
+- B4 by re-running the same process sequence in a fresh session
+
+When to start a fresh session
+- Always start a fresh session before any multi-turn Process case.
+- Use a fresh session for B4 so prior turns do not contaminate the process trail.
+
+What to record per case
+- intended_layer
+- intended_primary_phenomenon
+- acceptable_secondary_outcomes
+- actual_gap_label
+- assistance_visible
+- low_confidence_warning
+- process_focus
+- process_trail
+- process_coverage
+- redirect_present
+- verdict
+- notes

@@ -1,6 +1,63 @@
 # Change Summary
 
 ## Scope
+This round focused on making low-confidence runtime turns visible and actionable without changing the underlying confidence threshold logic.
+
+## Code Changes
+
+### `demo_flask/dsag/runtime.py`
+- Kept the existing low-confidence gate based on `DSAG_MATCH_CONFIDENCE_THRESHOLD`.
+- Extended `RuntimeAnalysis` with a new `uncertain_interpretation` field so low-confidence turns can return a structured payload instead of only a plain warning string.
+- Added `_build_uncertain_interpretation()` to package:
+  - top-2 expert candidates
+  - each candidate's `label`, `description`, and `score`
+  - a short status message
+  - a note explaining that formal mismatch output is intentionally withheld
+  - a template-generated `suggested_followup`
+- Generated the follow-up from candidate labels only, using an interview-style clarification prompt rather than introducing a new LLM call.
+- Preserved the old gate semantics: low-confidence turns still do **not** produce normal `gap type` / `assistance` output.
+
+### `demo_flask/templates/index.html`
+- Broadened DSAG card rendering so a message can show either:
+  - a normal DSAG assistance card, or
+  - a dedicated `Uncertain Interpretation` card
+- Added a standalone uncertainty card path with:
+  - title `Uncertain Interpretation`
+  - short status text
+  - `Possible Concept Matches`
+  - `Suggested Follow-up`
+  - a note that no mismatch type is shown until clarification
+- Reused the existing `.clickable-followup` behavior so the generated clarification question can still be inserted into the researcher input on click.
+- Stopped relying on the old low-confidence footer warning as the only visible UI signal.
+
+### `demo_flask/static/style.css`
+- Replaced the lightweight low-confidence warning styling with a fuller uncertainty-card presentation.
+- Added dedicated styles for:
+  - uncertainty container spacing
+  - status text
+  - two-column candidate layout
+  - candidate tiles
+  - score chips
+  - explanatory note
+- Added a responsive fallback so the two candidate columns collapse to one on narrower screens.
+
+## Product Behavior After This Change
+- Low-confidence turns are now visible as a first-class system state rather than looking like “no analysis happened.”
+- The UI shows two plausible expert-side interpretations side by side, which better communicates semantic ambiguity.
+- The researcher receives one actionable clarification question without paying the cost of an additional runtime model call.
+- The main confidence policy remains unchanged, so this is a presentation-and-recovery improvement rather than a matching-policy change.
+
+## Validation
+- `python -m py_compile "C:/Users/Yunfei Wang/Desktop/DSAG/demo_flask/dsag/runtime.py" "C:/Users/Yunfei Wang/Desktop/DSAG/demo_flask/app.py"`
+- Jinja template parse check for `demo_flask/templates/index.html`
+- IDE lints for edited files reported no new issues
+
+## Future Plan
+- Keep the same `Uncertain Interpretation` card structure.
+- Optionally upgrade `Suggested Follow-up` from pure template generation to a lightweight LLM-polished sentence after real UI testing confirms the state is useful.
+- If needed later, hide raw scores or convert them into more productized confidence labels without changing the backend payload shape.
+
+## Scope
 This round focused on introducing a dedicated `Process Guidance` panel for `ProcessGap`-style session monitoring, while keeping the existing message-level DSAG assistance cards intact.
 
 ## Code Changes
@@ -480,6 +537,32 @@ Priority: Repeated Topic > Tunnel Vision. Only one drift type per turn (mutually
 - `app.py` — timeline accumulation logic unchanged
 - `schema.py` — `GapLink.assistance_payload` is `Dict[str, Any]`, accepts any shape
 - All other gap types — no changes to Lexical, Conceptual, Scope pipelines
+
+---
+
+## 2026-03-08 — Low-Confidence Uncertainty Card (Phase 2): Prompt, Fallback & Polish Fixes
+
+### Problem
+
+Phase 1 introduced a structured `Uncertain Interpretation` card for low-confidence turns, but had three design flaws:
+
+1. **Prompt generated independent questions, not contrastive ones.** Each candidate's follow-up question was designed to "test whether THIS candidate is correct" in isolation. The prompt never told the LLM about the semantic difference between candidates, so generated questions lacked discriminating power.
+2. **Score leaked into LLM input.** The `candidates_json` sent to the polish LLM contained `score` values, which could implicitly bias the LLM toward generating a better question for the higher-scored candidate.
+3. **Fallback contradicted prompt design.** The deterministic fallback (`_fallback_uncertainty_followups`) generated "Are you pointing more to {label}?" — a yes/no label-confirmation question. The prompt's own Rule 5 explicitly prohibited this pattern ("Does NOT simply repeat the concept label as a yes/no question").
+
+### Solution
+
+| Change | Detail |
+|--------|--------|
+| **Prompt rewrite** | `UNCERTAIN_INTERPRETATION_FOLLOWUPS_PROMPT` redesigned with a two-step task: Step 1 — identify the core semantic distinction between candidates; Step 2 — generate one question per candidate that targets that distinction. Added "or whether the expert means neither" to break the closed-set assumption. Output now includes a `semantic_distinction` field. |
+| **Score stripped from LLM input** | `_polish_uncertain_interpretation()` now builds a `candidates_for_llm` list with only `node_id`, `label`, `description` — no `score`. Score is preserved in the original candidates for frontend display. |
+| **Fallback unified with prompt** | `_fallback_uncertainty_followups()` rewritten to probe each candidate's description with open-ended questions ("Could you tell me more about how {description} plays into what you're describing?") rather than yes/no label confirmation. |
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `dsag/runtime.py` | `UNCERTAIN_INTERPRETATION_FOLLOWUPS_PROMPT` — rewritten for contrastive disambiguation with `semantic_distinction` output. `_fallback_uncertainty_followups()` — open-ended description probes. `_polish_uncertain_interpretation()` — strips `score` from `candidates_for_llm` before LLM call. |
 
 ---
 

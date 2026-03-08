@@ -148,6 +148,46 @@ Return ONLY valid JSON:
 """
 
 
+UNCERTAIN_INTERPRETATION_FOLLOWUPS_PROMPT = """You are writing disambiguation follow-up questions for a live interview.
+
+The system detected possible expert concepts that might match the expert's latest answer, but cannot confidently determine which one (if either) the expert is discussing.
+Your job: help the researcher figure this out with natural follow-up questions.
+
+## Conversation context
+- Researcher's latest question: "{researcher_question}"
+- Expert's latest answer: "{expert_answer}"
+- Recent conversation summary: "{context_summary}"
+
+## Candidate concepts
+{candidates_json}
+
+## Task
+
+Step 1 — Identify the CORE semantic distinction between the candidates: what specific aspect of the expert's answer could point to one versus the other?
+
+Step 2 — For EACH candidate, generate exactly 1 follow-up question that:
+1. Sounds natural and directly speakable by the researcher.
+2. Targets the semantic DIFFERENCE between candidates — a good question should help reveal which concept the expert means, or whether the expert means neither.
+3. Uses the expert's own wording when possible.
+4. Does NOT mention system internals (scores, confidence, candidates, uncertainty).
+5. Does NOT simply repeat the concept label as a yes/no question — instead probes the distinguishing aspect.
+6. Does NOT invent new facts or technical claims.
+7. Keeps to a single sentence.
+
+## Output format
+Return ONLY valid JSON with this exact top-level structure:
+{{
+  "semantic_distinction": "one sentence describing the key difference between the candidates",
+  "candidate_followups": [
+    {{
+      "node_id": "candidate node id",
+      "followup_questions": ["one disambiguation question"]
+    }}
+  ]
+}}
+"""
+
+
 # ============== Result Data Classes ==============
 
 @dataclass
@@ -230,11 +270,13 @@ class RuntimeAnalysis:
     assistance: Optional[Assistance] = None
     selected_link: Optional[GapLink] = None
     confidence_warning: str = ""
+    uncertain_interpretation: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         result = {
             "located": self.located.to_dict(),
             "confidence_warning": self.confidence_warning,
+            "uncertain_interpretation": self.uncertain_interpretation,
         }
         if self.divergence:
             result["divergence"] = self.divergence.to_dict()
@@ -556,6 +598,140 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
 
         return result
 
+    def _build_uncertain_interpretation(self, located: LocatedPosition) -> Dict[str, Any]:
+        """Build a structured low-confidence response without changing gate logic."""
+        candidates = []
+        for result in located.expert_results[:2]:
+            candidates.append({
+                "node_id": result.node_id,
+                "label": result.node.label,
+                "description": result.node.description,
+                "score": round(result.score, 4),
+            })
+
+        return {
+            "status": (
+                "Top 2 possible expert concepts are shown below."
+                if len(candidates) >= 2
+                else "A possible expert concept is shown below."
+                if len(candidates) == 1
+                else "The current expert response could not be mapped confidently."
+            ),
+            "candidates": candidates,
+            "note": "No mismatch type is shown until the concept is clarified.",
+        }
+
+    def _fallback_uncertainty_followups(
+        self,
+        candidates: List[Dict[str, Any]],
+    ) -> List[Dict[str, Any]]:
+        """Generate deterministic fallback questions when LLM call fails.
+
+        Questions probe each candidate's distinguishing description rather than
+        asking a yes/no confirmation on the label, consistent with the prompt's
+        contrastive design.
+        """
+        followups: List[Dict[str, Any]] = []
+
+        for i, candidate in enumerate(candidates):
+            label = candidate.get("label", "").strip()
+            desc = candidate.get("description", "").strip()
+            short_desc = desc[:80].rsplit(" ", 1)[0] if len(desc) > 80 else desc
+
+            if len(candidates) >= 2 and short_desc:
+                question = (
+                    f"Could you tell me more about how {short_desc.lower()} "
+                    f"plays into what you're describing?"
+                )
+            elif short_desc:
+                question = (
+                    f"Could you elaborate on whether {short_desc.lower()} "
+                    f"relates to what you're getting at?"
+                )
+            elif label:
+                question = (
+                    f"Could you elaborate on what you mean? "
+                    f"I want to understand how {label.lower()} fits into your thinking."
+                )
+            else:
+                question = "Could you elaborate a bit more on what you mean by that?"
+
+            followups.append({
+                "node_id": candidate.get("node_id", ""),
+                "followup_questions": [question],
+            })
+        return followups
+
+    def _polish_uncertain_interpretation(
+        self,
+        uncertain: Dict[str, Any],
+        researcher_question: str,
+        expert_answer: str,
+        context_summary: str,
+    ) -> Dict[str, Any]:
+        """Add candidate-specific follow-up questions using the polish model."""
+        candidates = uncertain.get("candidates", [])
+        if not candidates:
+            return uncertain
+
+        fallback_followups = self._fallback_uncertainty_followups(candidates)
+        fallback_map = {
+            item.get("node_id", ""): item.get("followup_questions", [])
+            for item in fallback_followups
+        }
+
+        try:
+            candidates_for_llm = [
+                {"node_id": c.get("node_id", ""), "label": c.get("label", ""),
+                 "description": c.get("description", "")}
+                for c in candidates
+            ]
+            llm = _build_polish_llm()
+            prompt = ChatPromptTemplate.from_messages([
+                ("user", UNCERTAIN_INTERPRETATION_FOLLOWUPS_PROMPT)
+            ])
+            chain = prompt | llm
+            response = chain.invoke({
+                "researcher_question": researcher_question[:300],
+                "expert_answer": expert_answer[:500],
+                "context_summary": context_summary[:600],
+                "candidates_json": json.dumps(
+                    {"candidates": candidates_for_llm}, ensure_ascii=False,
+                ),
+            })
+            content = getattr(response, "content", str(response))
+            parsed = _parse_json_from_text(content)
+            generated = parsed.get("candidate_followups", []) if isinstance(parsed, dict) else []
+        except Exception:
+            generated = []
+
+        generated_map: Dict[str, List[str]] = {}
+        for item in generated:
+            if not isinstance(item, dict):
+                continue
+            node_id = str(item.get("node_id", "")).strip()
+            questions = item.get("followup_questions", [])
+            cleaned: List[str] = []
+            if isinstance(questions, list):
+                for question in questions:
+                    text = str(question).strip()
+                    if text:
+                        cleaned.append(text)
+            if node_id and cleaned:
+                generated_map[node_id] = cleaned[:1]
+
+        polished_candidates = []
+        for candidate in candidates:
+            node_id = candidate.get("node_id", "")
+            question_list = generated_map.get(node_id) or fallback_map.get(node_id, [])
+            candidate_out = dict(candidate)
+            candidate_out["followup_questions"] = question_list
+            polished_candidates.append(candidate_out)
+
+        uncertain_out = dict(uncertain)
+        uncertain_out["candidates"] = polished_candidates
+        return uncertain_out
+
     def find_best_link(
         self,
         expert_leaf_id: Optional[str],
@@ -823,9 +999,16 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
             confidence_threshold = 0.45
         if analysis.located.expert_confidence < confidence_threshold:
             analysis.confidence_warning = (
-                f"Low confidence matching expert's statement "
-                f"(score={analysis.located.expert_confidence:.2f}). "
-                f"Below threshold ({confidence_threshold:.2f}), so no gap/assistance is shown."
+                "Low-confidence expert match; showing the top possible expert concepts instead."
+            )
+            analysis.uncertain_interpretation = self._build_uncertain_interpretation(
+                analysis.located
+            )
+            analysis.uncertain_interpretation = self._polish_uncertain_interpretation(
+                analysis.uncertain_interpretation,
+                researcher_question,
+                expert_answer,
+                context_summary,
             )
             return analysis
 

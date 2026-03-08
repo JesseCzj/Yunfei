@@ -144,17 +144,20 @@
                     <div class="analysis-section">
 
                       {# DSAG Assistance Card #}
-                      {% set has_dsag = msg.dsag_analysis is defined and msg.dsag_analysis and msg.dsag_analysis.assistance is defined and msg.dsag_analysis.assistance and msg.dsag_analysis.assistance.relation_type and msg.dsag_analysis.assistance.payload %}
+                      {% set dsag = msg.dsag_analysis if msg.dsag_analysis is defined and msg.dsag_analysis else {} %}
+                      {% set uncertainty = dsag.uncertain_interpretation if dsag.uncertain_interpretation is defined else {} %}
+                      {% set has_uncertainty = uncertainty and ((uncertainty.candidates is defined and uncertainty.candidates) or uncertainty.status is defined) %}
+                      {% set has_assistance = dsag.assistance is defined and dsag.assistance and dsag.assistance.relation_type and dsag.assistance.payload %}
+                      {% set has_dsag = has_assistance or has_uncertainty %}
                       {% if has_dsag %}
-                        {% set dsag = msg.dsag_analysis %}
                         {% set assist = dsag.assistance if dsag.assistance is defined else {} %}
                         {% set rtype = assist.relation_type if assist.relation_type is defined else "" %}
                         {% set payload = assist.payload if assist.payload is defined else {} %}
                         <div class="analysis-card dsag-card collapsible">
                           <div class="analysis-header">
                             <span class="analysis-icon">🧭</span>
-                            <span class="analysis-title">DSAG Assistance</span>
-                            {% if rtype %}
+                            <span class="analysis-title">{{ "Uncertain Interpretation" if has_uncertainty else "DSAG Assistance" }}</span>
+                            {% if rtype and not has_uncertainty %}
                               <span class="badge badge-dsag-type">{{ rtype }}</span>
                             {% endif %}
                             <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
@@ -162,8 +165,44 @@
                             </button>
                           </div>
                           <div class="card-body">
+                            {% if has_uncertainty %}
+                              <div class="dsag-uncertainty">
+                                {% if uncertainty.status %}
+                                  <div class="uncertainty-status">{{ uncertainty.status }}</div>
+                                {% endif %}
+                                {% if uncertainty.candidates is defined and uncertainty.candidates|length > 0 %}
+                                  <div class="dsag-subsection">
+                                    <div class="dsag-subsection-title">Possible Concept Matches</div>
+                                    <div class="uncertainty-candidates">
+                                      {% for candidate in uncertainty.candidates %}
+                                        <div class="uncertainty-candidate">
+                                          <div class="uncertainty-candidate-top">
+                                            <div class="uncertainty-candidate-label">{{ candidate.label }}</div>
+                                            <div class="uncertainty-score">{{ "%.2f"|format(candidate.score) }}</div>
+                                          </div>
+                                          {% if candidate.description %}
+                                            <div class="uncertainty-candidate-description">{{ candidate.description }}</div>
+                                          {% endif %}
+                                          {% if candidate.followup_questions is defined and candidate.followup_questions|length > 0 %}
+                                            <div class="uncertainty-followups">
+                                              <div class="uncertainty-followups-title">Suggested Follow-up</div>
+                                              {% for question in candidate.followup_questions %}
+                                                <div class="redirect-text clickable-followup uncertainty-followup-question" data-question="{{ question }}">{{ question }}</div>
+                                              {% endfor %}
+                                            </div>
+                                          {% endif %}
+                                        </div>
+                                      {% endfor %}
+                                    </div>
+                                  </div>
+                                {% endif %}
+                                {% if uncertainty.note %}
+                                  <div class="uncertainty-note">{{ uncertainty.note }}</div>
+                                {% endif %}
+                              </div>
+
                             {# Divergence info #}
-                            {% if dsag.divergence is defined and dsag.divergence %}
+                            {% elif dsag.divergence is defined and dsag.divergence %}
                               <div class="dsag-divergence">
                                 <div class="divergence-label">Divergence ({{ dsag.divergence.lca_layer }}):</div>
                                 <div class="divergence-detail">
@@ -335,11 +374,6 @@
                                   </div>
                                 {% endif %}
                               </div>
-                            {% endif %}
-
-                            {# Confidence warning #}
-                            {% if dsag.confidence_warning %}
-                              <div class="dsag-confidence-warning">{{ dsag.confidence_warning }}</div>
                             {% endif %}
                           </div>
                         </div>
