@@ -1,0 +1,77 @@
+Demo setup
+Topic: AI-assisted Medical Diagnosis
+Researcher background: HCI researcher studying explainable AI
+Expert background: Radiologist with 10 years experience
+
+How to use
+Enter each Researcher turn in the left input box and each Expert turn in the right input box.
+The goal of this script is not perfect label control. It is to make ProcessGap visible while also giving the other gap types a fair chance to appear.
+
+Turn 1
+Researcher: When the AI flags a chest CT as abnormal, what do you usually look at first?
+Expert: I do not start from the heatmap. I first check whether the case is in-distribution, then I look at the lesion candidate list, the calibrated malignancy score, and whether the model confidence is unstable across adjacent slices.
+Expected dominant signal: LexicalGap or ConceptualGap
+
+Turn 2
+Researcher: So the heatmap is basically the model's reasoning process, right?
+Expert: Not really. It is only a visual cue. It does not expose the full reasoning process and it definitely does not guarantee that the probability estimate is well calibrated.
+Expected dominant signal: ConceptualGap
+
+Turn 3
+Researcher: When you say calibrated, do you mean the model is simply more accurate on easy cases?
+Expert: Calibration means the predicted probability matches the real-world likelihood. A model can rank cases well and still be badly calibrated.
+Expected dominant signal: LexicalGap
+
+Turn 4
+Researcher: In the interface, would changing the heatmap color from red to blue make you trust it more?
+Expert: Color matters a little, but my bigger concern is where the AI fits in the clinical workflow, when I should ignore it, and how it affects reporting responsibility.
+Expected dominant signal: ScopeGap
+
+Turn 5
+Researcher: Could you walk me through how you decide whether to accept the AI suggestion in an ambiguous case?
+Expert: Often it comes down to tacit cues, like whether the finding pattern is anatomically plausible, whether the confidence matches the image quality, and whether the suggestion fits the patient's history.
+Expected dominant signal: TacitGap
+
+Turn 6
+Researcher: Let's stay on confidence. If the confidence score is 0.62, what exactly goes through your mind?
+Expert: I ask whether that number is calibrated for this subgroup, whether neighboring slices agree, and whether the model is unstable around the operating threshold.
+Expected dominant signal: Process tracking should start to center on the confidence/calibration branch
+
+Turn 7
+Researcher: And if it is 0.58 instead of 0.62, how does your interpretation change?
+Expert: The exact number matters less than whether the case sits near the decision threshold and whether that uncertainty changes the clinical consequence.
+Expected dominant signal: repeated local focus on the same topic
+
+Turn 8
+Researcher: If it drops to 0.55, do you still think about it in the same way?
+Expert: Yes. I still read it through threshold sensitivity, calibration, and what kind of false positive or false negative would follow.
+Expected dominant signal: ProcessGap may begin to flag repeated_topic
+
+Turn 9
+Researcher: One more on confidence: what if it is 0.52?
+Expert: Again, I would not treat that number alone as truth. I compare it with image quality, clinical priors, and slice consistency before acting on it.
+Expected dominant signal: ProcessGap may escalate to repeated_topic or tunnel_vision
+
+Turn 10
+Researcher: Let me zoom out. Where in the workflow are you most likely to deliberately ignore the AI output?
+Expert: Usually during handoff, when the case is out-of-distribution, when image quality is poor, or when the AI conflicts with the patient's broader context.
+Expected dominant signal: the Process Guidance panel should show a branch shift away from the repeated confidence topic
+
+Turn 11
+Researcher: What kinds of handoff problems make the AI recommendation less useful?
+Expert: If the next clinician does not know what evidence the AI relied on, or if responsibility is unclear, the recommendation becomes harder to use safely.
+Expected dominant signal: ScopeGap or TacitGap
+
+Turn 12
+Researcher: If you had to teach a new radiologist one rule for using AI safely, what would it be?
+Expert: Treat the AI as a second reader, not as an authority. Trust it more when it aligns with anatomy and workflow, and distrust it when confidence looks clean but context looks wrong.
+Expected dominant signal: ConceptualGap or TacitGap
+
+What to watch in the new Process Guidance panel
+After turns 6 to 9, the Recent Topic Trail should keep showing closely related topics.
+Coverage View should remain local to the current branch, not the whole interview.
+If ProcessGap is triggered, the Latest Process Signal card should show a drift type and a redirect question that can be clicked to fill the researcher input.
+
+Fallback if ProcessGap does not trigger strongly
+Keep asking three or four more questions about the exact same confidence/calibration issue.
+Avoid introducing new concepts like workflow, handoff, or patient communication until after the repeated-topic segment.

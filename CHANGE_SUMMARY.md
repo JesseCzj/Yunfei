@@ -1,3 +1,96 @@
+# Change Summary
+
+## Scope
+This round focused on introducing a dedicated `Process Guidance` panel for `ProcessGap`-style session monitoring, while keeping the existing message-level DSAG assistance cards intact.
+
+## Code Changes
+
+### `demo_flask/app.py`
+- Added session-scoped interview timeline helpers:
+  - `get_interview_timeline()`
+  - `set_interview_timeline()`
+- Added timeline construction and reuse helpers:
+  - `build_timeline_entry()`
+  - `analyze_turn_with_dsag()`
+  - `get_latest_process_payload()`
+  - `build_process_panel_state()`
+- Moved ProcessGap tracking state away from the shared cached `DSAGState.interview_timeline` path and into the browser session, so repeated transcript testing is isolated per session.
+- Updated turn analysis flow so the current turn is appended to timeline state before the ProcessGap payload is regenerated for that turn.
+- Reused the same analysis helper in both:
+  - `/api/dsag/analyze_turn`
+  - server-rendered chat submission path in `index()`
+- Passed a new `process_panel` view model into `render_template(...)`.
+- Slightly adjusted cache reuse flow during DSAG init so cached state lookup and session mapping are handled more safely.
+
+### `demo_flask/templates/index.html`
+- Added a new right-side `Process Guidance` panel.
+- The panel has four display blocks:
+  - `Current Focus`
+  - `Coverage View`
+  - `Recent Topic Trail`
+  - `Latest Process Signal`
+- Added empty states for:
+  - DSAG not initialized
+  - DSAG ready but no interview turns yet
+- Reused existing clickable follow-up behavior so redirect text in the process panel can still feed the researcher input.
+- Kept the existing in-message DSAG assistance cards for cross-checking during testing.
+
+### `demo_flask/static/style.css`
+- Expanded the layout from a two-column shell to a three-column shell:
+  - left script / setup panel
+  - center interview panel
+  - right process panel
+- Added process-panel-specific styles for:
+  - cards
+  - pills
+  - progress bar
+  - topic chips
+  - recent topic trail
+  - process alert state
+- Added responsive handling so the process panel falls below the main content on narrower screens.
+
+### `simu_transcript_process_panel.txt`
+- Added a dedicated simulation transcript for manual UI and runtime testing.
+- The transcript emphasizes:
+  - a clean warm-up phase
+  - a repeated-topic phase meant to stress `ProcessGap`
+  - suggested fallback prompts if repeated-topic detection is weak
+
+## What The New Panel Currently Does Well
+- Tracks the current matched expert topic.
+- Shows local branch coverage around that topic.
+- Accumulates recent topic history across turns.
+- Preserves a clear separation between message-level semantic gaps and session-level process visualization.
+
+## Current Known Limitations
+
+### 1. `Latest Process Signal` is still coupled to `ProcessGap` classification
+The right-side panel already shows repeated topic history and branch-local coverage, but its alert block still depends on the most recent message whose `assistance.relation_type == "ProcessGap"`.
+
+Implication:
+- You can observe repeated conceptual looping in the trail,
+- while `Latest Process Signal` stays empty,
+- because the selected link for those turns remains `ConceptualGap`.
+
+### 2. Low-confidence turns are not visible enough in the UI
+When expert matching confidence is below `DSAG_MATCH_CONFIDENCE_THRESHOLD`, the backend returns a `confidence_warning` without a normal assistance payload.
+
+Current frontend behavior:
+- the DSAG card is rendered only when a non-empty assistance payload exists,
+- so low-confidence warnings can become invisible,
+- making those turns look like “no analysis happened”.
+
+### 3. Runtime topic grounding can drift toward narrow technical leaves
+In the calibration stress test, repeated turns were consistently mapped to:
+- `Slice thickness and spacing sensitivity`
+
+This is useful for observing stable topic tracking, but it also shows that runtime matching currently tends to collapse multiple calibration-related utterances into a very specific technical leaf.
+
+## Practical Outcome Of This Round
+- The new `Process Guidance` panel is implemented and working.
+- Session-level process tracking now updates across turns.
+- Manual testing confirmed that topic trail and local coverage are useful.
+- Manual testing also confirmed that the current `ProcessGap` alert logic should be decoupled from the main selected gap type in a future revision.
 # DSAG — Change Summary
 
 **Scope:** All backend changes from 2026-02-22 to 2026-02-26

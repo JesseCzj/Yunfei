@@ -4,7 +4,7 @@ import io
 import os
 import uuid
 import threading
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 # Import DSAG modules
 from dsag import (
@@ -85,6 +85,16 @@ def get_messages():
     return session["messages"]
 
 
+def get_interview_timeline() -> List[Dict[str, Any]]:
+    """Get the interview timeline stored in the browser session."""
+    return list(session.get("interview_timeline", []))
+
+
+def set_interview_timeline(timeline: List[Dict[str, Any]]) -> None:
+    """Persist the interview timeline for the current browser session."""
+    session["interview_timeline"] = timeline
+
+
 def build_context_summary(messages, max_turns: int = 3) -> str:
     """Build a lightweight summary of the most recent turns."""
     turns = []
@@ -131,6 +141,198 @@ def set_guide_error(message: str | None):
         session["guide_error"] = message
     else:
         session.pop("guide_error", None)
+
+
+def build_timeline_entry(
+    graph: DSAGGraph,
+    analysis: Any,
+    researcher_question: str,
+    expert_answer: str,
+    turn_index: int,
+) -> Optional[Dict[str, Any]]:
+    """Build a session-scoped timeline entry for ProcessGap tracking."""
+    expert_leaf_id = analysis.located.best_expert_leaf_id
+    if not expert_leaf_id:
+        return None
+
+    expert_node = graph.expert_tree.get_node(expert_leaf_id)
+    return {
+        "turn_index": turn_index,
+        "topic_label": expert_node.label if expert_node else "",
+        "expert_leaf_id": expert_leaf_id,
+        "researcher_leaf_id": analysis.located.best_researcher_leaf_id or "",
+        "relation_type": (
+            analysis.selected_link.relation_type
+            if analysis.selected_link else ""
+        ),
+        "summary": f"Q: {researcher_question[:80]} | A: {expert_answer[:80]}",
+    }
+
+
+def analyze_turn_with_dsag(
+    dsag_state: DSAGState,
+    researcher_question: str,
+    expert_answer: str,
+    messages: List[Dict[str, Any]],
+):
+    """
+    Run DSAG analysis for the current session and keep ProcessGap timeline in sync.
+
+    ProcessGap needs the current turn included in the timeline, so we regenerate
+    its assistance payload after building the timeline entry for this turn.
+    """
+    embedding_index = EmbeddingIndex(dsag_state.graph)
+    embedding_index.load_embeddings_data({
+        "expert": dsag_state.expert_leaf_embeddings,
+        "researcher": dsag_state.researcher_leaf_embeddings,
+    })
+
+    timeline = get_interview_timeline()
+    context_summary = build_context_summary(messages)
+    engine = RuntimeEngine(dsag_state.graph, embedding_index)
+    analysis = engine.analyze_turn(
+        researcher_question,
+        expert_answer,
+        context_summary=context_summary,
+        interview_timeline=timeline,
+    )
+
+    timeline_entry = build_timeline_entry(
+        dsag_state.graph,
+        analysis,
+        researcher_question,
+        expert_answer,
+        turn_index=len(timeline) + 1,
+    )
+
+    if timeline_entry:
+        timeline_with_current = timeline + [timeline_entry]
+        if (
+            analysis.selected_link
+            and analysis.selected_link.relation_type == "ProcessGap"
+        ):
+            analysis.assistance = engine.generate_assistance(
+                analysis.located.best_expert_leaf_id,
+                analysis.selected_link,
+                interview_timeline=timeline_with_current,
+                expert_answer=expert_answer,
+                researcher_question=researcher_question,
+            )
+        set_interview_timeline(timeline_with_current)
+
+    return analysis
+
+
+def get_latest_process_payload(messages: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Return the most recent ProcessGap payload stored in message history."""
+    for msg in reversed(messages):
+        dsag_analysis = msg.get("dsag_analysis") or {}
+        assistance = dsag_analysis.get("assistance") or {}
+        if assistance.get("relation_type") == "ProcessGap":
+            return assistance.get("payload") or {}
+    return {}
+
+
+def build_process_panel_state(
+    dsag_state: Optional[DSAGState],
+    messages: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Build a lightweight view model for the dedicated Process Guidance panel."""
+    panel = {
+        "ready": bool(dsag_state and dsag_state.is_ready()),
+        "has_activity": False,
+        "turn_count": 0,
+        "current_topic": "",
+        "current_topic_description": "",
+        "latest_relation_type": "",
+        "coverage": {
+            "ratio": "0/0",
+            "percent": 0,
+            "visited_count": 0,
+            "total_count": 0,
+            "branch_topics": [],
+        },
+        "recent_topics": [],
+        "drift": {
+            "detected": False,
+            "type": "",
+            "detail": "",
+            "redirect": "",
+        },
+    }
+
+    if not dsag_state or not dsag_state.is_ready():
+        return panel
+
+    timeline = get_interview_timeline()
+    if not timeline:
+        return panel
+
+    panel["has_activity"] = True
+    panel["turn_count"] = len(timeline)
+
+    current_entry = timeline[-1]
+    current_leaf_id = current_entry.get("expert_leaf_id", "")
+    current_node = (
+        dsag_state.graph.expert_tree.get_node(current_leaf_id)
+        if current_leaf_id else None
+    )
+    siblings = (
+        dsag_state.graph.expert_tree.get_siblings(current_leaf_id)
+        if current_leaf_id else []
+    )
+
+    panel["current_topic"] = current_entry.get("topic_label", "")
+    panel["current_topic_description"] = current_node.description if current_node else ""
+    panel["latest_relation_type"] = current_entry.get("relation_type", "")
+
+    covered_ids = {
+        entry.get("expert_leaf_id", "")
+        for entry in timeline
+        if entry.get("expert_leaf_id")
+    }
+    branch_nodes = ([current_node] if current_node else []) + siblings
+    branch_topics = []
+    for node in branch_nodes:
+        status = "unvisited"
+        if node.id == current_leaf_id:
+            status = "current"
+        elif node.id in covered_ids:
+            status = "visited"
+        branch_topics.append({
+            "label": node.label,
+            "status": status,
+        })
+
+    visited_count = sum(1 for item in branch_topics if item["status"] != "unvisited")
+    total_count = len(branch_topics)
+    panel["coverage"] = {
+        "ratio": f"{visited_count}/{total_count}" if total_count else "0/0",
+        "percent": round((visited_count / total_count) * 100) if total_count else 0,
+        "visited_count": visited_count,
+        "total_count": total_count,
+        "branch_topics": branch_topics,
+    }
+
+    panel["recent_topics"] = [
+        {
+            "turn_index": entry.get("turn_index", 0),
+            "topic_label": entry.get("topic_label", ""),
+            "relation_type": entry.get("relation_type", ""),
+            "is_current": idx == len(timeline) - 1,
+        }
+        for idx, entry in enumerate(timeline[-6:], start=max(len(timeline) - 6, 0))
+    ]
+
+    latest_process_payload = get_latest_process_payload(messages)
+    panel["drift"] = {
+        "detected": bool(latest_process_payload.get("drift_detected")),
+        "type": latest_process_payload.get("drift_type", "") or "",
+        "detail": latest_process_payload.get("drift_detail", "") or "",
+        "redirect": latest_process_payload.get("redirect", "") or "",
+    }
+
+    return panel
 
 
 def extract_text_from_upload(upload):
@@ -265,18 +467,20 @@ def api_dsag_init():
         questionnaire = load_questionnaire_text()
         cache_key = DSAGGraph.compute_cache_key(topic, researcher_bg, expert_bg, questionnaire)
         
-        # Check if already cached
+        # Check if already cached. Only read shared cache under the lock;
+        # update the session mapping after releasing it to avoid lock re-entry.
         with DSAG_LOCK:
             existing_state = DSAG_CACHE.get(cache_key)
-            if existing_state and existing_state.is_ready():
-                # Reuse cached graph
-                set_dsag_state(existing_state, cache_key)
-                return jsonify({
-                    "success": True,
-                    "cached": True,
-                    "cache_key": cache_key,
-                    "metadata": existing_state.graph.metadata if existing_state.graph else {},
-                })
+        
+        if existing_state and existing_state.is_ready():
+            # Reuse cached graph
+            set_dsag_state(existing_state, cache_key)
+            return jsonify({
+                "success": True,
+                "cached": True,
+                "cache_key": cache_key,
+                "metadata": existing_state.graph.metadata if existing_state.graph else {},
+            })
         
         # Create new state (building)
         new_state = DSAGState(
@@ -394,41 +598,12 @@ def api_dsag_analyze_turn():
         if not expert_answer:
             return jsonify({"success": False, "error": "Expert answer is required"})
 
-        # Create embedding index from stored embeddings
-        embedding_index = EmbeddingIndex(state.graph)
-        embedding_index.load_embeddings_data({
-            "expert": state.expert_leaf_embeddings,
-            "researcher": state.researcher_leaf_embeddings,
-        })
-
-        # Create runtime engine and analyze with timeline
-        context_summary = build_context_summary(get_messages())
-        engine = RuntimeEngine(state.graph, embedding_index)
-        analysis = engine.analyze_turn(
+        analysis = analyze_turn_with_dsag(
+            state,
             researcher_question,
             expert_answer,
-            context_summary=context_summary,
-            interview_timeline=state.interview_timeline,
+            get_messages(),
         )
-
-        # Accumulate timeline entry for Process Gap tracking
-        if analysis.located.best_expert_leaf_id:
-            expert_node = state.graph.expert_tree.get_node(
-                analysis.located.best_expert_leaf_id
-            )
-            timeline_entry = {
-                "turn_index": len(state.interview_timeline) + 1,
-                "topic_label": expert_node.label if expert_node else "",
-                "expert_leaf_id": analysis.located.best_expert_leaf_id or "",
-                "researcher_leaf_id": analysis.located.best_researcher_leaf_id or "",
-                "relation_type": (
-                    analysis.selected_link.relation_type
-                    if analysis.selected_link else ""
-                ),
-                "summary": f"Q: {researcher_question[:80]} | A: {expert_answer[:80]}",
-            }
-            with DSAG_LOCK:
-                state.interview_timeline.append(timeline_entry)
 
         return jsonify({
             "success": True,
@@ -541,38 +716,12 @@ def index():
             dsag_state = get_dsag_state()
             if dsag_state and dsag_state.is_ready() and last_question:
                 try:
-                    embedding_index = EmbeddingIndex(dsag_state.graph)
-                    embedding_index.load_embeddings_data({
-                        "expert": dsag_state.expert_leaf_embeddings,
-                        "researcher": dsag_state.researcher_leaf_embeddings,
-                    })
-                    context_summary = build_context_summary(messages)
-                    engine = RuntimeEngine(dsag_state.graph, embedding_index)
-                    dsag_analysis = engine.analyze_turn(
+                    dsag_analysis = analyze_turn_with_dsag(
+                        dsag_state,
                         last_question,
                         expert_text,
-                        context_summary=context_summary,
-                        interview_timeline=dsag_state.interview_timeline,
+                        messages,
                     )
-
-                    # Accumulate timeline entry
-                    if dsag_analysis.located.best_expert_leaf_id:
-                        expert_node = dsag_state.graph.expert_tree.get_node(
-                            dsag_analysis.located.best_expert_leaf_id
-                        )
-                        timeline_entry = {
-                            "turn_index": len(dsag_state.interview_timeline) + 1,
-                            "topic_label": expert_node.label if expert_node else "",
-                            "expert_leaf_id": dsag_analysis.located.best_expert_leaf_id or "",
-                            "researcher_leaf_id": dsag_analysis.located.best_researcher_leaf_id or "",
-                            "relation_type": (
-                                dsag_analysis.selected_link.relation_type
-                                if dsag_analysis.selected_link else ""
-                            ),
-                            "summary": f"Q: {last_question[:80]} | A: {expert_text[:80]}",
-                        }
-                        with DSAG_LOCK:
-                            dsag_state.interview_timeline.append(timeline_entry)
 
                     # Store analysis result in message for template rendering
                     msg["dsag_analysis"] = dsag_analysis.to_dict()
@@ -594,6 +743,7 @@ def index():
         guide_text=get_guide_text(),
         guide_error=session.get("guide_error"),
         dsag_ready=dsag_ready,
+        process_panel=build_process_panel_state(dsag_state, messages),
     )
 
 

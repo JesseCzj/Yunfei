@@ -1,3 +1,31 @@
+# Work Brief
+
+## What I changed
+- Added a dedicated right-side `Process Guidance` panel to the UI.
+- Added a session-scoped process view model in `demo_flask/app.py` to drive:
+  - `Current Focus`
+  - `Coverage View`
+  - `Recent Topic Trail`
+  - `Latest Process Signal`
+- Moved interview timeline tracking into browser session storage instead of relying on shared cached DSAG state.
+- Updated turn analysis flow so the current turn can contribute to process tracking immediately.
+- Added `simu_transcript_process_panel.txt` for repeatable manual testing.
+
+## What we verified
+- DSAG init and the new panel render correctly.
+- Topic trail and local branch coverage update across turns.
+- Repeated-topic behavior is visible in the panel during calibration-focused questioning.
+
+## Main issue found
+- `Latest Process Signal` still depends on the latest analyzed message being explicitly typed as `ProcessGap`.
+- As a result, repeated topic fixation can be visible in the panel while no process alert appears.
+
+## Most likely next step
+- Decouple process drift detection in the right-side panel from the main selected `gap type`.
+- Surface low-confidence warnings more clearly when a turn is gated and no assistance card is shown.
+
+## Historical Notes
+
 # DSAG — Work Brief
 
 ## 2026-02-22
