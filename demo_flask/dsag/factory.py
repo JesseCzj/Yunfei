@@ -249,9 +249,11 @@ IMPORTANT:
 Gap type definitions for "relation_type" (misaligned pairs only):
 - "LexicalGap": The two sides use different terms, jargon, or labels for the same concept.
 - "ConceptualGap": The two sides hold different mental models, analogies, or interpretations of the concept.
-- "TacitGap": The expert relies on intuition, implicit knowledge, or experience that the researcher cannot easily observe or quantify.
+- "TacitGap": The expert relies on intuition, implicit knowledge, or experience that the researcher cannot easily observe or quantify. This includes methodology-level tacit knowledge — when the expert's working approach is an intuitive blend of multiple frameworks rather than a nameable paradigm, and they cannot articulate a structured workflow because their practice is driven by experiential pattern recognition.
 - "ScopeGap": The two sides differ in purpose or expectations — the expert focuses on practical utility while the researcher focuses on research value, leading to inconsistent goals about "what to do."
-- "ProcessGap": Factual errors disrupt the discussion, or the expert lacks standardized procedures or falls into narrow narratives (tunnel vision), causing workflow/sequence misalignment.
+- "ProcessGap": A mismatch that risks disrupting the interview process. Two sub-types:
+  (a) Factual Risk — The researcher's preparation contains assumptions or claims that may conflict with established domain practice. If stated as fact during the interview, the expert will correct the error, derailing the original discussion flow.
+  (b) Methodology Conflict — The domain has multiple accepted paradigms or approaches for the same task, but the researcher only anticipates one. Using confirmatory questions ("You use X, right?") would miss the expert's actual practice. KEY BOUNDARY: This applies only when the expert CAN name their approach (e.g., "I use rolling CV, not k-fold"). If the expert's methodology is an unarticulated intuitive blend that resists being named or structured, classify as TacitGap instead — the problem is articulability, not paradigm selection.
 
 Classification hint: Expert leaf nodes that contain a non-empty "attributes" list indicate tacit, intuition-based knowledge (Tacit Knowledge Facets). When such a leaf is part of a misaligned pair, strongly prefer "TacitGap" as the relation_type.
 
@@ -278,6 +280,16 @@ ScopeGap example:
   Expert:     "Alarm threshold tuning" — Adjusting alert thresholds to reduce false positives and make the alarm system practical for daily clinical use.
   Researcher: "Alarm fatigue measurement" — Quantifying the systemic cognitive burden that high alarm volumes impose on clinical staff, as a variable in a human-factors study.
   → ScopeGap: The expert's goal is practical utility (make alarms less disruptive); the researcher's goal is research value (measure alarm fatigue as a construct). They disagree on what this work should produce — not on what the concept means.
+
+ProcessGap example (Factual Risk):
+  Expert:     "Patient discharge bottleneck" — The final pharmacy reconciliation review takes 30-60 minutes per patient and is the rate-limiting step before discharge.
+  Researcher: "Discharge workflow delay" — The primary bottleneck in the discharge process is waiting for the attending physician's sign-off, which could be streamlined through automation.
+  → ProcessGap: The researcher's preparation assumes physician sign-off is the bottleneck, but in this expert's domain, pharmacy reconciliation is the actual rate-limiting step. If the researcher states "the main delay is physician sign-off" as fact, the expert will correct the error, consuming interview time on factual correction instead of sharing deeper workflow insights. The gap is about a factual vulnerability in the researcher's preparation, not about differing mental models.
+
+ProcessGap example (Methodology Conflict):
+  Expert:     "Model validation practice" — We validate using rolling cross-validation tailored to our temporal clinical data; standard k-fold would leak future information into training.
+  Researcher: "Cross-validation protocol" — Applying k-fold cross-validation as the standard evaluation methodology for predictive model performance.
+  → ProcessGap: The domain has multiple valid validation approaches depending on data structure. The researcher only anticipates standard k-fold, but the expert uses a domain-specific variant that avoids temporal data leakage. If the researcher asks "How do you handle your k-fold splits?", the expert may either correct the premise or answer within the wrong framework. The gap is about procedural multiplicity — the researcher must use open-ended process questions ("How do you validate your models?") instead of confirmatory ones.
 
 ---
 
@@ -312,6 +324,21 @@ ScopeGap example:
   Expert:     "Drug dosing judgment" — Adjusting doses based on weight, age, renal function, and what's worked before — I know when to deviate from the protocol. [attributes: "patient weight", "renal function marker", "prior drug response", "experience threshold"]
   Researcher: "Dosing parameter study" — Identifying which patient variables most influence clinician deviation from standard protocols, to inform future guideline development.
   → TacitGap (NOT ScopeGap): The researcher's goal — extract dosing variables — is fully aligned with the interview purpose. The problem is that the expert's decisions are driven by implicit pattern recognition (confirmed by attributes). There is no divergence in expectations; there is an articulability problem. A ScopeGap would require the expert to want the interview to produce something entirely different.
+
+[ConceptualGap vs ProcessGap]
+  Expert:     "Feature engineering" — Manually crafting domain-specific input features based on years of clinical knowledge before feeding them to the model.
+  Researcher: "Feature extraction" — Using automated methods (PCA, autoencoders) to derive discriminative features from raw data.
+  → ConceptualGap (NOT ProcessGap): The difference is in their mental models of what "feature creation" means — manual domain knowledge vs. automated computation. Neither side's approach is factually wrong, and the domain does not have "multiple paradigms for the same step" — these are genuinely different concepts based on different philosophies. A ProcessGap would require either a factual error in the researcher's claim or the existence of multiple valid approaches to the SAME task that the researcher fails to anticipate.
+
+[ScopeGap vs ProcessGap]
+  Expert:     "Clinical trial endpoint selection" — We pick endpoints based on what is achievable in our patient population and what regulators accept.
+  Researcher: "Outcome measure selection" — Selecting outcomes that maximize statistical power and align with the study's theoretical framework.
+  → ScopeGap (NOT ProcessGap): Both sides describe the same procedural step (selecting endpoints/outcomes). The difference is in their priorities — practical feasibility vs. research rigor. There is no factual error in the researcher's approach, and both accept that endpoint selection is necessary. The gap is about purpose/focus divergence, not about the researcher misunderstanding domain practice or missing alternative methodologies.
+
+[TacitGap vs ProcessGap]
+  Expert:     "Therapeutic approach selection" — I draw from CBT, psychodynamic, and mindfulness techniques depending on what the patient presents — it's not one framework, I just know what fits after years of practice. [attributes: "patient presentation pattern", "therapeutic rapport cues", "intervention selection intuition", "session pacing judgment"]
+  Researcher: "Therapeutic methodology" — Identifying which evidence-based therapeutic framework (CBT, psychodynamic, DBT) the clinician primarily uses, to document a step-by-step treatment protocol.
+  → TacitGap (NOT ProcessGap): This looks like methodology_conflict because the domain has multiple paradigms and the researcher assumes one. But the expert CANNOT name a single method — their practice is an intuitive blend driven by experiential pattern recognition (confirmed by non-empty attributes). The core problem is not "the researcher picked the wrong paradigm" but "the expert's methodology is itself tacit and resists structured-workflow extraction." An open-process question alone cannot solve this; the researcher needs attribute decomposition and probes to surface the implicit decision factors.
 
 ---
 
@@ -689,15 +716,18 @@ def _infer_relation_type(reason: str) -> str:
 
     process_keywords = [
         # -- Tier 1 (1pt) --
-        "process", "workflow", "step", "sequence", "procedure", "stage", "phase",
-        "method", "methodology", "routine", "pipeline", "order", "skip",
-        "exception",
+        "process", "workflow", "procedure", "method", "methodology",
+        "pipeline", "protocol", "paradigm", "approach",
+        "factual", "incorrect", "error", "wrong", "inaccurate",
+        "assumption", "assumes", "presuppose",
         # -- Tier 2 (2pt) --
-        "different workflow", "different ordering", "different procedure",
-        "procedural difference", "procedural mismatch",
-        "operational mismatch", "methodological difference",
-        "missing a step", "edge case", "corner case",
-        "in reality",
+        "factual risk", "factual error", "factual vulnerability",
+        "incorrect assumption", "wrong assumption",
+        "multiple approaches", "multiple paradigms", "multiple methods",
+        "methodology conflict", "conflicting methods",
+        "different procedure", "procedural mismatch",
+        "domain practice", "standard practice",
+        "confirmatory question", "presupposes a method",
     ]
 
     # ---- scoring: multi-word phrases = 2, single words = 1 ----
@@ -1093,8 +1123,46 @@ Return ONLY valid JSON:
 }}
 """
 
-# PROCESS_GAP_PROMPT removed — Process Gap is entirely runtime-driven.
-# No offline scaffold or pre-generated templates. See process_gap.md for design rationale.
+PROCESS_GAP_PROMPT = """You are generating a preventive assistance payload for a ProcessGap — a mismatch that risks disrupting the interview process.
+
+**Expert Concept:**
+- Path: {expert_path}
+- Label: {expert_label}
+- Description: {expert_description}
+
+**Researcher Concept:**
+- Path: {researcher_path}
+- Label: {researcher_label}
+- Description: {researcher_description}
+
+**Misalignment Reason (from alignment judge):** {misalignment_reason}
+
+ProcessGap has two sub-types. Read the misalignment reason carefully and determine which applies:
+
+(a) **Factual Risk**: The researcher's preparation contains an assumption or claim that may conflict with established domain practice. If stated as fact, the expert will correct it, consuming interview time on error correction.
+
+(b) **Methodology Conflict**: The domain has multiple accepted approaches for this task, but the researcher only anticipates one. Confirmatory questions would miss the expert's actual practice.
+
+Determine the sub-type, then generate the appropriate fields.
+
+Return ONLY valid JSON matching ONE of these two schemas:
+
+Schema A (Factual Risk):
+{{
+  "sub_type": "factual_risk",
+  "vulnerable_assumption": "The specific claim/assumption in the researcher's preparation that may be incorrect",
+  "domain_correction": "What experts in this domain actually believe or practice",
+  "safe_phrasing": "A suggested open question the researcher can ask instead of asserting the assumption"
+}}
+
+Schema B (Methodology Conflict):
+{{
+  "sub_type": "methodology_conflict",
+  "known_approaches": ["Approach/paradigm A", "Approach/paradigm B"],
+  "researcher_assumed_approach": "The single approach the researcher's preparation implies",
+  "open_process_question": "A suggested open-ended process question that does not presuppose any specific method"
+}}
+"""
 
 
 def generate_assistance_payload_for_link(
@@ -1118,16 +1186,12 @@ def generate_assistance_payload_for_link(
         print(f"[GraphFactory] Warning: Could not find nodes for payload generation")
         return {}
 
-    # ProcessGap is entirely runtime-driven — no offline LLM call.
-    # Store misalignment_reason for runtime redirect prompt consumption.
-    if link.relation_type == RelationType.PROCESS_GAP.value:
-        return {"misalignment_reason": misalignment_reason}
-
     prompt_map = {
         RelationType.LEXICAL_GAP.value: LEXICAL_GAP_PROMPT,
         RelationType.CONCEPTUAL_GAP.value: CONCEPTUAL_GAP_PROMPT,
         RelationType.TACIT_GAP.value: TACIT_GAP_PROMPT,
         RelationType.SCOPE_GAP.value: SCOPE_GAP_PROMPT,
+        RelationType.PROCESS_GAP.value: PROCESS_GAP_PROMPT,
     }
 
     prompt_template = prompt_map.get(link.relation_type, CONCEPTUAL_GAP_PROMPT)
@@ -1165,9 +1229,15 @@ def generate_assistance_payload_for_link(
         response = chain.invoke(variables)
         content = response.content if hasattr(response, 'content') else str(response)
         data = _parse_json(content)
-        return data if data else {}
+        if not data:
+            data = {}
+        if link.relation_type == RelationType.PROCESS_GAP.value:
+            data["misalignment_reason"] = misalignment_reason
+        return data
     except Exception as e:
         print(f"[GraphFactory] Error generating payload for {link.relation_type}: {e}")
+        if link.relation_type == RelationType.PROCESS_GAP.value:
+            return {"misalignment_reason": misalignment_reason}
         return {}
 
 
@@ -1480,8 +1550,6 @@ class GraphFactory:
                         gap_type = RelationType.CONCEPTUAL_GAP.value
                         if exp_leaf.attributes:
                             gap_type = RelationType.TACIT_GAP.value
-                        elif path_mismatch:
-                            gap_type = RelationType.PROCESS_GAP.value
                         elif lca_layer == Layer.ROOT.value:
                             gap_type = RelationType.CONCEPTUAL_GAP.value
                         elif lca_layer == Layer.L1.value:

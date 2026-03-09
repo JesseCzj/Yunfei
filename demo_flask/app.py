@@ -150,9 +150,23 @@ def build_timeline_entry(
     expert_answer: str,
     turn_index: int,
 ) -> Optional[Dict[str, Any]]:
-    """Build a session-scoped timeline entry for drift tracking."""
+    """Build a session-scoped timeline entry for drift tracking.
+
+    Low-confidence turns are excluded: if the expert match is below the
+    confidence threshold the mapping is unreliable, so recording it would
+    pollute drift detection with phantom topic patterns.
+    """
     expert_leaf_id = analysis.located.best_expert_leaf_id
     if not expert_leaf_id:
+        return None
+
+    try:
+        confidence_threshold = float(
+            os.getenv("DSAG_MATCH_CONFIDENCE_THRESHOLD", "0.45")
+        )
+    except Exception:
+        confidence_threshold = 0.45
+    if analysis.located.expert_confidence < confidence_threshold:
         return None
 
     expert_node = graph.expert_tree.get_node(expert_leaf_id)

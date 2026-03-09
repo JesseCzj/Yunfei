@@ -49,29 +49,43 @@
 ---
 
 ### 5. Process Gap
-- **Description**: A lack of standardized procedures or narrow expert narratives disrupts the discussion process.
-- **Solution** (Entirely runtime-driven — no offline pre-computation):
-  1. **Coverage Analysis**: Maintain a real-time timeline that accumulates the actual step→step conversation history. Combined with the expert tree's sibling structure, always compute and return coverage info (visited topics, unvisited siblings, coverage ratio) as informational data.
-  2. **Drift Detection**: Use timeline + tree structure to detect two types of drift alert: Repeated Topic and Tunnel Vision.
-  3. **Redirect Generation**: When drift is detected, make a runtime LLM call with full conversation context to generate a natural, context-aware redirect sentence the researcher can directly speak.
-- **Key Design Principle**: Process Gap is fundamentally different from the other 4 types. The other types address *static* structural mismatches that can be pre-computed offline. Process Gap addresses *dynamic* conversational flow problems that only materialize during the interview. Therefore, it uses no offline scaffold or pre-generated templates — all assistance is generated at runtime from real data.
-- **Implementation**:
-  - **Offline**: Agent C classifies the GapLink as ProcessGap. No dedicated prompt, no LLM call. `assistance_payload` stores only `{"misalignment_reason": reason}` (Agent C's alignment reason, for runtime redirect prompt consumption).
-  - **Runtime Data Sources** (all grounded, no LLM hypotheses):
-    1. `interview_timeline` — the real step→step conversation history, accumulated each turn.
-    2. Expert tree structure — sibling leaves (related topics under the same L2 category) provide the "topic universe" for coverage analysis.
-    3. Current turn's `expert_answer` and `researcher_question` — allows the LLM to reference the expert's actual words in the redirect.
-    4. `misalignment_reason` — Agent C's alignment reason stored in `assistance_payload`, injected into the redirect prompt.
-  - **Drift Detection** (rule-based, no LLM, two alert types checked in priority order — mutually exclusive):
-    1. **Repeated Topic** (priority 1): Current `topic_label` has appeared ≥2 times in timeline history (i.e., 3rd+ discussion of this topic). Purely based on actual conversation data.
-    2. **Tunnel Vision** (priority 2): The last 4 turns all map to the same `expert_leaf_id`, AND there exist unvisited sibling leaves. The sibling condition prevents false positives — if all siblings are covered, deep-diving is reasonable.
-  - **Coverage Gap** (info, not alert — always computed):
-    - Unvisited sibling leaves of the current expert leaf, computed from timeline + tree structure.
-    - Returned as structured data (`{visited, unvisited_siblings, coverage_ratio}`) in every ProcessGap response.
-    - Does NOT trigger LLM redirect — it is informational, not a drift signal. The researcher decides whether to explore uncovered topics.
-  - **Redirect Generation** (runtime LLM call, only when Repeated Topic or Tunnel Vision is detected):
-    - Input: drift type + drift detail + timeline summary (last 4 turns) + current expert answer (truncated to 500 chars) + unvisited sibling labels + descriptions + misalignment reason.
-    - Output: one natural redirect sentence that references the expert's actual words and transitions to an unvisited topic.
-    - When no drift is detected: no LLM call, `redirect` is null. Coverage info still returned.
-  - **Skip Polish**: ProcessGap skips the `_polish_assistance()` step — the redirect is already LLM-generated with full conversation context.
-  - **Advisory Principle**: All alerts and redirects are suggestions, not directives. The researcher may dismiss any alert.
+- **Description**: A mismatch that risks disrupting the interview process. Originates from three root causes: (1) factual errors in the researcher's preparation, (2) multiple paradigms in the domain that the researcher doesn't anticipate, (3) narrow expert narratives that prevent topic expansion. These are handled by a **two-layer defense system**.
+
+#### Two-Layer Architecture
+
+```
+ProcessGap Defense
+├── Prevention Layer (offline, Agent C) — handles #1 and #2
+│    ├── #1 Factual Risk: marks factual vulnerabilities in the researcher's preparation
+│    └── #2 Methodology Conflict: marks areas where multiple paradigms exist
+│    → Output: structured ProcessGap assistance (parallel to other 4 gap types)
+│
+└── Monitoring Layer (runtime, every turn, independent of gap type) — handles #3
+     └── Drift detection: repeated_topic / tunnel_vision / topic_oscillation
+     → Output: DriftSignal (coverage + drift alert + redirect)
+```
+
+The two layers are **orthogonal**: a single turn can produce both a ProcessGap assistance card AND a drift alert simultaneously.
+
+#### Prevention Layer (Offline)
+- **Agent C Classification**: Agent C identifies ProcessGap when comparing two leaf nodes reveals either:
+  - *Factual Risk*: The researcher's preparation contains an assumption that may contradict established domain practice. If stated as fact, the expert will correct it, derailing the discussion.
+  - *Methodology Conflict*: The domain has multiple valid approaches for a task, but the researcher only anticipates one. Confirmatory questions would miss the expert's actual practice.
+- **Payload Generation**: A dedicated `PROCESS_GAP_PROMPT` generates structured assistance:
+  - Factual Risk: `{sub_type, vulnerable_assumption, domain_correction, safe_phrasing, misalignment_reason}`
+  - Methodology Conflict: `{sub_type, known_approaches, researcher_assumed_approach, open_process_question, misalignment_reason}`
+- **Polish**: At runtime, the `safe_phrasing` or `open_process_question` is polished by the context-aware LLM to sound natural and reference the expert's recent answer.
+
+#### Monitoring Layer (Runtime)
+- **Runs every turn**, independent of gap type. A turn can trigger drift detection regardless of whether the matched link is ProcessGap, ConceptualGap, or any other type.
+- **Data Sources** (all grounded, no LLM hypotheses):
+  1. `interview_timeline` — accumulated step→step conversation history.
+  2. Expert tree structure — sibling leaves provide the "topic universe" for coverage analysis.
+  3. Current turn's Q&A text — for LLM redirect generation.
+- **Coverage** (informational, always computed): `{visited, unvisited_siblings, coverage_ratio}`.
+- **Drift Detection** (rule-based, no LLM, three alert types in priority order — mutually exclusive):
+  1. **Repeated Topic**: Current topic appeared ≥2 times in history.
+  2. **Tunnel Vision**: Sliding window (last 6 turns) shows ≤1 distinct topic, AND unvisited siblings exist.
+  3. **Topic Oscillation**: Last 4-6 turns alternate between exactly 2 topics, AND unvisited siblings exist.
+- **Redirect Generation** (runtime LLM call, only when drift detected): Produces one natural redirect sentence referencing the expert's actual words.
+- **Advisory Principle**: All alerts and redirects are suggestions, not directives.

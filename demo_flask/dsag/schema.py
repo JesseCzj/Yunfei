@@ -37,7 +37,7 @@ class RelationType(str, Enum):
     CONCEPTUAL_GAP = "ConceptualGap"   # Mental model / concept misunderstanding
     TACIT_GAP = "TacitGap"             # Intuition/tacit knowledge not articulated
     SCOPE_GAP = "ScopeGap"             # Focus/expectation boundary mismatch
-    PROCESS_GAP = "ProcessGap"         # Workflow/sequence misalignment
+    PROCESS_GAP = "ProcessGap"         # Factual risk / methodology conflict disrupting process
 
 
 @dataclass

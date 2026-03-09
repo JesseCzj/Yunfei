@@ -2153,7 +2153,74 @@ body.selection-mode .expert-row.selected .expert-card {
   margin-top: 4px;
 }
 
-/* ProcessGap */
+/* ProcessGap — Offline Prevention */
+.dsag-process {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.process-subtype-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  width: fit-content;
+  margin-bottom: 4px;
+}
+
+.process-badge-factual {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.process-badge-method {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.process-warning-text {
+  font-size: 0.82rem;
+  color: #92400e;
+  background: #fffbeb;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border-left: 3px solid #f59e0b;
+}
+
+.process-correction-text {
+  font-size: 0.82rem;
+  color: #065f46;
+  background: #ecfdf5;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border-left: 3px solid #10b981;
+}
+
+.process-suggestion {
+  font-size: 0.82rem;
+  color: #1e40af;
+  background: #eff6ff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-style: italic;
+}
+
+.process-approaches-list {
+  font-size: 0.82rem;
+  color: #374151;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.process-approaches-list li {
+  margin-bottom: 3px;
+}
+
+/* ProcessGap — Drift Monitoring */
 .coverage-unvisited {
   font-size: 0.82rem;
   color: #374151;

@@ -343,7 +343,66 @@
                                 {% endif %}
                               </div>
 
-                            {# ---- ProcessGap: offline assistance TBD ---- #}
+                            {# ---- ProcessGap ---- #}
+                            {% elif rtype == "ProcessGap" %}
+                              <div class="dsag-process">
+                                {% if payload.sub_type == "factual_risk" %}
+                                  <div class="process-subtype-badge process-badge-factual">Factual Risk</div>
+                                  {% if payload.vulnerable_assumption %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Vulnerable Assumption</div>
+                                      <div class="process-warning-text">{{ payload.vulnerable_assumption }}</div>
+                                    </div>
+                                  {% endif %}
+                                  {% if payload.domain_correction %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Domain Reality</div>
+                                      <div class="process-correction-text">{{ payload.domain_correction }}</div>
+                                    </div>
+                                  {% endif %}
+                                  {% if payload.safe_phrasing %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Suggested Phrasing</div>
+                                      <div class="process-suggestion">"{{ payload.safe_phrasing }}"</div>
+                                    </div>
+                                  {% endif %}
+
+                                {% elif payload.sub_type == "methodology_conflict" %}
+                                  <div class="process-subtype-badge process-badge-method">Methodology Conflict</div>
+                                  {% if payload.known_approaches is defined and payload.known_approaches|length > 0 %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Known Approaches</div>
+                                      <ul class="process-approaches-list">
+                                        {% for approach in payload.known_approaches %}
+                                          <li>{{ approach }}</li>
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+                                  {% endif %}
+                                  {% if payload.researcher_assumed_approach %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Your Assumed Approach</div>
+                                      <div class="process-warning-text">{{ payload.researcher_assumed_approach }}</div>
+                                    </div>
+                                  {% endif %}
+                                  {% if payload.open_process_question %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Suggested Open Question</div>
+                                      <div class="process-suggestion">"{{ payload.open_process_question }}"</div>
+                                    </div>
+                                  {% endif %}
+
+                                {% else %}
+                                  {# Fallback for ProcessGap without sub_type #}
+                                  {% if payload.misalignment_reason %}
+                                    <div class="dsag-subsection">
+                                      <div class="dsag-subsection-title">Misalignment</div>
+                                      <div class="scope-text">{{ payload.misalignment_reason }}</div>
+                                    </div>
+                                  {% endif %}
+                                {% endif %}
+                              </div>
+
                             {% endif %}
                           </div>
                         </div>

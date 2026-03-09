@@ -247,7 +247,11 @@ class Assistance:
                       "extracted_attributes": [...], "mentioned_attributes": [...]}  // extracted/mentioned attrs are displayed for transparency
     - ScopeGap:      {"validate_focus": "...", "pivot": {limitation, research_goal,
                       compelling_reason, coarse_scenario}}
-    - ProcessGap:    Offline payload only ({"misalignment_reason": "..."}).
+    - ProcessGap:    Offline prevention payload with two sub-types:
+                      factual_risk: {"sub_type", "vulnerable_assumption", "domain_correction",
+                                     "safe_phrasing", "misalignment_reason"}
+                      methodology_conflict: {"sub_type", "known_approaches", "researcher_assumed_approach",
+                                             "open_process_question", "misalignment_reason"}
                       Drift detection is handled separately via DriftSignal.
     """
     relation_type: str = ""
@@ -424,9 +428,32 @@ POLISHABLE fields:
 
 The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
 
-        # ProcessGap is runtime-driven. Its redirect is already LLM-generated
-        # with full context, so it skips the polish step entirely.
-        # No entry needed here.
+        RelationType.PROCESS_GAP.value: """## ProcessGap polishing rules
+ProcessGap has two sub-types. Check the "sub_type" field to determine which.
+
+### Sub-type A: factual_risk
+FROZEN fields (copy verbatim — do NOT alter):
+  - sub_type
+  - vulnerable_assumption (the factual claim at risk)
+  - domain_correction (what experts actually practice)
+
+POLISHABLE fields:
+  - safe_phrasing — rewrite the suggested question so it sounds natural and
+    uses vocabulary the expert would recognize. Reference the expert's recent
+    answer if it provides context. The question MUST remain open-ended and
+    MUST NOT assert the vulnerable assumption.
+
+### Sub-type B: methodology_conflict
+FROZEN fields (copy verbatim — do NOT alter):
+  - sub_type
+  - known_approaches (the list of domain paradigms)
+  - researcher_assumed_approach
+
+POLISHABLE fields:
+  - open_process_question — rewrite the suggested question so it sounds
+    natural and conversational. It MUST remain open-ended and MUST NOT
+    presuppose any specific methodology. Reference the expert's recent
+    answer if relevant.""",
     }
 
     def _polish_assistance(
@@ -1004,9 +1031,9 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
         elif relation == RelationType.SCOPE_GAP.value:
             pass
 
-        # ---- ProcessGap: offline payload only (to be redesigned) ----
+        # ---- ProcessGap: offline prevention payload (factual_risk / methodology_conflict) ----
         elif relation == RelationType.PROCESS_GAP.value:
-            pass
+            assistance.payload = payload
 
         return assistance
 
@@ -1076,9 +1103,12 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
         # 5. Drift detection — runs every turn, independent of gap type.
         #    Build an extended timeline that includes the current turn so
         #    coverage and pattern detection account for the latest data.
+        #    Skip the synthetic entry when confidence is low — an unreliable
+        #    mapping would inject phantom topics into the drift analysis.
         timeline = list(interview_timeline or [])
         expert_leaf_id = analysis.located.best_expert_leaf_id
-        if expert_leaf_id:
+        confident = analysis.located.expert_confidence >= confidence_threshold
+        if expert_leaf_id and confident:
             current_node = self.graph.expert_tree.get_node(expert_leaf_id)
             timeline_with_current = timeline + [{
                 "turn_index": len(timeline) + 1,
