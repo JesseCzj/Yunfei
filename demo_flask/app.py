@@ -223,28 +223,20 @@ def analyze_turn_with_dsag(
     return analysis
 
 
-def get_latest_process_payload(messages: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Return the most recent ProcessGap payload stored in message history."""
-    for msg in reversed(messages):
-        dsag_analysis = msg.get("dsag_analysis") or {}
-        assistance = dsag_analysis.get("assistance") or {}
-        if assistance.get("relation_type") == "ProcessGap":
-            return assistance.get("payload") or {}
-    return {}
-
-
 def build_process_panel_state(
     dsag_state: Optional[DSAGState],
-    messages: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
-    """Build a lightweight view model for the dedicated Process Guidance panel."""
+    """Build a lightweight view model for the Process Guidance panel.
+
+    Focused on coverage tracking and topic trail only.
+    Drift alerts and redirects are shown exclusively in the per-turn
+    Assistance Card to avoid data duplication and temporal inconsistency.
+    """
     panel = {
         "ready": bool(dsag_state and dsag_state.is_ready()),
         "has_activity": False,
         "turn_count": 0,
         "current_topic": "",
-        "current_topic_description": "",
-        "latest_relation_type": "",
         "coverage": {
             "ratio": "0/0",
             "percent": 0,
@@ -253,12 +245,6 @@ def build_process_panel_state(
             "branch_topics": [],
         },
         "recent_topics": [],
-        "drift": {
-            "detected": False,
-            "type": "",
-            "detail": "",
-            "redirect": "",
-        },
     }
 
     if not dsag_state or not dsag_state.is_ready():
@@ -273,18 +259,16 @@ def build_process_panel_state(
 
     current_entry = timeline[-1]
     current_leaf_id = current_entry.get("expert_leaf_id", "")
-    current_node = (
-        dsag_state.graph.expert_tree.get_node(current_leaf_id)
-        if current_leaf_id else None
-    )
     siblings = (
         dsag_state.graph.expert_tree.get_siblings(current_leaf_id)
         if current_leaf_id else []
     )
+    current_node = (
+        dsag_state.graph.expert_tree.get_node(current_leaf_id)
+        if current_leaf_id else None
+    )
 
     panel["current_topic"] = current_entry.get("topic_label", "")
-    panel["current_topic_description"] = current_node.description if current_node else ""
-    panel["latest_relation_type"] = current_entry.get("relation_type", "")
 
     covered_ids = {
         entry.get("expert_leaf_id", "")
@@ -318,19 +302,10 @@ def build_process_panel_state(
         {
             "turn_index": entry.get("turn_index", 0),
             "topic_label": entry.get("topic_label", ""),
-            "relation_type": entry.get("relation_type", ""),
             "is_current": idx == len(timeline) - 1,
         }
         for idx, entry in enumerate(timeline[-6:], start=max(len(timeline) - 6, 0))
     ]
-
-    latest_process_payload = get_latest_process_payload(messages)
-    panel["drift"] = {
-        "detected": bool(latest_process_payload.get("drift_detected")),
-        "type": latest_process_payload.get("drift_type", "") or "",
-        "detail": latest_process_payload.get("drift_detail", "") or "",
-        "redirect": latest_process_payload.get("redirect", "") or "",
-    }
 
     return panel
 
@@ -743,7 +718,7 @@ def index():
         guide_text=get_guide_text(),
         guide_error=session.get("guide_error"),
         dsag_ready=dsag_ready,
-        process_panel=build_process_panel_state(dsag_state, messages),
+        process_panel=build_process_panel_state(dsag_state),
     )
 
 

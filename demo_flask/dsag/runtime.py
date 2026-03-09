@@ -919,11 +919,11 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
                 "coverage_ratio": f"{visited_count}/{total_siblings}",
             }
 
-            # --- 2. Drift Detection (3 types) ---
+            # --- 2. Drift Detection ---
             drift_type = None
             drift_detail = None
 
-            # (a) Repeated Topic — same topic appears ≥2 times
+            # (a) Repeated Topic — same topic appears ≥2 times across full history
             if current_label:
                 topic_count = sum(1 for v in visited_labels if v == current_label)
                 if topic_count >= 2:
@@ -933,15 +933,36 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
                         "The conversation may be circling."
                     )
 
-            # (b) Tunnel Vision — expert stays in one sub-branch too long
-            #     AND there are unvisited siblings (if all siblings covered, depth is fine)
-            if not drift_type and len(timeline) >= 4 and unvisited:
-                recent_ids = [entry.get("expert_leaf_id", "") for entry in timeline[-4:]]
-                if len(set(recent_ids)) == 1 and recent_ids[0]:
+            # (b) Tunnel Vision / Topic Oscillation — uses a sliding window
+            #     over the full timeline to detect narrow focus patterns.
+            #     Only fires when there are unvisited siblings to expand into.
+            if not drift_type and len(timeline) >= 3 and unvisited:
+                window_size = min(len(timeline), 6)
+                recent_ids = [
+                    entry.get("expert_leaf_id", "")
+                    for entry in timeline[-window_size:]
+                    if entry.get("expert_leaf_id")
+                ]
+                distinct = set(recent_ids)
+
+                if len(recent_ids) >= 3 and len(distinct) == 1 and next(iter(distinct)):
                     drift_type = "tunnel_vision"
                     drift_detail = (
-                        f"The last {len(recent_ids)} turns all discuss the same concept. "
+                        f"The last {len(recent_ids)} turns all focus on the same concept. "
+                        f"{len(unvisited)} sibling topics remain unexplored. "
                         "Consider broadening the scope."
+                    )
+                elif len(recent_ids) >= 4 and len(distinct) == 2:
+                    labels = []
+                    for eid in distinct:
+                        node = self.graph.expert_tree.get_node(eid)
+                        if node:
+                            labels.append(f"'{node.label}'")
+                    drift_type = "topic_oscillation"
+                    drift_detail = (
+                        f"The last {len(recent_ids)} turns alternate between "
+                        f"{' and '.join(labels)}. "
+                        f"{len(unvisited)} related topics remain unexplored."
                     )
 
             # --- 3. Runtime Redirect (LLM call only when drift detected) ---

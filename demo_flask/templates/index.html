@@ -450,7 +450,7 @@
           <div class="panel-header">
             <div>
               <h2 class="panel-title">Process Guidance</h2>
-              <div class="process-panel-subtitle">Track local coverage and topic drift across turns</div>
+              <div class="process-panel-subtitle">Track topic coverage and interview progress</div>
             </div>
             {% if process_panel.has_activity %}
               <span class="message-count">{{ process_panel.coverage.ratio }} covered</span>
@@ -462,7 +462,7 @@
               <div class="process-empty-state">
                 <div class="empty-icon">🧭</div>
                 <div class="empty-text">Initialize DSAG to enable process tracking.</div>
-                <div class="empty-hint">This panel is reserved for coverage, topic trail, and redirect suggestions.</div>
+                <div class="empty-hint">This panel tracks topic coverage and interview progress.</div>
               </div>
             {% elif not process_panel.has_activity %}
               <div class="process-empty-state">
@@ -474,21 +474,15 @@
               <div class="process-card">
                 <div class="process-card-label">Current Focus</div>
                 <div class="process-topic-title">{{ process_panel.current_topic }}</div>
-                {% if process_panel.current_topic_description %}
-                  <div class="process-topic-description">{{ process_panel.current_topic_description }}</div>
-                {% endif %}
                 <div class="process-meta-row">
                   <span class="process-pill">Turn {{ process_panel.turn_count }}</span>
-                  {% if process_panel.latest_relation_type %}
-                    <span class="process-pill process-pill-gap">{{ process_panel.latest_relation_type }}</span>
-                  {% endif %}
                 </div>
               </div>
 
               <div class="process-card">
                 <div class="process-card-header">
-                  <div class="process-card-label">Coverage View</div>
-                  <div class="process-card-note">Local branch only</div>
+                  <div class="process-card-label">Coverage</div>
+                  <div class="process-card-note">Current branch</div>
                 </div>
                 <div class="process-progress-row">
                   <span>{{ process_panel.coverage.visited_count }}/{{ process_panel.coverage.total_count }} topics visited</span>
@@ -509,38 +503,17 @@
               </div>
 
               <div class="process-card">
-                <div class="process-card-label">Recent Topic Trail</div>
+                <div class="process-card-label">Topic Trail</div>
                 <div class="process-trail">
                   {% for item in process_panel.recent_topics %}
                     <div class="process-trail-item{% if item.is_current %} is-current{% endif %}">
                       <span class="process-trail-turn">T{{ item.turn_index }}</span>
                       <div class="process-trail-body">
                         <div class="process-trail-topic">{{ item.topic_label }}</div>
-                        {% if item.relation_type %}
-                          <div class="process-trail-gap">{{ item.relation_type }}</div>
-                        {% endif %}
                       </div>
                     </div>
                   {% endfor %}
                 </div>
-              </div>
-
-              <div class="process-card{% if process_panel.drift.detected %} process-card-alert{% endif %}">
-                <div class="process-card-label">Latest Process Signal</div>
-                {% if process_panel.drift.detected %}
-                  <div class="process-drift-title">{{ process_panel.drift.type }}</div>
-                  {% if process_panel.drift.detail %}
-                    <div class="drift-detail">{{ process_panel.drift.detail }}</div>
-                  {% endif %}
-                  {% if process_panel.drift.redirect %}
-                    <div class="drift-redirect">
-                      <strong>Suggested redirect:</strong>
-                      <div class="redirect-text clickable-followup" data-question="{{ process_panel.drift.redirect }}">{{ process_panel.drift.redirect }}</div>
-                    </div>
-                  {% endif %}
-                {% else %}
-                  <div class="process-muted">No active ProcessGap alert yet. Repeated topics and tunnel vision alerts will appear here.</div>
-                {% endif %}
               </div>
             {% endif %}
           </div>

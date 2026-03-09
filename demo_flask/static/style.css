@@ -353,11 +353,6 @@ body {
   box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
 }
 
-.process-card-alert {
-  border-color: #fecaca;
-  background: #fff8f8;
-}
-
 .process-card-header {
   display: flex;
   justify-content: space-between;
@@ -387,12 +382,6 @@ body {
   margin-bottom: 6px;
 }
 
-.process-topic-description {
-  font-size: 0.84rem;
-  line-height: 1.55;
-  color: #4b5563;
-}
-
 .process-meta-row {
   display: flex;
   flex-wrap: wrap;
@@ -409,11 +398,6 @@ body {
   color: #374151;
   font-size: 0.75rem;
   font-weight: 600;
-}
-
-.process-pill-gap {
-  background: #ede9fe;
-  color: #5b21b6;
 }
 
 .process-progress-row {
@@ -516,19 +500,6 @@ body {
   color: #111827;
 }
 
-.process-trail-gap {
-  margin-top: 3px;
-  font-size: 0.75rem;
-  color: #6b7280;
-}
-
-.process-drift-title {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #b91c1c;
-  margin-bottom: 8px;
-  text-transform: capitalize;
-}
 
 .process-muted {
   font-size: 0.82rem;
