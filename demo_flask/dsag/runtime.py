@@ -247,10 +247,8 @@ class Assistance:
                       "extracted_attributes": [...], "mentioned_attributes": [...]}  // extracted/mentioned attrs are displayed for transparency
     - ScopeGap:      {"validate_focus": "...", "pivot": {limitation, research_goal,
                       compelling_reason, coarse_scenario}}
-    - ProcessGap:    {"coverage": {"visited": [...], "unvisited_siblings": [...],
-                      "coverage_ratio": "2/5"}, "drift_detected": bool,
-                      "drift_type": str|null, "drift_detail": str|null,
-                      "redirect": str|null}
+    - ProcessGap:    Offline payload only ({"misalignment_reason": "..."}).
+                      Drift detection is handled separately via DriftSignal.
     """
     relation_type: str = ""
     payload: Dict[str, Any] = field(default_factory=dict)
@@ -263,6 +261,28 @@ class Assistance:
 
 
 @dataclass
+class DriftSignal:
+    """Session-level drift detection result, independent of gap type.
+
+    Computed every turn from interview_timeline + expert tree structure.
+    """
+    coverage: Dict[str, Any] = field(default_factory=dict)
+    drift_detected: bool = False
+    drift_type: Optional[str] = None
+    drift_detail: Optional[str] = None
+    redirect: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "coverage": self.coverage,
+            "drift_detected": self.drift_detected,
+            "drift_type": self.drift_type,
+            "drift_detail": self.drift_detail,
+            "redirect": self.redirect,
+        }
+
+
+@dataclass
 class RuntimeAnalysis:
     """Complete analysis result for a turn."""
     located: LocatedPosition = field(default_factory=LocatedPosition)
@@ -271,6 +291,7 @@ class RuntimeAnalysis:
     selected_link: Optional[GapLink] = None
     confidence_warning: str = ""
     uncertain_interpretation: Dict[str, Any] = field(default_factory=dict)
+    drift_signal: Optional[DriftSignal] = None
 
     def to_dict(self) -> Dict[str, Any]:
         result = {
@@ -289,6 +310,8 @@ class RuntimeAnalysis:
                 "relation_type": self.selected_link.relation_type,
                 "weight": self.selected_link.weight,
             }
+        if self.drift_signal:
+            result["drift_signal"] = self.drift_signal.to_dict()
         return result
 
 
@@ -851,141 +874,139 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
             print(f"[RuntimeEngine] ProcessGap redirect generation failed: {e}")
             return None
 
+    def _detect_drift(
+        self,
+        expert_leaf_id: Optional[str],
+        interview_timeline: List[Dict[str, Any]],
+        expert_answer: str = "",
+        researcher_question: str = "",
+        selected_link: Optional[GapLink] = None,
+    ) -> DriftSignal:
+        """Detect conversation drift from timeline patterns.
+
+        Runs every turn, independent of gap type.  Uses the expert tree's
+        sibling structure to compute coverage and detect narrow-focus patterns.
+        """
+        signal = DriftSignal()
+        timeline = interview_timeline or []
+
+        if not expert_leaf_id or not timeline:
+            return signal
+
+        expert_node = self.graph.expert_tree.get_node(expert_leaf_id)
+        if not expert_node:
+            return signal
+
+        # --- Coverage Analysis ---
+        current_label = expert_node.label
+        covered_ids = {entry.get("expert_leaf_id", "") for entry in timeline}
+        visited_labels = [entry.get("topic_label", "") for entry in timeline]
+
+        siblings = self.graph.expert_tree.get_siblings(expert_leaf_id)
+        unvisited = [s for s in siblings if s.id not in covered_ids]
+
+        total_siblings = len(siblings) + 1
+        visited_count = total_siblings - len(unvisited)
+
+        signal.coverage = {
+            "visited": list(dict.fromkeys(visited_labels)),
+            "unvisited_siblings": [s.label for s in unvisited[:5]],
+            "coverage_ratio": f"{visited_count}/{total_siblings}",
+        }
+
+        # --- Drift Detection ---
+
+        # (a) Repeated Topic — same topic appears ≥2 times across full history
+        if current_label:
+            topic_count = sum(1 for v in visited_labels if v == current_label)
+            if topic_count >= 2:
+                signal.drift_detected = True
+                signal.drift_type = "repeated_topic"
+                signal.drift_detail = (
+                    f"Topic '{current_label}' has been discussed {topic_count} times. "
+                    "The conversation may be circling."
+                )
+
+        # (b) Tunnel Vision / Topic Oscillation — sliding window
+        if not signal.drift_detected and len(timeline) >= 3 and unvisited:
+            window_size = min(len(timeline), 6)
+            recent_ids = [
+                entry.get("expert_leaf_id", "")
+                for entry in timeline[-window_size:]
+                if entry.get("expert_leaf_id")
+            ]
+            distinct = set(recent_ids)
+
+            if len(recent_ids) >= 3 and len(distinct) == 1 and next(iter(distinct)):
+                signal.drift_detected = True
+                signal.drift_type = "tunnel_vision"
+                signal.drift_detail = (
+                    f"The last {len(recent_ids)} turns all focus on the same concept. "
+                    f"{len(unvisited)} sibling topics remain unexplored. "
+                    "Consider broadening the scope."
+                )
+            elif len(recent_ids) >= 4 and len(distinct) == 2:
+                labels = []
+                for eid in distinct:
+                    node = self.graph.expert_tree.get_node(eid)
+                    if node:
+                        labels.append(f"'{node.label}'")
+                signal.drift_detected = True
+                signal.drift_type = "topic_oscillation"
+                signal.drift_detail = (
+                    f"The last {len(recent_ids)} turns alternate between "
+                    f"{' and '.join(labels)}. "
+                    f"{len(unvisited)} related topics remain unexplored."
+                )
+
+        # --- Redirect Generation (LLM call only when drift detected) ---
+        if signal.drift_detected and expert_node:
+            signal.redirect = self._generate_process_redirect(
+                drift_type=signal.drift_type or "",
+                drift_detail=signal.drift_detail or "",
+                expert_node=expert_node,
+                expert_answer=expert_answer,
+                unvisited=unvisited,
+                selected_link=selected_link,
+                timeline=timeline,
+            )
+
+        return signal
+
     def generate_assistance(
         self,
         expert_leaf_id: Optional[str],
         selected_link: Optional[GapLink],
-        interview_timeline: Optional[List[Dict[str, Any]]] = None,
         expert_answer: str = "",
         researcher_question: str = "",
     ) -> Assistance:
-        """
-        Generate type-specific assistance based on the selected link's relation_type.
-        For ProcessGap, this is entirely runtime-driven (no offline payload).
-        """
+        """Generate type-specific assistance based on the selected link's relation_type."""
         if not selected_link:
             return Assistance()
 
         relation = selected_link.relation_type
-        payload = dict(selected_link.assistance_payload)  # copy offline payload
+        payload = dict(selected_link.assistance_payload)
         assistance = Assistance(relation_type=relation, payload=payload)
 
-        expert_node = self.graph.expert_tree.get_node(
-            selected_link.expert_leaf_id
-        )
-
-        # ---- LexicalGap: 1-to-1 term mapping. No follow-ups. ----
+        # ---- LexicalGap ----
         if relation == RelationType.LEXICAL_GAP.value:
             pass
 
-        # ---- ConceptualGap: analogy + scenario (no order). ----
+        # ---- ConceptualGap ----
         elif relation == RelationType.CONCEPTUAL_GAP.value:
             pass
 
-        # ---- TacitGap: exhaustive offline arsenal → runtime filtering via polish. ----
+        # ---- TacitGap ----
         elif relation == RelationType.TACIT_GAP.value:
-            # The offline payload already contains the expanded attribute list
-            # (Agent A's seed attributes + LLM-generated expansions) with
-            # probes and scenarios for ALL of them.
-            # No mutation needed here — the polish step will handle intelligent
-            # filtering (extract expert's already-mentioned attributes, remove
-            # them, present only the unmentioned remainder).
             assistance.payload = payload
 
-        # ---- ScopeGap: strict 2-step (validate then pivot). No follow-ups. ----
+        # ---- ScopeGap ----
         elif relation == RelationType.SCOPE_GAP.value:
             pass
 
-        # ---- ProcessGap: fully runtime-driven. ----
+        # ---- ProcessGap: offline payload only (to be redesigned) ----
         elif relation == RelationType.PROCESS_GAP.value:
-            timeline = interview_timeline or []
-
-            # --- 1. Coverage Analysis ---
-            current_label = expert_node.label if expert_node else ""
-            covered_ids = {entry.get("expert_leaf_id", "") for entry in timeline}
-            visited_labels = [entry.get("topic_label", "") for entry in timeline]
-
-            siblings = self.graph.expert_tree.get_siblings(
-                selected_link.expert_leaf_id
-            ) if selected_link else []
-            unvisited = [s for s in siblings if s.id not in covered_ids]
-
-            total_siblings = len(siblings) + 1  # include current node
-            visited_count = total_siblings - len(unvisited)
-
-            coverage_info = {
-                "visited": list(dict.fromkeys(visited_labels)),  # deduplicated, ordered
-                "unvisited_siblings": [s.label for s in unvisited[:5]],
-                "coverage_ratio": f"{visited_count}/{total_siblings}",
-            }
-
-            # --- 2. Drift Detection ---
-            drift_type = None
-            drift_detail = None
-
-            # (a) Repeated Topic — same topic appears ≥2 times across full history
-            if current_label:
-                topic_count = sum(1 for v in visited_labels if v == current_label)
-                if topic_count >= 2:
-                    drift_type = "repeated_topic"
-                    drift_detail = (
-                        f"Topic '{current_label}' has been discussed {topic_count} times. "
-                        "The conversation may be circling."
-                    )
-
-            # (b) Tunnel Vision / Topic Oscillation — uses a sliding window
-            #     over the full timeline to detect narrow focus patterns.
-            #     Only fires when there are unvisited siblings to expand into.
-            if not drift_type and len(timeline) >= 3 and unvisited:
-                window_size = min(len(timeline), 6)
-                recent_ids = [
-                    entry.get("expert_leaf_id", "")
-                    for entry in timeline[-window_size:]
-                    if entry.get("expert_leaf_id")
-                ]
-                distinct = set(recent_ids)
-
-                if len(recent_ids) >= 3 and len(distinct) == 1 and next(iter(distinct)):
-                    drift_type = "tunnel_vision"
-                    drift_detail = (
-                        f"The last {len(recent_ids)} turns all focus on the same concept. "
-                        f"{len(unvisited)} sibling topics remain unexplored. "
-                        "Consider broadening the scope."
-                    )
-                elif len(recent_ids) >= 4 and len(distinct) == 2:
-                    labels = []
-                    for eid in distinct:
-                        node = self.graph.expert_tree.get_node(eid)
-                        if node:
-                            labels.append(f"'{node.label}'")
-                    drift_type = "topic_oscillation"
-                    drift_detail = (
-                        f"The last {len(recent_ids)} turns alternate between "
-                        f"{' and '.join(labels)}. "
-                        f"{len(unvisited)} related topics remain unexplored."
-                    )
-
-            # --- 3. Runtime Redirect (LLM call only when drift detected) ---
-            redirect_text = None
-            if drift_type and expert_node:
-                redirect_text = self._generate_process_redirect(
-                    drift_type=drift_type,
-                    drift_detail=drift_detail or "",
-                    expert_node=expert_node,
-                    expert_answer=expert_answer,
-                    unvisited=unvisited,
-                    selected_link=selected_link,
-                    timeline=timeline,
-                )
-
-            payload = {
-                "coverage": coverage_info,
-                "drift_detected": drift_type is not None,
-                "drift_type": drift_type,
-                "drift_detail": drift_detail,
-                "redirect": redirect_text,
-            }
-            assistance.payload = payload
+            pass
 
         return assistance
 
@@ -999,25 +1020,19 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
         """
         Analyze a conversation turn and provide type-specific navigation guidance.
 
-        Args:
-            researcher_question: The researcher's question
-            expert_answer: The expert's response
-            context_summary: Summary of recent conversation turns
-            interview_timeline: Accumulated timeline entries for Process Gap
-
-        Returns:
-            RuntimeAnalysis with type-specific assistance
+        Drift detection runs every turn regardless of confidence or gap type.
         """
         analysis = RuntimeAnalysis()
 
         # 1. Locate positions
         analysis.located = self.locate_positions(researcher_question, expert_answer)
 
-        # Confidence gate: below threshold -> do not show gap/assistance.
+        # Confidence gate
         try:
             confidence_threshold = float(os.getenv("DSAG_MATCH_CONFIDENCE_THRESHOLD", "0.45"))
         except Exception:
             confidence_threshold = 0.45
+
         if analysis.located.expert_confidence < confidence_threshold:
             analysis.confidence_warning = (
                 "Low-confidence expert match; showing the top possible expert concepts instead."
@@ -1031,36 +1046,55 @@ The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
                 expert_answer,
                 context_summary,
             )
-            return analysis
+        else:
+            # 2. Find best link
+            analysis.selected_link = self.find_best_link(
+                analysis.located.best_expert_leaf_id,
+                analysis.located.best_researcher_leaf_id,
+            )
 
-        # 2. Find best link
-        analysis.selected_link = self.find_best_link(
-            analysis.located.best_expert_leaf_id,
-            analysis.located.best_researcher_leaf_id,
-        )
+            if analysis.selected_link:
+                # 3. Compute divergence
+                analysis.divergence = self.compute_divergence(analysis.selected_link)
 
-        if analysis.selected_link:
-            # 3. Compute divergence
-            analysis.divergence = self.compute_divergence(analysis.selected_link)
+            # 4. Generate type-specific assistance
+            analysis.assistance = self.generate_assistance(
+                analysis.located.best_expert_leaf_id,
+                analysis.selected_link,
+                expert_answer=expert_answer,
+                researcher_question=researcher_question,
+            )
 
-        # 4. Generate type-specific assistance
-        analysis.assistance = self.generate_assistance(
-            analysis.located.best_expert_leaf_id,
-            analysis.selected_link,
-            interview_timeline=interview_timeline,
-            expert_answer=expert_answer,
-            researcher_question=researcher_question,
-        )
-
-        if analysis.assistance and analysis.assistance.payload:
-            # ProcessGap redirect is already LLM-generated with full context — skip polish
-            if analysis.assistance.relation_type != RelationType.PROCESS_GAP.value:
+            if analysis.assistance and analysis.assistance.payload:
                 analysis.assistance = self._polish_assistance(
                     analysis.assistance,
                     researcher_question,
                     expert_answer,
                     context_summary,
                 )
+
+        # 5. Drift detection — runs every turn, independent of gap type.
+        #    Build an extended timeline that includes the current turn so
+        #    coverage and pattern detection account for the latest data.
+        timeline = list(interview_timeline or [])
+        expert_leaf_id = analysis.located.best_expert_leaf_id
+        if expert_leaf_id:
+            current_node = self.graph.expert_tree.get_node(expert_leaf_id)
+            timeline_with_current = timeline + [{
+                "turn_index": len(timeline) + 1,
+                "topic_label": current_node.label if current_node else "",
+                "expert_leaf_id": expert_leaf_id,
+            }]
+        else:
+            timeline_with_current = timeline
+
+        analysis.drift_signal = self._detect_drift(
+            expert_leaf_id=expert_leaf_id,
+            interview_timeline=timeline_with_current,
+            expert_answer=expert_answer,
+            researcher_question=researcher_question,
+            selected_link=analysis.selected_link,
+        )
 
         return analysis
 

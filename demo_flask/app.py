@@ -150,7 +150,7 @@ def build_timeline_entry(
     expert_answer: str,
     turn_index: int,
 ) -> Optional[Dict[str, Any]]:
-    """Build a session-scoped timeline entry for ProcessGap tracking."""
+    """Build a session-scoped timeline entry for drift tracking."""
     expert_leaf_id = analysis.located.best_expert_leaf_id
     if not expert_leaf_id:
         return None
@@ -175,11 +175,11 @@ def analyze_turn_with_dsag(
     expert_answer: str,
     messages: List[Dict[str, Any]],
 ):
-    """
-    Run DSAG analysis for the current session and keep ProcessGap timeline in sync.
+    """Run DSAG analysis for the current session.
 
-    ProcessGap needs the current turn included in the timeline, so we regenerate
-    its assistance payload after building the timeline entry for this turn.
+    Drift detection is handled inside analyze_turn (with a synthetic
+    current-turn entry appended to the timeline), so no re-generation
+    is needed here.
     """
     embedding_index = EmbeddingIndex(dsag_state.graph)
     embedding_index.load_embeddings_data({
@@ -204,33 +204,19 @@ def analyze_turn_with_dsag(
         expert_answer,
         turn_index=len(timeline) + 1,
     )
-
     if timeline_entry:
-        timeline_with_current = timeline + [timeline_entry]
-        if (
-            analysis.selected_link
-            and analysis.selected_link.relation_type == "ProcessGap"
-        ):
-            analysis.assistance = engine.generate_assistance(
-                analysis.located.best_expert_leaf_id,
-                analysis.selected_link,
-                interview_timeline=timeline_with_current,
-                expert_answer=expert_answer,
-                researcher_question=researcher_question,
-            )
-        set_interview_timeline(timeline_with_current)
+        set_interview_timeline(timeline + [timeline_entry])
 
     return analysis
 
 
 def build_process_panel_state(
     dsag_state: Optional[DSAGState],
+    latest_drift_signal: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    """Build a lightweight view model for the Process Guidance panel.
+    """Build a view model for the Process Guidance panel.
 
-    Focused on coverage tracking and topic trail only.
-    Drift alerts and redirects are shown exclusively in the per-turn
-    Assistance Card to avoid data duplication and temporal inconsistency.
+    Combines timeline-based coverage/trail with the latest drift signal.
     """
     panel = {
         "ready": bool(dsag_state and dsag_state.is_ready()),
@@ -245,6 +231,12 @@ def build_process_panel_state(
             "branch_topics": [],
         },
         "recent_topics": [],
+        "drift": {
+            "detected": False,
+            "type": "",
+            "detail": "",
+            "redirect": "",
+        },
     }
 
     if not dsag_state or not dsag_state.is_ready():
@@ -306,6 +298,14 @@ def build_process_panel_state(
         }
         for idx, entry in enumerate(timeline[-6:], start=max(len(timeline) - 6, 0))
     ]
+
+    if latest_drift_signal:
+        panel["drift"] = {
+            "detected": bool(latest_drift_signal.get("drift_detected")),
+            "type": latest_drift_signal.get("drift_type", "") or "",
+            "detail": latest_drift_signal.get("drift_detail", "") or "",
+            "redirect": latest_drift_signal.get("redirect", "") or "",
+        }
 
     return panel
 
@@ -712,13 +712,21 @@ def index():
     dsag_state = get_dsag_state()
     dsag_ready = dsag_state is not None and dsag_state.is_ready()
 
+    # Extract the latest drift signal from the most recent expert message
+    latest_drift = None
+    for m in reversed(messages):
+        ds = (m.get("dsag_analysis") or {}).get("drift_signal")
+        if ds is not None:
+            latest_drift = ds
+            break
+
     return render_template(
         "index.html",
         messages=messages,
         guide_text=get_guide_text(),
         guide_error=session.get("guide_error"),
         dsag_ready=dsag_ready,
-        process_panel=build_process_panel_state(dsag_state),
+        process_panel=build_process_panel_state(dsag_state, latest_drift),
     )
 
 

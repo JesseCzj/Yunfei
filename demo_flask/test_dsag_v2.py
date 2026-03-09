@@ -443,35 +443,18 @@ def test_runtime_type_branching():
     assert "scenario" in assistance.payload
     print("  [OK] ConceptualGap: analogy + scenario present")
 
-    # Test 4: ProcessGap with timeline
+    # Test 4: ProcessGap — offline payload only (drift is now independent)
     process_link = GapLink(
         expert_leaf_id="exp_leaf_00_00_00",
         researcher_leaf_id="res_leaf_00_00_00",
         relation_type=RelationType.PROCESS_GAP.value,
-        assistance_payload={"initial_topics": ["Alert handling", "Diagnosis workflow"]},
+        assistance_payload={"misalignment_reason": "Expert lacks standardized workflow"},
         weight=5.0,
     )
 
-    # Simulate an accumulated timeline
-    timeline = [
-        {
-            "turn_index": 1,
-            "topic_label": "False positives",
-            "expert_leaf_id": "exp_leaf_00_00_00",
-            "researcher_leaf_id": "res_leaf_00_00_00",
-            "relation_type": "LexicalGap",
-            "summary": "Q: How do you handle alerts? | A: Too many false alarms.",
-        }
-    ]
-
-    assistance = engine.generate_assistance("exp_leaf_00_00_00", process_link, interview_timeline=timeline)
+    assistance = engine.generate_assistance("exp_leaf_00_00_00", process_link)
     assert assistance.relation_type == RelationType.PROCESS_GAP.value
-    assert "timeline" in assistance.payload
-    assert len(assistance.payload["timeline"]) == 1
-    assert "drift_alerts" in assistance.payload
-    # Should detect repeated topic
-    assert any("discussed before" in alert for alert in assistance.payload["drift_alerts"]), \
-        "Should detect repeated topic in drift_alerts"
+    assert "misalignment_reason" in assistance.payload
     print(f"  [OK] ProcessGap: timeline={len(assistance.payload['timeline'])} entries, "
           f"drift_alerts={len(assistance.payload['drift_alerts'])}")
 

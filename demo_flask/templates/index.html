@@ -343,37 +343,7 @@
                                 {% endif %}
                               </div>
 
-                            {# ---- ProcessGap ---- #}
-                            {% elif rtype == "ProcessGap" %}
-                              <div class="dsag-process">
-                                {% if payload.coverage is defined %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Coverage ({{ payload.coverage.coverage_ratio }})</div>
-                                    {% if payload.coverage.unvisited_siblings is defined and payload.coverage.unvisited_siblings|length > 0 %}
-                                      <div class="coverage-unvisited">
-                                        Unvisited topics:
-                                        {% for topic in payload.coverage.unvisited_siblings %}
-                                          <span class="tacit-tag tacit-tag-remaining">{{ topic }}</span>
-                                        {% endfor %}
-                                      </div>
-                                    {% endif %}
-                                  </div>
-                                {% endif %}
-                                {% if payload.drift_detected %}
-                                  <div class="dsag-subsection dsag-drift-alert">
-                                    <div class="dsag-subsection-title">Drift Alert: {{ payload.drift_type }}</div>
-                                    {% if payload.drift_detail %}
-                                      <div class="drift-detail">{{ payload.drift_detail }}</div>
-                                    {% endif %}
-                                    {% if payload.redirect %}
-                                      <div class="drift-redirect">
-                                        <strong>Suggested redirect:</strong>
-                                        <div class="redirect-text clickable-followup" data-question="{{ payload.redirect }}">{{ payload.redirect }}</div>
-                                      </div>
-                                    {% endif %}
-                                  </div>
-                                {% endif %}
-                              </div>
+                            {# ---- ProcessGap: offline assistance TBD ---- #}
                             {% endif %}
                           </div>
                         </div>
@@ -515,6 +485,20 @@
                   {% endfor %}
                 </div>
               </div>
+
+              {% if process_panel.drift.detected %}
+                <div class="process-card process-card-drift">
+                  <div class="process-card-label">Drift Alert</div>
+                  <span class="drift-type-badge">{{ process_panel.drift.type }}</span>
+                  <div class="drift-detail">{{ process_panel.drift.detail }}</div>
+                  {% if process_panel.drift.redirect %}
+                    <div class="drift-redirect">
+                      <strong>Suggested redirect:</strong>
+                      <div class="redirect-text clickable-followup" data-question="{{ process_panel.drift.redirect }}">{{ process_panel.drift.redirect }}</div>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
             {% endif %}
           </div>
         </aside>
