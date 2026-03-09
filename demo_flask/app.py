@@ -247,7 +247,6 @@ def build_process_panel_state(
         "recent_topics": [],
         "drift": {
             "detected": False,
-            "type": "",
             "detail": "",
             "redirect": "",
         },
@@ -316,7 +315,6 @@ def build_process_panel_state(
     if latest_drift_signal:
         panel["drift"] = {
             "detected": bool(latest_drift_signal.get("drift_detected")),
-            "type": latest_drift_signal.get("drift_type", "") or "",
             "detail": latest_drift_signal.get("drift_detail", "") or "",
             "redirect": latest_drift_signal.get("redirect", "") or "",
         }

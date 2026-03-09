@@ -114,10 +114,9 @@ def _parse_json_from_text(text: str) -> Dict[str, Any]:
 
 # ============== Process Gap Runtime Prompt ==============
 
-PROCESS_GAP_REDIRECT_PROMPT = """You are helping a researcher redirect an interview conversation that has drifted.
+PROCESS_GAP_REDIRECT_PROMPT = """You are helping a researcher redirect an interview conversation that has narrowed in focus.
 
-**Drift type:** {drift_type}
-**Drift detail:** {drift_detail}
+**What happened:** {drift_detail}
 
 **Current topic the expert is discussing:**
 - Label: {current_topic_label}
@@ -269,10 +268,11 @@ class DriftSignal:
     """Session-level drift detection result, independent of gap type.
 
     Computed every turn from interview_timeline + expert tree structure.
+    A single signal type: narrow_focus (conversation stuck in too few topics
+    while unexplored siblings exist).
     """
     coverage: Dict[str, Any] = field(default_factory=dict)
     drift_detected: bool = False
-    drift_type: Optional[str] = None
     drift_detail: Optional[str] = None
     redirect: Optional[str] = None
 
@@ -280,7 +280,6 @@ class DriftSignal:
         return {
             "coverage": self.coverage,
             "drift_detected": self.drift_detected,
-            "drift_type": self.drift_type,
             "drift_detail": self.drift_detail,
             "redirect": self.redirect,
         }
@@ -839,7 +838,6 @@ POLISHABLE fields:
 
     def _generate_process_redirect(
         self,
-        drift_type: str,
         drift_detail: str,
         expert_node: DSAGNode,
         expert_answer: str,
@@ -851,14 +849,12 @@ POLISHABLE fields:
         Generate a context-aware redirect sentence via LLM when drift is detected.
         Returns the redirect string, or None if the LLM call fails.
         """
-        # Build unvisited siblings text
         if unvisited:
             unvisited_lines = [f"- {s.label}: {s.description}" for s in unvisited[:4]]
             unvisited_text = "\n".join(unvisited_lines)
         else:
             unvisited_text = "(no specific unvisited siblings)"
 
-        # Build a concise timeline summary (last 4 entries)
         recent = timeline[-4:] if len(timeline) > 4 else timeline
         tl_lines = []
         for i, entry in enumerate(recent, 1):
@@ -869,7 +865,6 @@ POLISHABLE fields:
             )
         timeline_summary = "\n".join(tl_lines) if tl_lines else "(first turn)"
 
-        # Misalignment reason from the link
         misalignment_reason = ""
         if selected_link and selected_link.assistance_payload:
             misalignment_reason = selected_link.assistance_payload.get(
@@ -877,7 +872,6 @@ POLISHABLE fields:
             )
 
         variables = {
-            "drift_type": drift_type,
             "drift_detail": drift_detail,
             "current_topic_label": expert_node.label,
             "current_topic_description": expert_node.description,
@@ -941,55 +935,39 @@ POLISHABLE fields:
             "coverage_ratio": f"{visited_count}/{total_siblings}",
         }
 
-        # --- Drift Detection ---
-
-        # (a) Repeated Topic — same topic appears ≥2 times across full history
-        if current_label:
-            topic_count = sum(1 for v in visited_labels if v == current_label)
-            if topic_count >= 2:
-                signal.drift_detected = True
-                signal.drift_type = "repeated_topic"
-                signal.drift_detail = (
-                    f"Topic '{current_label}' has been discussed {topic_count} times. "
-                    "The conversation may be circling."
-                )
-
-        # (b) Tunnel Vision / Topic Oscillation — sliding window
-        if not signal.drift_detected and len(timeline) >= 3 and unvisited:
+        # --- Narrow Focus Detection ---
+        # Single signal: the recent conversation window is stuck in too few
+        # topics while related siblings remain unexplored.
+        if len(timeline) >= 4 and unvisited:
             window_size = min(len(timeline), 6)
             recent_ids = [
                 entry.get("expert_leaf_id", "")
                 for entry in timeline[-window_size:]
                 if entry.get("expert_leaf_id")
             ]
-            distinct = set(recent_ids)
+            distinct_count = len(set(recent_ids))
+            diversity_threshold = max(2, window_size // 2)
 
-            if len(recent_ids) >= 3 and len(distinct) == 1 and next(iter(distinct)):
+            if len(recent_ids) >= 4 and distinct_count < diversity_threshold:
+                distinct_labels = []
+                seen = set()
+                for eid in recent_ids:
+                    if eid not in seen:
+                        seen.add(eid)
+                        node = self.graph.expert_tree.get_node(eid)
+                        if node:
+                            distinct_labels.append(f"'{node.label}'")
                 signal.drift_detected = True
-                signal.drift_type = "tunnel_vision"
                 signal.drift_detail = (
-                    f"The last {len(recent_ids)} turns all focus on the same concept. "
-                    f"{len(unvisited)} sibling topics remain unexplored. "
-                    "Consider broadening the scope."
-                )
-            elif len(recent_ids) >= 4 and len(distinct) == 2:
-                labels = []
-                for eid in distinct:
-                    node = self.graph.expert_tree.get_node(eid)
-                    if node:
-                        labels.append(f"'{node.label}'")
-                signal.drift_detected = True
-                signal.drift_type = "topic_oscillation"
-                signal.drift_detail = (
-                    f"The last {len(recent_ids)} turns alternate between "
-                    f"{' and '.join(labels)}. "
-                    f"{len(unvisited)} related topics remain unexplored."
+                    f"The last {len(recent_ids)} turns only cover "
+                    f"{distinct_count} topic{'s' if distinct_count != 1 else ''} "
+                    f"({', '.join(distinct_labels)}), while "
+                    f"{len(unvisited)} sibling topics remain unexplored."
                 )
 
         # --- Redirect Generation (LLM call only when drift detected) ---
         if signal.drift_detected and expert_node:
             signal.redirect = self._generate_process_redirect(
-                drift_type=signal.drift_type or "",
                 drift_detail=signal.drift_detail or "",
                 expert_node=expert_node,
                 expert_answer=expert_answer,

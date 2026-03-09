@@ -83,9 +83,6 @@ The two layers are **orthogonal**: a single turn can produce both a ProcessGap a
   2. Expert tree structure — sibling leaves provide the "topic universe" for coverage analysis.
   3. Current turn's Q&A text — for LLM redirect generation.
 - **Coverage** (informational, always computed): `{visited, unvisited_siblings, coverage_ratio}`.
-- **Drift Detection** (rule-based, no LLM, three alert types in priority order — mutually exclusive):
-  1. **Repeated Topic**: Current topic appeared ≥2 times in history.
-  2. **Tunnel Vision**: Sliding window (last 6 turns) shows ≤1 distinct topic, AND unvisited siblings exist.
-  3. **Topic Oscillation**: Last 4-6 turns alternate between exactly 2 topics, AND unvisited siblings exist.
+- **Narrow Focus Detection** (rule-based, no LLM, single signal): Fires when the recent conversation window (last 4-6 turns) has low topic diversity (distinct topics < half the window size) AND unvisited sibling topics exist. The detail text dynamically describes the specific pattern (how many turns, which topics, how many unexplored).
 - **Redirect Generation** (runtime LLM call, only when drift detected): Produces one natural redirect sentence referencing the expert's actual words.
 - **Advisory Principle**: All alerts and redirects are suggestions, not directives.
