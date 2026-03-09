@@ -540,6 +540,65 @@ Priority: Repeated Topic > Tunnel Vision. Only one drift type per turn (mutually
 
 ---
 
+## 2026-03-09 — ProcessGap Hardening: Timeline Gating, Boundary Clarification & Drift Simplification
+
+### Change 1: Low-Confidence Turns Excluded from Timeline
+
+**Problem:** `build_timeline_entry()` in `app.py` added every turn to the persistent interview timeline regardless of expert match confidence. Low-confidence turns (below `DSAG_MATCH_CONFIDENCE_THRESHOLD`) carry unreliable `expert_leaf_id` mappings, which pollute the timeline with phantom topic patterns and cause false drift alerts.
+
+**Fix (two sites, same gate):**
+
+| File | Change |
+|------|--------|
+| `demo_flask/app.py` | `build_timeline_entry()` — added confidence check after `expert_leaf_id` existence check. Returns `None` (skip entry) when `expert_confidence < threshold`. |
+| `demo_flask/dsag/runtime.py` | `analyze_turn()` — the synthetic `timeline_with_current` entry (used for within-turn drift analysis) now also requires `confident = expert_confidence >= threshold`. Low-confidence turns are transparent to drift detection. |
+
+Both sites read the same `DSAG_MATCH_CONFIDENCE_THRESHOLD` env var (default 0.45), consistent with the existing confidence gate.
+
+---
+
+### Change 2: TacitGap vs ProcessGap Boundary Strengthening
+
+**Problem:** When an expert's methodology is an unarticulated intuitive blend of multiple frameworks (common in education, therapy, etc.), Agent C could misclassify as `ProcessGap (methodology_conflict)` because the domain technically "has multiple paradigms." But the core problem is articulability (TacitGap), not paradigm selection (ProcessGap).
+
+**Fix (three insertions in `ALIGNMENT_JUDGE_PROMPT`):**
+
+| Location | Change |
+|----------|--------|
+| TacitGap definition (line 252) | Extended to explicitly include methodology-level tacit knowledge: "when the expert's working approach is an intuitive blend of multiple frameworks rather than a nameable paradigm." |
+| ProcessGap methodology_conflict (line 256) | Added `KEY BOUNDARY`: "This applies only when the expert CAN name their approach. If the expert's methodology is an unarticulated intuitive blend, classify as TacitGap instead." |
+| Boundary edge cases | New `[TacitGap vs ProcessGap]` edge case: therapist who draws from CBT/psychodynamic/mindfulness but cannot name a single method → TacitGap (NOT ProcessGap). |
+
+The three changes form a reinforcing signal chain: definition → boundary condition → concrete example.
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `demo_flask/dsag/factory.py` | `ALIGNMENT_JUDGE_PROMPT` — TacitGap definition extended, ProcessGap KEY BOUNDARY added, new [TacitGap vs ProcessGap] edge case |
+
+---
+
+### Change 3: Drift Detection Simplified to Single Signal (narrow_focus)
+
+**Problem:** Three drift types (`repeated_topic`, `tunnel_vision`, `topic_oscillation`) were different names for the same phenomenon: conversation stuck in too few topics while siblings remain unexplored. Distinctions had no decision value for the researcher (same action: broaden scope). Additionally, `repeated_topic` was too sensitive (fired on healthy spiral revisits), and `topic_oscillation` didn't actually check for alternation patterns.
+
+**Fix:** Merged all three into a single `narrow_focus` signal.
+
+**Trigger:** Recent window (4-6 turns) has `distinct_topics < window_size // 2`, AND unvisited siblings exist.
+
+**Detail text:** Dynamically describes the specific pattern (e.g., "The last 5 turns only cover 2 topics (X, Y), while 4 sibling topics remain unexplored").
+
+| File | Change |
+|------|--------|
+| `demo_flask/dsag/runtime.py` | `DriftSignal` — removed `drift_type` field. `_detect_drift()` — replaced three detection branches with single narrow_focus rule. `_generate_process_redirect()` — removed `drift_type` parameter. `PROCESS_GAP_REDIRECT_PROMPT` — simplified from "Drift type / Drift detail" to "What happened: {drift_detail}". |
+| `demo_flask/app.py` | `build_process_panel_state()` — removed `drift.type` from panel dict. |
+| `demo_flask/templates/index.html` | Drift Alert card — removed `drift-type-badge`, renamed label to "Narrow Focus Alert". |
+| `demo_flask/static/style.css` | Removed `.drift-type-badge` style rules. |
+| `mismatch_types.md` | Replaced three-type drift description with single Narrow Focus Detection description. |
+
+---
+
 ## 2026-03-08 — Low-Confidence Uncertainty Card (Phase 2): Prompt, Fallback & Polish Fixes
 
 ### Problem
