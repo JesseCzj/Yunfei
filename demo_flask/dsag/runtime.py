@@ -374,7 +374,7 @@ Do not merge them or remove either one.""",
 
         RelationType.TACIT_GAP.value: """## TacitGap polishing rules
 The offline payload contains an EXHAUSTIVE arsenal of attributes, probes, and scenarios.
-Your primary job is INTELLIGENT FILTERING, then polishing.
+Your job is INTELLIGENT FILTERING → PRIORITIZATION → polishing.
 
 ### Step A — Extract already-mentioned attributes
 Read the expert's latest answer and the conversation context carefully.
@@ -401,9 +401,23 @@ POLISHABLE fields:
     multiple-choice question (NEVER convert to open-ended "Why …?").
     Reference the expert's recent answer where possible.
 
+### Step D — Prioritize
+From the REMAINING (not-yet-mentioned) probes, pick the TOP 2 that are
+most relevant to the current conversation context and expert answer.
+Mark those with "priority": "high". All other remaining probes get
+"priority": "normal".
+
+Criteria for "high" priority:
+  - The attribute is closest to what the expert is currently discussing.
+  - Probing it NOW would yield the most useful tacit knowledge given
+    the conversation flow.
+
 ### Output requirements
 - The 3-step structure (attributes → probes → hypothetical_scenarios) is strict.
 - If ALL attributes have been mentioned, return empty lists for all three fields.
+- Each probe object MUST include a "priority" field: either "high" or "normal".
+  Exactly 2 probes should be "high" (or fewer if fewer than 2 remain).
+- Keep ALL remaining hypothetical_scenarios (do NOT trim them).
 - Add a top-level field "extracted_attributes": [...] listing the attributes
   you identified as already articulated by the expert (for transparency).
 - Also include "mentioned_attributes": [...] with the same content for backward compatibility.
@@ -495,7 +509,7 @@ POLISHABLE fields:
 
 ## General rules (apply to ALL types)
 1. Keep the EXACT same JSON keys and nesting structure.
-2. Make polishable text natural, concise, and directly speakable.
+2. BREVITY is your #1 priority for POLISHABLE fields (see type-specific rules below for which fields are polishable vs frozen). The researcher glances at this mid-interview — cut filler words, remove hedging, prefer fragments over full sentences where clarity is preserved. FROZEN fields must be copied verbatim regardless of length.
 3. Reference the expert's OWN vocabulary and phrasing where possible.
 4. Do NOT invent new facts or concepts.
 5. Questions MUST remain questions.
@@ -591,7 +605,7 @@ POLISHABLE fields:
         # Keep only not-yet-mentioned attributes in the actionable list.
         remaining_attrs = [a for a in attributes if a.lower() not in extracted_lower]
 
-        # Remove probes targeting extracted attributes.
+        # Remove probes targeting extracted attributes; normalize priority field.
         probes_in = payload.get("probes", [])
         probes_out: List[Dict[str, Any]] = []
         if isinstance(probes_in, list):
@@ -601,7 +615,10 @@ POLISHABLE fields:
                 attr = str(probe.get("attribute", "")).strip()
                 if attr and attr.lower() in extracted_lower:
                     continue
+                if "priority" not in probe:
+                    probe["priority"] = "normal"
                 probes_out.append(probe)
+            probes_out.sort(key=lambda p: 0 if p.get("priority") == "high" else 1)
 
         # Remove scenarios that mention extracted attributes (best-effort text filter).
         scenarios_in = _norm_list(payload.get("hypothetical_scenarios", []))

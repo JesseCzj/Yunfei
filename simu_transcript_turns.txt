@@ -1,0 +1,76 @@
+Demo setup
+Topic: AI-driven virtual cell simulation for gene regulation research
+Researcher background: HCI researcher studying explainable AI and visualization tools for computational biology
+Expert background: Molecular and computational biologist with 15 years experience in hematopoietic cell gene regulation and AI-driven virtual cell simulation (Cellforge)
+
+How to use
+Enter each Researcher turn in the left input box and each Expert turn in the right input box.
+This script covers all 5 gap types across 12 turns. Turns 1-2 are warm-up with lighter signals. Turns 3-4 probe tacit knowledge. Turns 5-6 are terminology-heavy. Turn 8 is the clearest ScopeGap. Turns 9-11 stay on counterfactual verification (potential narrow_focus drift if the system tracks them as a single topic). Turn 12 closes with a TacitGap.
+
+Turn 1
+Researcher: Good morning, Dr. Carter. Thank you for agreeing to this interview. Let's start with demographics. Could you tell us your gender, age, and field of expertise?
+Expert: Good morning. I'm female, 42 years old, and my expertise is in molecular and computational biology, focusing on hematopoietic cell gene regulation and AI-driven virtual cell simulation. I've been in this field for 15 years.
+Expected dominant signal: LexicalGap (hematopoietic, gene regulation) or low-confidence match (warm-up turn)
+
+Turn 2
+Researcher: Are you familiar with virtual cell AI models like Cellforge? If yes, what's your level of familiarity?
+Expert: Yes, intermediate to advanced. We've used it for 2 years to simulate genetic perturbations in erythroid progenitor cells.
+Expected dominant signal: LexicalGap (erythroid progenitor cells, genetic perturbations)
+
+Turn 3
+Researcher: How do you typically evaluate if a virtual cell model is reliable? Which specific metrics matter?
+Expert: Two core metrics: Pearson correlation coefficient (r >= 0.75) between predicted and experimental log2FC of gene expression, and cell state transition accuracy via UMAP alignment with scRNA-seq data. But there's a third factor I can't formalize -- sometimes metrics check out, but the gene regulatory network feels off.
+Expected dominant signal: LexicalGap (Pearson correlation, log2FC, UMAP, scRNA-seq) or TacitGap (the "off" feeling that can't be formalized)
+
+Turn 4
+Researcher: What do you mean by off?
+Expert: Last year, a model predicted HBG1 activates HIST1H1C directly, but after 15 years working on these cells, I just know HIST1H1C is regulated indirectly via KLF6. It's not measurable -- it's a gut feeling from hundreds of wet-lab experiments that I can't write into evaluation guidelines.
+Expected dominant signal: TacitGap (gut feeling from experience, can't be formalized or measured, implicit domain intuition)
+
+Turn 5
+Researcher: Got it. Let's move to manual genetic perturbation workflows. Could you walk us through the key steps?
+Expert: We design CRISPR-Cas9 gRNAs, transfect CD34+ cells, validate knockout efficiency with qRT-PCR, then collect samples for scRNA-seq and ATAC-seq over 7 days to analyze gene expression and chromatin accessibility.
+Expected dominant signal: LexicalGap (CRISPR-Cas9, gRNAs, CD34+, qRT-PCR, ATAC-seq, chromatin accessibility -- heavy jargon)
+
+Turn 6
+Researcher: I'm unfamiliar with ATAC-seq -- could you explain it briefly?
+Expert: It's Assay for Transposase-Accessible Chromatin using sequencing. It shows which genome regions are open to transcription factors post-perturbation -- critical for confirming regulatory mechanisms alongside scRNA-seq.
+Expected dominant signal: LexicalGap (explicit terminology confusion acknowledged by researcher)
+
+Turn 7
+Researcher: Have you used AI-based gene prediction models beyond Cellforge?
+Expert: Yes, DeepPerturb and CellNet. We use them to reduce high-throughput screening costs and uncover non-intuitive gene interactions.
+Expected dominant signal: ConceptualGap (non-intuitive gene interactions, high-throughput screening as a concept)
+
+Turn 8
+Researcher: We've collaborated with HCI/VIS scholars to design tools like gene regulatory network visualizations to enhance AI result understanding -- they prioritized clarity and simplicity. Do you find these helpful?
+Expert: They're partially useful, but there's a disconnect. The VIS team's simplified visuals only label activation/inhibition, but we need epigenomic context -- like if the interaction is mediated by histone acetylation. Their focus on aesthetics and usability misses the biological granularity we need to validate predictions.
+Expected dominant signal: ScopeGap (HCI team prioritizes simplicity/usability vs expert needs biological granularity and epigenomic context -- classic focus mismatch)
+
+Turn 9
+Researcher: We also provided a counterfactual comparison chart for HBG1 vs. ID3 knockout. The chart maps predicted log2FC differences -- do you understand how to interpret it?
+Expert: Yeah, that makes sense.
+Expected dominant signal: ConceptualGap (researcher probing understanding depth; expert gives superficial confirmation)
+
+Turn 10
+Researcher: Just to be sure -- when it shows HIST1H4C has +0.51 log2FC in ID3 knockout vs. -0.36 in HBG1 knockout, you recognize that means ID3 knockout upregulates it, while HBG1 knockout downregulates it?
+Expert: Absolutely -- we work with log2FC daily. But I get your hesitation -- you can't tell if I'm just nodding along or truly grasping the model's logic behind the numbers.
+Expected dominant signal: ConceptualGap (meta-communication gap -- expert recognizes researcher's verification intent)
+
+Turn 11
+Researcher: Exactly. Would you want me to explain more about how the counterfactuals are calculated, or is this enough?
+Expert: This is enough -- we care more about the output than the internal calculation.
+Expected dominant signal: ScopeGap (expert focuses on practical output, dismisses internal mechanism -- different priorities)
+
+Turn 12
+Researcher: Last question: What's your preferred form of explanation for AI predictions?
+Expert: A mix of visualization, counterfactual reasoning, and feature importance ranking -- but with layered details, not just simplicity. Sometimes a low-ranked feature feels critical to me based on experience, which is hard to formalize for the HCI team.
+Expected dominant signal: TacitGap (experience-based intuition about feature importance that can't be formalized) or ScopeGap (layered details vs simplicity preference)
+
+What to watch across the full transcript
+- Turns 3-4 should surface TacitGap around the expert's "gut feeling" and unformalizeable intuition about gene regulatory networks.
+- Turns 5-6 are the densest LexicalGap segment -- the system should detect heavy jargon.
+- Turn 8 is the strongest ScopeGap candidate -- the disconnect between HCI simplicity goals and expert granularity needs.
+- Turns 9-11 all revolve around counterfactual interpretation. If the system tracks them under similar topic nodes, the Process Guidance panel may begin showing concentration in one branch after Turn 11.
+- Turn 12 blends TacitGap and ScopeGap -- the system may pick either depending on which leaf nodes match.
+- Low-confidence Uncertainty Cards may appear on Turn 1 (warm-up) or Turn 9 (short expert answer) if embedding matches are weak.

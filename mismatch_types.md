@@ -61,8 +61,8 @@ ProcessGap Defense
 │    → Output: structured ProcessGap assistance (parallel to other 4 gap types)
 │
 └── Monitoring Layer (runtime, every turn, independent of gap type) — handles #3
-     └── Drift detection: repeated_topic / tunnel_vision / topic_oscillation
-     → Output: DriftSignal (coverage + drift alert + redirect)
+     └── Narrow Focus detection (single signal)
+     → Output: DriftSignal (coverage + narrow focus alert + redirect)
 ```
 
 The two layers are **orthogonal**: a single turn can produce both a ProcessGap assistance card AND a drift alert simultaneously.

@@ -970,7 +970,7 @@ Return ONLY valid JSON:
   "term_mapping": {{
     "expert_term": "the exact term the expert uses",
     "researcher_term": "the equivalent term in the researcher's vocabulary",
-    "explanation": "1 sentence explaining how these terms relate"
+    "explanation": "1 short sentence explaining how these terms relate. Be maximally concise (hard max: 15 words)."
   }}
 }}
 """
@@ -1006,21 +1006,23 @@ Strategy 2 — Fine-grained Scenario:
 - Explicitly specify inputs, outputs, and edge cases to prevent ambiguity.
 - Avoid overarching metaphors that require secondary interpretation.
 
+BREVITY RULE: The researcher glances at this mid-interview. Be as concise as possible in every field. Hard word limits are ceilings, NOT targets — shorter is always better.
+
 Return ONLY valid JSON:
 {{
   "analogy": {{
-    "source_concept": "A concept the expert already knows that is structurally similar",
+    "source_concept": "A concept the expert already knows. As brief as possible (hard max: 10 words).",
     "structural_mapping": {{
-      "inputs": "What goes in (mapped to expert's frame)",
-      "logic": "How it transforms (mapped to expert's frame)",
-      "outputs": "What comes out (mapped to expert's frame)"
+      "inputs": "What goes in, mapped to expert's frame. As brief as possible (hard max: 25 words).",
+      "logic": "How it transforms, mapped to expert's frame. As brief as possible (hard max: 25 words).",
+      "outputs": "What comes out, mapped to expert's frame. As brief as possible (hard max: 25 words)."
     }},
-    "explanation": "How the researcher's concept behaves similarly to the source concept"
+    "explanation": "1 sentence: how the researcher's concept behaves similarly. As brief as possible (hard max: 20 words)."
   }},
   "scenario": {{
-    "inputs": "Concrete input example the expert would recognize",
-    "outputs": "What the researcher's approach would produce",
-    "edge_cases": "A tricky case where the two mental models diverge"
+    "inputs": "Concrete input the expert would recognize. As brief as possible (hard max: 20 words).",
+    "outputs": "What the researcher's approach would produce. As brief as possible (hard max: 20 words).",
+    "edge_cases": "A tricky case where the two models diverge. As brief as possible (hard max: 20 words)."
   }}
 }}
 """
@@ -1053,9 +1055,11 @@ Step 1: EXPAND the attribute list.
   Aim for 6-10 total attributes to build a comprehensive arsenal.
 
 Step 2: For EACH attribute (both seed and expanded), generate a MULTIPLE-CHOICE probe question to guide the expert to dismantle factors through quantifiable indicators.
-  RULE: NEVER ask open-ended "Why" questions. Instead, formulate as:
-  "Is your concern related to [Attribute A] or [Attribute B]?" or
-  "Which matters more: A, B, or C?"
+  RULES:
+  - NEVER ask open-ended "Why" questions. Instead, formulate as:
+    "Is your concern related to [Attribute A] or [Attribute B]?" or
+    "Which matters more: A, B, or C?"
+  - Each question should be as brief as possible (hard max: 20 words).
 
 Step 3: Generate 2-3 hypothetical scenarios for optional checkout.
   RULE: Each scenario alters only ONE variable at a time to test the boundaries of their intuition.
@@ -1067,7 +1071,7 @@ Return ONLY valid JSON:
   "probes": [
     {{
       "attribute": "the attribute being probed",
-      "question": "Multiple-choice question (never open-ended Why)",
+      "question": "Be maximally concise (hard max: 20 words). Multiple-choice, never open-ended Why.",
       "choices": ["Option A", "Option B"]
     }}
   ],
@@ -1111,14 +1115,16 @@ THREE RULES to enforce:
 2. **Persuasion Rule**: Do NOT merely state the research is a "necessary step." Actively generate compelling reasons showing how the research safeguards or enhances the expert's interests.
 3. **Scenario Rule**: Deploy the Coarse-grained Scenario specifically as a persuasive tool to visualize the macro-level benefit. Keep it at the "story" level — what happens on a typical day AFTER adoption. NO technical details, NO budget arguments.
 
+BREVITY RULE: The researcher reads this mid-interview. Keep every field tight.
+
 Return ONLY valid JSON:
 {{
-  "validate_focus": "1-2 sentences acknowledging the expert's practical focus",
+  "validate_focus": "1 sentence acknowledging the expert's practical focus",
   "pivot": {{
-    "limitation": "A real limitation of the expert's current approach",
-    "research_goal": "The researcher's goal that addresses this",
-    "compelling_reason": "Why the expert should care (framed as what they GAIN)",
-    "coarse_scenario": "2-3 sentence narrative of a typical day after adoption (no technical details, no budget)"
+    "limitation": "1 sentence: a real limitation of the expert's current approach",
+    "research_goal": "1 sentence: the researcher's goal that addresses this",
+    "compelling_reason": "1-2 sentences: why the expert should care (framed as what they GAIN)",
+    "coarse_scenario": "2 sentences max: a typical day after adoption (no technical details, no budget)"
   }}
 }}
 """
@@ -1145,22 +1151,24 @@ ProcessGap has two sub-types. Read the misalignment reason carefully and determi
 
 Determine the sub-type, then generate the appropriate fields.
 
+BREVITY RULE: The researcher reads this mid-interview. Keep every field tight and scannable.
+
 Return ONLY valid JSON matching ONE of these two schemas:
 
 Schema A (Factual Risk):
 {{
   "sub_type": "factual_risk",
-  "vulnerable_assumption": "The specific claim/assumption in the researcher's preparation that may be incorrect",
-  "domain_correction": "What experts in this domain actually believe or practice",
-  "safe_phrasing": "A suggested open question the researcher can ask instead of asserting the assumption"
+  "vulnerable_assumption": "1 sentence: the specific claim/assumption that may be incorrect",
+  "domain_correction": "1-2 sentences: what experts in this domain actually believe or practice",
+  "safe_phrasing": "1 sentence: a suggested open question the researcher can ask instead of asserting the assumption"
 }}
 
 Schema B (Methodology Conflict):
 {{
   "sub_type": "methodology_conflict",
-  "known_approaches": ["Approach/paradigm A", "Approach/paradigm B"],
-  "researcher_assumed_approach": "The single approach the researcher's preparation implies",
-  "open_process_question": "A suggested open-ended process question that does not presuppose any specific method"
+  "known_approaches": ["Approach A — as brief as possible (hard max: 10 words each)", "Approach B"],
+  "researcher_assumed_approach": "1 sentence: the single approach the researcher's preparation implies",
+  "open_process_question": "1 sentence: an open-ended process question that does not presuppose any specific method"
 }}
 """
 
