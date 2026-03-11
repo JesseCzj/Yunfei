@@ -247,7 +247,17 @@ def analyze_turn_with_dsag(
         turn_index=len(timeline) + 1,
     )
     if timeline_entry:
-        set_interview_timeline(timeline + [timeline_entry])
+        new_timeline = timeline + [timeline_entry]
+        set_interview_timeline(new_timeline)
+        # Log so you can verify drift trigger: need len >= 4 for drift_detected.
+        drift_info = ""
+        if getattr(analysis, "drift_signal", None) and getattr(
+            analysis.drift_signal, "drift_detected", False
+        ):
+            drift_info = " | drift_detected=True"
+        print(
+            f"[DSAG] timeline length: {len(new_timeline)} (expert_leaf={timeline_entry.get('expert_leaf_id', '')}){drift_info}"
+        )
 
     return analysis
 
@@ -326,6 +336,15 @@ def build_process_panel_state(
 
     if not dsag_state or not dsag_state.is_ready():
         return panel
+
+    # Always apply latest drift signal so Narrow Focus Alert shows even when
+    # timeline is empty or not yet accumulated (e.g. first load after drift).
+    if latest_drift_signal:
+        panel["drift"] = {
+            "detected": bool(latest_drift_signal.get("drift_detected")),
+            "detail": latest_drift_signal.get("drift_detail", "") or "",
+            "redirect": latest_drift_signal.get("redirect", "") or "",
+        }
 
     timeline = get_interview_timeline()
     if not timeline:

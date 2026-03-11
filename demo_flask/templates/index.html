@@ -204,6 +204,20 @@
                               </div>
                             {% endif %}
 
+                            {# ---- Drift (Narrow Focus) in-card so it's visible even if Process panel is missed ---- #}
+                            {% if dsag.drift_signal and dsag.drift_signal.drift_detected %}
+                              <div class="process-card process-card-drift" style="margin-top: 0.75rem;">
+                                <div class="process-card-label">Narrow Focus Alert</div>
+                                <div class="drift-detail">{{ dsag.drift_signal.drift_detail or '' }}</div>
+                                {% if dsag.drift_signal.redirect %}
+                                  <div class="drift-redirect" style="margin-top: 0.5rem;">
+                                    <strong>Suggested redirect:</strong>
+                                    <div class="redirect-text clickable-followup" data-question="{{ dsag.drift_signal.redirect }}">{{ dsag.drift_signal.redirect }}</div>
+                                  </div>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+
                             {# ---- LexicalGap ---- #}
                             {% if rtype == "LexicalGap" and payload.term_mapping is defined %}
                               <div class="dsag-lexical">
