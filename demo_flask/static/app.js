@@ -454,6 +454,41 @@ document.querySelectorAll(".collapse-toggle").forEach((btn) => {
   btn.addEventListener("click", handleCollapseToggle);
 });
 
+// ============== DSAG Toggle Buttons (progressive disclosure) ==============
+
+document.addEventListener("click", (event) => {
+  const btn = event.target.closest(".dsag-toggle-btn");
+  if (!btn) return;
+  event.preventDefault();
+  event.stopPropagation();
+
+  const label = btn.textContent.trim();
+
+  // For ConceptualGap: buttons are in a .dsag-toggle-row and content panels
+  // are siblings of the row, matched by data-toggle-label attribute.
+  const row = btn.closest(".dsag-toggle-row");
+  if (row) {
+    const parent = row.parentElement;
+    const panel = parent.querySelector(
+      `.dsag-toggle-content[data-toggle-label="${label}"]`
+    );
+    if (panel) {
+      const isOpen = panel.style.display !== "none";
+      panel.style.display = isOpen ? "none" : "block";
+      btn.classList.toggle("active", !isOpen);
+    }
+    return;
+  }
+
+  // For TacitGap / ScopeGap: the content panel is the next sibling element.
+  const content = btn.nextElementSibling;
+  if (content && content.classList.contains("dsag-toggle-content")) {
+    const isOpen = content.style.display !== "none";
+    content.style.display = isOpen ? "none" : "block";
+    btn.classList.toggle("active", !isOpen);
+  }
+});
+
 // ============== Clickable Follow-up Questions ==============
 
 function handleFollowupClick(event) {

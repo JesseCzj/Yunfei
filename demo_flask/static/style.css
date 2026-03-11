@@ -2049,8 +2049,13 @@ body.selection-mode .expert-row.selected .expert-card {
 /* ============== DSAG Assistance Card ============== */
 
 .dsag-card {
-  border-left: 3px solid #6366f1;
-  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  border-left: 3px solid #a5b4fc;
+  background: #faf9ff;
+  padding: 6px 10px;
+}
+
+.dsag-card .card-body {
+  padding: 4px 2px 4px 2px;
 }
 
 .dsag-card .analysis-header {
@@ -2095,7 +2100,7 @@ body.selection-mode .expert-row.selected .expert-card {
 
 /* Subsections */
 .dsag-subsection {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .dsag-subsection-title {
@@ -2268,8 +2273,6 @@ body.selection-mode .expert-row.selected .expert-card {
 .tacit-tag-mentioned {
   background: #d1fae5;
   color: #065f46;
-  text-decoration: line-through;
-  opacity: 0.75;
 }
 
 .tacit-tag-remaining {
@@ -2365,6 +2368,162 @@ body.selection-mode .expert-row.selected .expert-card {
   background: #fff;
   border-radius: 6px;
   margin-top: 4px;
+}
+
+/* ---- Gap-type hint badge (replaces old DSAG ASSISTANCE header) ---- */
+.gap-type-hint {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.gap-type-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.gap-type-tacitgap { background: #f59e0b; }
+.gap-type-conceptualgap { background: #f59e0b; }
+.gap-type-scopegap { background: #f59e0b; }
+.gap-type-lexicalgap { background: #3b82f6; }
+.gap-type-processgap { background: #ef4444; }
+
+.gap-type-desc {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-left: 8px;
+  font-style: italic;
+}
+
+.dsag-no-gap-note {
+  font-size: 0.8rem;
+  color: #6b7280;
+  padding: 4px 0;
+  font-style: italic;
+}
+
+/* TacitGap per-attribute layout */
+.tacit-attr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tacit-attr-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.tacit-attr-btn {
+  background: #fef3c7;
+  border-color: #fcd34d;
+  color: #92400e;
+}
+
+.tacit-attr-btn:hover {
+  background: #fde68a;
+  border-color: #f59e0b;
+}
+
+.tacit-attr-btn.active {
+  background: #fde68a;
+  border-color: #f59e0b;
+}
+
+.tacit-hypo-item {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(237, 233, 254, 0.5);
+  border-left: 2px solid #a78bfa;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.tacit-hypo-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6d28d9;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.tacit-hypo-text {
+  color: #4b5563;
+  font-style: italic;
+}
+
+/* ---- Toggle buttons for progressive disclosure ---- */
+.dsag-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid #d9d6fe;
+  background: #f5f3ff;
+  color: #4338ca;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  margin-top: 6px;
+}
+
+.dsag-toggle-btn::before {
+  content: "▸";
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+}
+
+.dsag-toggle-btn.active::before {
+  transform: rotate(90deg);
+}
+
+.dsag-toggle-btn:hover {
+  background: #ede9fe;
+  border-color: #a5b4fc;
+}
+
+.dsag-toggle-btn.active {
+  background: #ede9fe;
+  border-color: #818cf8;
+}
+
+.dsag-toggle-btn-nested {
+  margin-top: 8px;
+  font-size: 0.74rem;
+  background: #faf5ff;
+  border-color: #e9d5ff;
+  color: #6d28d9;
+}
+
+.dsag-toggle-btn-nested:hover {
+  background: #f3e8ff;
+  border-color: #c4b5fd;
+}
+
+.dsag-toggle-btn-nested.active {
+  background: #f3e8ff;
+  border-color: #a78bfa;
+}
+
+.dsag-toggle-content {
+  margin-top: 6px;
+  padding-left: 4px;
+}
+
+.dsag-toggle-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
 /* ProcessGap — Offline Prevention */

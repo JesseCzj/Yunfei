@@ -1061,10 +1061,10 @@ Step 2: For EACH attribute (both seed and expanded), generate a MULTIPLE-CHOICE 
   "Is your concern related to [Attribute A] or [Attribute B]?" or
   "Which matters more: A, B, or C?"
 
-Step 3: Generate 2-3 hypothetical scenarios for optional checkout.
+Step 3: Generate hypothetical scenarios — exactly ONE per probe attribute output in Step 2.
   RULE: Each scenario alters only ONE variable at a time to test the boundaries of their intuition.
-  Cover variables from DIFFERENT attributes to maximize diagnostic breadth.
-  Each scenario MUST specify which attribute it targets.
+  Each scenario MUST target a DIFFERENT attribute from the probes list so that probe count == scenario count.
+  Each scenario MUST specify which attribute it targets using the EXACT same attribute name as the corresponding probe.
 
 Return ONLY valid JSON:
 {{

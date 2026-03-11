@@ -448,7 +448,12 @@ POLISHABLE fields:
     Keep it at story level, NO technical details, NO budget arguments.
     Make it vivid and relatable to the expert's world.
 
-The 2-step order (validate THEN pivot) is strict. Do not merge them.""",
+NEW REQUIRED field:
+  - pivot.condensed_explanation — produce a concise 2-3 sentence summary that
+    combines the essence of limitation, research_goal, and compelling_reason
+    into a single flowing paragraph. This is what the user sees first (the
+    detailed fields are hidden). Make it natural and persuasive, grounded in
+    the expert's actual words from the conversation.""",
 
         RelationType.PROCESS_GAP.value: """## ProcessGap polishing rules
 ProcessGap has two sub-types. Check the "sub_type" field to determine which.
@@ -727,7 +732,6 @@ POLISHABLE fields:
                 else "The current expert response could not be mapped confidently."
             ),
             "candidates": candidates,
-            "note": "No mismatch type is shown until the concept is clarified.",
         }
 
     def _fallback_uncertainty_followups(

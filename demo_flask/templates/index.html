@@ -145,63 +145,35 @@
                         {% set assist = dsag.assistance if dsag.assistance is defined else {} %}
                         {% set rtype = assist.relation_type if assist.relation_type is defined else "" %}
                         {% set payload = assist.payload if assist.payload is defined else {} %}
-                        <div class="analysis-card dsag-card collapsible">
-                          <div class="analysis-header">
-                            <span class="analysis-icon">🧭</span>
-                            <span class="analysis-title">{{ "Uncertain Interpretation" if has_uncertainty else "DSAG Assistance" }}</span>
-                            {% if rtype and not has_uncertainty %}
-                              <span class="badge badge-dsag-type">{{ rtype }}</span>
+                        <div class="analysis-card dsag-card">
+                          {% if not has_uncertainty %}
+                          <div class="gap-type-hint">
+                            {% if rtype %}
+                              {% if rtype == "TacitGap" %}
+                                <span class="gap-type-badge gap-type-tacitgap">Tacit Gap</span>
+                                <span class="gap-type-desc">Implicit knowledge the expert hasn't fully articulated</span>
+                              {% elif rtype == "ConceptualGap" %}
+                                <span class="gap-type-badge gap-type-conceptualgap">Conceptual Gap</span>
+                                <span class="gap-type-desc">Different mental models of the same concept</span>
+                              {% elif rtype == "ScopeGap" %}
+                                <span class="gap-type-badge gap-type-scopegap">Scope Gap</span>
+                                <span class="gap-type-desc">Diverging goals — practical utility vs. research value</span>
+                              {% elif rtype == "LexicalGap" %}
+                                <span class="gap-type-badge gap-type-lexicalgap">Lexical Gap</span>
+                                <span class="gap-type-desc">Same concept, different terminology</span>
+                              {% elif rtype == "ProcessGap" %}
+                                <span class="gap-type-badge gap-type-processgap">Process Gap</span>
+                                <span class="gap-type-desc">Risk of disrupting the interview flow</span>
+                              {% else %}
+                                <span class="gap-type-badge gap-type-{{ rtype|lower }}">{{ rtype }}</span>
+                              {% endif %}
                             {% endif %}
-                            <button type="button" class="collapse-toggle" aria-label="Toggle collapse">
-                              <span class="collapse-icon">▼</span>
-                            </button>
                           </div>
+                          {% endif %}
                           <div class="card-body">
                             {% if has_uncertainty %}
-                              <div class="dsag-uncertainty">
-                                {% if uncertainty.status %}
-                                  <div class="uncertainty-status">{{ uncertainty.status }}</div>
-                                {% endif %}
-                                {% if uncertainty.candidates is defined and uncertainty.candidates|length > 0 %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Possible Concept Matches</div>
-                                    <div class="uncertainty-candidates">
-                                      {% for candidate in uncertainty.candidates %}
-                                        <div class="uncertainty-candidate">
-                                          <div class="uncertainty-candidate-top">
-                                            <div class="uncertainty-candidate-label">{{ candidate.label }}</div>
-                                            <div class="uncertainty-score">{{ "%.2f"|format(candidate.score) }}</div>
-                                          </div>
-                                          {% if candidate.description %}
-                                            <div class="uncertainty-candidate-description">{{ candidate.description }}</div>
-                                          {% endif %}
-                                          {% if candidate.followup_questions is defined and candidate.followup_questions|length > 0 %}
-                                            <div class="uncertainty-followups">
-                                              <div class="uncertainty-followups-title">Suggested Follow-up</div>
-                                              {% for question in candidate.followup_questions %}
-                                                <div class="redirect-text clickable-followup uncertainty-followup-question" data-question="{{ question }}">{{ question }}</div>
-                                              {% endfor %}
-                                            </div>
-                                          {% endif %}
-                                        </div>
-                                      {% endfor %}
-                                    </div>
-                                  </div>
-                                {% endif %}
-                                {% if uncertainty.note %}
-                                  <div class="uncertainty-note">{{ uncertainty.note }}</div>
-                                {% endif %}
-                              </div>
+                              <div class="dsag-no-gap-note">No mismatch requiring system intervention has been found yet.</div>
 
-                            {# Divergence info #}
-                            {% elif dsag.divergence is defined and dsag.divergence %}
-                              <div class="dsag-divergence">
-                                <div class="divergence-label">Divergence:</div>
-                                <div class="divergence-detail">
-                                  Expert: <strong>{{ dsag.divergence.expert_branch }}</strong> &harr;
-                                  Researcher: <strong>{{ dsag.divergence.researcher_branch }}</strong>
-                                </div>
-                              </div>
                             {% endif %}
 
                             {# ---- Drift (Narrow Focus) in-card so it's visible even if Process panel is missed ---- #}
@@ -234,9 +206,16 @@
                             {# ---- ConceptualGap ---- #}
                             {% elif rtype == "ConceptualGap" %}
                               <div class="dsag-conceptual">
+                                <div class="dsag-toggle-row">
+                                  {% if payload.analogy is defined %}
+                                    <button type="button" class="dsag-toggle-btn">Analogy</button>
+                                  {% endif %}
+                                  {% if payload.scenario is defined and payload.scenario %}
+                                    <button type="button" class="dsag-toggle-btn">Scenario</button>
+                                  {% endif %}
+                                </div>
                                 {% if payload.analogy is defined %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Analogy</div>
+                                  <div class="dsag-toggle-content" data-toggle-label="Analogy" style="display:none;">
                                     <div class="analogy-compact">
                                       <span class="analogy-chip">
                                         {{ payload.analogy.source_concept if payload.analogy.source_concept else (dsag.divergence.expert_branch if dsag.divergence is defined else "Expert concept") }}
@@ -246,16 +225,10 @@
                                         {{ dsag.divergence.researcher_branch if dsag.divergence is defined and dsag.divergence.researcher_branch else "Researcher concept" }}
                                       </span>
                                     </div>
-                                    {% if payload.analogy.structural_mapping is defined %}
-                                      <div class="analogy-oneline">
-                                        {{ payload.analogy.structural_mapping.logic if payload.analogy.structural_mapping.logic else payload.analogy.explanation }}
-                                      </div>
-                                    {% endif %}
                                   </div>
                                 {% endif %}
                                 {% if payload.scenario is defined and payload.scenario %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Scenario</div>
+                                  <div class="dsag-toggle-content" data-toggle-label="Scenario" style="display:none;">
                                     <div class="scenario-prose">
                                       {% if payload.scenario is string %}
                                         {{ payload.scenario }}
@@ -283,46 +256,44 @@
                                 {% if payload.attributes is defined and payload.attributes|length > 0 %}
                                   <div class="dsag-subsection">
                                     <div class="dsag-subsection-title">Still to Explore</div>
-                                    <div class="tacit-tags">
+                                    <div class="tacit-attr-list">
                                       {% for attr in payload.attributes[:3] %}
-                                        <span class="tacit-tag tacit-tag-remaining">{{ attr }}</span>
+                                        {% set attr_lower = attr|lower|replace(" ", "_")|replace("-", "_") %}
+                                        <div class="tacit-attr-group">
+                                          <button type="button" class="dsag-toggle-btn tacit-attr-btn" data-attr="{{ attr_lower }}">{{ attr }}</button>
+                                          <div class="dsag-toggle-content" style="display:none;">
+                                            {# Find the matching probe for this attribute #}
+                                            {% if payload.probes is defined %}
+                                              {% for probe in payload.probes %}
+                                                {% if probe.attribute|lower|replace(" ", "_")|replace("-", "_") == attr_lower %}
+                                                  <div class="probe-item">
+                                                    <div class="probe-question">{{ probe.question }}</div>
+                                                    {% if probe.choices is defined %}
+                                                      <div class="probe-choices">
+                                                        {% for choice in probe.choices %}
+                                                          <span class="probe-choice">{{ choice }}</span>
+                                                        {% endfor %}
+                                                      </div>
+                                                    {% endif %}
+                                                  </div>
+                                                {% endif %}
+                                              {% endfor %}
+                                            {% endif %}
+                                            {# Find the matching hypothetical scenario for this attribute #}
+                                            {% if payload.hypothetical_scenarios is defined %}
+                                              {% for sc in payload.hypothetical_scenarios %}
+                                                {% if sc is mapping and sc.attribute and sc.attribute|lower|replace(" ", "_")|replace("-", "_") == attr_lower %}
+                                                  <div class="tacit-hypo-item">
+                                                    <span class="tacit-hypo-label">Hypothetical Scenario</span>
+                                                    <span class="tacit-hypo-text">{{ sc.scenario }}</span>
+                                                  </div>
+                                                {% endif %}
+                                              {% endfor %}
+                                            {% endif %}
+                                          </div>
+                                        </div>
                                       {% endfor %}
                                     </div>
-                                  </div>
-                                {% endif %}
-                                {% if payload.probes is defined and payload.probes|length > 0 %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Probes</div>
-                                    {% for probe in payload.probes[:3] %}
-                                      <div class="probe-item">
-                                        <div class="probe-attribute">{{ probe.attribute }}</div>
-                                        <div class="probe-question">{{ probe.question }}</div>
-                                        {% if probe.choices is defined %}
-                                          <div class="probe-choices">
-                                            {% for choice in probe.choices %}
-                                              <span class="probe-choice">{{ choice }}</span>
-                                            {% endfor %}
-                                          </div>
-                                        {% endif %}
-                                      </div>
-                                    {% endfor %}
-                                  </div>
-                                {% endif %}
-                                {% if payload.hypothetical_scenarios is defined and payload.hypothetical_scenarios|length > 0 %}
-                                  <div class="dsag-subsection">
-                                    <details class="scenario-details">
-                                      <summary>Hypothetical Scenarios (click to expand)</summary>
-                                      <ul class="scenario-list">
-                                        {% for sc in payload.hypothetical_scenarios[:3] %}
-                                          <li>
-                                            {% if sc is mapping and sc.attribute %}
-                                              <span class="scenario-attr-tag">{{ sc.attribute }}</span>
-                                            {% endif %}
-                                            {% if sc is mapping %}{{ sc.scenario }}{% else %}{{ sc }}{% endif %}
-                                          </li>
-                                        {% endfor %}
-                                      </ul>
-                                    </details>
                                   </div>
                                 {% endif %}
                               </div>
@@ -330,27 +301,30 @@
                             {# ---- ScopeGap ---- #}
                             {% elif rtype == "ScopeGap" %}
                               <div class="dsag-scope">
-                                {% if payload.validate_focus %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Validate</div>
-                                    <div class="scope-text">{{ payload.validate_focus }}</div>
-                                  </div>
-                                {% endif %}
                                 {% if payload.pivot is defined %}
                                   <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Pivot</div>
-                                    {% if payload.pivot.limitation %}
-                                      <div class="scope-row"><strong>Limitation:</strong> {{ payload.pivot.limitation }}</div>
-                                    {% endif %}
-                                    {% if payload.pivot.research_goal %}
-                                      <div class="scope-row"><strong>Research Goal:</strong> {{ payload.pivot.research_goal }}</div>
-                                    {% endif %}
-                                    {% if payload.pivot.compelling_reason %}
-                                      <div class="scope-row"><strong>Why it matters:</strong> {{ payload.pivot.compelling_reason }}</div>
-                                    {% endif %}
-                                    {% if payload.pivot.coarse_scenario %}
-                                      <div class="scope-scenario">{{ payload.pivot.coarse_scenario }}</div>
-                                    {% endif %}
+                                    <button type="button" class="dsag-toggle-btn">Further Explanation</button>
+                                    <div class="dsag-toggle-content" style="display:none;">
+                                      {% if payload.pivot.condensed_explanation is defined and payload.pivot.condensed_explanation %}
+                                        <div class="scope-text">{{ payload.pivot.condensed_explanation }}</div>
+                                      {% else %}
+                                        {% if payload.pivot.limitation %}
+                                          <div class="scope-row">{{ payload.pivot.limitation }}</div>
+                                        {% endif %}
+                                        {% if payload.pivot.research_goal %}
+                                          <div class="scope-row">{{ payload.pivot.research_goal }}</div>
+                                        {% endif %}
+                                        {% if payload.pivot.compelling_reason %}
+                                          <div class="scope-row">{{ payload.pivot.compelling_reason }}</div>
+                                        {% endif %}
+                                      {% endif %}
+                                      {% if payload.pivot.coarse_scenario %}
+                                        <button type="button" class="dsag-toggle-btn dsag-toggle-btn-nested">Scenario</button>
+                                        <div class="dsag-toggle-content" style="display:none;">
+                                          <div class="scope-scenario">{{ payload.pivot.coarse_scenario }}</div>
+                                        </div>
+                                      {% endif %}
+                                    </div>
                                   </div>
                                 {% endif %}
                               </div>
