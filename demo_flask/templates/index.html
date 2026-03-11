@@ -525,12 +525,14 @@
               <div class="process-card">
                 <div class="process-card-header">
                   <div class="process-card-label">Coverage</div>
-                  <div class="process-card-note">{% if process_panel.coverage.branch_label %}Under: {{ process_panel.coverage.branch_label }}{% else %}Current branch{% endif %}</div>
+                  <div class="process-turn-badge">Turn {{ process_panel.turn_count }}</div>
                 </div>
-                <div class="process-you-are-here">You are here · Turn {{ process_panel.turn_count }}</div>
+                {% if process_panel.coverage.branch_label %}
+                  <div class="process-branch-context">{{ process_panel.coverage.branch_label }}</div>
+                {% endif %}
                 <div class="process-progress-row">
                   <span>{{ process_panel.coverage.visited_count }}/{{ process_panel.coverage.total_count }} topics visited</span>
-                  <span>{{ process_panel.coverage.percent }}%</span>
+                  <span class="process-progress-pct">{{ process_panel.coverage.percent }}%</span>
                 </div>
                 <div class="process-progress">
                   <div class="process-progress-bar" style="width: {{ process_panel.coverage.percent }}%;"></div>
@@ -563,18 +565,35 @@
                 </div>
               </div>
 
-              <div class="process-card process-card-repeated-or-drift{% if process_panel.drift.detected %} process-card-drift{% endif %}">
-                <div class="process-card-label">Topic focus</div>
-                {% if process_panel.drift.detected %}
-                  <div class="drift-detail">{{ process_panel.drift.detail }}</div>
-                  {% if process_panel.drift.redirect %}
-                    <div class="drift-redirect">
-                      <strong>Suggested redirect:</strong>
-                      <div class="redirect-text clickable-followup" data-question="{{ process_panel.drift.redirect }}">{{ process_panel.drift.redirect }}</div>
-                    </div>
-                  {% endif %}
+              <div class="process-card{% if process_panel.drift.detected %} process-card-drift{% endif %}">
+                <div class="process-card-label">Topic Focus</div>
+                {% if process_panel.recent_topics %}
+                  <div class="topic-focus-dots">
+                    {% for item in process_panel.recent_topics %}
+                      <div class="topic-focus-dot{% if item.is_current %} tfd-current{% endif %}"
+                           data-color="{{ item.color_idx }}"
+                           title="T{{ item.turn_index }}: {{ item.topic_label }}">
+                        <span class="tfd-turn">T{{ item.turn_index }}</span>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div class="topic-focus-legend">
+                    {% set ns = namespace(seen_colors=[]) %}
+                    {% for item in process_panel.recent_topics %}
+                      {% if item.color_idx not in ns.seen_colors %}
+                        {% set ns.seen_colors = ns.seen_colors + [item.color_idx] %}
+                        <div class="tfl-item">
+                          <span class="tfl-dot" data-color="{{ item.color_idx }}"></span>
+                          <span class="tfl-label" title="{{ item.topic_label }}">{{ item.topic_label }}</span>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  <div class="topic-focus-stats{% if process_panel.drift.detected %} tfs-alert{% endif %}">
+                    {{ process_panel.repeated_topic.distinct_count }} distinct topic{{ 's' if process_panel.repeated_topic.distinct_count != 1 else '' }} / last {{ process_panel.repeated_topic.window_size }} turns
+                  </div>
                 {% else %}
-                  <div class="repeated-topic-progress">{{ process_panel.repeated_topic.label or "No turns yet." }}</div>
+                  <div class="process-muted">No turns yet.</div>
                 {% endif %}
               </div>
             {% endif %}

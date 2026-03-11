@@ -371,10 +371,28 @@ body {
   color: #94a3b8;
 }
 
-.process-you-are-here {
-  font-size: 0.8rem;
-  color: #64748b;
+.process-turn-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #6c5ce7;
+  background: #ede9fe;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.process-branch-context {
+  font-size: 0.72rem;
+  color: #6b7280;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  display: inline-block;
   margin-bottom: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .process-topic-title {
@@ -405,10 +423,17 @@ body {
 .process-progress-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  font-size: 0.82rem;
-  color: #4b5563;
-  margin-bottom: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.process-progress-pct {
+  color: #6c5ce7;
+  font-size: 0.92rem;
 }
 
 .process-progress {
@@ -463,24 +488,23 @@ body {
 .process-trail {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .process-trail-branch-jump {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: #94a3b8;
-  text-align: center;
-  padding: 4px 0;
-  letter-spacing: 0.04em;
+  padding: 1px 0 1px 4px;
+  letter-spacing: 0.02em;
 }
 
 .process-trail-item {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-  padding: 10px;
-  border-radius: 10px;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 5px 7px;
+  border-radius: 8px;
   background: #f8fafc;
 }
 
@@ -492,11 +516,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 0;
+  padding: 2px 0;
   border-radius: 999px;
   background: #ffffff;
   color: #6c5ce7;
-  font-size: 0.74rem;
+  font-size: 0.68rem;
   font-weight: 700;
 }
 
@@ -505,9 +529,12 @@ body {
 }
 
 .process-trail-topic {
-  font-size: 0.84rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -526,6 +553,101 @@ body {
   font-size: 0.82rem;
   color: #4b5563;
   line-height: 1.5;
+}
+
+/* ---- Topic Focus Visualization ---- */
+.topic-focus-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.topic-focus-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: transform 0.15s;
+  position: relative;
+}
+
+.topic-focus-dot:hover {
+  transform: scale(1.12);
+  z-index: 1;
+}
+
+.topic-focus-dot.tfd-current {
+  outline: 3px solid #fff;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.4);
+}
+
+.tfd-turn {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0;
+}
+
+/* Color palette — 6 distinct topics */
+.topic-focus-dot[data-color="0"] { background: #6c5ce7; }
+.topic-focus-dot[data-color="1"] { background: #0ea5e9; }
+.topic-focus-dot[data-color="2"] { background: #10b981; }
+.topic-focus-dot[data-color="3"] { background: #f59e0b; }
+.topic-focus-dot[data-color="4"] { background: #ef4444; }
+.topic-focus-dot[data-color="5"] { background: #ec4899; }
+
+.tfl-dot[data-color="0"] { background: #6c5ce7; }
+.tfl-dot[data-color="1"] { background: #0ea5e9; }
+.tfl-dot[data-color="2"] { background: #10b981; }
+.tfl-dot[data-color="3"] { background: #f59e0b; }
+.tfl-dot[data-color="4"] { background: #ef4444; }
+.tfl-dot[data-color="5"] { background: #ec4899; }
+
+.topic-focus-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.tfl-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.tfl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tfl-label {
+  font-size: 0.72rem;
+  color: #374151;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topic-focus-stats {
+  font-size: 0.73rem;
+  color: #6b7280;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.topic-focus-stats.tfs-alert {
+  background: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
 }
 
 .chat-panel {

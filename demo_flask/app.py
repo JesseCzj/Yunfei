@@ -428,6 +428,17 @@ def build_process_panel_state(
             "is_current": start_idx + idx == len(timeline) - 1,
             "l2_branch_label": l2_branch_label,
         })
+
+    # Assign color indices per distinct topic for the Topic Focus visualization
+    seen_topic_colors: Dict[str, int] = {}
+    color_counter = 0
+    for item in recent_topics_list:
+        label = item["topic_label"]
+        if label and label not in seen_topic_colors:
+            seen_topic_colors[label] = color_counter
+            color_counter += 1
+        item["color_idx"] = seen_topic_colors.get(label, 0)
+
     panel["recent_topics"] = recent_topics_list
 
     # Repeated-topic progress (same window logic as drift): for display when drift not triggered
