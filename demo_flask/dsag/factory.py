@@ -1011,7 +1011,7 @@ Strategy 1 — Analogy Construction:
 Strategy 2 — Fine-grained Scenario:
 - A highly specific, low-level concrete example written as a single coherent paragraph.
 - Cover three beats in order: (1) a situation the expert would recognize, (2) what the researcher's approach would produce in that situation, (3) the edge case where the two mental models diverge most sharply.
-- Write as connected prose — do NOT use bullet points or sub-labels. Max 60 words.
+- Write as exactly 3 sentences (one per beat), no more. Max 60 words total. Do NOT use bullet points or sub-labels.
 - Avoid overarching metaphors that require secondary interpretation.
 
 Return ONLY valid JSON:

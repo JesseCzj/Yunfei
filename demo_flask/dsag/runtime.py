@@ -363,9 +363,9 @@ No follow-up questions expected for this type.""",
 CONTEXTUALIZABLE fields (you MAY rephrase to match the expert's actual wording
 and the conversation context, but must preserve the core semantic meaning):
   - analogy.source_concept — adapt to the terminology the expert actually used
-  - scenario — rewrite the tension/edge beat to reference the specific situation discussed;
-    keep the three-beat structure (situation → researcher lens → tension) but adapt
-    the wording to the conversation. Keep it under 60 words.
+  - scenario — adapt the third sentence (tension beat) to reference the specific situation
+    discussed. Keep the three-sentence structure (situation → researcher lens → tension)
+    and stay within 60 words total.
 
 STRUCTURAL fields (keep the structure, but you may lightly rephrase for clarity):
   - analogy.structural_mapping.inputs
