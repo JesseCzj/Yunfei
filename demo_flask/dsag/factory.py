@@ -109,11 +109,11 @@ EXPERT_PERSONA_PROMPT = """You are an experienced domain expert with the followi
 
 You are participating in an interview about: {topic}
 
-Please identify 8-15 key pain points, concerns, or challenges you face in this domain.
+Please identify 25-40 key pain points, concerns, or challenges you face in this domain.
 Organize them into a hierarchical taxonomy with the following structure:
 
 - Layer 1 (Perspective): High-level viewpoints or concerns (e.g., "Clinical Outcomes", "Workflow Disruption")
-- Layer 2 (Category): Categories under each perspective (e.g., "Alert Fatigue", "Time Pressure")  
+- Layer 2 (Category): Categories under each perspective (e.g., "Alert Fatigue", "Time Pressure")
 - Layer 3 (Leaf): Specific, concrete pain points (e.g., "Too many false alarms", "Can't trust the predictions")
 
 Return ONLY valid JSON with this schema:
@@ -129,7 +129,8 @@ Return ONLY valid JSON with this schema:
           "pain_points": [
             {{
               "label": "Specific pain point",
-              "description": "Detailed description",
+              "description": "A concrete, conversational description written the way you would actually explain this to a colleague over coffee — avoid academic or textbook-style definitions",
+              "aliases": ["synonym or informal phrasing", "domain jargon or abbreviation", "how a practitioner might casually describe this"],
               "is_intuition": true/false,
               "attributes": ["attr1", "attr2"] // Only if is_intuition=true: tacit knowledge facets
             }}
@@ -141,14 +142,20 @@ Return ONLY valid JSON with this schema:
 }}
 
 Scale and coverage requirements:
-- 3-5 perspectives (L1)
-- 2-4 categories under each perspective (L2)
-- 3-5 leaves per category (L3)
+- 5-7 perspectives (L1)
+- 3-5 categories under each perspective (L2)
+- 4-6 leaves per category (L3)
 
-Focus on pain points that:
-1. Are specific to your domain expertise
-2. Might be misunderstood by researchers from other fields
-3. Include both concrete issues AND intuition-based concerns (mark is_intuition=true for vague feelings)
+Coverage strategy — make sure to include:
+1. Pain points specific to your domain expertise that outsiders often overlook
+2. Issues that might be misunderstood by researchers from other fields
+3. Both concrete issues AND intuition-based concerns (mark is_intuition=true for vague feelings)
+4. Peripheral or emerging concerns that may not appear in a standard interview guide (e.g., economic pressures, regulatory burden, data governance, team dynamics, training/education gaps)
+5. Edge cases or scenario-specific issues (e.g., differences between routine vs. emergency settings, or between experienced vs. novice practitioners)
+
+Description and aliases guidance:
+- Write each "description" as you would actually SAY it in a real conversation — use plain, vivid language with concrete examples rather than formal definitions.
+- For "aliases", provide 2-4 alternative phrasings: informal synonyms, abbreviations, slang, or the way different stakeholders might refer to the same issue.
 
 For intuition-based pain points (things you "just know" but can't easily quantify), add 2-4 "attributes" that represent Tacit Knowledge Facets. These facets can come from:
 A. Decision Heuristics (implicit rules used to judge)
@@ -441,7 +448,7 @@ def _build_expert_tree(llm_response: Dict[str, Any], topic: str) -> TaxonomyTree
                     parent_id=l2_id,
                     children_ids=[],
                     attributes=pain_point.get("attributes", []) if pain_point.get("is_intuition") else [],
-                    aliases=[],
+                    aliases=pain_point.get("aliases", []),
                 )
                 nodes[leaf_id] = leaf_node
                 l2_node.children_ids.append(leaf_id)
