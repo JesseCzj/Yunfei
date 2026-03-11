@@ -240,7 +240,7 @@ class Assistance:
     Payload shapes by type:
     - LexicalGap:    {"term_mapping": {"expert_term", "researcher_term", "explanation"}}
     - ConceptualGap: {"analogy": {"source_concept", "structural_mapping": {inputs, logic, outputs},
-                      "explanation"}, "scenario": {"inputs", "outputs", "edge_cases"}}
+                      "explanation"}, "scenario": "single prose paragraph (situation → researcher lens → tension point, max 60 words)"}
     - TacitGap:      {"attributes": [...], "probes": [{attribute, question, choices}],
                       "hypothetical_scenarios": ["...", "..."],
                       "extracted_attributes": [...], "mentioned_attributes": [...]}  // extracted/mentioned attrs are displayed for transparency
@@ -363,14 +363,14 @@ No follow-up questions expected for this type.""",
 CONTEXTUALIZABLE fields (you MAY rephrase to match the expert's actual wording
 and the conversation context, but must preserve the core semantic meaning):
   - analogy.source_concept — adapt to the terminology the expert actually used
-  - scenario.edge_cases — rewrite to reference the specific situation discussed
+  - scenario — rewrite the tension/edge beat to reference the specific situation discussed;
+    keep the three-beat structure (situation → researcher lens → tension) but adapt
+    the wording to the conversation. Keep it under 60 words.
 
 STRUCTURAL fields (keep the structure, but you may lightly rephrase for clarity):
   - analogy.structural_mapping.inputs
   - analogy.structural_mapping.logic
   - analogy.structural_mapping.outputs
-  - scenario.inputs
-  - scenario.outputs
 
 POLISHABLE fields:
   - analogy.explanation — make it a fluent sentence the researcher could speak

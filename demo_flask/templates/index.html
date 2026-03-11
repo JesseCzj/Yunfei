@@ -266,16 +266,16 @@
                                     </details>
                                   </div>
                                 {% endif %}
-                                {% if payload.scenario is defined %}
+                                {% if payload.scenario is defined and payload.scenario %}
                                   <div class="dsag-subsection">
-                                    <details class="scenario-details">
-                                      <summary>Scenario (click to expand)</summary>
-                                      <div class="scenario-detail">
-                                        <div><strong>Input (situation):</strong> {{ payload.scenario.inputs }}</div>
-                                        <div><strong>Output (observable outcome):</strong> {{ payload.scenario.outputs }}</div>
-                                        <div><strong>Edge case (where confusion may happen):</strong> {{ payload.scenario.edge_cases }}</div>
-                                      </div>
-                                    </details>
+                                    <div class="dsag-label">SCENARIO</div>
+                                    <div class="scenario-prose">
+                                      {% if payload.scenario is string %}
+                                        {{ payload.scenario }}
+                                      {% else %}
+                                        {{ payload.scenario.inputs }} {{ payload.scenario.outputs }} {{ payload.scenario.edge_cases }}
+                                      {% endif %}
+                                    </div>
                                   </div>
                                 {% endif %}
                               </div>
@@ -506,9 +506,6 @@
               <h2 class="panel-title">Process Guidance</h2>
               <div class="process-panel-subtitle">Track topic coverage and interview progress</div>
             </div>
-            {% if process_panel.has_activity %}
-              <span class="message-count">{{ process_panel.coverage.ratio }} covered</span>
-            {% endif %}
           </div>
 
           <div class="process-panel-content">
@@ -526,18 +523,11 @@
               </div>
             {% else %}
               <div class="process-card">
-                <div class="process-card-label">Current Focus</div>
-                <div class="process-topic-title">{{ process_panel.current_topic }}</div>
-                <div class="process-meta-row">
-                  <span class="process-pill">Turn {{ process_panel.turn_count }}</span>
-                </div>
-              </div>
-
-              <div class="process-card">
                 <div class="process-card-header">
                   <div class="process-card-label">Coverage</div>
-                  <div class="process-card-note">Current branch</div>
+                  <div class="process-card-note">{% if process_panel.coverage.branch_label %}Under: {{ process_panel.coverage.branch_label }}{% else %}Current branch{% endif %}</div>
                 </div>
+                <div class="process-you-are-here">You are here · Turn {{ process_panel.turn_count }}</div>
                 <div class="process-progress-row">
                   <span>{{ process_panel.coverage.visited_count }}/{{ process_panel.coverage.total_count }} topics visited</span>
                   <span>{{ process_panel.coverage.percent }}%</span>
@@ -560,6 +550,9 @@
                 <div class="process-card-label">Topic Trail</div>
                 <div class="process-trail">
                   {% for item in process_panel.recent_topics %}
+                    {% if not loop.first and item.l2_branch_label != loop.previtem.l2_branch_label %}
+                      <div class="process-trail-branch-jump">— switched branch —</div>
+                    {% endif %}
                     <div class="process-trail-item{% if item.is_current %} is-current{% endif %}">
                       <span class="process-trail-turn">T{{ item.turn_index }}</span>
                       <div class="process-trail-body">
@@ -570,9 +563,9 @@
                 </div>
               </div>
 
-              {% if process_panel.drift.detected %}
-                <div class="process-card process-card-drift">
-                  <div class="process-card-label">Narrow Focus Alert</div>
+              <div class="process-card process-card-repeated-or-drift{% if process_panel.drift.detected %} process-card-drift{% endif %}">
+                <div class="process-card-label">Topic focus</div>
+                {% if process_panel.drift.detected %}
                   <div class="drift-detail">{{ process_panel.drift.detail }}</div>
                   {% if process_panel.drift.redirect %}
                     <div class="drift-redirect">
@@ -580,8 +573,10 @@
                       <div class="redirect-text clickable-followup" data-question="{{ process_panel.drift.redirect }}">{{ process_panel.drift.redirect }}</div>
                     </div>
                   {% endif %}
-                </div>
-              {% endif %}
+                {% else %}
+                  <div class="repeated-topic-progress">{{ process_panel.repeated_topic.label or "No turns yet." }}</div>
+                {% endif %}
+              </div>
             {% endif %}
           </div>
         </aside>

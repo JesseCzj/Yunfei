@@ -1009,8 +1009,9 @@ Strategy 1 — Analogy Construction:
 - Explain how the researcher's concept behaves similarly to the expert's familiar concept.
 
 Strategy 2 — Fine-grained Scenario:
-- A highly specific, low-level concrete example.
-- Explicitly specify inputs, outputs, and edge cases to prevent ambiguity.
+- A highly specific, low-level concrete example written as a single coherent paragraph.
+- Cover three beats in order: (1) a situation the expert would recognize, (2) what the researcher's approach would produce in that situation, (3) the edge case where the two mental models diverge most sharply.
+- Write as connected prose — do NOT use bullet points or sub-labels. Max 60 words.
 - Avoid overarching metaphors that require secondary interpretation.
 
 Return ONLY valid JSON:
@@ -1024,11 +1025,7 @@ Return ONLY valid JSON:
     }},
     "explanation": "How the researcher's concept behaves similarly to the source concept"
   }},
-  "scenario": {{
-    "inputs": "Concrete input example the expert would recognize",
-    "outputs": "What the researcher's approach would produce",
-    "edge_cases": "A tricky case where the two mental models diverge"
-  }}
+  "scenario": "Single paragraph covering: situation the expert recognizes → what the researcher's approach produces → edge case where mental models diverge. Max 60 words."
 }}
 """
 

@@ -325,8 +325,14 @@ def build_process_panel_state(
             "visited_count": 0,
             "total_count": 0,
             "branch_topics": [],
+            "branch_label": "",
         },
         "recent_topics": [],
+        "repeated_topic": {
+            "window_size": 0,
+            "distinct_count": 0,
+            "label": "",
+        },
         "drift": {
             "detected": False,
             "detail": "",
@@ -386,22 +392,55 @@ def build_process_panel_state(
 
     visited_count = sum(1 for item in branch_topics if item["status"] != "unvisited")
     total_count = len(branch_topics)
+
+    # L2 parent label for "Under: ..." (current branch)
+    branch_label = ""
+    if current_node and current_node.parent_id:
+        parent_node = dsag_state.graph.expert_tree.get_node(current_node.parent_id)
+        if parent_node:
+            branch_label = parent_node.label or ""
+
     panel["coverage"] = {
         "ratio": f"{visited_count}/{total_count}" if total_count else "0/0",
         "percent": round((visited_count / total_count) * 100) if total_count else 0,
         "visited_count": visited_count,
         "total_count": total_count,
         "branch_topics": branch_topics,
+        "branch_label": branch_label,
     }
 
-    panel["recent_topics"] = [
-        {
+    # Recent topics with l2_branch_label for branch-jump markers in Topic Trail
+    recent_slice = timeline[-6:]
+    start_idx = max(len(timeline) - 6, 0)
+    recent_topics_list = []
+    for idx, entry in enumerate(recent_slice):
+        expert_leaf_id = entry.get("expert_leaf_id", "")
+        l2_branch_label = ""
+        if expert_leaf_id:
+            node = dsag_state.graph.expert_tree.get_node(expert_leaf_id)
+            if node and node.parent_id:
+                parent_node = dsag_state.graph.expert_tree.get_node(node.parent_id)
+                if parent_node:
+                    l2_branch_label = parent_node.label or ""
+        recent_topics_list.append({
             "turn_index": entry.get("turn_index", 0),
             "topic_label": entry.get("topic_label", ""),
-            "is_current": idx == len(timeline) - 1,
+            "is_current": start_idx + idx == len(timeline) - 1,
+            "l2_branch_label": l2_branch_label,
+        })
+    panel["recent_topics"] = recent_topics_list
+
+    # Repeated-topic progress (same window logic as drift): for display when drift not triggered
+    window_size = min(6, len(timeline))
+    recent_for_window = timeline[-window_size:]
+    recent_ids = [e.get("expert_leaf_id", "") for e in recent_for_window if e.get("expert_leaf_id")]
+    distinct_count = len(set(recent_ids))
+    if window_size > 0:
+        panel["repeated_topic"] = {
+            "window_size": window_size,
+            "distinct_count": distinct_count,
+            "label": f"Last {window_size} turn{'s' if window_size != 1 else ''}: {distinct_count} distinct topic{'s' if distinct_count != 1 else ''}",
         }
-        for idx, entry in enumerate(timeline[-6:], start=max(len(timeline) - 6, 0))
-    ]
 
     if latest_drift_signal:
         panel["drift"] = {
