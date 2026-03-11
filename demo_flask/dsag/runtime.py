@@ -931,8 +931,7 @@ Rewrite BOTH labels so they:
 2. Preserve the core semantic meaning of the original label.
 3. Stay concise — a short noun phrase (2-6 words), NOT a full sentence.
 4. Feel natural and recognizable to someone reading the live conversation.
-
-If the expert's answer does not contain relevant wording for a label, keep the original label unchanged.
+5. Do not invent concepts or terms (e.g. specific entities or scores) that the expert did not mention. If the expert's answer does not give you wording to rephrase with, or you cannot rephrase using their words or close synonyms, return the original label unchanged.
 
 Return ONLY valid JSON:
 {{
