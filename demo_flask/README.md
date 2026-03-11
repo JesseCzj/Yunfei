@@ -41,12 +41,12 @@ pip install -r requirements.txt
 ```
 LLM_PROVIDER=openai
 
-# 文本生成（qwen3-max）
+# 文本生成（qwen3-max-2026-01-23）
 OPENAI_API_KEY=YOUR_QWEN_API_KEY
 OPENAI_BASE_URL=YOUR_QWEN_BASE_URL
-OPENAI_MODEL=qwen3-max
-OPENAI_MODEL_GRAPH=qwen3-max
-OPENAI_MODEL_RUNTIME=qwen3-max
+OPENAI_MODEL=qwen3-max-2026-01-23
+OPENAI_MODEL_GRAPH=qwen3-max-2026-01-23
+OPENAI_MODEL_RUNTIME=qwen3-max-2026-01-23
 OPENAI_MODEL_POLISH=qwen-turbo
 
 # 向量模型（text-embedding-3-small）

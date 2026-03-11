@@ -61,14 +61,34 @@ document.querySelectorAll(".context-slider").forEach((block) => {
 const dsagInitForm = document.getElementById("dsagInitForm");
 const dsagInitBtn = document.getElementById("dsagInitBtn");
 const dsagInitStatus = document.getElementById("dsagInitStatus");
+const dsagTopicInput = document.getElementById("dsagTopic");
+const dsagResearcherBgInput = document.getElementById("dsagResearcherBg");
+const dsagExpertBgInput = document.getElementById("dsagExpertBg");
+
+function restoreDsagDraft() {
+  if (dsagTopicInput) dsagTopicInput.value = sessionStorage.getItem("dsagDraftTopic") || "";
+  if (dsagResearcherBgInput) dsagResearcherBgInput.value = sessionStorage.getItem("dsagDraftResearcherBg") || "";
+  if (dsagExpertBgInput) dsagExpertBgInput.value = sessionStorage.getItem("dsagDraftExpertBg") || "";
+}
+
+function persistDsagDraft() {
+  if (dsagTopicInput) sessionStorage.setItem("dsagDraftTopic", dsagTopicInput.value || "");
+  if (dsagResearcherBgInput) sessionStorage.setItem("dsagDraftResearcherBg", dsagResearcherBgInput.value || "");
+  if (dsagExpertBgInput) sessionStorage.setItem("dsagDraftExpertBg", dsagExpertBgInput.value || "");
+}
+
+restoreDsagDraft();
+if (dsagTopicInput) dsagTopicInput.addEventListener("input", persistDsagDraft);
+if (dsagResearcherBgInput) dsagResearcherBgInput.addEventListener("input", persistDsagDraft);
+if (dsagExpertBgInput) dsagExpertBgInput.addEventListener("input", persistDsagDraft);
 
 if (dsagInitForm) {
   dsagInitForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const topic = document.getElementById("dsagTopic").value.trim();
-    const researcherBg = document.getElementById("dsagResearcherBg").value.trim();
-    const expertBg = document.getElementById("dsagExpertBg").value.trim();
+    const topic = dsagTopicInput ? dsagTopicInput.value.trim() : "";
+    const researcherBg = dsagResearcherBgInput ? dsagResearcherBgInput.value.trim() : "";
+    const expertBg = dsagExpertBgInput ? dsagExpertBgInput.value.trim() : "";
 
     if (!topic || !researcherBg || !expertBg) {
       if (dsagInitStatus) dsagInitStatus.textContent = "All fields are required.";
@@ -78,10 +98,10 @@ if (dsagInitForm) {
     // Disable button and show loading
     if (dsagInitBtn) {
       dsagInitBtn.disabled = true;
-      dsagInitBtn.textContent = "Building graph (30-60s)...";
+      dsagInitBtn.textContent = "Building graph...";
     }
     if (dsagInitStatus) {
-      dsagInitStatus.textContent = "Generating DSAG graph... This may take 30-60 seconds.";
+      dsagInitStatus.textContent = "Generating DSAG graph...";
       dsagInitStatus.className = "dsag-init-status dsag-status-building";
     }
 
@@ -99,6 +119,9 @@ if (dsagInitForm) {
       const result = await response.json();
 
       if (result.success) {
+        sessionStorage.removeItem("dsagDraftTopic");
+        sessionStorage.removeItem("dsagDraftResearcherBg");
+        sessionStorage.removeItem("dsagDraftExpertBg");
         if (dsagInitStatus) {
           dsagInitStatus.textContent = result.cached
             ? "DSAG graph loaded from cache. Ready!"
@@ -302,8 +325,15 @@ setupMic("expert");
 const fileInput = document.getElementById("guideFile");
 const fileLabel = document.querySelector(".file-text");
 if (fileInput && fileLabel) {
+  const uploadForm = fileInput.closest("form");
   fileInput.addEventListener("change", () => {
-    fileLabel.textContent = fileInput.files[0]?.name || "Choose file (txt, docx, pdf)";
+    const selectedFile = fileInput.files[0];
+    fileLabel.textContent = fileInput.files[0]?.name || "Upload interview script (txt, docx, pdf)";
+    if (selectedFile && uploadForm) {
+      persistDsagDraft();
+      saveScrollPosition();
+      uploadForm.submit();
+    }
   });
 }
 

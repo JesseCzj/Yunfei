@@ -179,7 +179,10 @@ Return ONLY valid JSON with this schema:
 Provide 2-4 thoughtful follow-up questions.
 """
 
-USER_PROMPT = """Researcher question:
+USER_PROMPT = """Interview context (may be empty):
+{context}
+
+Researcher question:
 {question}
 
 Expert answer:
@@ -238,15 +241,21 @@ def _sanitize_result(data: Dict[str, Any]) -> Dict[str, Any]:
     jargon = data.get("jargon", [])
     if isinstance(jargon, list):
         normalized: List[Dict[str, str]] = []
+        seen_terms = set()
         for item in jargon:
             term = str(item.get("term", "")).strip()
             desc = str(item.get("desc", "")).strip()
             if term and desc:
+                key = term.lower()
+                if key in seen_terms:
+                    continue
+                seen_terms.add(key)
                 normalized.append({
                     "term": term,
                     "desc": desc,
                 })
-        result["jargon"] = normalized
+        # Soft cap to keep UI readable while allowing rich detection when useful.
+        result["jargon"] = normalized[:12]
 
     mismap = data.get("mismap", {})
     if isinstance(mismap, dict):
@@ -291,7 +300,7 @@ def _build_llm() -> ChatOpenAI:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY is not set")
-        model = os.getenv("OPENAI_MODEL", "qwen3-max")
+        model = os.getenv("OPENAI_MODEL", "qwen3-max-2026-01-23")
         base_url = os.getenv("OPENAI_BASE_URL")
         if base_url:
             return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=0.2)
@@ -299,7 +308,7 @@ def _build_llm() -> ChatOpenAI:
     raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
 
 
-def analyze_exchange(question: str, answer: str) -> Dict[str, Any]:
+def analyze_exchange(question: str, answer: str, context: str = "") -> Dict[str, Any]:
     """
     Lightweight analysis: detect jargon and mis-map only.
     Does NOT generate refinement or context examples (those are on-demand).
@@ -310,7 +319,11 @@ def analyze_exchange(question: str, answer: str) -> Dict[str, Any]:
             [("system", ANALYZE_PROMPT), ("user", USER_PROMPT)]
         )
         chain = prompt | llm
-        response = chain.invoke({"question": question, "answer": answer})
+        response = chain.invoke({
+            "context": context or "",
+            "question": question,
+            "answer": answer,
+        })
         content = getattr(response, "content", str(response))
         parsed = _parse_json(content)
         return _sanitize_result(parsed)

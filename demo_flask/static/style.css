@@ -73,54 +73,41 @@ body {
   flex-direction: column;
 }
 
-/* Script Display Styles */
-.script-display {
+/* Centered upload dropzone for interview script */
+.script-upload-center {
   flex: 1;
-  overflow-y: auto;
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.script-text {
-  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: #1a1a2e;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  margin: 0;
-  padding: 16px;
-  background: #fafbfc;
-  border: 1px solid #e8e8ef;
-  border-radius: 8px;
+.script-upload-center .upload-form {
+  width: 100%;
 }
 
-.script-empty {
-  flex: 1;
+.upload-dropzone-wrapper {
+  width: 100%;
+}
+
+.upload-dropzone-label {
+  min-height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  gap: 8px;
+  border-width: 2px;
+}
+
+.upload-dropzone-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.upload-dropzone-label .file-text {
+  font-size: 0.82rem;
   color: #7f8c9b;
-  padding: 40px 20px;
-}
-
-.script-empty .empty-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-  opacity: 0.5;
-}
-
-.script-empty .empty-text {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.upload-section {
-  flex-shrink: 0;
-  padding-top: 16px;
-  border-top: 1px dashed #e8e8ef;
-  margin-top: auto;
 }
 
 .section-title {
@@ -216,6 +203,15 @@ body {
   color: #e74c3c;
   padding: 8px;
   background: #fdf2f2;
+  border-radius: 6px;
+}
+
+.upload-success-message {
+  font-size: 0.78rem;
+  color: #065f46;
+  padding: 8px 10px;
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
   border-radius: 6px;
 }
 
@@ -2008,6 +2004,40 @@ body.selection-mode .expert-row.selected .expert-card {
   margin-bottom: 4px;
 }
 
+.analogy-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.analogy-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #d9d6fe;
+  color: #4338ca;
+  max-width: 100%;
+}
+
+.analogy-arrow {
+  color: #6c5ce7;
+  font-weight: 700;
+}
+
+.analogy-oneline {
+  font-size: 0.8rem;
+  color: #4b5563;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 6px;
+}
+
 .analogy-mapping {
   display: flex;
   flex-direction: column;
@@ -2023,6 +2053,40 @@ body.selection-mode .expert-row.selected .expert-card {
   font-size: 0.82rem;
   color: #374151;
   margin-top: 4px;
+}
+
+.analogy-details summary,
+.scenario-details summary {
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4338ca;
+  list-style: none;
+  margin-top: 6px;
+}
+
+.analogy-details summary::-webkit-details-marker,
+.scenario-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.analogy-details summary::before,
+.scenario-details summary::before {
+  content: "▸";
+  margin-right: 6px;
+  color: #6c5ce7;
+}
+
+.analogy-details[open] summary::before,
+.scenario-details[open] summary::before {
+  content: "▾";
+}
+
+.scenario-details {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px dashed #d9d6fe;
+  border-radius: 8px;
+  padding: 6px 10px;
 }
 
 .scenario-detail {
@@ -2113,6 +2177,18 @@ body.selection-mode .expert-row.selected .expert-card {
 
 .scenario-list li {
   margin-bottom: 4px;
+}
+
+.scenario-attr-tag {
+  display: inline-block;
+  background: #ede9fe;
+  color: #6d28d9;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
 }
 
 /* ScopeGap */

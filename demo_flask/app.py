@@ -4,6 +4,7 @@ import io
 import os
 import uuid
 import threading
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 # Import DSAG modules
@@ -15,6 +16,7 @@ from dsag import (
     RuntimeEngine,
     build_embedding_index,
 )
+from llm_backend import analyze_exchange
 
 
 app = Flask(__name__)
@@ -121,8 +123,8 @@ def build_context_summary(messages, max_turns: int = 3) -> str:
 
     lines = []
     for idx, (q, a) in enumerate(turns, 1):
-        q = _truncate((q or "").strip(), 160)
-        a = _truncate((a or "").strip(), 220)
+        q = _truncate((q or "").strip(), 300)
+        a = _truncate((a or "").strip(), 400)
         if q or a:
             lines.append(f"Turn {idx} | R: {q} | E: {a}")
     return "\n".join(lines)
@@ -141,6 +143,32 @@ def set_guide_error(message: str | None):
         session["guide_error"] = message
     else:
         session.pop("guide_error", None)
+
+
+def get_uploaded_questionnaire_text() -> str:
+    return session.get("questionnaire_text", "")
+
+
+def set_uploaded_questionnaire_text(text: str) -> None:
+    session["questionnaire_text"] = text
+
+
+def set_questionnaire_error(message: str | None) -> None:
+    if message:
+        session["questionnaire_error"] = message
+    else:
+        session.pop("questionnaire_error", None)
+
+
+def resolve_questionnaire_text() -> tuple[str, str]:
+    """Resolve questionnaire text with priority: uploaded > local file > empty."""
+    uploaded = get_uploaded_questionnaire_text().strip()
+    if uploaded:
+        return uploaded, "uploaded"
+    local = load_questionnaire_text().strip()
+    if local:
+        return local, "local_file"
+    return "", "empty"
 
 
 def build_timeline_entry(
@@ -222,6 +250,50 @@ def analyze_turn_with_dsag(
         set_interview_timeline(timeline + [timeline_entry])
 
     return analysis
+
+
+def export_graph_artifacts(graph: DSAGGraph) -> None:
+    """Persist latest DSAG graph artifacts for offline inspection."""
+    try:
+        output_json_path = os.path.join(app.root_path, "dsag_output.json")
+        output_html_path = os.path.join(app.root_path, "dsag_visualization.html")
+
+        with open(output_json_path, "w", encoding="utf-8") as f:
+            f.write(graph.to_json())
+
+        # Reuse visualizer render helpers to keep output format consistent.
+        from visualize_dsag import generate_html, links_to_mermaid, tree_to_mermaid
+
+        expert_mermaid = tree_to_mermaid(graph.expert_tree, "Expert_Tree")
+        researcher_mermaid = tree_to_mermaid(graph.researcher_tree, "Researcher_Tree")
+        links_mermaid = links_to_mermaid(graph)
+
+        metadata = {"topic": graph.topic, **(graph.metadata or {})}
+        metadata.setdefault("created_at", datetime.utcnow().isoformat())
+
+        html = generate_html(expert_mermaid, researcher_mermaid, links_mermaid, metadata)
+        with open(output_html_path, "w", encoding="utf-8") as f:
+            f.write(html)
+    except Exception as exc:
+        # Export is auxiliary; don't fail API init flow.
+        print(f"[DSAG export] Warning: {exc}")
+
+
+def build_term_annotation_context(last_question: str) -> str:
+    """Build lightweight context for per-message term annotation."""
+    topic = str(session.get("dsag_topic", "")).strip()
+    researcher_bg = str(session.get("dsag_researcher_bg", "")).strip()
+    expert_bg = str(session.get("dsag_expert_bg", "")).strip()
+    lines: List[str] = []
+    if topic:
+        lines.append(f"Topic: {topic}")
+    if researcher_bg:
+        lines.append(f"Researcher background: {researcher_bg}")
+    if expert_bg:
+        lines.append(f"Expert background: {expert_bg}")
+    if last_question:
+        lines.append(f"Latest researcher question: {last_question}")
+    return "\n".join(lines)
 
 
 def build_process_panel_state(
@@ -449,9 +521,14 @@ def api_dsag_init():
             return jsonify({"success": False, "error": "Researcher background is required"})
         if not expert_bg:
             return jsonify({"success": False, "error": "Expert background is required"})
+
+        # Persist DSAG setup context for lightweight term annotation at runtime.
+        session["dsag_topic"] = topic
+        session["dsag_researcher_bg"] = researcher_bg
+        session["dsag_expert_bg"] = expert_bg
         
-        # Compute cache key
-        questionnaire = load_questionnaire_text()
+        # Compute cache key (prefer uploaded questionnaire over local default file)
+        questionnaire, questionnaire_source = resolve_questionnaire_text()
         cache_key = DSAGGraph.compute_cache_key(topic, researcher_bg, expert_bg, questionnaire)
         
         # Check if already cached. Only read shared cache under the lock;
@@ -462,11 +539,14 @@ def api_dsag_init():
         if existing_state and existing_state.is_ready():
             # Reuse cached graph
             set_dsag_state(existing_state, cache_key)
+            if existing_state.graph:
+                export_graph_artifacts(existing_state.graph)
             return jsonify({
                 "success": True,
                 "cached": True,
                 "cache_key": cache_key,
                 "metadata": existing_state.graph.metadata if existing_state.graph else {},
+                "questionnaire_source": questionnaire_source,
             })
         
         # Create new state (building)
@@ -483,6 +563,7 @@ def api_dsag_init():
             
             # Build embeddings index
             embedding_index = build_embedding_index(graph)
+            export_graph_artifacts(graph)
             
             # Update state
             with DSAG_LOCK:
@@ -497,6 +578,7 @@ def api_dsag_init():
                 "cached": False,
                 "cache_key": cache_key,
                 "metadata": graph.metadata,
+                "questionnaire_source": questionnaire_source,
             })
         
         except Exception as e:
@@ -662,6 +744,21 @@ def index():
                     set_guide_error(str(exc))
             return redirect(url_for("index"))
 
+        if action == "upload_questionnaire":
+            uploaded = request.files.get("questionnaire_file")
+            if not uploaded or not uploaded.filename:
+                set_questionnaire_error("Please choose an interview script file to upload.")
+            else:
+                try:
+                    extracted = extract_text_from_upload(uploaded).strip()
+                    if not extracted:
+                        raise RuntimeError("Uploaded interview script is empty after extraction.")
+                    set_uploaded_questionnaire_text(extracted)
+                    set_questionnaire_error(None)
+                except Exception as exc:
+                    set_questionnaire_error(str(exc))
+            return redirect(url_for("index"))
+
         if action == "toggle_mismap":
             try:
                 msg_index = int(request.form.get("msg_index", "-1"))
@@ -715,6 +812,17 @@ def index():
                 except Exception as dsag_exc:
                     print(f"[DSAG auto-analysis] Error: {dsag_exc}")
 
+            # Lightweight per-message term annotation for inline highlighting.
+            # This runs independently of the selected DSAG gap type.
+            try:
+                annotation_context = build_term_annotation_context(last_question)
+                analysis_result = analyze_exchange(last_question, expert_text, context=annotation_context)
+                jargon_terms = analysis_result.get("jargon", []) if isinstance(analysis_result, dict) else []
+                if isinstance(jargon_terms, list):
+                    msg["jargon_terms"] = jargon_terms
+            except Exception as annotation_exc:
+                print(f"[Term annotation] Error: {annotation_exc}")
+
             messages.append(msg)
 
         session["messages"] = messages
@@ -737,10 +845,13 @@ def index():
         messages=messages,
         guide_text=get_guide_text(),
         guide_error=session.get("guide_error"),
+        questionnaire_uploaded=bool(get_uploaded_questionnaire_text().strip()),
+        questionnaire_error=session.get("questionnaire_error"),
         dsag_ready=dsag_ready,
         process_panel=build_process_panel_state(dsag_state, latest_drift),
     )
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Disable debug reloader to keep interview sessions stable during runtime.
+    app.run(debug=False, use_reloader=False)

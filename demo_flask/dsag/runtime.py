@@ -55,7 +55,7 @@ def _build_light_llm() -> ChatOpenAI:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY is not set")
-        model = os.getenv("OPENAI_MODEL_RUNTIME", "qwen3-max")
+        model = os.getenv("OPENAI_MODEL_RUNTIME", "qwen3-max-2026-01-23")
         base_url = os.getenv("OPENAI_BASE_URL")
         if base_url:
             return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=0.3)
@@ -344,7 +344,9 @@ class RuntimeEngine:
 
     _POLISH_RULES_BY_TYPE = {
         RelationType.LEXICAL_GAP.value: """## LexicalGap polishing rules
-FROZEN fields (copy verbatim — do NOT alter):
+CONTEXTUALIZABLE fields (you MAY rephrase to match the expert's actual wording,
+but must preserve the core meaning — e.g. if the expert said "latency" instead
+of "response time", use "latency"):
   - term_mapping.expert_term
   - term_mapping.researcher_term
 
@@ -352,29 +354,39 @@ POLISHABLE fields:
   - term_mapping.explanation — make it a crisp, natural-sounding sentence
     that a researcher could say aloud. Weave in the expert's phrasing when
     possible (e.g. "When the expert says '…', it corresponds to '…'").
+    Reference the actual Q&A exchange so the explanation feels specific to
+    this conversation moment.
 
 No follow-up questions expected for this type.""",
 
         RelationType.CONCEPTUAL_GAP.value: """## ConceptualGap polishing rules
-FROZEN fields (copy verbatim — do NOT alter):
-  - analogy.source_concept (keep the concept name exactly)
+CONTEXTUALIZABLE fields (you MAY rephrase to match the expert's actual wording
+and the conversation context, but must preserve the core semantic meaning):
+  - analogy.source_concept — adapt to the terminology the expert actually used
+  - scenario.edge_cases — rewrite to reference the specific situation discussed
+
+STRUCTURAL fields (keep the structure, but you may lightly rephrase for clarity):
   - analogy.structural_mapping.inputs
   - analogy.structural_mapping.logic
   - analogy.structural_mapping.outputs
   - scenario.inputs
   - scenario.outputs
-  - scenario.edge_cases
 
 POLISHABLE fields:
   - analogy.explanation — make it a fluent sentence the researcher could speak
     naturally. Reference the expert's actual vocabulary from their answer.
+    Connect it to what was just discussed in the Q&A exchange.
+
+IMPORTANT: Adapt the entire assistance so it feels written specifically for this
+conversation moment, not as a generic pre-written template. Use the expert's own
+words and examples wherever possible.
 
 The analogy and scenario are PARALLEL strategies (no required order).
 Do not merge them or remove either one.""",
 
         RelationType.TACIT_GAP.value: """## TacitGap polishing rules
 The offline payload contains an EXHAUSTIVE arsenal of attributes, probes, and scenarios.
-Your job is INTELLIGENT FILTERING → PRIORITIZATION → polishing.
+Your primary job is INTELLIGENT FILTERING, then polishing to match the live conversation.
 
 ### Step A — Extract already-mentioned attributes
 Read the expert's latest answer and the conversation context carefully.
@@ -386,43 +398,40 @@ using different words). List them internally.
 REMOVE from the output:
   - Any attribute that the expert has already mentioned/articulated.
   - The corresponding probe(s) for those removed attributes.
-  - Any hypothetical_scenario whose altered variable maps to an already-mentioned attribute.
+  - Any hypothetical_scenario whose targeted attribute maps to an already-mentioned attribute.
 Keep ONLY the attributes (and their probes/scenarios) that the expert
 has NOT yet surfaced.
 
-### Step C — Polish the remaining items
+NOTE: hypothetical_scenarios are objects with "scenario" (text) and "attribute" (targeted attribute name) fields.
+
+### Step C — Polish the remaining items to match the conversation
 FROZEN fields (copy verbatim — do NOT alter):
-  - The remaining attribute names
   - probes[].attribute
   - probes[].choices (the option labels must stay exactly as-is)
+
+CONTEXTUALIZABLE fields (rephrase to match the expert's actual wording):
+  - The remaining attribute names — you may lightly rephrase to use the
+    expert's own terminology while preserving the core meaning
+  - hypothetical_scenarios[].scenario — adapt the scenario text so it
+    references the expert's actual situation, examples, or domain context
+    from the conversation. The scenario should feel like it was written
+    for THIS specific expert, not as a generic template.
 
 POLISHABLE fields:
   - probes[].question — rephrase for naturalness, but it MUST remain a
     multiple-choice question (NEVER convert to open-ended "Why …?").
     Reference the expert's recent answer where possible.
 
-### Step D — Prioritize
-From the REMAINING (not-yet-mentioned) probes, pick the TOP 2 that are
-most relevant to the current conversation context and expert answer.
-Mark those with "priority": "high". All other remaining probes get
-"priority": "normal".
-
-Criteria for "high" priority:
-  - The attribute is closest to what the expert is currently discussing.
-  - Probing it NOW would yield the most useful tacit knowledge given
-    the conversation flow.
-
 ### Output requirements
 - The 3-step structure (attributes → probes → hypothetical_scenarios) is strict.
 - If ALL attributes have been mentioned, return empty lists for all three fields.
-- Each probe object MUST include a "priority" field: either "high" or "normal".
-  Exactly 2 probes should be "high" (or fewer if fewer than 2 remain).
-- Keep ALL remaining hypothetical_scenarios (do NOT trim them).
 - Add a top-level field "extracted_attributes": [...] listing the attributes
   you identified as already articulated by the expert (for transparency).
 - Also include "mentioned_attributes": [...] with the same content for backward compatibility.
 - The extracted/mentioned attributes are DISPLAY-ONLY. Do NOT generate probes or
-  hypothetical_scenarios for them.""",
+  hypothetical_scenarios for them.
+- IMPORTANT: The entire output should feel grounded in the actual interview
+  conversation, not like a generic pre-written template.""",
 
         RelationType.SCOPE_GAP.value: """## ScopeGap polishing rules
 FROZEN fields (copy verbatim — do NOT alter):
@@ -495,25 +504,31 @@ POLISHABLE fields:
 
         llm = _build_polish_llm()
         prompt = ChatPromptTemplate.from_messages([
-            ("user", """You are polishing interview assistance so it sounds natural and directly speakable by the researcher during a live interview.
+            ("user", """You are polishing interview assistance so it sounds natural, directly speakable by the researcher, and deeply grounded in the actual conversation happening right now.
 
 ## Mismatch type: {relation_type}
 
-## Conversation context
-- Expert's latest answer: "{expert_answer}"
+## Current conversation exchange
 - Researcher's latest question: "{researcher_question}"
-- Recent conversation summary: "{context_summary}"
+- Expert's latest answer: "{expert_answer}"
+
+## Recent conversation context (last 3 turns)
+{context_summary}
 
 ## Assistance to polish
 {assistance_json}
 
 ## General rules (apply to ALL types)
 1. Keep the EXACT same JSON keys and nesting structure.
-2. BREVITY is your #1 priority for POLISHABLE fields (see type-specific rules below for which fields are polishable vs frozen). The researcher glances at this mid-interview — cut filler words, remove hedging, prefer fragments over full sentences where clarity is preserved. FROZEN fields must be copied verbatim regardless of length.
+2. Make polishable text natural, concise, and directly speakable.
 3. Reference the expert's OWN vocabulary and phrasing where possible.
 4. Do NOT invent new facts or concepts.
 5. Questions MUST remain questions.
 6. Output ONLY valid JSON with top-level key "payload" (same structure as the input).
+7. CRITICAL: Adapt the assistance content to directly reference and connect
+   with the actual Q&A exchange above. The assistance should feel like it was
+   written specifically for THIS conversation moment — not a generic template.
+   Use the expert's own words, examples, and domain language wherever possible.
 
 {type_specific_rules}
 """)
@@ -521,9 +536,9 @@ POLISHABLE fields:
         chain = prompt | llm
         response = chain.invoke({
             "relation_type": relation,
-            "expert_answer": expert_answer[:500],
-            "researcher_question": researcher_question[:300],
-            "context_summary": context_summary[:600],
+            "expert_answer": expert_answer[:800],
+            "researcher_question": researcher_question[:500],
+            "context_summary": context_summary[:1200],
             "assistance_json": json.dumps(
                 {"payload": assistance.payload},
                 ensure_ascii=False,
@@ -605,7 +620,7 @@ POLISHABLE fields:
         # Keep only not-yet-mentioned attributes in the actionable list.
         remaining_attrs = [a for a in attributes if a.lower() not in extracted_lower]
 
-        # Remove probes targeting extracted attributes; normalize priority field.
+        # Remove probes targeting extracted attributes.
         probes_in = payload.get("probes", [])
         probes_out: List[Dict[str, Any]] = []
         if isinstance(probes_in, list):
@@ -615,19 +630,47 @@ POLISHABLE fields:
                 attr = str(probe.get("attribute", "")).strip()
                 if attr and attr.lower() in extracted_lower:
                     continue
-                if "priority" not in probe:
-                    probe["priority"] = "normal"
                 probes_out.append(probe)
-            probes_out.sort(key=lambda p: 0 if p.get("priority") == "high" else 1)
 
         # Remove scenarios that mention extracted attributes (best-effort text filter).
-        scenarios_in = _norm_list(payload.get("hypothetical_scenarios", []))
-        scenarios_out: List[str] = []
-        for scenario in scenarios_in:
-            lower_scenario = scenario.lower()
+        # Scenarios may be plain strings (legacy) or dicts with {scenario, attribute}.
+        raw_scenarios = payload.get("hypothetical_scenarios", [])
+        if not isinstance(raw_scenarios, list):
+            raw_scenarios = []
+        scenarios_out: List[Dict[str, str]] = []
+        for sc in raw_scenarios:
+            if isinstance(sc, str):
+                # Legacy plain-string format: wrap into dict
+                sc_obj: Dict[str, str] = {"scenario": sc, "attribute": ""}
+            elif isinstance(sc, dict):
+                sc_obj = {
+                    "scenario": str(sc.get("scenario", "")),
+                    "attribute": str(sc.get("attribute", "")),
+                }
+            else:
+                continue
+            lower_scenario = sc_obj["scenario"].lower()
+            sc_attr_lower = sc_obj["attribute"].lower().strip()
+            # Filter out scenarios whose targeted attribute was already extracted
+            if sc_attr_lower and sc_attr_lower in extracted_lower:
+                continue
             if any(attr in lower_scenario for attr in extracted_lower):
                 continue
-            scenarios_out.append(scenario)
+            # If attribute is missing, try to infer from remaining attributes
+            if not sc_obj["attribute"].strip() and remaining_attrs:
+                best_match = ""
+                best_hits = 0
+                for attr in remaining_attrs:
+                    tokens = [t for t in re.findall(r"[a-z0-9]+", attr.lower()) if len(t) >= 3]
+                    if not tokens:
+                        continue
+                    hits = sum(1 for t in tokens if t in lower_scenario)
+                    if hits > best_hits:
+                        best_hits = hits
+                        best_match = attr
+                if best_match and best_hits >= 1:
+                    sc_obj["attribute"] = best_match
+            scenarios_out.append(sc_obj)
 
         payload["attributes"] = remaining_attrs
         payload["probes"] = probes_out
@@ -850,6 +893,73 @@ POLISHABLE fields:
                 f"Expert: '{divergence.expert_branch}', You: '{divergence.researcher_branch}'. "
                 "You can use concrete examples to bridge."
             )
+
+        return divergence
+
+    def _polish_divergence(
+        self,
+        divergence: DivergenceInfo,
+        researcher_question: str,
+        expert_answer: str,
+        context_summary: str,
+    ) -> DivergenceInfo:
+        """
+        Rewrite divergence branch labels so they are grounded in the expert's
+        actual wording while preserving the semantic meaning of the original
+        taxonomy label.  Keeps the output concise (short phrase, not a sentence).
+        """
+        if not divergence or (not divergence.expert_branch and not divergence.researcher_branch):
+            return divergence
+
+        try:
+            llm = _build_polish_llm()
+            prompt = ChatPromptTemplate.from_messages([
+                ("user", """You are contextualizing divergence labels for a live interview assistant.
+
+## Current conversation
+- Researcher's latest question: "{researcher_question}"
+- Expert's latest answer: "{expert_answer}"
+- Recent conversation (last 3 turns): "{context_summary}"
+
+## Original divergence labels (from the offline taxonomy)
+- Expert branch label: "{expert_branch}"
+- Researcher branch label: "{researcher_branch}"
+
+## Task
+Rewrite BOTH labels so they:
+1. Use vocabulary and phrasing the expert actually used in their answer or that appeared in the recent conversation.
+2. Preserve the core semantic meaning of the original label.
+3. Stay concise — a short noun phrase (2-6 words), NOT a full sentence.
+4. Feel natural and recognizable to someone reading the live conversation.
+
+If the expert's answer does not contain relevant wording for a label, keep the original label unchanged.
+
+Return ONLY valid JSON:
+{{
+  "expert_branch": "rewritten expert branch label",
+  "researcher_branch": "rewritten researcher branch label"
+}}
+""")
+            ])
+            chain = prompt | llm
+            response = chain.invoke({
+                "researcher_question": researcher_question[:500],
+                "expert_answer": expert_answer[:800],
+                "context_summary": context_summary[:1200],
+                "expert_branch": divergence.expert_branch,
+                "researcher_branch": divergence.researcher_branch,
+            })
+            content = getattr(response, "content", str(response))
+            parsed = _parse_json_from_text(content)
+            if parsed:
+                new_expert = str(parsed.get("expert_branch", "")).strip()
+                new_researcher = str(parsed.get("researcher_branch", "")).strip()
+                if new_expert:
+                    divergence.expert_branch = new_expert
+                if new_researcher:
+                    divergence.researcher_branch = new_researcher
+        except Exception as e:
+            print(f"[RuntimeEngine] Divergence polish failed (keeping originals): {e}")
 
         return divergence
 
@@ -1078,6 +1188,14 @@ POLISHABLE fields:
             if analysis.selected_link:
                 # 3. Compute divergence
                 analysis.divergence = self.compute_divergence(analysis.selected_link)
+
+                # 3b. Polish divergence labels to match live conversation
+                analysis.divergence = self._polish_divergence(
+                    analysis.divergence,
+                    researcher_question,
+                    expert_answer,
+                    context_summary,
+                )
 
             # 4. Generate type-specific assistance
             analysis.assistance = self.generate_assistance(
