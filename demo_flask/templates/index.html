@@ -251,24 +251,11 @@
                                         {{ payload.analogy.structural_mapping.logic if payload.analogy.structural_mapping.logic else payload.analogy.explanation }}
                                       </div>
                                     {% endif %}
-                                    <details class="analogy-details">
-                                      <summary>Show analogy details</summary>
-                                      {% if payload.analogy.structural_mapping is defined %}
-                                        <div class="analogy-mapping">
-                                          <span><strong>Input:</strong> {{ payload.analogy.structural_mapping.inputs }}</span>
-                                          <span><strong>Logic:</strong> {{ payload.analogy.structural_mapping.logic }}</span>
-                                          <span><strong>Output:</strong> {{ payload.analogy.structural_mapping.outputs }}</span>
-                                        </div>
-                                      {% endif %}
-                                      {% if payload.analogy.explanation %}
-                                        <div class="analogy-explanation">{{ payload.analogy.explanation }}</div>
-                                      {% endif %}
-                                    </details>
                                   </div>
                                 {% endif %}
                                 {% if payload.scenario is defined and payload.scenario %}
                                   <div class="dsag-subsection">
-                                    <div class="dsag-label">SCENARIO</div>
+                                    <div class="dsag-subsection-title">Scenario</div>
                                     <div class="scenario-prose">
                                       {% if payload.scenario is string %}
                                         {{ payload.scenario }}
