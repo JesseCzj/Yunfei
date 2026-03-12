@@ -413,21 +413,34 @@ body {
 .ts-sub-bullet {
   background: #f8fafc;
   border-radius: 8px;
-  padding: 8px 10px;
+  padding: 6px 10px;
   border-left: 3px solid #c4b5fd;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.ts-sub-bullet::-webkit-scrollbar {
+  height: 3px;
+}
+.ts-sub-bullet::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
 }
 
 .ts-sub-summary {
   font-size: 0.8rem;
   color: #1e293b;
-  line-height: 1.5;
+  line-height: 1.4;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .ts-turn-chips {
   display: flex;
-  flex-wrap: wrap;
   gap: 4px;
-  margin-top: 5px;
+  flex-shrink: 0;
 }
 
 .ts-turn-chip {
