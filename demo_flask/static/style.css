@@ -362,9 +362,16 @@ body {
   color: #111827;
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-x: auto;
   white-space: nowrap;
+  scrollbar-width: thin;
+}
+.ts-main-label::-webkit-scrollbar {
+  height: 3px;
+}
+.ts-main-label::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
 }
 
 .ts-sub-count {
