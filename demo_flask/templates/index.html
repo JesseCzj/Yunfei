@@ -14,69 +14,88 @@
 
       <div class="main-panels">
         <aside class="script-panel">
-          {# ====== DSAG Initialization Section ====== #}
-          <div class="dsag-init-section">
+          {% if dsag_ready and questionnaire_uploaded and questionnaire_text %}
             <div class="panel-header">
-              <h2 class="panel-title">Setup</h2>
-              <span class="dsag-status-badge" id="dsagStatusBadge">
-                {% if dsag_ready %}
-                  <span class="badge badge-ready">Ready</span>
-                {% else %}
-                  <span class="badge badge-inactive">Not initialized</span>
-                {% endif %}
-              </span>
+              <h2 class="panel-title">Interview Questionnaire</h2>
             </div>
-            {% if not dsag_ready %}
-            <form id="dsagInitForm" class="dsag-init-form">
-              <div class="dsag-field">
-                <label for="dsagTopic">Topic</label>
-                <input type="text" id="dsagTopic" required />
+            <div class="script-content script-content-questionnaire-only">
+              <div class="script-text-viewer script-text-viewer-standalone">
+                <div class="script-text-content">{{ questionnaire_text }}</div>
               </div>
-              <div class="dsag-field">
-                <label for="dsagResearcherBg">Researcher Background</label>
-                <input type="text" id="dsagResearcherBg" required />
+            </div>
+          {% else %}
+            {# ====== DSAG Initialization Section ====== #}
+            <div class="dsag-init-section">
+              <div class="panel-header">
+                <h2 class="panel-title">Setup</h2>
+                <span class="dsag-status-badge" id="dsagStatusBadge">
+                  {% if dsag_ready %}
+                    <span class="badge badge-ready">Ready</span>
+                  {% else %}
+                    <span class="badge badge-inactive">Not initialized</span>
+                  {% endif %}
+                </span>
               </div>
-              <div class="dsag-field">
-                <label for="dsagExpertBg">Expert Background</label>
-                <input type="text" id="dsagExpertBg" required />
-              </div>
-              <button type="submit" class="btn btn-primary dsag-init-btn" id="dsagInitBtn">
-                Initialize DSAG
-              </button>
-              <div class="dsag-init-status" id="dsagInitStatus"></div>
-            </form>
-            {% else %}
-            <div class="dsag-ready-info"></div>
-            {% endif %}
-          </div>
-
-          <hr class="panel-divider" />
-
-          <div class="panel-header">
-            <h2 class="panel-title">Interview Script</h2>
-          </div>
-          <div class="script-content">
-            <div class="script-upload-center">
-              <form method="post" enctype="multipart/form-data" class="upload-form">
-                <input type="hidden" name="action" value="upload_questionnaire" />
-                <div class="file-input-wrapper upload-dropzone-wrapper">
-                  <input type="file" name="questionnaire_file" id="guideFile" accept=".txt,.docx,.pdf" class="file-input" />
-                  <label for="guideFile" class="file-label upload-dropzone-label">
-                    <span class="file-icon">📄</span>
-                    <span class="upload-dropzone-title">Upload interview script</span>
-                    <span class="file-text">txt, docx, pdf</span>
-                  </label>
+              {% if not dsag_ready %}
+              <form id="dsagInitForm" class="dsag-init-form">
+                <div class="dsag-field">
+                  <label for="dsagTopic">Topic</label>
+                  <input type="text" id="dsagTopic" required />
                 </div>
-                {% if questionnaire_uploaded %}
-                  <div class="upload-success-message">Interview script uploaded.</div>
-                {% endif %}
-                {% if questionnaire_error %}
-                  <div class="error-message">{{ questionnaire_error }}</div>
-                {% endif %}
+                <div class="dsag-field">
+                  <label for="dsagResearcherBg">Researcher Background</label>
+                  <input type="text" id="dsagResearcherBg" required />
+                </div>
+                <div class="dsag-field">
+                  <label for="dsagExpertBg">Expert Background</label>
+                  <input type="text" id="dsagExpertBg" required />
+                </div>
+                <button type="submit" class="btn btn-primary dsag-init-btn" id="dsagInitBtn">
+                  Initialize DSAG
+                </button>
+                <div class="dsag-init-status" id="dsagInitStatus"></div>
               </form>
+              {% else %}
+              <div class="dsag-ready-info"></div>
+              {% endif %}
             </div>
-          </div>
+
+            <hr class="panel-divider" />
+
+            <div class="panel-header">
+              <h2 class="panel-title">Interview Questionnaire</h2>
+            </div>
+            <div class="script-content">
+              <div class="script-upload-center {% if not questionnaire_uploaded %}is-empty{% endif %}">
+                <form method="post" enctype="multipart/form-data" class="upload-form script-upload-form">
+                  <input type="hidden" name="action" value="upload_questionnaire" />
+                  <div class="file-input-wrapper upload-dropzone-wrapper">
+                    <input type="file" name="questionnaire_file" id="guideFile" accept=".txt,.docx,.pdf" class="file-input" />
+                    <label for="guideFile" class="file-label upload-dropzone-label {% if questionnaire_uploaded %}upload-dropzone-compact{% endif %}">
+                      <span class="file-icon">📄</span>
+                      <span class="upload-dropzone-title">Upload interview questionnaire</span>
+                      <span class="file-text">txt, docx, pdf</span>
+                    </label>
+                  </div>
+                  {% if questionnaire_uploaded %}
+                    <div class="upload-success-message">Interview questionnaire uploaded.</div>
+                  {% endif %}
+                  {% if questionnaire_error %}
+                    <div class="error-message">{{ questionnaire_error }}</div>
+                  {% endif %}
+
+                  {% if questionnaire_uploaded and questionnaire_text %}
+                    <div class="script-text-viewer">
+                      <div class="script-text-title">Uploaded interview questionnaire</div>
+                      <div class="script-text-content">{{ questionnaire_text }}</div>
+                    </div>
+                  {% endif %}
+                </form>
+              </div>
+            </div>
+          {% endif %}
         </aside>
+        <div class="panel-resizer" data-resizer="left" role="separator" aria-label="Resize left and center panels"></div>
 
         <main class="main-content">
         <div class="chat-panel">
@@ -388,6 +407,33 @@
 
         <div class="input-panel">
           <div class="input-columns">
+            <div class="input-section expert-input input-divider-right">
+              <div class="input-header">
+                <span class="input-label">Domain Expert</span>
+              </div>
+              <form method="post" id="expertForm">
+                <input type="hidden" name="action" value="chat" />
+                <input type="hidden" name="expert_source" id="expertSource" value="text" />
+                <div class="voice-row">
+                  <button type="button" class="mic-btn" id="expertMicBtn" data-role="expert">
+                    <span class="mic-icon">🎤</span>
+                    <span class="mic-text">Start Mic</span>
+                  </button>
+                  <span class="mic-status" id="expertStatus">Ready</span>
+                </div>
+                <div class="transcript-box" id="expertTranscript">Voice transcript will appear here...</div>
+                <div class="input-row">
+                  <textarea
+                    name="expert_input"
+                    id="expertInput"
+                    placeholder="Type your response here..."
+                    rows="2"
+                  ></textarea>
+                  <button type="submit" class="btn btn-send">Send</button>
+                </div>
+              </form>
+            </div>
+
             <div class="input-section researcher-input">
               <div class="input-header">
                 <span class="input-label">HCI Researcher</span>
@@ -414,42 +460,15 @@
                 </div>
               </form>
             </div>
-
-            <div class="input-section expert-input">
-              <div class="input-header">
-                <span class="input-label">Domain Expert</span>
-              </div>
-              <form method="post" id="expertForm">
-                <input type="hidden" name="action" value="chat" />
-                <input type="hidden" name="expert_source" id="expertSource" value="text" />
-                <div class="voice-row">
-                  <button type="button" class="mic-btn" id="expertMicBtn" data-role="expert">
-                    <span class="mic-icon">🎤</span>
-                    <span class="mic-text">Start Mic</span>
-                  </button>
-                  <span class="mic-status" id="expertStatus">Ready</span>
-                </div>
-                <div class="transcript-box" id="expertTranscript">Voice transcript will appear here...</div>
-                <div class="input-row">
-                  <textarea
-                    name="expert_input"
-                    id="expertInput"
-                    placeholder="Type your response here..."
-                    rows="2"
-                  ></textarea>
-                  <button type="submit" class="btn btn-send">Send</button>
-                </div>
-              </form>
-            </div>
           </div>
         </div>
       </main>
+      <div class="panel-resizer" data-resizer="right" role="separator" aria-label="Resize center and right panels"></div>
 
         <aside class="process-panel">
           <div class="panel-header">
             <div>
               <h2 class="panel-title">Transcript Summary</h2>
-              <div class="process-panel-subtitle">Structured summary organized by questionnaire topics</div>
             </div>
           </div>
 
@@ -468,9 +487,10 @@
               </div>
             {% else %}
               {% for mb in transcript_summary.main_bullets %}
+                {% set main_question = mb.source_question if mb.source_question else mb.label %}
                 <div class="ts-main-bullet">
                   <div class="ts-main-header">
-                    <span class="ts-main-label">{{ mb.label }}</span>
+                    <span class="ts-main-label">{{ main_question }}</span>
                     {% if mb.sub_bullets %}
                       <span class="ts-sub-count">{{ mb.sub_bullets|length }}</span>
                     {% endif %}
@@ -479,7 +499,10 @@
                     {% if mb.sub_bullets %}
                       {% for sb in mb.sub_bullets %}
                         <div class="ts-sub-bullet">
-                          <div class="ts-sub-summary">{{ sb.summary }}</div>
+                          <div class="ts-sub-line">
+                            <span class="ts-sub-tag">T{{ loop.index }}</span>
+                            <span class="ts-sub-summary">{{ sb.summary }}</span>
+                          </div>
                         </div>
                       {% endfor %}
                     {% else %}

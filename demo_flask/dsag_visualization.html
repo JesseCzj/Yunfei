@@ -51,14 +51,14 @@
     <h1>DSAG Visualization</h1>
     
     <div class="metadata">
-        <p><strong>Topic:</strong> AI-assisted Medical Diagnosis</p>
-        <p><strong>Generated:</strong> 2026-03-12T05:50:00.101932</p>
-        <p><strong>Expert Leaves:</strong> 46</p>
-        <p><strong>Researcher Leaves:</strong> 21</p>
-        <p><strong>Gap Links:</strong> 45</p>
+        <p><strong>Topic:</strong> Virtual cell AI models for gene perturbation experiments (CellForge)</p>
+        <p><strong>Generated:</strong> 2026-03-12T13:11:39.887115</p>
+        <p><strong>Expert Leaves:</strong> 60</p>
+        <p><strong>Researcher Leaves:</strong> 20</p>
+        <p><strong>Gap Links:</strong> 57</p>
         <p><strong>Construction Method:</strong> math-based</p>
         <p><strong>Templates Generated:</strong> N/A</p>
-        <p><strong>Leaf Alignments:</strong> 51</p><p><strong>Concept Alignments:</strong> 10</p><p><strong>Misaligned Leaves:</strong> 45</p>
+        <p><strong>Leaf Alignments:</strong> 63</p><p><strong>Concept Alignments:</strong> 10</p><p><strong>Misaligned Leaves:</strong> 57</p>
     </div>
     
     <h2>Expert Taxonomy Tree (TExp)</h2>
@@ -66,139 +66,167 @@
         <pre class="mermaid">
 flowchart TD
     subgraph Expert_Tree [Expert_Tree]
-    shared_root["AI-assisted Medical Diagnosis"]
-    exp_L1_00["Diagnostic Accuracy and Trust"]
+    shared_root["Virtual cell AI models for gene pertu..."]
+    exp_L1_00["Biological Fidelity and Mechanistic P..."]
     shared_root --> exp_L1_00
-    exp_L2_00_00["False Positives/Negatives"]
+    exp_L2_00_00["Gene Network Representation"]
     exp_L1_00 --> exp_L2_00_00
-    exp_leaf_00_00_00(["Misses subtle early cancers on mammog..."])
+    exp_leaf_00_00_00(["Oversimplified regulatory logic"])
     exp_L2_00_00 --> exp_leaf_00_00_00
-    exp_leaf_00_00_01(["Overcalls benign lung nodules as susp..."])
+    exp_leaf_00_00_01(["Missing non-coding RNA effects"])
     exp_L2_00_00 --> exp_leaf_00_00_01
-    exp_leaf_00_00_02(["Struggles with rare pathologies"])
+    exp_leaf_00_00_02(["Static network topology"])
     exp_L2_00_00 --> exp_leaf_00_00_02
-    exp_leaf_00_00_03(["Inconsistent performance across vendors"])
+    exp_leaf_00_00_03(["Can’t tell if emergent behavior is re..."])
     exp_L2_00_00 --> exp_leaf_00_00_03
-    exp_L2_00_01["Lack of Explainability"]
+    exp_L2_00_01["Perturbation Realism"]
     exp_L1_00 --> exp_L2_00_01
-    exp_leaf_00_01_00(["No visual heatmap or saliency map for..."])
+    exp_leaf_00_01_00(["Assumes complete knockout"])
     exp_L2_00_01 --> exp_leaf_00_01_00
-    exp_leaf_00_01_01(["Can’t tell if it’s using real patholo..."])
+    exp_leaf_00_01_01(["Ignores off-target effects"])
     exp_L2_00_01 --> exp_leaf_00_01_01
-    exp_leaf_00_01_02(["Feels like guessing without clinical ..."])
+    exp_leaf_00_01_02(["No compensation or adaptation over time"])
     exp_L2_00_01 --> exp_leaf_00_01_02
-    exp_leaf_00_01_03(["Hard to reconcile AI output with my g..."])
+    exp_leaf_00_01_03(["Feels wrong even when metrics say it’..."])
     exp_L2_00_01 --> exp_leaf_00_01_03
-    exp_L2_00_02["Calibration and Confidence"]
+    exp_L2_00_02["Cell-Type Specificity"]
     exp_L1_00 --> exp_L2_00_02
-    exp_leaf_00_02_00(["High-confidence errors that look obvi..."])
+    exp_leaf_00_02_00(["Trained on generic cell lines"])
     exp_L2_00_02 --> exp_leaf_00_02_00
-    exp_leaf_00_02_01(["Low-confidence on easy cases"])
+    exp_leaf_00_02_01(["Can’t handle rare or transitional states"])
     exp_L2_00_02 --> exp_leaf_00_02_01
-    exp_leaf_00_02_02(["Confidence thresholds feel arbitrary"])
+    exp_leaf_00_02_02(["Epigenetic memory not modeled"])
     exp_L2_00_02 --> exp_leaf_00_02_02
-    exp_L1_01["Workflow Integration"]
+    exp_leaf_00_02_03(["Intuitively know which cell types wil..."])
+    exp_L2_00_02 --> exp_leaf_00_02_03
+    exp_L1_01["Experimental Validation Burden"]
     shared_root --> exp_L1_01
-    exp_L2_01_00["Alert Fatigue and Interruptions"]
+    exp_L2_01_00["Resource Allocation"]
     exp_L1_01 --> exp_L2_01_00
-    exp_leaf_01_00_00(["Constant pop-ups during emergency reads"])
+    exp_leaf_01_00_00(["High false positive rate wastes reagents"])
     exp_L2_01_00 --> exp_leaf_01_00_00
-    exp_leaf_01_00_01(["Forced acknowledgment of every AI sug..."])
+    exp_leaf_01_00_01(["Prioritization conflicts with model c..."])
     exp_L2_01_00 --> exp_leaf_01_00_01
-    exp_leaf_01_00_02(["Can’t silence low-yield alerts select..."])
+    exp_leaf_01_00_02(["Can’t afford to validate edge cases"])
     exp_L2_01_00 --> exp_leaf_01_00_02
-    exp_leaf_01_00_03(["Disrupts natural reading sequence"])
+    exp_leaf_01_00_03(["Gut feeling overrides high-confidence..."])
     exp_L2_01_00 --> exp_leaf_01_00_03
-    exp_L2_01_01["PACS and EHR Compatibility"]
+    exp_L2_01_01["Time-to-Insight Delays"]
     exp_L1_01 --> exp_L2_01_01
-    exp_leaf_01_01_00(["AI overlays don’t render in legacy PACS"])
+    exp_leaf_01_01_00(["Model turnaround slower than bench work"])
     exp_L2_01_01 --> exp_leaf_01_01_00
-    exp_leaf_01_01_01(["Findings don’t auto-populate structur..."])
+    exp_leaf_01_01_01(["Iterative loop is broken"])
     exp_L2_01_01 --> exp_leaf_01_01_01
-    exp_leaf_01_01_02(["No audit trail linking AI input to fi..."])
+    exp_leaf_01_01_02(["Post-hoc explanations arrive too late"])
     exp_L2_01_01 --> exp_leaf_01_01_02
-    exp_L2_01_02["Time Pressure and Efficiency"]
+    exp_leaf_01_01_03(["Sense when a prediction isn’t worth w..."])
+    exp_L2_01_01 --> exp_leaf_01_01_03
+    exp_L2_01_02["Reproducibility and Benchmarking"]
     exp_L1_01 --> exp_L2_01_02
-    exp_leaf_01_02_00(["Adds 30 seconds per study waiting for..."])
+    exp_leaf_01_02_00(["No standard validation protocols"])
     exp_L2_01_02 --> exp_leaf_01_02_00
-    exp_leaf_01_02_01(["Double-checking AI takes longer than ..."])
+    exp_leaf_01_02_01(["Batch effects masquerade as model errors"])
     exp_L2_01_02 --> exp_leaf_01_02_01
-    exp_leaf_01_02_02(["Slows down trainees who rely too much..."])
+    exp_leaf_01_02_02(["Published benchmarks use unrealistic ..."])
     exp_L2_01_02 --> exp_leaf_01_02_02
-    exp_L1_02["Regulatory, Legal and Liability"]
+    exp_leaf_01_02_03(["Know which benchmarks are ‘gamed’"])
+    exp_L2_01_02 --> exp_leaf_01_02_03
+    exp_L1_02["Interpretability and Trust Calibration"]
     shared_root --> exp_L1_02
-    exp_L2_02_00["Accountability Gaps"]
+    exp_L2_02_00["Black Box Decisions"]
     exp_L1_02 --> exp_L2_02_00
-    exp_leaf_02_00_00(["Am I liable if I ignore a correct AI ..."])
+    exp_leaf_02_00_00(["Attention maps don’t reflect biology"])
     exp_L2_02_00 --> exp_leaf_02_00_00
-    exp_leaf_02_00_01(["Am I liable if I trust a wrong AI fin..."])
+    exp_leaf_02_00_01(["Can’t trace causal paths"])
     exp_L2_02_00 --> exp_leaf_02_00_01
-    exp_leaf_02_00_02(["Vendor disclaims all clinical respons..."])
+    exp_leaf_02_00_02(["Uncertainty estimates are meaningless"])
     exp_L2_02_00 --> exp_leaf_02_00_02
-    exp_L2_02_01["Regulatory Uncertainty"]
+    exp_leaf_02_00_03(["Instinctively distrust smooth gradients"])
+    exp_L2_02_00 --> exp_leaf_02_00_03
+    exp_L2_02_01["Overtrust vs. Underuse"]
     exp_L1_02 --> exp_L2_02_01
-    exp_leaf_02_01_00(["FDA-cleared ≠ clinically validated"])
+    exp_leaf_02_01_00(["New postdocs treat it like oracle"])
     exp_L2_02_01 --> exp_leaf_02_01_00
-    exp_leaf_02_01_01(["No clear pathway for model updates"])
+    exp_leaf_02_01_01(["Experienced PIs ignore it entirely"])
     exp_L2_02_01 --> exp_leaf_02_01_01
-    exp_leaf_02_01_02(["Hospital legal won’t approve anything..."])
+    exp_leaf_02_01_02(["Hard to communicate limitations to co..."])
     exp_L2_02_01 --> exp_leaf_02_01_02
-    exp_L2_02_02["Audit and Documentation Burden"]
+    exp_leaf_02_01_03(["Feel uneasy when model agrees too muc..."])
+    exp_L2_02_01 --> exp_leaf_02_01_03
+    exp_L2_02_02["Debugging Model Failures"]
     exp_L1_02 --> exp_L2_02_02
-    exp_leaf_02_02_00(["Must document every AI override in di..."])
+    exp_leaf_02_02_00(["Failure modes are opaque"])
     exp_L2_02_02 --> exp_leaf_02_02_00
-    exp_leaf_02_02_01(["No standard for storing AI metadata w..."])
+    exp_leaf_02_02_01(["No sandbox for ‘what-if’ exploration"])
     exp_L2_02_02 --> exp_leaf_02_02_01
-    exp_L1_03["Data Quality and Generalizability"]
+    exp_leaf_02_02_02(["Can’t isolate data vs. model errors"])
+    exp_L2_02_02 --> exp_leaf_02_02_02
+    exp_leaf_02_02_03(["Recognize failure patterns from past ..."])
+    exp_L2_02_02 --> exp_leaf_02_02_03
+    exp_L1_03["Data and Infrastructure Constraints"]
     shared_root --> exp_L1_03
-    exp_L2_03_00["Scanner and Protocol Variability"]
+    exp_L2_03_00["Input Data Quality"]
     exp_L1_03 --> exp_L2_03_00
-    exp_leaf_03_00_00(["Fails on low-dose or motion-degraded ..."])
+    exp_leaf_03_00_00(["Requires imputed scRNA-seq"])
     exp_L2_03_00 --> exp_leaf_03_00_00
-    exp_leaf_03_00_01(["Vendor-specific bias (Siemens vs GE v..."])
+    exp_leaf_03_00_01(["Struggles with multi-omic integration"])
     exp_L2_03_00 --> exp_leaf_03_00_01
-    exp_leaf_03_00_02(["Protocol mismatch (e.g., non-contrast..."])
+    exp_leaf_03_00_02(["Sensitive to batch-corrected data"])
     exp_L2_03_00 --> exp_leaf_03_00_02
-    exp_L2_03_01["Population and Disease Spectrum Bias"]
+    exp_leaf_03_00_03(["Can sense when metadata is inconsistent"])
+    exp_L2_03_00 --> exp_leaf_03_00_03
+    exp_L2_03_01["Computational Access and Usability"]
     exp_L1_03 --> exp_L2_03_01
-    exp_leaf_03_01_00(["Poor performance in diverse or unders..."])
+    exp_leaf_03_01_00(["Requires GPU cluster access"])
     exp_L2_03_01 --> exp_leaf_03_01_00
-    exp_leaf_03_01_01(["Doesn’t handle comorbidities well"])
+    exp_leaf_03_01_01(["No local lightweight version"])
     exp_L2_03_01 --> exp_leaf_03_01_01
-    exp_leaf_03_01_02(["Struggles with post-treatment anatomy"])
+    exp_leaf_03_01_02(["Poor error messaging"])
     exp_L2_03_01 --> exp_leaf_03_01_02
-    exp_L2_03_02["Label Noise and Ground Truth Issues"]
+    exp_leaf_03_01_03(["Know which parameters are safe to tweak"])
+    exp_L2_03_01 --> exp_leaf_03_01_03
+    exp_L2_03_02["Data Governance and Sharing"]
     exp_L1_03 --> exp_L2_03_02
-    exp_leaf_03_02_00(["Trained on radiology reports, not exp..."])
+    exp_leaf_03_02_00(["Can’t share patient-derived inputs"])
     exp_L2_03_02 --> exp_leaf_03_02_00
-    exp_leaf_03_02_01(["No distinction between incidental vs ..."])
+    exp_leaf_03_02_01(["Model trained on proprietary data"])
     exp_L2_03_02 --> exp_leaf_03_02_01
-    exp_L1_04["Professional Identity and Team Dynamics"]
+    exp_leaf_03_02_02(["Version drift between labs"])
+    exp_L2_03_02 --> exp_leaf_03_02_02
+    exp_leaf_03_02_03(["Worry about data leakage in shared mo..."])
+    exp_L2_03_02 --> exp_leaf_03_02_03
+    exp_L1_04["Collaboration and Workflow Integration"]
     shared_root --> exp_L1_04
-    exp_L2_04_00["Erosion of Diagnostic Authority"]
+    exp_L2_04_00["Team Skill Gaps"]
     exp_L1_04 --> exp_L2_04_00
-    exp_leaf_04_00_00(["Clinicians demand AI concordance befo..."])
+    exp_leaf_04_00_00(["Wet-lab biologists can’t interrogate ..."])
     exp_L2_04_00 --> exp_leaf_04_00_00
-    exp_leaf_04_00_01(["Administrators use AI accuracy stats ..."])
+    exp_leaf_04_00_01(["Computational folks don’t understand ..."])
     exp_L2_04_00 --> exp_leaf_04_00_01
-    exp_leaf_04_00_02(["Pressure to conform to AI output even..."])
+    exp_leaf_04_00_02(["No shared language for uncertainty"])
     exp_L2_04_00 --> exp_leaf_04_00_02
-    exp_L2_04_01["Training and Skill Degradation"]
+    exp_leaf_04_00_03(["Sense when a collaborator is overinte..."])
+    exp_L2_04_00 --> exp_leaf_04_00_03
+    exp_L2_04_01["Workflow Disruption"]
     exp_L1_04 --> exp_L2_04_01
-    exp_leaf_04_01_00(["Trainees skip foundational learning"])
+    exp_leaf_04_01_00(["Breaks agile experimentation"])
     exp_L2_04_01 --> exp_leaf_04_01_00
-    exp_leaf_04_01_01(["Fewer opportunities to learn from mis..."])
+    exp_leaf_04_01_01(["No integration with LIMS or ELN"])
     exp_L2_04_01 --> exp_leaf_04_01_01
-    exp_leaf_04_01_02(["No curriculum for AI critique or vali..."])
+    exp_leaf_04_01_02(["Forces premature commitment"])
     exp_L2_04_01 --> exp_leaf_04_01_02
-    exp_L2_04_02["Interdisciplinary Tensions"]
+    exp_leaf_04_01_03(["Feel friction when skipping the model"])
+    exp_L2_04_01 --> exp_leaf_04_01_03
+    exp_L2_04_02["Training and Onboarding"]
     exp_L1_04 --> exp_L2_04_02
-    exp_leaf_04_02_00(["Data scientists don’t understand clin..."])
+    exp_leaf_04_02_00(["No realistic training datasets"])
     exp_L2_04_02 --> exp_leaf_04_02_00
-    exp_leaf_04_02_01(["Clinicians expect AI to replace radio..."])
+    exp_leaf_04_02_01(["Hard to teach appropriate skepticism"])
     exp_L2_04_02 --> exp_leaf_04_02_01
-    exp_leaf_04_02_02(["Radiologists excluded from AI design ..."])
+    exp_leaf_04_02_02(["Documentation assumes ML background"])
     exp_L2_04_02 --> exp_leaf_04_02_02
+    exp_leaf_04_02_03(["Know which users will misuse it"])
+    exp_L2_04_02 --> exp_leaf_04_02_03
     end
         </pre>
     </div>
@@ -208,79 +236,71 @@ flowchart TD
         <pre class="mermaid">
 flowchart TD
     subgraph Researcher_Tree [Researcher_Tree]
-    shared_root["AI-assisted Medical Diagnosis"]
-    res_L1_00["Expert Mental Models of Discovery"]
+    shared_root["Virtual cell AI models for gene pertu..."]
+    res_L1_00["Model Interpretability and Explainabi..."]
     shared_root --> res_L1_00
-    res_L2_00_00["Discovery Workflow Structure"]
+    res_L2_00_00["Explanation Content Needs"]
     res_L1_00 --> res_L2_00_00
-    res_leaf_00_00_00(["Map the canonical sequence of steps f..."])
+    res_leaf_00_00_00(["Identify which gene changes lead to c..."])
     res_L2_00_00 --> res_leaf_00_00_00
-    res_leaf_00_00_01(["Identify the moment experts consider ..."])
+    res_leaf_00_00_01(["Understand why perturbation of a part..."])
     res_L2_00_00 --> res_leaf_00_00_01
-    res_leaf_00_00_02(["Characterize confidence distribution ..."])
+    res_leaf_00_00_02(["Assess the model's confidence in pred..."])
     res_L2_00_00 --> res_leaf_00_00_02
-    res_L2_00_01["Tacit Knowledge and Heuristics"]
+    res_L2_00_01["Explanation Modalities and Sources"]
     res_L1_00 --> res_L2_00_01
-    res_leaf_00_01_00(["Elicit unformalizable 'experience rul..."])
+    res_leaf_00_01_00(["Determine which XAI methods enhance u..."])
     res_L2_00_01 --> res_leaf_00_01_00
-    res_leaf_00_01_01(["Identify signals prioritized when eva..."])
+    res_leaf_00_01_01(["Integrate literature or biological kn..."])
     res_L2_00_01 --> res_leaf_00_01_01
-    res_leaf_00_01_02(["Understand criteria for 'credible' ce..."])
+    res_leaf_00_01_02(["Support hypothesis generation through..."])
     res_L2_00_01 --> res_leaf_00_01_02
-    res_L1_01["Decision-Making Under Uncertainty"]
+    res_L1_01["User Workflow Integration"]
     shared_root --> res_L1_01
-    res_L2_01_00["Clustering Resolution Choices"]
+    res_L2_01_00["Current Experimental Practices"]
     res_L1_01 --> res_L2_01_00
-    res_leaf_01_00_00(["Understand strategies for choosing cl..."])
+    res_leaf_01_00_00(["Map typical manual gene perturbation ..."])
     res_L2_01_00 --> res_leaf_01_00_00
-    res_leaf_01_00_01(["Determine triggers for suspecting a n..."])
+    res_leaf_01_00_01(["Identify bottlenecks in current pertu..."])
     res_L2_01_00 --> res_leaf_01_00_01
-    res_L2_01_01["Iterative Refinement Practices"]
+    res_L2_01_01["AI Model Adoption Barriers"]
     res_L1_01 --> res_L2_01_01
-    res_leaf_01_01_00(["Characterize cluster adjustment behav..."])
+    res_leaf_01_01_00(["Assess familiarity and prior experien..."])
     res_L2_01_01 --> res_leaf_01_01_00
-    res_leaf_01_01_01(["Identify sources of iteration friction"])
+    res_leaf_01_01_01(["Identify common challenges when using..."])
     res_L2_01_01 --> res_leaf_01_01_01
-    res_L1_02["Tool Use and Interaction Pain Points"]
+    res_leaf_01_01_02(["Determine problems experts aim to sol..."])
+    res_L2_01_01 --> res_leaf_01_01_02
+    res_L1_02["Trust and Reliability Assessment"]
     shared_root --> res_L1_02
-    res_L2_02_00["Tool Ecosystem Landscape"]
+    res_L2_02_00["Evaluation Criteria for Model Reliabi..."]
     res_L1_02 --> res_L2_02_00
-    res_leaf_02_00_00(["Inventory primary tools and custom sc..."])
+    res_leaf_02_00_00(["Elicit expert-defined reliability met..."])
     res_L2_02_00 --> res_leaf_02_00_00
-    res_L2_02_01["Usability Gaps in Analysis Tools"]
+    res_leaf_02_00_01(["Assess role of reproducibility in tru..."])
+    res_L2_02_00 --> res_leaf_02_00_01
+    res_L2_02_01["Challenges in Understanding AI Predic..."]
     res_L1_02 --> res_L2_02_01
-    res_leaf_02_01_00(["Identify highly efficient tool features"])
+    res_leaf_02_01_00(["Characterize difficulties interpretin..."])
     res_L2_02_01 --> res_leaf_02_01_00
-    res_leaf_02_01_01(["Pinpoint unavoidable but burdensome t..."])
+    res_leaf_02_01_01(["Map mismatches between model behavior..."])
     res_L2_02_01 --> res_leaf_02_01_01
-    res_leaf_02_01_02(["Assess support for hypothesis testing..."])
+    res_leaf_02_01_02(["Evaluate need for comparative baselines"])
     res_L2_02_01 --> res_leaf_02_01_02
-    res_L1_03["Interpretability Needs in Biological ..."]
+    res_L1_03["Scientific Discovery Support"]
     shared_root --> res_L1_03
-    res_L2_03_00["Evidence Integration Challenges"]
+    res_L2_03_00["Discovery Goals in Gene Perturbation"]
     res_L1_03 --> res_L2_03_00
-    res_leaf_03_00_00(["Map multi-modal evidence requirements..."])
+    res_leaf_03_00_00(["Discover drugs or key genes influenci..."])
     res_L2_03_00 --> res_leaf_03_00_00
-    res_leaf_03_00_01(["Identify gaps between computational o..."])
+    res_leaf_03_00_01(["Understand how gene perturbations aff..."])
     res_L2_03_00 --> res_leaf_03_00_01
-    res_L2_03_01["Barriers to Biological Interpretation"]
+    res_L2_03_01["Knowledge Acquisition Needs"]
     res_L1_03 --> res_L2_03_01
-    res_leaf_03_01_00(["Assess difficulty of biological sense..."])
+    res_leaf_03_01_00(["Support learning of gene regulatory m..."])
     res_L2_03_01 --> res_leaf_03_01_00
-    res_leaf_03_01_01(["Characterize challenges in communicat..."])
+    res_leaf_03_01_01(["Facilitate cross-condition comparison..."])
     res_L2_03_01 --> res_leaf_03_01_01
-    res_L1_04["Explainability Requirements for AI-As..."]
-    shared_root --> res_L1_04
-    res_L2_04_00["Trust Calibration in AI Outputs"]
-    res_L1_04 --> res_L2_04_00
-    res_leaf_04_00_00(["Define conditions under which an AI-s..."])
-    res_L2_04_00 --> res_leaf_04_00_00
-    res_L2_04_01["Support for Expert Judgment"]
-    res_L1_04 --> res_L2_04_01
-    res_leaf_04_01_00(["Identify opportunities for AI to surf..."])
-    res_L2_04_01 --> res_leaf_04_01_00
-    res_leaf_04_01_01(["Determine needs for interactive hypot..."])
-    res_L2_04_01 --> res_leaf_04_01_01
     end
         </pre>
     </div>
@@ -290,121 +310,146 @@ flowchart TD
         <pre class="mermaid">
 flowchart LR
     subgraph expert [Expert Pain Points]
-    E_exp_leaf_00_00_00(["Misses subtle early cancers on mammog..."])
-    E_exp_leaf_00_00_01(["Overcalls benign lung nodules as susp..."])
-    E_exp_leaf_00_00_02(["Struggles with rare pathologies"])
-    E_exp_leaf_00_00_03(["Inconsistent performance across vendors"])
-    E_exp_leaf_00_01_00(["No visual heatmap or saliency map for..."])
-    E_exp_leaf_00_01_01(["Can’t tell if it’s using real patholo..."])
-    E_exp_leaf_00_01_02(["Feels like guessing without clinical ..."])
-    E_exp_leaf_00_01_03(["Hard to reconcile AI output with my g..."])
-    E_exp_leaf_00_02_00(["High-confidence errors that look obvi..."])
-    E_exp_leaf_00_02_01(["Low-confidence on easy cases"])
-    E_exp_leaf_00_02_02(["Confidence thresholds feel arbitrary"])
-    E_exp_leaf_01_00_00(["Constant pop-ups during emergency reads"])
-    E_exp_leaf_01_00_01(["Forced acknowledgment of every AI sug..."])
-    E_exp_leaf_01_00_02(["Can’t silence low-yield alerts select..."])
-    E_exp_leaf_01_00_03(["Disrupts natural reading sequence"])
-    E_exp_leaf_01_01_00(["AI overlays don’t render in legacy PACS"])
-    E_exp_leaf_01_01_01(["Findings don’t auto-populate structur..."])
-    E_exp_leaf_01_01_02(["No audit trail linking AI input to fi..."])
-    E_exp_leaf_01_02_00(["Adds 30 seconds per study waiting for..."])
-    E_exp_leaf_01_02_01(["Double-checking AI takes longer than ..."])
-    E_exp_leaf_01_02_02(["Slows down trainees who rely too much..."])
-    E_exp_leaf_02_00_00(["Am I liable if I ignore a correct AI ..."])
-    E_exp_leaf_02_00_01(["Am I liable if I trust a wrong AI fin..."])
-    E_exp_leaf_02_00_02(["Vendor disclaims all clinical respons..."])
-    E_exp_leaf_02_01_00(["FDA-cleared ≠ clinically validated"])
-    E_exp_leaf_02_01_01(["No clear pathway for model updates"])
-    E_exp_leaf_02_01_02(["Hospital legal won’t approve anything..."])
-    E_exp_leaf_02_02_00(["Must document every AI override in di..."])
-    E_exp_leaf_02_02_01(["No standard for storing AI metadata w..."])
-    E_exp_leaf_03_00_00(["Fails on low-dose or motion-degraded ..."])
-    E_exp_leaf_03_00_01(["Vendor-specific bias (Siemens vs GE v..."])
-    E_exp_leaf_03_00_02(["Protocol mismatch (e.g., non-contrast..."])
-    E_exp_leaf_03_01_00(["Poor performance in diverse or unders..."])
-    E_exp_leaf_03_01_01(["Doesn’t handle comorbidities well"])
-    E_exp_leaf_03_01_02(["Struggles with post-treatment anatomy"])
-    E_exp_leaf_03_02_00(["Trained on radiology reports, not exp..."])
-    E_exp_leaf_03_02_01(["No distinction between incidental vs ..."])
-    E_exp_leaf_04_00_00(["Clinicians demand AI concordance befo..."])
-    E_exp_leaf_04_00_01(["Administrators use AI accuracy stats ..."])
-    E_exp_leaf_04_00_02(["Pressure to conform to AI output even..."])
-    E_exp_leaf_04_01_00(["Trainees skip foundational learning"])
-    E_exp_leaf_04_01_01(["Fewer opportunities to learn from mis..."])
-    E_exp_leaf_04_01_02(["No curriculum for AI critique or vali..."])
-    E_exp_leaf_04_02_00(["Data scientists don’t understand clin..."])
-    E_exp_leaf_04_02_01(["Clinicians expect AI to replace radio..."])
-    E_exp_leaf_04_02_02(["Radiologists excluded from AI design ..."])
+    E_exp_leaf_00_00_00(["Oversimplified regulatory logic"])
+    E_exp_leaf_00_00_01(["Missing non-coding RNA effects"])
+    E_exp_leaf_00_00_02(["Static network topology"])
+    E_exp_leaf_00_00_03(["Can’t tell if emergent behavior is re..."])
+    E_exp_leaf_00_01_00(["Assumes complete knockout"])
+    E_exp_leaf_00_01_01(["Ignores off-target effects"])
+    E_exp_leaf_00_01_02(["No compensation or adaptation over time"])
+    E_exp_leaf_00_01_03(["Feels wrong even when metrics say it’..."])
+    E_exp_leaf_00_02_00(["Trained on generic cell lines"])
+    E_exp_leaf_00_02_01(["Can’t handle rare or transitional states"])
+    E_exp_leaf_00_02_02(["Epigenetic memory not modeled"])
+    E_exp_leaf_00_02_03(["Intuitively know which cell types wil..."])
+    E_exp_leaf_01_00_00(["High false positive rate wastes reagents"])
+    E_exp_leaf_01_00_01(["Prioritization conflicts with model c..."])
+    E_exp_leaf_01_00_02(["Can’t afford to validate edge cases"])
+    E_exp_leaf_01_00_03(["Gut feeling overrides high-confidence..."])
+    E_exp_leaf_01_01_00(["Model turnaround slower than bench work"])
+    E_exp_leaf_01_01_01(["Iterative loop is broken"])
+    E_exp_leaf_01_01_02(["Post-hoc explanations arrive too late"])
+    E_exp_leaf_01_01_03(["Sense when a prediction isn’t worth w..."])
+    E_exp_leaf_01_02_00(["No standard validation protocols"])
+    E_exp_leaf_01_02_01(["Batch effects masquerade as model errors"])
+    E_exp_leaf_01_02_02(["Published benchmarks use unrealistic ..."])
+    E_exp_leaf_01_02_03(["Know which benchmarks are ‘gamed’"])
+    E_exp_leaf_02_00_00(["Attention maps don’t reflect biology"])
+    E_exp_leaf_02_00_01(["Can’t trace causal paths"])
+    E_exp_leaf_02_00_02(["Uncertainty estimates are meaningless"])
+    E_exp_leaf_02_00_03(["Instinctively distrust smooth gradients"])
+    E_exp_leaf_02_01_00(["New postdocs treat it like oracle"])
+    E_exp_leaf_02_01_01(["Experienced PIs ignore it entirely"])
+    E_exp_leaf_02_01_02(["Hard to communicate limitations to co..."])
+    E_exp_leaf_02_01_03(["Feel uneasy when model agrees too muc..."])
+    E_exp_leaf_02_02_00(["Failure modes are opaque"])
+    E_exp_leaf_02_02_01(["No sandbox for ‘what-if’ exploration"])
+    E_exp_leaf_02_02_02(["Can’t isolate data vs. model errors"])
+    E_exp_leaf_02_02_03(["Recognize failure patterns from past ..."])
+    E_exp_leaf_03_00_00(["Requires imputed scRNA-seq"])
+    E_exp_leaf_03_00_01(["Struggles with multi-omic integration"])
+    E_exp_leaf_03_00_02(["Sensitive to batch-corrected data"])
+    E_exp_leaf_03_00_03(["Can sense when metadata is inconsistent"])
+    E_exp_leaf_03_01_00(["Requires GPU cluster access"])
+    E_exp_leaf_03_01_01(["No local lightweight version"])
+    E_exp_leaf_03_01_02(["Poor error messaging"])
+    E_exp_leaf_03_01_03(["Know which parameters are safe to tweak"])
+    E_exp_leaf_03_02_00(["Can’t share patient-derived inputs"])
+    E_exp_leaf_03_02_01(["Model trained on proprietary data"])
+    E_exp_leaf_03_02_02(["Version drift between labs"])
+    E_exp_leaf_03_02_03(["Worry about data leakage in shared mo..."])
+    E_exp_leaf_04_00_00(["Wet-lab biologists can’t interrogate ..."])
+    E_exp_leaf_04_00_01(["Computational folks don’t understand ..."])
+    E_exp_leaf_04_00_02(["No shared language for uncertainty"])
+    E_exp_leaf_04_00_03(["Sense when a collaborator is overinte..."])
+    E_exp_leaf_04_01_00(["Breaks agile experimentation"])
+    E_exp_leaf_04_01_01(["No integration with LIMS or ELN"])
+    E_exp_leaf_04_01_02(["Forces premature commitment"])
+    E_exp_leaf_04_01_03(["Feel friction when skipping the model"])
+    E_exp_leaf_04_02_00(["No realistic training datasets"])
+    E_exp_leaf_04_02_01(["Hard to teach appropriate skepticism"])
+    E_exp_leaf_04_02_02(["Documentation assumes ML background"])
+    E_exp_leaf_04_02_03(["Know which users will misuse it"])
     end
     subgraph researcher [Researcher Goals]
-    R_res_leaf_00_00_00(["Map the canonical sequence of steps f..."])
-    R_res_leaf_00_00_01(["Identify the moment experts consider ..."])
-    R_res_leaf_00_00_02(["Characterize confidence distribution ..."])
-    R_res_leaf_00_01_00(["Elicit unformalizable 'experience rul..."])
-    R_res_leaf_00_01_01(["Identify signals prioritized when eva..."])
-    R_res_leaf_00_01_02(["Understand criteria for 'credible' ce..."])
-    R_res_leaf_01_00_00(["Understand strategies for choosing cl..."])
-    R_res_leaf_01_00_01(["Determine triggers for suspecting a n..."])
-    R_res_leaf_01_01_00(["Characterize cluster adjustment behav..."])
-    R_res_leaf_01_01_01(["Identify sources of iteration friction"])
-    R_res_leaf_02_00_00(["Inventory primary tools and custom sc..."])
-    R_res_leaf_02_01_00(["Identify highly efficient tool features"])
-    R_res_leaf_02_01_01(["Pinpoint unavoidable but burdensome t..."])
-    R_res_leaf_02_01_02(["Assess support for hypothesis testing..."])
-    R_res_leaf_03_00_00(["Map multi-modal evidence requirements..."])
-    R_res_leaf_03_00_01(["Identify gaps between computational o..."])
-    R_res_leaf_03_01_00(["Assess difficulty of biological sense..."])
-    R_res_leaf_03_01_01(["Characterize challenges in communicat..."])
-    R_res_leaf_04_00_00(["Define conditions under which an AI-s..."])
-    R_res_leaf_04_01_00(["Identify opportunities for AI to surf..."])
-    R_res_leaf_04_01_01(["Determine needs for interactive hypot..."])
+    R_res_leaf_00_00_00(["Identify which gene changes lead to c..."])
+    R_res_leaf_00_00_01(["Understand why perturbation of a part..."])
+    R_res_leaf_00_00_02(["Assess the model's confidence in pred..."])
+    R_res_leaf_00_01_00(["Determine which XAI methods enhance u..."])
+    R_res_leaf_00_01_01(["Integrate literature or biological kn..."])
+    R_res_leaf_00_01_02(["Support hypothesis generation through..."])
+    R_res_leaf_01_00_00(["Map typical manual gene perturbation ..."])
+    R_res_leaf_01_00_01(["Identify bottlenecks in current pertu..."])
+    R_res_leaf_01_01_00(["Assess familiarity and prior experien..."])
+    R_res_leaf_01_01_01(["Identify common challenges when using..."])
+    R_res_leaf_01_01_02(["Determine problems experts aim to sol..."])
+    R_res_leaf_02_00_00(["Elicit expert-defined reliability met..."])
+    R_res_leaf_02_00_01(["Assess role of reproducibility in tru..."])
+    R_res_leaf_02_01_00(["Characterize difficulties interpretin..."])
+    R_res_leaf_02_01_01(["Map mismatches between model behavior..."])
+    R_res_leaf_02_01_02(["Evaluate need for comparative baselines"])
+    R_res_leaf_03_00_00(["Discover drugs or key genes influenci..."])
+    R_res_leaf_03_00_01(["Understand how gene perturbations aff..."])
+    R_res_leaf_03_01_00(["Support learning of gene regulatory m..."])
+    R_res_leaf_03_01_01(["Facilitate cross-condition comparison..."])
     end
-    E_exp_leaf_00_01_02 -.->|"ScopeGap"| R_res_leaf_03_00_00
-    E_exp_leaf_00_01_03 -.->|"TacitGap"| R_res_leaf_00_01_00
-    E_exp_leaf_01_00_03 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_02_00_01 -.->|"ScopeGap"| R_res_leaf_04_00_00
-    E_exp_leaf_03_01_01 -.->|"ConceptualGap"| R_res_leaf_03_00_00
-    E_exp_leaf_04_01_00 -.->|"ConceptualGap"| R_res_leaf_04_01_00
-    E_exp_leaf_04_02_00 -.->|"ScopeGap"| R_res_leaf_02_01_00
-    E_exp_leaf_00_00_02 -.->|"ConceptualGap"| R_res_leaf_01_00_01
-    E_exp_leaf_04_00_00 -.->|"ScopeGap"| R_res_leaf_03_01_01
-    E_exp_leaf_00_00_00 -.->|"ConceptualGap"| R_res_leaf_04_00_00
-    E_exp_leaf_00_00_01 -.->|"ConceptualGap"| R_res_leaf_04_01_00
-    E_exp_leaf_00_00_03 -.->|"ConceptualGap"| R_res_leaf_04_01_00
-    E_exp_leaf_00_01_00 -.->|"ConceptualGap"| R_res_leaf_04_01_00
-    E_exp_leaf_00_01_01 -.->|"ConceptualGap"| R_res_leaf_03_01_00
-    E_exp_leaf_00_02_01 -.->|"ConceptualGap"| R_res_leaf_04_01_00
-    E_exp_leaf_00_02_02 -.->|"ConceptualGap"| R_res_leaf_00_01_02
-    E_exp_leaf_01_00_00 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_00_01 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_00_02 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_01_00 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_01_01 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_01_02 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_02_00 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_01_02_01 -.->|"ConceptualGap"| R_res_leaf_01_01_01
-    E_exp_leaf_01_02_02 -.->|"TacitGap"| R_res_leaf_02_01_01
-    E_exp_leaf_02_00_00 -.->|"ConceptualGap"| R_res_leaf_01_01_00
-    E_exp_leaf_02_00_02 -.->|"ConceptualGap"| R_res_leaf_02_00_00
-    E_exp_leaf_02_01_00 -.->|"ConceptualGap"| R_res_leaf_03_01_01
-    E_exp_leaf_02_01_01 -.->|"ConceptualGap"| R_res_leaf_00_00_02
-    E_exp_leaf_02_01_02 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_02_02_00 -.->|"ConceptualGap"| R_res_leaf_03_01_01
-    E_exp_leaf_02_02_01 -.->|"ConceptualGap"| R_res_leaf_03_00_01
-    E_exp_leaf_03_00_00 -.->|"ConceptualGap"| R_res_leaf_02_00_00
-    E_exp_leaf_03_00_01 -.->|"ConceptualGap"| R_res_leaf_03_00_01
-    E_exp_leaf_03_00_02 -.->|"ConceptualGap"| R_res_leaf_01_01_00
-    E_exp_leaf_03_01_00 -.->|"ConceptualGap"| R_res_leaf_03_00_01
-    E_exp_leaf_03_01_02 -.->|"ConceptualGap"| R_res_leaf_03_01_01
-    E_exp_leaf_03_02_00 -.->|"ConceptualGap"| R_res_leaf_04_00_00
-    E_exp_leaf_03_02_01 -.->|"TacitGap"| R_res_leaf_00_01_01
-    E_exp_leaf_04_00_01 -.->|"ConceptualGap"| R_res_leaf_02_01_01
-    E_exp_leaf_04_00_02 -.->|"TacitGap"| R_res_leaf_04_00_00
-    E_exp_leaf_04_01_01 -.->|"TacitGap"| R_res_leaf_01_01_01
-    E_exp_leaf_04_01_02 -.->|"ConceptualGap"| R_res_leaf_03_00_01
-    E_exp_leaf_04_02_01 -.->|"ConceptualGap"| R_res_leaf_04_01_01
-    E_exp_leaf_04_02_02 -.->|"ConceptualGap"| R_res_leaf_02_01_01
+    E_exp_leaf_00_00_03 -.->|"TacitGap"| R_res_leaf_00_00_02
+    E_exp_leaf_00_01_03 -.->|"TacitGap"| R_res_leaf_02_01_01
+    E_exp_leaf_00_02_03 -.->|"TacitGap"| R_res_leaf_03_01_01
+    E_exp_leaf_01_00_03 -.->|"ScopeGap"| R_res_leaf_02_00_00
+    E_exp_leaf_01_01_03 -.->|"TacitGap"| R_res_leaf_01_01_01
+    E_exp_leaf_02_00_00 -.->|"ConceptualGap"| R_res_leaf_00_01_00
+    E_exp_leaf_02_00_03 -.->|"TacitGap"| R_res_leaf_02_01_01
+    E_exp_leaf_02_01_03 -.->|"ScopeGap"| R_res_leaf_03_00_00
+    E_exp_leaf_02_02_03 -.->|"TacitGap"| R_res_leaf_01_01_01
+    E_exp_leaf_04_00_03 -.->|"TacitGap"| R_res_leaf_02_01_01
+    E_exp_leaf_04_01_03 -.->|"ScopeGap"| R_res_leaf_01_01_02
+    E_exp_leaf_04_02_03 -.->|"TacitGap"| R_res_leaf_01_01_00
+    E_exp_leaf_00_00_01 -.->|"ConceptualGap"| R_res_leaf_03_00_01
+    E_exp_leaf_00_00_02 -.->|"ConceptualGap"| R_res_leaf_03_01_01
+    E_exp_leaf_00_01_00 -.->|"ConceptualGap"| R_res_leaf_03_00_00
+    E_exp_leaf_00_01_01 -.->|"ConceptualGap"| R_res_leaf_02_01_01
+    E_exp_leaf_00_01_02 -.->|"ConceptualGap"| R_res_leaf_03_01_00
+    E_exp_leaf_00_02_00 -.->|"ConceptualGap"| R_res_leaf_03_01_01
+    E_exp_leaf_00_02_01 -.->|"ConceptualGap"| R_res_leaf_03_00_01
+    E_exp_leaf_00_02_02 -.->|"ConceptualGap"| R_res_leaf_03_01_00
+    E_exp_leaf_01_00_00 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_01_00_01 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_01_00_02 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_01_01_00 -.->|"ConceptualGap"| R_res_leaf_01_01_02
+    E_exp_leaf_01_01_01 -.->|"ConceptualGap"| R_res_leaf_01_00_01
+    E_exp_leaf_01_01_02 -.->|"ConceptualGap"| R_res_leaf_00_00_01
+    E_exp_leaf_01_02_00 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_01_02_01 -.->|"ConceptualGap"| R_res_leaf_00_00_02
+    E_exp_leaf_01_02_02 -.->|"ConceptualGap"| R_res_leaf_01_00_00
+    E_exp_leaf_01_02_03 -.->|"TacitGap"| R_res_leaf_02_01_00
+    E_exp_leaf_02_00_01 -.->|"ConceptualGap"| R_res_leaf_00_00_01
+    E_exp_leaf_02_01_00 -.->|"ConceptualGap"| R_res_leaf_03_00_00
+    E_exp_leaf_02_01_01 -.->|"ConceptualGap"| R_res_leaf_03_00_00
+    E_exp_leaf_02_01_02 -.->|"ConceptualGap"| R_res_leaf_00_00_02
+    E_exp_leaf_02_02_00 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_02_02_01 -.->|"ConceptualGap"| R_res_leaf_00_00_01
+    E_exp_leaf_02_02_02 -.->|"ConceptualGap"| R_res_leaf_02_01_01
+    E_exp_leaf_03_00_01 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_03_00_02 -.->|"ConceptualGap"| R_res_leaf_00_00_02
+    E_exp_leaf_03_00_03 -.->|"TacitGap"| R_res_leaf_01_01_01
+    E_exp_leaf_03_01_00 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_03_01_01 -.->|"ConceptualGap"| R_res_leaf_02_01_00
+    E_exp_leaf_03_01_02 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_03_01_03 -.->|"TacitGap"| R_res_leaf_02_01_00
+    E_exp_leaf_03_02_00 -.->|"ConceptualGap"| R_res_leaf_01_00_00
+    E_exp_leaf_03_02_01 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_03_02_02 -.->|"ConceptualGap"| R_res_leaf_02_01_00
+    E_exp_leaf_03_02_03 -.->|"TacitGap"| R_res_leaf_01_01_01
+    E_exp_leaf_04_00_00 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_04_00_01 -.->|"ConceptualGap"| R_res_leaf_01_00_01
+    E_exp_leaf_04_00_02 -.->|"ConceptualGap"| R_res_leaf_02_01_01
+    E_exp_leaf_04_01_00 -.->|"ConceptualGap"| R_res_leaf_01_00_01
+    E_exp_leaf_04_01_01 -.->|"ConceptualGap"| R_res_leaf_01_01_00
+    E_exp_leaf_04_01_02 -.->|"ConceptualGap"| R_res_leaf_01_00_01
+    E_exp_leaf_04_02_00 -.->|"ConceptualGap"| R_res_leaf_01_01_01
+    E_exp_leaf_04_02_01 -.->|"ConceptualGap"| R_res_leaf_00_00_02
+    E_exp_leaf_04_02_02 -.->|"ConceptualGap"| R_res_leaf_01_01_01
         </pre>
     </div>
     

@@ -726,6 +726,7 @@ def index():
         guide_text=get_guide_text(),
         guide_error=session.get("guide_error"),
         questionnaire_uploaded=bool(get_uploaded_questionnaire_text().strip()),
+        questionnaire_text=get_uploaded_questionnaire_text(),
         questionnaire_error=session.get("questionnaire_error"),
         dsag_ready=dsag_ready,
         transcript_summary=ts_data,

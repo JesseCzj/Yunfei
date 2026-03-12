@@ -519,3 +519,76 @@ document.querySelectorAll(".clickable-followup").forEach((item) => {
   item.addEventListener("click", handleFollowupClick);
 });
 
+// ============== Resizable Three-Panel Layout ==============
+
+function initPanelResizers() {
+  const container = document.querySelector(".main-panels");
+  if (!container) return;
+
+  const leftPanel = container.querySelector(".script-panel");
+  const rightPanel = container.querySelector(".process-panel");
+  const leftResizer = container.querySelector('.panel-resizer[data-resizer="left"]');
+  const rightResizer = container.querySelector('.panel-resizer[data-resizer="right"]');
+  if (!leftPanel || !rightPanel || !leftResizer || !rightResizer) return;
+
+  const minLeft = 240;
+  const minCenter = 420;
+  const minRight = 240;
+  const resizerWidth = 16; // two resizers, 8px each
+
+  let dragSide = null;
+  let startX = 0;
+  let startLeftWidth = 0;
+  let startRightWidth = 0;
+
+  const stopDragging = () => {
+    if (!dragSide) return;
+    dragSide = null;
+    leftResizer.classList.remove("is-dragging");
+    rightResizer.classList.remove("is-dragging");
+    document.body.classList.remove("is-resizing-panels");
+    window.removeEventListener("mousemove", onDragMove);
+    window.removeEventListener("mouseup", stopDragging);
+  };
+
+  const onDragMove = (event) => {
+    if (!dragSide) return;
+    const dx = event.clientX - startX;
+    const totalWidth = container.clientWidth;
+
+    if (dragSide === "left") {
+      let nextLeft = startLeftWidth + dx;
+      const maxLeft = totalWidth - startRightWidth - minCenter - resizerWidth;
+      nextLeft = Math.max(minLeft, Math.min(maxLeft, nextLeft));
+      container.style.setProperty("--left-panel-width", `${nextLeft}px`);
+      return;
+    }
+
+    let nextRight = startRightWidth - dx;
+    const leftCurrent = leftPanel.getBoundingClientRect().width;
+    const maxRight = totalWidth - leftCurrent - minCenter - resizerWidth;
+    nextRight = Math.max(minRight, Math.min(maxRight, nextRight));
+    container.style.setProperty("--right-panel-width", `${nextRight}px`);
+  };
+
+  const startDragging = (side, event) => {
+    if (window.innerWidth <= 1024) return;
+    dragSide = side;
+    startX = event.clientX;
+    startLeftWidth = leftPanel.getBoundingClientRect().width;
+    startRightWidth = rightPanel.getBoundingClientRect().width;
+
+    document.body.classList.add("is-resizing-panels");
+    (side === "left" ? leftResizer : rightResizer).classList.add("is-dragging");
+    window.addEventListener("mousemove", onDragMove);
+    window.addEventListener("mouseup", stopDragging);
+    event.preventDefault();
+  };
+
+  leftResizer.addEventListener("mousedown", (event) => startDragging("left", event));
+  rightResizer.addEventListener("mousedown", (event) => startDragging("right", event));
+
+  window.addEventListener("blur", stopDragging);
+}
+
+initPanelResizers();
