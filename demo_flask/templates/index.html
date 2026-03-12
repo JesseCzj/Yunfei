@@ -481,12 +481,12 @@
                     {% if mb.sub_bullets %}
                       {% for sb in mb.sub_bullets %}
                         <div class="ts-sub-bullet">
-                          <div class="ts-sub-summary">{{ sb.summary }}</div>
                           <div class="ts-turn-chips">
                             {% for ti in sb.turn_indices %}
                               <span class="ts-turn-chip">T{{ ti }}</span>
                             {% endfor %}
                           </div>
+                          <div class="ts-sub-summary">{{ sb.summary }}</div>
                         </div>
                       {% endfor %}
                     {% else %}
