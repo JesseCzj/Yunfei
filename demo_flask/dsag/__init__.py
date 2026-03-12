@@ -12,6 +12,9 @@ from .schema import (
     RelationType,
     NodeAlignment,
     TreeAlignments,
+    SubBullet,
+    MainBullet,
+    TranscriptSummary,
     validate_graph,
     compute_lca_layer,
 )
@@ -31,10 +34,14 @@ from .runtime import (
     RuntimeEngine,
     RuntimeAnalysis,
     Assistance,
-    DriftSignal,
     LocatedPosition,
     DivergenceInfo,
     analyze_turn,
+)
+
+from .transcript_summary import (
+    parse_questionnaire,
+    classify_and_update,
 )
 
 __all__ = [
@@ -49,6 +56,9 @@ __all__ = [
     "RelationType",
     "NodeAlignment",
     "TreeAlignments",
+    "SubBullet",
+    "MainBullet",
+    "TranscriptSummary",
     "validate_graph",
     "compute_lca_layer",
     # Factory
@@ -62,8 +72,10 @@ __all__ = [
     "RuntimeEngine",
     "RuntimeAnalysis",
     "Assistance",
-    "DriftSignal",
     "LocatedPosition",
     "DivergenceInfo",
     "analyze_turn",
+    # Transcript Summary
+    "parse_questionnaire",
+    "classify_and_update",
 ]

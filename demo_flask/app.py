@@ -14,7 +14,10 @@ from dsag import (
     GraphFactory,
     EmbeddingIndex,
     RuntimeEngine,
+    TranscriptSummary,
     build_embedding_index,
+    parse_questionnaire,
+    classify_and_update,
 )
 from llm_backend import analyze_exchange
 
@@ -87,14 +90,17 @@ def get_messages():
     return session["messages"]
 
 
-def get_interview_timeline() -> List[Dict[str, Any]]:
-    """Get the interview timeline stored in the browser session."""
-    return list(session.get("interview_timeline", []))
+def get_transcript_summary() -> Optional[TranscriptSummary]:
+    """Get the transcript summary stored in the browser session."""
+    data = session.get("transcript_summary")
+    if data and isinstance(data, dict):
+        return TranscriptSummary.from_dict(data)
+    return None
 
 
-def set_interview_timeline(timeline: List[Dict[str, Any]]) -> None:
-    """Persist the interview timeline for the current browser session."""
-    session["interview_timeline"] = timeline
+def set_transcript_summary(ts: TranscriptSummary) -> None:
+    """Persist the transcript summary for the current browser session."""
+    session["transcript_summary"] = ts.to_dict()
 
 
 def build_context_summary(messages, max_turns: int = 3) -> str:
@@ -171,93 +177,37 @@ def resolve_questionnaire_text() -> tuple[str, str]:
     return "", "empty"
 
 
-def build_timeline_entry(
-    graph: DSAGGraph,
-    analysis: Any,
-    researcher_question: str,
-    expert_answer: str,
-    turn_index: int,
-) -> Optional[Dict[str, Any]]:
-    """Build a session-scoped timeline entry for drift tracking.
-
-    Low-confidence turns are excluded: if the expert match is below the
-    confidence threshold the mapping is unreliable, so recording it would
-    pollute drift detection with phantom topic patterns.
-    """
-    expert_leaf_id = analysis.located.best_expert_leaf_id
-    if not expert_leaf_id:
-        return None
-
-    try:
-        confidence_threshold = float(
-            os.getenv("DSAG_MATCH_CONFIDENCE_THRESHOLD", "0.45")
-        )
-    except Exception:
-        confidence_threshold = 0.45
-    if analysis.located.expert_confidence < confidence_threshold:
-        return None
-
-    expert_node = graph.expert_tree.get_node(expert_leaf_id)
-    return {
-        "turn_index": turn_index,
-        "topic_label": expert_node.label if expert_node else "",
-        "expert_leaf_id": expert_leaf_id,
-        "researcher_leaf_id": analysis.located.best_researcher_leaf_id or "",
-        "relation_type": (
-            analysis.selected_link.relation_type
-            if analysis.selected_link else ""
-        ),
-        "summary": f"Q: {researcher_question[:80]} | A: {expert_answer[:80]}",
-    }
-
-
 def analyze_turn_with_dsag(
     dsag_state: DSAGState,
     researcher_question: str,
     expert_answer: str,
     messages: List[Dict[str, Any]],
 ):
-    """Run DSAG analysis for the current session.
-
-    Drift detection is handled inside analyze_turn (with a synthetic
-    current-turn entry appended to the timeline), so no re-generation
-    is needed here.
-    """
+    """Run DSAG analysis for the current session."""
     embedding_index = EmbeddingIndex(dsag_state.graph)
     embedding_index.load_embeddings_data({
         "expert": dsag_state.expert_leaf_embeddings,
         "researcher": dsag_state.researcher_leaf_embeddings,
     })
 
-    timeline = get_interview_timeline()
     context_summary = build_context_summary(messages)
     engine = RuntimeEngine(dsag_state.graph, embedding_index)
     analysis = engine.analyze_turn(
         researcher_question,
         expert_answer,
         context_summary=context_summary,
-        interview_timeline=timeline,
     )
 
-    timeline_entry = build_timeline_entry(
-        dsag_state.graph,
-        analysis,
-        researcher_question,
-        expert_answer,
-        turn_index=len(timeline) + 1,
-    )
-    if timeline_entry:
-        new_timeline = timeline + [timeline_entry]
-        set_interview_timeline(new_timeline)
-        # Log so you can verify drift trigger: need len >= 4 for drift_detected.
-        drift_info = ""
-        if getattr(analysis, "drift_signal", None) and getattr(
-            analysis.drift_signal, "drift_detected", False
-        ):
-            drift_info = " | drift_detected=True"
-        print(
-            f"[DSAG] timeline length: {len(new_timeline)} (expert_leaf={timeline_entry.get('expert_leaf_id', '')}){drift_info}"
-        )
+    # Update transcript summary
+    ts = get_transcript_summary()
+    if ts and ts.main_bullets:
+        try:
+            turn_index = ts.last_updated_turn + 1
+            ts = classify_and_update(ts, researcher_question, expert_answer, turn_index)
+            set_transcript_summary(ts)
+            print(f"[DSAG] transcript summary updated (turn {turn_index})")
+        except Exception as e:
+            print(f"[DSAG] transcript summary update failed: {e}")
 
     return analysis
 
@@ -304,163 +254,6 @@ def build_term_annotation_context(last_question: str) -> str:
     if last_question:
         lines.append(f"Latest researcher question: {last_question}")
     return "\n".join(lines)
-
-
-def build_process_panel_state(
-    dsag_state: Optional[DSAGState],
-    latest_drift_signal: Optional[Dict[str, Any]] = None,
-) -> Dict[str, Any]:
-    """Build a view model for the Process Guidance panel.
-
-    Combines timeline-based coverage/trail with the latest drift signal.
-    """
-    panel = {
-        "ready": bool(dsag_state and dsag_state.is_ready()),
-        "has_activity": False,
-        "turn_count": 0,
-        "current_topic": "",
-        "coverage": {
-            "ratio": "0/0",
-            "percent": 0,
-            "visited_count": 0,
-            "total_count": 0,
-            "branch_topics": [],
-            "branch_label": "",
-        },
-        "recent_topics": [],
-        "repeated_topic": {
-            "window_size": 0,
-            "distinct_count": 0,
-            "label": "",
-        },
-        "drift": {
-            "detected": False,
-            "detail": "",
-            "redirect": "",
-        },
-    }
-
-    if not dsag_state or not dsag_state.is_ready():
-        return panel
-
-    # Always apply latest drift signal so Narrow Focus Alert shows even when
-    # timeline is empty or not yet accumulated (e.g. first load after drift).
-    if latest_drift_signal:
-        panel["drift"] = {
-            "detected": bool(latest_drift_signal.get("drift_detected")),
-            "detail": latest_drift_signal.get("drift_detail", "") or "",
-            "redirect": latest_drift_signal.get("redirect", "") or "",
-        }
-
-    timeline = get_interview_timeline()
-    if not timeline:
-        return panel
-
-    panel["has_activity"] = True
-    panel["turn_count"] = len(timeline)
-
-    current_entry = timeline[-1]
-    current_leaf_id = current_entry.get("expert_leaf_id", "")
-    siblings = (
-        dsag_state.graph.expert_tree.get_siblings(current_leaf_id)
-        if current_leaf_id else []
-    )
-    current_node = (
-        dsag_state.graph.expert_tree.get_node(current_leaf_id)
-        if current_leaf_id else None
-    )
-
-    panel["current_topic"] = current_entry.get("topic_label", "")
-
-    covered_ids = {
-        entry.get("expert_leaf_id", "")
-        for entry in timeline
-        if entry.get("expert_leaf_id")
-    }
-    branch_nodes = ([current_node] if current_node else []) + siblings
-    branch_topics = []
-    for node in branch_nodes:
-        status = "unvisited"
-        if node.id == current_leaf_id:
-            status = "current"
-        elif node.id in covered_ids:
-            status = "visited"
-        branch_topics.append({
-            "label": node.label,
-            "status": status,
-        })
-
-    visited_count = sum(1 for item in branch_topics if item["status"] != "unvisited")
-    total_count = len(branch_topics)
-
-    # L2 parent label for "Under: ..." (current branch)
-    branch_label = ""
-    if current_node and current_node.parent_id:
-        parent_node = dsag_state.graph.expert_tree.get_node(current_node.parent_id)
-        if parent_node:
-            branch_label = parent_node.label or ""
-
-    panel["coverage"] = {
-        "ratio": f"{visited_count}/{total_count}" if total_count else "0/0",
-        "percent": round((visited_count / total_count) * 100) if total_count else 0,
-        "visited_count": visited_count,
-        "total_count": total_count,
-        "branch_topics": branch_topics,
-        "branch_label": branch_label,
-    }
-
-    # Recent topics with l2_branch_label for branch-jump markers in Topic Trail
-    recent_slice = timeline[-6:]
-    start_idx = max(len(timeline) - 6, 0)
-    recent_topics_list = []
-    for idx, entry in enumerate(recent_slice):
-        expert_leaf_id = entry.get("expert_leaf_id", "")
-        l2_branch_label = ""
-        if expert_leaf_id:
-            node = dsag_state.graph.expert_tree.get_node(expert_leaf_id)
-            if node and node.parent_id:
-                parent_node = dsag_state.graph.expert_tree.get_node(node.parent_id)
-                if parent_node:
-                    l2_branch_label = parent_node.label or ""
-        recent_topics_list.append({
-            "turn_index": entry.get("turn_index", 0),
-            "topic_label": entry.get("topic_label", ""),
-            "is_current": start_idx + idx == len(timeline) - 1,
-            "l2_branch_label": l2_branch_label,
-        })
-
-    # Assign color indices per distinct topic for the Topic Focus visualization
-    seen_topic_colors: Dict[str, int] = {}
-    color_counter = 0
-    for item in recent_topics_list:
-        label = item["topic_label"]
-        if label and label not in seen_topic_colors:
-            seen_topic_colors[label] = color_counter
-            color_counter += 1
-        item["color_idx"] = seen_topic_colors.get(label, 0)
-
-    panel["recent_topics"] = recent_topics_list
-
-    # Repeated-topic progress (same window logic as drift): for display when drift not triggered
-    window_size = min(6, len(timeline))
-    recent_for_window = timeline[-window_size:]
-    recent_ids = [e.get("expert_leaf_id", "") for e in recent_for_window if e.get("expert_leaf_id")]
-    distinct_count = len(set(recent_ids))
-    if window_size > 0:
-        panel["repeated_topic"] = {
-            "window_size": window_size,
-            "distinct_count": distinct_count,
-            "label": f"Last {window_size} turn{'s' if window_size != 1 else ''}: {distinct_count} distinct topic{'s' if distinct_count != 1 else ''}",
-        }
-
-    if latest_drift_signal:
-        panel["drift"] = {
-            "detected": bool(latest_drift_signal.get("drift_detected")),
-            "detail": latest_drift_signal.get("drift_detail", "") or "",
-            "redirect": latest_drift_signal.get("redirect", "") or "",
-        }
-
-    return panel
 
 
 def extract_text_from_upload(upload):
@@ -610,6 +403,16 @@ def api_dsag_init():
             set_dsag_state(existing_state, cache_key)
             if existing_state.graph:
                 export_graph_artifacts(existing_state.graph)
+            # Initialize transcript summary from questionnaire if not already set
+            if existing_state.transcript_summary:
+                set_transcript_summary(existing_state.transcript_summary)
+            elif questionnaire:
+                try:
+                    ts = parse_questionnaire(questionnaire)
+                    existing_state.transcript_summary = ts
+                    set_transcript_summary(ts)
+                except Exception as e:
+                    print(f"[DSAG] parse_questionnaire failed: {e}")
             return jsonify({
                 "success": True,
                 "cached": True,
@@ -634,14 +437,26 @@ def api_dsag_init():
             embedding_index = build_embedding_index(graph)
             export_graph_artifacts(graph)
             
+            # Parse questionnaire into transcript summary
+            ts = None
+            if questionnaire:
+                try:
+                    ts = parse_questionnaire(questionnaire)
+                except Exception as e:
+                    print(f"[DSAG] parse_questionnaire failed: {e}")
+
             # Update state
             with DSAG_LOCK:
                 new_state.graph = graph
                 new_state.expert_leaf_embeddings = embedding_index.expert_leaf_embeddings
                 new_state.researcher_leaf_embeddings = embedding_index.researcher_leaf_embeddings
+                new_state.transcript_summary = ts
                 new_state.status = "ready"
                 new_state.error = ""
-            
+
+            if ts:
+                set_transcript_summary(ts)
+
             return jsonify({
                 "success": True,
                 "cached": False,
@@ -901,13 +716,9 @@ def index():
     dsag_state = get_dsag_state()
     dsag_ready = dsag_state is not None and dsag_state.is_ready()
 
-    # Extract the latest drift signal from the most recent expert message
-    latest_drift = None
-    for m in reversed(messages):
-        ds = (m.get("dsag_analysis") or {}).get("drift_signal")
-        if ds is not None:
-            latest_drift = ds
-            break
+    # Build transcript summary for template
+    ts = get_transcript_summary()
+    ts_data = ts.to_dict() if ts else None
 
     return render_template(
         "index.html",
@@ -917,7 +728,7 @@ def index():
         questionnaire_uploaded=bool(get_uploaded_questionnaire_text().strip()),
         questionnaire_error=session.get("questionnaire_error"),
         dsag_ready=dsag_ready,
-        process_panel=build_process_panel_state(dsag_state, latest_drift),
+        transcript_summary=ts_data,
     )
 
 

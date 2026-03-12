@@ -28,7 +28,7 @@ def test_schema():
     print("\n=== Testing Schema ===")
     
     from dsag.schema import (
-        DSAGNode, TaxonomyTree, GapLink, BridgeTemplates, DSAGGraph,
+        DSAGNode, TaxonomyTree, GapLink, DSAGGraph,
         Tower, Layer, RelationType, validate_graph, compute_lca_layer
     )
     

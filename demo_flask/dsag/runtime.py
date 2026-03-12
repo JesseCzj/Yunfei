@@ -112,41 +112,6 @@ def _parse_json_from_text(text: str) -> Dict[str, Any]:
     return {}
 
 
-# ============== Process Gap Runtime Prompt ==============
-
-PROCESS_GAP_REDIRECT_PROMPT = """You are helping a researcher redirect an interview conversation that has narrowed in focus.
-
-**What happened:** {drift_detail}
-
-**Current topic the expert is discussing:**
-- Label: {current_topic_label}
-- Description: {current_topic_description}
-
-**Expert's latest answer (verbatim excerpt):**
-"{expert_answer}"
-
-**Unvisited related topics the researcher has NOT yet explored:**
-{unvisited_siblings_text}
-
-**Misalignment context:** {misalignment_reason}
-
-**Recent conversation flow (last few turns):**
-{timeline_summary}
-
-Your task: Generate ONE natural redirect sentence that the researcher can speak directly to steer the conversation. Rules:
-1. Reference the expert's actual words or phrasing from their latest answer — show you were listening.
-2. Validate what the expert just said before transitioning.
-3. Use an exploratory question to introduce the unvisited topic — never assert or correct.
-4. Keep it to 1-2 sentences, natural and conversational.
-5. Do NOT use jargon the expert hasn't used.
-
-Return ONLY valid JSON:
-{{
-  "redirect": "Your single redirect sentence here"
-}}
-"""
-
-
 UNCERTAIN_INTERPRETATION_FOLLOWUPS_PROMPT = """You are writing disambiguation follow-up questions for a live interview.
 
 The system detected possible expert concepts that might match the expert's latest answer, but cannot confidently determine which one (if either) the expert is discussing.
@@ -251,7 +216,7 @@ class Assistance:
                                      "safe_phrasing", "misalignment_reason"}
                       methodology_conflict: {"sub_type", "known_approaches", "researcher_assumed_approach",
                                              "open_process_question", "misalignment_reason"}
-                      Drift detection is handled separately via DriftSignal.
+                      (factual risk and methodology conflict prevention payloads)
     """
     relation_type: str = ""
     payload: Dict[str, Any] = field(default_factory=dict)
@@ -264,28 +229,6 @@ class Assistance:
 
 
 @dataclass
-class DriftSignal:
-    """Session-level drift detection result, independent of gap type.
-
-    Computed every turn from interview_timeline + expert tree structure.
-    A single signal type: narrow_focus (conversation stuck in too few topics
-    while unexplored siblings exist).
-    """
-    coverage: Dict[str, Any] = field(default_factory=dict)
-    drift_detected: bool = False
-    drift_detail: Optional[str] = None
-    redirect: Optional[str] = None
-
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            "coverage": self.coverage,
-            "drift_detected": self.drift_detected,
-            "drift_detail": self.drift_detail,
-            "redirect": self.redirect,
-        }
-
-
-@dataclass
 class RuntimeAnalysis:
     """Complete analysis result for a turn."""
     located: LocatedPosition = field(default_factory=LocatedPosition)
@@ -294,7 +237,6 @@ class RuntimeAnalysis:
     selected_link: Optional[GapLink] = None
     confidence_warning: str = ""
     uncertain_interpretation: Dict[str, Any] = field(default_factory=dict)
-    drift_signal: Optional[DriftSignal] = None
 
     def to_dict(self) -> Dict[str, Any]:
         result = {
@@ -313,8 +255,6 @@ class RuntimeAnalysis:
                 "relation_type": self.selected_link.relation_type,
                 "weight": self.selected_link.weight,
             }
-        if self.drift_signal:
-            result["drift_signal"] = self.drift_signal.to_dict()
         return result
 
 
@@ -966,148 +906,6 @@ Return ONLY valid JSON:
 
         return divergence
 
-    def _generate_process_redirect(
-        self,
-        drift_detail: str,
-        expert_node: DSAGNode,
-        expert_answer: str,
-        unvisited: List[DSAGNode],
-        selected_link: Optional[GapLink],
-        timeline: List[Dict[str, Any]],
-    ) -> Optional[str]:
-        """
-        Generate a context-aware redirect sentence via LLM when drift is detected.
-        Returns the redirect string, or None if the LLM call fails.
-        """
-        if unvisited:
-            unvisited_lines = [f"- {s.label}: {s.description}" for s in unvisited[:4]]
-            unvisited_text = "\n".join(unvisited_lines)
-        else:
-            unvisited_text = "(no specific unvisited siblings)"
-
-        recent = timeline[-4:] if len(timeline) > 4 else timeline
-        tl_lines = []
-        for i, entry in enumerate(recent, 1):
-            tl_lines.append(
-                f"  Turn {entry.get('turn_index', i)}: "
-                f"[{entry.get('topic_label', '?')}] "
-                f"{entry.get('summary', '')[:80]}"
-            )
-        timeline_summary = "\n".join(tl_lines) if tl_lines else "(first turn)"
-
-        misalignment_reason = ""
-        if selected_link and selected_link.assistance_payload:
-            misalignment_reason = selected_link.assistance_payload.get(
-                "misalignment_reason", ""
-            )
-
-        variables = {
-            "drift_detail": drift_detail,
-            "current_topic_label": expert_node.label,
-            "current_topic_description": expert_node.description,
-            "expert_answer": expert_answer[:500],
-            "unvisited_siblings_text": unvisited_text,
-            "misalignment_reason": misalignment_reason,
-            "timeline_summary": timeline_summary,
-        }
-
-        try:
-            llm = self._get_llm()
-            prompt = ChatPromptTemplate.from_messages([
-                ("user", PROCESS_GAP_REDIRECT_PROMPT)
-            ])
-            chain = prompt | llm
-            response = chain.invoke(variables)
-            content = getattr(response, "content", str(response))
-            parsed = _parse_json_from_text(content)
-            return parsed.get("redirect") if parsed else None
-        except Exception as e:
-            print(f"[RuntimeEngine] ProcessGap redirect generation failed: {e}")
-            return None
-
-    def _detect_drift(
-        self,
-        expert_leaf_id: Optional[str],
-        interview_timeline: List[Dict[str, Any]],
-        expert_answer: str = "",
-        researcher_question: str = "",
-        selected_link: Optional[GapLink] = None,
-    ) -> DriftSignal:
-        """Detect conversation drift from timeline patterns.
-
-        Runs every turn, independent of gap type.  Uses the expert tree's
-        sibling structure to compute coverage and detect narrow-focus patterns.
-        """
-        signal = DriftSignal()
-        timeline = interview_timeline or []
-
-        if not expert_leaf_id or not timeline:
-            return signal
-
-        expert_node = self.graph.expert_tree.get_node(expert_leaf_id)
-        if not expert_node:
-            return signal
-
-        # --- Coverage Analysis ---
-        current_label = expert_node.label
-        covered_ids = {entry.get("expert_leaf_id", "") for entry in timeline}
-        visited_labels = [entry.get("topic_label", "") for entry in timeline]
-
-        siblings = self.graph.expert_tree.get_siblings(expert_leaf_id)
-        unvisited = [s for s in siblings if s.id not in covered_ids]
-
-        total_siblings = len(siblings) + 1
-        visited_count = total_siblings - len(unvisited)
-
-        signal.coverage = {
-            "visited": list(dict.fromkeys(visited_labels)),
-            "unvisited_siblings": [s.label for s in unvisited[:5]],
-            "coverage_ratio": f"{visited_count}/{total_siblings}",
-        }
-
-        # --- Narrow Focus Detection ---
-        # Single signal: the recent conversation window is stuck in too few
-        # topics while related siblings remain unexplored.
-        if len(timeline) >= 4 and unvisited:
-            window_size = min(len(timeline), 6)
-            recent_ids = [
-                entry.get("expert_leaf_id", "")
-                for entry in timeline[-window_size:]
-                if entry.get("expert_leaf_id")
-            ]
-            distinct_count = len(set(recent_ids))
-            diversity_threshold = max(2, window_size // 2)
-
-            if len(recent_ids) >= 4 and distinct_count < diversity_threshold:
-                distinct_labels = []
-                seen = set()
-                for eid in recent_ids:
-                    if eid not in seen:
-                        seen.add(eid)
-                        node = self.graph.expert_tree.get_node(eid)
-                        if node:
-                            distinct_labels.append(f"'{node.label}'")
-                signal.drift_detected = True
-                signal.drift_detail = (
-                    f"The last {len(recent_ids)} turns only cover "
-                    f"{distinct_count} topic{'s' if distinct_count != 1 else ''} "
-                    f"({', '.join(distinct_labels)}), while "
-                    f"{len(unvisited)} sibling topics remain unexplored."
-                )
-
-        # --- Redirect Generation (LLM call only when drift detected) ---
-        if signal.drift_detected and expert_node:
-            signal.redirect = self._generate_process_redirect(
-                drift_detail=signal.drift_detail or "",
-                expert_node=expert_node,
-                expert_answer=expert_answer,
-                unvisited=unvisited,
-                selected_link=selected_link,
-                timeline=timeline,
-            )
-
-        return signal
-
     def generate_assistance(
         self,
         expert_leaf_id: Optional[str],
@@ -1150,12 +948,9 @@ Return ONLY valid JSON:
         researcher_question: str,
         expert_answer: str,
         context_summary: str = "",
-        interview_timeline: Optional[List[Dict[str, Any]]] = None,
     ) -> RuntimeAnalysis:
         """
         Analyze a conversation turn and provide type-specific navigation guidance.
-
-        Drift detection runs every turn regardless of confidence or gap type.
         """
         analysis = RuntimeAnalysis()
 
@@ -1216,32 +1011,6 @@ Return ONLY valid JSON:
                     context_summary,
                 )
 
-        # 5. Drift detection — runs every turn, independent of gap type.
-        #    Build an extended timeline that includes the current turn so
-        #    coverage and pattern detection account for the latest data.
-        #    Skip the synthetic entry when confidence is low — an unreliable
-        #    mapping would inject phantom topics into the drift analysis.
-        timeline = list(interview_timeline or [])
-        expert_leaf_id = analysis.located.best_expert_leaf_id
-        confident = analysis.located.expert_confidence >= confidence_threshold
-        if expert_leaf_id and confident:
-            current_node = self.graph.expert_tree.get_node(expert_leaf_id)
-            timeline_with_current = timeline + [{
-                "turn_index": len(timeline) + 1,
-                "topic_label": current_node.label if current_node else "",
-                "expert_leaf_id": expert_leaf_id,
-            }]
-        else:
-            timeline_with_current = timeline
-
-        analysis.drift_signal = self._detect_drift(
-            expert_leaf_id=expert_leaf_id,
-            interview_timeline=timeline_with_current,
-            expert_answer=expert_answer,
-            researcher_question=researcher_question,
-            selected_link=analysis.selected_link,
-        )
-
         return analysis
 
 
@@ -1253,7 +1022,6 @@ def analyze_turn(
     researcher_question: str,
     expert_answer: str,
     context_summary: str = "",
-    interview_timeline: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     """
     Convenience function to analyze a turn.
@@ -1265,6 +1033,5 @@ def analyze_turn(
         researcher_question,
         expert_answer,
         context_summary=context_summary,
-        interview_timeline=interview_timeline,
     )
     return analysis.to_dict()

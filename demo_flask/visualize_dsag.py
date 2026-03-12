@@ -400,7 +400,7 @@ def main():
         print(f"  Test Answer: {test_answer}")
         
         context_summary = ""
-        analysis = engine.analyze_turn(test_question, test_answer, context_summary=context_summary, interview_timeline=[])
+        analysis = engine.analyze_turn(test_question, test_answer, context_summary=context_summary)
         
         print("\n  === Analysis Results ===")
         

@@ -6,9 +6,9 @@ Tests the updated DSAG backend with type-specific assistance generation.
 Run with: python test_dsag_v2.py
 
 Tests:
-1. Schema: GapLink with assistance_payload, DSAGState with interview_timeline
+1. Schema: GapLink with assistance_payload, DSAGState with transcript_summary
 2. Factory: Tree building (no API), type-specific prompt dispatch structure
-3. Runtime: Type-specific assistance branching, timeline accumulation, drift detection
+3. Runtime: Type-specific assistance branching
 4. Full generation (optional, requires API key)
 """
 
@@ -123,19 +123,16 @@ def test_schema():
     assert "pivot" in scope_link.assistance_payload
     print("  [OK] GapLink with assistance_payload (ScopeGap)")
 
-    # Test DSAGState with interview_timeline
+    # Test DSAGState with transcript_summary
     state = DSAGState()
-    assert state.interview_timeline == []
-    state.interview_timeline.append({
-        "turn_index": 1,
-        "topic_label": "False positives",
-        "expert_leaf_id": "exp_leaf_00_00_00",
-        "researcher_leaf_id": "res_leaf_00_00_00",
-        "relation_type": "LexicalGap",
-        "summary": "Q: How do you handle alerts? | A: Too many false alarms.",
-    })
-    assert len(state.interview_timeline) == 1
-    print("  [OK] DSAGState with interview_timeline")
+    assert state.transcript_summary is None
+    from dsag.schema import TranscriptSummary, MainBullet, SubBullet
+    ts = TranscriptSummary(main_bullets=[
+        MainBullet(id="mb_01", label="Test Topic", keywords=["test"])
+    ])
+    state.transcript_summary = ts
+    assert len(state.transcript_summary.main_bullets) == 1
+    print("  [OK] DSAGState with transcript_summary")
 
     print("  Schema v2 tests passed!")
     return True
@@ -581,7 +578,7 @@ def test_full_dsag_generation(skip_if_no_key=True):
     test_question = "How do you interpret the AI's confidence score?"
     test_answer = "I look at the highlighted areas, but honestly sometimes I just ignore it when it doesn't match my intuition."
 
-    analysis = engine.analyze_turn(test_question, test_answer, context_summary="", interview_timeline=[])
+    analysis = engine.analyze_turn(test_question, test_answer, context_summary="")
 
     print(f"  [OK] Analysis completed")
     print(f"       Expert position: {analysis.located.best_expert_leaf_id} "

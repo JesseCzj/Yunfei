@@ -176,20 +176,6 @@
 
                             {% endif %}
 
-                            {# ---- Drift (Narrow Focus) in-card so it's visible even if Process panel is missed ---- #}
-                            {% if dsag.drift_signal and dsag.drift_signal.drift_detected %}
-                              <div class="process-card process-card-drift" style="margin-top: 0.75rem;">
-                                <div class="process-card-label">Narrow Focus Alert</div>
-                                <div class="drift-detail">{{ dsag.drift_signal.drift_detail or '' }}</div>
-                                {% if dsag.drift_signal.redirect %}
-                                  <div class="drift-redirect" style="margin-top: 0.5rem;">
-                                    <strong>Suggested redirect:</strong>
-                                    <div class="redirect-text clickable-followup" data-question="{{ dsag.drift_signal.redirect }}">{{ dsag.drift_signal.redirect }}</div>
-                                  </div>
-                                {% endif %}
-                              </div>
-                            {% endif %}
-
                             {# ---- LexicalGap ---- #}
                             {% if rtype == "LexicalGap" and payload.term_mapping is defined %}
                               <div class="dsag-lexical">
@@ -464,99 +450,59 @@
         <aside class="process-panel">
           <div class="panel-header">
             <div>
-              <h2 class="panel-title">Process Guidance</h2>
-              <div class="process-panel-subtitle">Track topic coverage and interview progress</div>
+              <h2 class="panel-title">Transcript Summary</h2>
+              <div class="process-panel-subtitle">Structured summary organized by questionnaire topics</div>
             </div>
           </div>
 
           <div class="process-panel-content">
             {% if not dsag_ready %}
               <div class="process-empty-state">
-                <div class="empty-icon">🧭</div>
-                <div class="empty-text">Initialize DSAG to enable process tracking.</div>
-                <div class="empty-hint">This panel tracks topic coverage and interview progress.</div>
+                <div class="empty-icon">📋</div>
+                <div class="empty-text">Initialize DSAG to enable transcript summarization.</div>
+                <div class="empty-hint">Upload an interview script and initialize DSAG to see structured summaries.</div>
               </div>
-            {% elif not process_panel.has_activity %}
+            {% elif not transcript_summary or not transcript_summary.main_bullets %}
               <div class="process-empty-state">
-                <div class="empty-icon">🗺️</div>
-                <div class="empty-text">No process trace yet.</div>
-                <div class="empty-hint">Start the interview to populate recent topics and local branch coverage.</div>
+                <div class="empty-icon">📝</div>
+                <div class="empty-text">No transcript summary yet.</div>
+                <div class="empty-hint">Upload an interview script to generate topic bullets, then start the interview.</div>
               </div>
             {% else %}
-              <div class="process-card">
-                <div class="process-card-header">
-                  <div class="process-card-label">Coverage</div>
-                  <div class="process-turn-badge">Turn {{ process_panel.turn_count }}</div>
-                </div>
-                {% if process_panel.coverage.branch_label %}
-                  <div class="process-branch-context">{{ process_panel.coverage.branch_label }}</div>
-                {% endif %}
-                <div class="process-progress-row">
-                  <span>{{ process_panel.coverage.visited_count }}/{{ process_panel.coverage.total_count }} topics visited</span>
-                  <span class="process-progress-pct">{{ process_panel.coverage.percent }}%</span>
-                </div>
-                <div class="process-progress">
-                  <div class="process-progress-bar" style="width: {{ process_panel.coverage.percent }}%;"></div>
-                </div>
-                {% if process_panel.coverage.branch_topics %}
-                  <div class="process-branch-topics">
-                    {% for topic in process_panel.coverage.branch_topics %}
-                      <span class="process-topic-chip process-topic-chip-{{ topic.status }}">{{ topic.label }}</span>
-                    {% endfor %}
-                  </div>
-                {% else %}
-                  <div class="process-muted">Coverage becomes available once the current expert topic can be located in the DSAG tree.</div>
-                {% endif %}
-              </div>
-
-              <div class="process-card">
-                <div class="process-card-label">Topic Trail</div>
-                <div class="process-trail">
-                  {% for item in process_panel.recent_topics %}
-                    {% if not loop.first and item.l2_branch_label != loop.previtem.l2_branch_label %}
-                      <div class="process-trail-branch-jump">— switched branch —</div>
+              {% for mb in transcript_summary.main_bullets %}
+                <div class="ts-main-bullet">
+                  <div class="ts-main-header" data-ts-toggle>
+                    <span class="ts-collapse-icon">▸</span>
+                    <span class="ts-main-label">{{ mb.label }}</span>
+                    {% if mb.sub_bullets %}
+                      <span class="ts-sub-count">{{ mb.sub_bullets|length }}</span>
                     {% endif %}
-                    <div class="process-trail-item{% if item.is_current %} is-current{% endif %}">
-                      <span class="process-trail-turn">T{{ item.turn_index }}</span>
-                      <div class="process-trail-body">
-                        <div class="process-trail-topic">{{ item.topic_label }}</div>
-                      </div>
+                  </div>
+                  {% if mb.keywords %}
+                    <div class="ts-keywords">
+                      {% for kw in mb.keywords %}
+                        <span class="ts-keyword-tag">{{ kw }}</span>
+                      {% endfor %}
                     </div>
-                  {% endfor %}
-                </div>
-              </div>
-
-              <div class="process-card{% if process_panel.drift.detected %} process-card-drift{% endif %}">
-                <div class="process-card-label">Topic Focus</div>
-                {% if process_panel.recent_topics %}
-                  <div class="topic-focus-dots">
-                    {% for item in process_panel.recent_topics %}
-                      <div class="topic-focus-dot{% if item.is_current %} tfd-current{% endif %}"
-                           data-color="{{ item.color_idx }}"
-                           title="T{{ item.turn_index }}: {{ item.topic_label }}">
-                        <span class="tfd-turn">T{{ item.turn_index }}</span>
-                      </div>
-                    {% endfor %}
-                  </div>
-                  <div class="topic-focus-legend">
-                    {% set ns = namespace(seen_colors=[]) %}
-                    {% for item in process_panel.recent_topics %}
-                      {% if item.color_idx not in ns.seen_colors %}
-                        {% set ns.seen_colors = ns.seen_colors + [item.color_idx] %}
-                        <div class="tfl-item">
-                          <span class="tfl-dot" data-color="{{ item.color_idx }}"></span>
-                          <span class="tfl-label" title="{{ item.topic_label }}">{{ item.topic_label }}</span>
+                  {% endif %}
+                  <div class="ts-sub-bullets" style="display:none;">
+                    {% if mb.sub_bullets %}
+                      {% for sb in mb.sub_bullets %}
+                        <div class="ts-sub-bullet">
+                          <div class="ts-sub-summary">{{ sb.summary }}</div>
+                          <div class="ts-turn-chips">
+                            {% for ti in sb.turn_indices %}
+                              <span class="ts-turn-chip">T{{ ti }}</span>
+                            {% endfor %}
+                          </div>
                         </div>
-                      {% endif %}
-                    {% endfor %}
+                      {% endfor %}
+                    {% else %}
+                      <div class="ts-not-discussed">Not discussed yet</div>
+                    {% endif %}
                   </div>
-                  <div class="topic-focus-stats{% if process_panel.drift.detected %} tfs-alert{% endif %}">
-                    {{ process_panel.repeated_topic.distinct_count }} distinct topic{{ 's' if process_panel.repeated_topic.distinct_count != 1 else '' }} / last {{ process_panel.repeated_topic.window_size }} turns
-                  </div>
-                {% else %}
-                  <div class="process-muted">No turns yet.</div>
-                {% endif %}
-              </div>
+                </div>
+              {% endfor %}
             {% endif %}
           </div>
         </aside>

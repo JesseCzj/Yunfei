@@ -370,6 +370,74 @@ class DSAGGraph:
 
 
 @dataclass
+class SubBullet:
+    """A sub-bullet summarizing one or more Q&A turns under a main bullet."""
+    id: str
+    summary: str
+    turn_indices: List[int] = field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> SubBullet:
+        return cls(
+            id=data.get("id", ""),
+            summary=data.get("summary", ""),
+            turn_indices=data.get("turn_indices", []),
+        )
+
+
+@dataclass
+class MainBullet:
+    """A main bullet derived from a questionnaire question."""
+    id: str
+    label: str
+    keywords: List[str] = field(default_factory=list)
+    source_question: str = ""
+    sub_bullets: List[SubBullet] = field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "label": self.label,
+            "keywords": self.keywords,
+            "source_question": self.source_question,
+            "sub_bullets": [sb.to_dict() for sb in self.sub_bullets],
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> MainBullet:
+        return cls(
+            id=data.get("id", ""),
+            label=data.get("label", ""),
+            keywords=data.get("keywords", []),
+            source_question=data.get("source_question", ""),
+            sub_bullets=[SubBullet.from_dict(sb) for sb in data.get("sub_bullets", [])],
+        )
+
+
+@dataclass
+class TranscriptSummary:
+    """Structured running summary of the interview organized by questionnaire topics."""
+    main_bullets: List[MainBullet] = field(default_factory=list)
+    last_updated_turn: int = 0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "main_bullets": [mb.to_dict() for mb in self.main_bullets],
+            "last_updated_turn": self.last_updated_turn,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> TranscriptSummary:
+        return cls(
+            main_bullets=[MainBullet.from_dict(mb) for mb in data.get("main_bullets", [])],
+            last_updated_turn=data.get("last_updated_turn", 0),
+        )
+
+
+@dataclass
 class DSAGState:
     """
     Runtime state for a DSAG session.
@@ -381,7 +449,7 @@ class DSAGState:
         researcher_leaf_embeddings: Dict mapping leaf_id -> embedding vector
         status: Current status (building, ready, error)
         error: Error message if status is error
-        interview_timeline: Accumulated timeline entries for Process Gap tracking
+        transcript_summary: Structured transcript summary for the interview
     """
     graph: Optional[DSAGGraph] = None
     cache_key: str = ""
@@ -389,7 +457,7 @@ class DSAGState:
     researcher_leaf_embeddings: Dict[str, List[float]] = field(default_factory=dict)
     status: Literal["building", "ready", "error"] = "building"
     error: str = ""
-    interview_timeline: List[Dict[str, Any]] = field(default_factory=list)
+    transcript_summary: Optional[TranscriptSummary] = None
 
     def is_ready(self) -> bool:
         return self.status == "ready" and self.graph is not None

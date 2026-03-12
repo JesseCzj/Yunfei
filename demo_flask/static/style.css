@@ -323,7 +323,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   background: #fcfcff;
 }
 
@@ -341,313 +341,118 @@ body {
   color: #7f8c9b;
 }
 
-.process-card {
+/* ---- Transcript Summary ---- */
+.ts-main-bullet {
   background: #ffffff;
   border: 1px solid #ececf4;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 16px rgba(17, 24, 39, 0.03);
 }
 
-.process-card-header {
+.ts-main-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.process-card-label {
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #6b7280;
-  margin-bottom: 10px;
-}
-
-.process-card-note {
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-.process-turn-badge {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #6c5ce7;
-  background: #ede9fe;
-  padding: 3px 10px;
-  border-radius: 999px;
-}
-
-.process-branch-context {
+.ts-collapse-icon {
   font-size: 0.72rem;
   color: #6b7280;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 3px 8px;
-  display: inline-block;
-  margin-bottom: 10px;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.process-topic-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 6px;
-}
-
-.process-meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.process-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #f3f4f6;
-  color: #374151;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.process-progress-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.86rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 8px;
-}
-
-.process-progress-pct {
-  color: #6c5ce7;
-  font-size: 0.92rem;
-}
-
-.process-progress {
-  width: 100%;
-  height: 10px;
-  background: #eef2ff;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-
-.process-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #6c5ce7 0%, #22c55e 100%);
-  border-radius: inherit;
-}
-
-.process-branch-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.process-topic-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 0.77rem;
-  font-weight: 600;
-  border: 1px solid transparent;
-}
-
-.process-topic-chip-current {
-  background: #ede9fe;
-  color: #5b21b6;
-  border-color: #c4b5fd;
-}
-
-.process-topic-chip-visited {
-  background: #ecfdf5;
-  color: #166534;
-  border-color: #bbf7d0;
-}
-
-.process-topic-chip-unvisited {
-  background: #f8fafc;
-  color: #64748b;
-  border-color: #e2e8f0;
-}
-
-.process-trail {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.process-trail-branch-jump {
-  font-size: 0.68rem;
-  color: #94a3b8;
-  padding: 1px 0 1px 4px;
-  letter-spacing: 0.02em;
-}
-
-.process-trail-item {
-  display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
-  gap: 8px;
-  align-items: center;
-  padding: 5px 7px;
-  border-radius: 8px;
-  background: #f8fafc;
-}
-
-.process-trail-item.is-current {
-  background: #eef2ff;
-}
-
-.process-trail-turn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 0;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #6c5ce7;
-  font-size: 0.68rem;
-  font-weight: 700;
-}
-
-.process-trail-body {
-  min-width: 0;
-}
-
-.process-trail-topic {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: #111827;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
-.process-muted {
-  font-size: 0.82rem;
-  line-height: 1.55;
-  color: #6b7280;
-}
-
-.process-card-drift {
-  border-color: #fecaca;
-  background: #fff8f8;
-}
-
-.repeated-topic-progress {
-  font-size: 0.82rem;
-  color: #4b5563;
-  line-height: 1.5;
-}
-
-/* ---- Topic Focus Visualization ---- */
-.topic-focus-dots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.topic-focus-dot {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
   transition: transform 0.15s;
-  position: relative;
-}
-
-.topic-focus-dot:hover {
-  transform: scale(1.12);
-  z-index: 1;
-}
-
-.topic-focus-dot.tfd-current {
-  outline: 3px solid #fff;
-  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.4);
-}
-
-.tfd-turn {
-  font-size: 0.6rem;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.92);
-  letter-spacing: 0;
-}
-
-/* Color palette — 6 distinct topics */
-.topic-focus-dot[data-color="0"] { background: #6c5ce7; }
-.topic-focus-dot[data-color="1"] { background: #0ea5e9; }
-.topic-focus-dot[data-color="2"] { background: #10b981; }
-.topic-focus-dot[data-color="3"] { background: #f59e0b; }
-.topic-focus-dot[data-color="4"] { background: #ef4444; }
-.topic-focus-dot[data-color="5"] { background: #ec4899; }
-
-.tfl-dot[data-color="0"] { background: #6c5ce7; }
-.tfl-dot[data-color="1"] { background: #0ea5e9; }
-.tfl-dot[data-color="2"] { background: #10b981; }
-.tfl-dot[data-color="3"] { background: #f59e0b; }
-.tfl-dot[data-color="4"] { background: #ef4444; }
-.tfl-dot[data-color="5"] { background: #ec4899; }
-
-.topic-focus-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.tfl-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.tfl-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
   flex-shrink: 0;
 }
 
-.tfl-label {
-  font-size: 0.72rem;
-  color: #374151;
+.ts-main-bullet.ts-open .ts-collapse-icon {
+  transform: rotate(90deg);
+}
+
+.ts-main-label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #111827;
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.topic-focus-stats {
-  font-size: 0.73rem;
-  color: #6b7280;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: #f8fafc;
+.ts-sub-count {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #6c5ce7;
+  background: #ede9fe;
+  padding: 2px 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
 }
 
-.topic-focus-stats.tfs-alert {
-  background: #fef2f2;
-  color: #b91c1c;
+.ts-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+  padding-left: 20px;
+}
+
+.ts-keyword-tag {
+  display: inline-block;
+  font-size: 0.68rem;
   font-weight: 600;
+  color: #4b5563;
+  background: #f3f4f6;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.ts-sub-bullets {
+  margin-top: 8px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ts-sub-bullet {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  border-left: 3px solid #c4b5fd;
+}
+
+.ts-sub-summary {
+  font-size: 0.8rem;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.ts-turn-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.ts-turn-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #6c5ce7;
+  background: #ede9fe;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.ts-not-discussed {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 4px 0;
 }
 
 .chat-panel {
@@ -2591,47 +2396,6 @@ body.selection-mode .expert-row.selected .expert-card {
 
 .process-approaches-list li {
   margin-bottom: 3px;
-}
-
-/* ProcessGap — Drift Monitoring */
-.coverage-unvisited {
-  font-size: 0.82rem;
-  color: #374151;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-}
-
-.dsag-drift-alert {
-  background: #fef2f2;
-  border-radius: 6px;
-  padding: 8px 10px;
-  border-left: 3px solid #ef4444;
-}
-
-.drift-detail {
-  font-size: 0.82rem;
-  color: #991b1b;
-  margin-bottom: 6px;
-}
-
-.drift-redirect {
-  font-size: 0.84rem;
-}
-
-.redirect-text {
-  background: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  margin-top: 4px;
-  cursor: pointer;
-  border: 1px dashed #d1d5db;
-  transition: border-color 0.15s;
-}
-
-.redirect-text:hover {
-  border-color: #6366f1;
 }
 
 /* Uncertain Interpretation */
