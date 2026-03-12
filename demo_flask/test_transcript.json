@@ -11,9 +11,9 @@
       "expected": {
         "target_expert_leaf": "exp_leaf_00_00_00",
         "target_expert_label": "Too many false alarms on incidental findings",
-        "target_researcher_leaf": "res_leaf_00_00_00",
-        "target_researcher_label": "Identify metrics used to judge model reliability",
+        "target_researcher_leaf": "res_leaf_00_00_00",        "target_researcher_label": "Identify metrics used to judge model reliability",
         "expected_gap_type": "ScopeGap",
+
         "rationale": "Researcher asks about reliability metrics (res_leaf_00_00_00). Expert responds about false alarm rates on incidentals (exp_leaf_00_00_00). Link exists with ScopeGap, weight 7.0."
       }
     },

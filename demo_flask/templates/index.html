@@ -477,13 +477,6 @@
                       <span class="ts-sub-count">{{ mb.sub_bullets|length }}</span>
                     {% endif %}
                   </div>
-                  {% if mb.keywords %}
-                    <div class="ts-keywords">
-                      {% for kw in mb.keywords %}
-                        <span class="ts-keyword-tag">{{ kw }}</span>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
                   <div class="ts-sub-bullets">
                     {% if mb.sub_bullets %}
                       {% for sb in mb.sub_bullets %}
