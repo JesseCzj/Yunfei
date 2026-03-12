@@ -354,19 +354,6 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.ts-collapse-icon {
-  font-size: 0.72rem;
-  color: #6b7280;
-  transition: transform 0.15s;
-  flex-shrink: 0;
-}
-
-.ts-main-bullet.ts-open .ts-collapse-icon {
-  transform: rotate(90deg);
 }
 
 .ts-main-label {

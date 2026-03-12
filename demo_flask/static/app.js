@@ -519,16 +519,3 @@ document.querySelectorAll(".clickable-followup").forEach((item) => {
   item.addEventListener("click", handleFollowupClick);
 });
 
-// ============== Transcript Summary Collapsible Bullets ==============
-
-document.addEventListener("click", (event) => {
-  const header = event.target.closest("[data-ts-toggle]");
-  if (!header) return;
-  event.preventDefault();
-  const bullet = header.closest(".ts-main-bullet");
-  if (!bullet) return;
-  const subBullets = bullet.querySelector(".ts-sub-bullets");
-  if (!subBullets) return;
-  const isOpen = bullet.classList.toggle("ts-open");
-  subBullets.style.display = isOpen ? "flex" : "none";
-});

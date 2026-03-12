@@ -471,8 +471,7 @@
             {% else %}
               {% for mb in transcript_summary.main_bullets %}
                 <div class="ts-main-bullet">
-                  <div class="ts-main-header" data-ts-toggle>
-                    <span class="ts-collapse-icon">▸</span>
+                  <div class="ts-main-header">
                     <span class="ts-main-label">{{ mb.label }}</span>
                     {% if mb.sub_bullets %}
                       <span class="ts-sub-count">{{ mb.sub_bullets|length }}</span>
@@ -485,7 +484,7 @@
                       {% endfor %}
                     </div>
                   {% endif %}
-                  <div class="ts-sub-bullets" style="display:none;">
+                  <div class="ts-sub-bullets">
                     {% if mb.sub_bullets %}
                       {% for sb in mb.sub_bullets %}
                         <div class="ts-sub-bullet">
