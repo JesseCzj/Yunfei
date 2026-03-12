@@ -101,14 +101,15 @@ CLASSIFY_AND_UPDATE_PROMPT = """You are maintaining a structured interview trans
 1. Decide which main bullet (by id) this Q&A turn belongs to. Pick the BEST match based on semantic relevance. If truly none fit, use "none".
 2. Check if this Q&A overlaps with an existing sub-bullet under that main bullet.
    - If it overlaps: provide the existing sub_bullet id and a MERGED summary that combines the old summary with the new information.
-   - If it's new information: provide a NEW concise summary (1-2 sentences) of what was discussed.
+   - If it's new information: provide a NEW summary of what was discussed.
+3. The "summary" MUST be a short descriptive label (3-10 words), similar in style to the main bullet labels. Do NOT write full sentences. Example: "False alarms cause alarm fatigue", "Domain knowledge corrects AI errors".
 
 Return ONLY valid JSON:
 {{
   "main_bullet_id": "mb_01",
   "action": "merge" or "new",
   "existing_sub_bullet_id": "sb_01_1 (only if action=merge, else empty string)",
-  "summary": "concise summary of this sub-point"
+  "summary": "short descriptive label (3-10 words)"
 }}
 """
 
