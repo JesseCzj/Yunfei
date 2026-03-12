@@ -63,25 +63,32 @@ def _build_llm() -> ChatOpenAI:
     raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
 
 
-PARSE_QUESTIONNAIRE_PROMPT = """You are extracting the main topics from an interview questionnaire/script.
+PARSE_QUESTIONNAIRE_PROMPT = """You are extracting the main topic blocks from an interview questionnaire/script.
 
 ## Questionnaire text
 {questionnaire_text}
 
 ## Task
-Extract the N main questions or topic areas from this questionnaire.
-For each, provide:
-- "label": a short descriptive label (3-8 words)
-- "keywords": 2-4 keywords that capture the essence of this topic
-- "source_question": the original question text (verbatim or lightly cleaned)
+Identify the TOP-LEVEL questions or topic blocks and extract each as one bullet.
+
+### How to identify top-level questions
+Questionnaires come in many styles. Use these heuristics to find the top-level boundaries:
+- **Numbered items** (1. / 2. / Q1 / Question 1) are top-level.
+- **Bolded or larger headings** that introduce a new theme are top-level.
+- **Sub-items** nested under a top-level question (marked by "o", "-", "•", "a)", indentation, or follow-up probes) are NOT separate bullets — they belong to their parent.
+- If the questionnaire has NO explicit numbering or headings, group by thematic shift: each distinct topic area becomes one bullet.
+- When in doubt, prefer FEWER, BROADER bullets over many narrow ones.
+
+### Output per bullet
+- "label": a short descriptive label (3-10 words) summarizing the entire question block
+- "source_question": the FULL original text of this question block INCLUDING all its sub-items, verbatim or lightly cleaned
 
 Return ONLY valid JSON:
 {{
   "bullets": [
     {{
-      "label": "short label",
-      "keywords": ["keyword1", "keyword2"],
-      "source_question": "original question text"
+      "label": "short label for the topic block",
+      "source_question": "full question text with all sub-items"
     }}
   ]
 }}
@@ -98,18 +105,28 @@ CLASSIFY_AND_UPDATE_PROMPT = """You are maintaining a structured interview trans
 - Expert answer: "{answer}"
 
 ## Task
-1. Decide which main bullet (by id) this Q&A turn belongs to. Pick the BEST match based on semantic relevance. If truly none fit, use "none".
-2. Check if this Q&A overlaps with an existing sub-bullet under that main bullet.
-   - If it overlaps: provide the existing sub_bullet id and a MERGED summary that combines the old summary with the new information.
-   - If it's new information: provide a NEW summary of what was discussed.
-3. The "summary" MUST be a short descriptive label (3-10 words), similar in style to the main bullet labels. Do NOT write full sentences. Example: "False alarms cause alarm fatigue", "Domain knowledge corrects AI errors".
+
+### Step 1 — Match to a main bullet
+- Compare the Q&A content against each main bullet's label AND source_question (which contains the original interview question and its sub-items).
+- Pick the BEST semantic match. The Q&A does not need to use the same words — match by underlying topic and intent.
+- Conversations often drift or use domain jargon. Focus on what the expert is actually discussing, not surface keywords.
+- You MUST always pick one main bullet. Every Q&A belongs somewhere — choose the closest match even if the fit is loose.
+
+### Step 2 — Match or create a sub-bullet
+- Look at the existing sub-bullets under the matched main bullet.
+- If this Q&A covers the SAME specific sub-topic as an existing sub-bullet, use "merge" and provide that sub-bullet's id. Generate a merged summary that integrates both the old and new information.
+- If this Q&A introduces a DIFFERENT angle or sub-topic, use "new".
+
+### Step 3 — Write the summary
+The "summary" MUST be a short descriptive phrase (3-10 words). Do NOT write full sentences.
+Examples: "False alarms cause alarm fatigue", "Domain knowledge corrects AI errors", "Seurat preferred over Scanpy for clustering".
 
 Return ONLY valid JSON:
 {{
   "main_bullet_id": "mb_01",
   "action": "merge" or "new",
   "existing_sub_bullet_id": "sb_01_1 (only if action=merge, else empty string)",
-  "summary": "short descriptive label (3-10 words)"
+  "summary": "short descriptive phrase (3-10 words)"
 }}
 """
 
@@ -168,7 +185,7 @@ def classify_and_update(
         mb_data = {
             "id": mb.id,
             "label": mb.label,
-            "keywords": mb.keywords,
+            "source_question": mb.source_question,
             "sub_bullets": [
                 {"id": sb.id, "summary": sb.summary, "turn_indices": sb.turn_indices}
                 for sb in mb.sub_bullets
