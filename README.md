@@ -2,12 +2,6 @@
 
 A plain interview system for HCI research. An AI-simulated domain expert answers researcher questions in real time — no gap detection, no assistance, no analysis overlays.
 
-## What it does
-
-- Researcher types (or speaks) a question; the expert LLM responds automatically
-- Interview questionnaire can be uploaded (txt / docx / pdf) for reference during the session
-- Voice input supported via Web Speech API (Chrome / Edge)
-
 ## Setup
 
 ```bash
