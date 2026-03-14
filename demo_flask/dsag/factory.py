@@ -65,7 +65,7 @@ def _build_llm(temperature: float = 0.3) -> ChatOpenAI:
         if not api_key:
             raise ValueError("OPENAI_API_KEY is not set")
         # Use a capable model for graph generation
-        model = os.getenv("OPENAI_MODEL_GRAPH", os.getenv("OPENAI_MODEL", "qwen3-max-2026-01-23"))
+        model = os.getenv("OPENAI_MODEL_GRAPH", os.getenv("OPENAI_MODEL", "qwen3.5-plus-2026-02-15"))
         base_url = os.getenv("OPENAI_BASE_URL")
         if base_url:
             return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=temperature)
@@ -109,12 +109,29 @@ EXPERT_PERSONA_PROMPT = """You are an experienced domain expert with the followi
 
 You are participating in an interview about: {topic}
 
-Please identify 25-40 key pain points, concerns, or challenges you face in this domain.
+You are also given the interview questionnaire / guide below:
+\"\"\"\n{questionnaire}\n\"\"\"
+
+The questionnaire is NOT a source of expert concepts to copy.
+Do NOT paraphrase questionnaire items into expert leaves.
+Do NOT organize the expert tree around the researcher's wording.
+
+Instead, use the questionnaire only as a coverage guide:
+- make sure the expert tree includes concerns, routines, tacit judgments, and trade-offs that are likely to become relevant during those interview topics
+- if the questionnaire asks about workflow, fairness, intuition, feedback, AI use, or collaboration, include the corresponding expert-side realities, but express them from the expert's lived perspective
+- preserve expert-side concepts even when they do not cleanly match the questionnaire
+- keep the expert tree grounded in practical experience, not research framing
+
+Your goal is to construct an Expert Tree (TExp) that is comparable in size to the Researcher Tree used later for alignment.
+Do NOT maximize coverage by generating many overlapping leaves.
+Instead, produce a compact but diverse taxonomy of the most interview-relevant expert concerns.
+
+Please identify approximately 10-18 key pain points, concerns, practices, or tacit judgments you face in this domain.
 Organize them into a hierarchical taxonomy with the following structure:
 
 - Layer 1 (Perspective): High-level viewpoints or concerns (e.g., "Clinical Outcomes", "Workflow Disruption")
 - Layer 2 (Category): Categories under each perspective (e.g., "Alert Fatigue", "Time Pressure")
-- Layer 3 (Leaf): Specific, concrete pain points (e.g., "Too many false alarms", "Can't trust the predictions")
+- Layer 3 (Leaf): Specific, concrete pain points, practices, decision points, or tacit judgments
 
 Return ONLY valid JSON with this schema:
 {{
@@ -141,10 +158,29 @@ Return ONLY valid JSON with this schema:
   ]
 }}
 
-Scale and coverage requirements:
-- 5-7 perspectives (L1)
-- 3-5 categories under each perspective (L2)
-- 4-6 leaves per category (L3)
+Scale requirements:
+- Target total leaves: 10-18
+- 3-4 perspectives (L1)
+- 2-3 categories under each perspective (L2)
+- 1-3 leaves per category (L3)
+- Prefer fewer, better-separated leaves over exhaustive enumeration
+
+Diversity requirements:
+- Each leaf should represent a DISTINCT concern, practice, bottleneck, judgment, trade-off, or situational cue
+- Avoid near-duplicate leaves that differ only in wording, severity, or minor context
+- Avoid splitting one broad issue into many tiny sibling leaves unless they would clearly lead to different interview follow-up questions
+- Make sure the leaves span different types of expert knowledge:
+  1. concrete workflow or operational issues
+  2. decision criteria or trade-offs
+  3. tacit or intuition-based judgments
+  4. coordination / communication / organizational constraints
+  5. edge cases, exceptions, or context-dependent variations
+- At least 25-40% of leaves should involve tacit, experiential, or hard-to-articulate knowledge when appropriate for the domain
+- Because interview questionnaires often contain process-oriented questions, ensure that at least 2-3 leaves capture routine workflow knowledge, such as:
+  1. how you typically start, sequence, or segment the work
+  2. how you establish, calibrate, or re-check your working standards early
+  3. how you turn observations into decisions, actions, outputs, or judgments
+  4. how you coordinate, hand off, or align with collaborators, stakeholders, or supporting roles when relevant
 
 Coverage strategy — make sure to include:
 1. Pain points specific to your domain expertise that outsiders often overlook
@@ -152,6 +188,8 @@ Coverage strategy — make sure to include:
 3. Both concrete issues AND intuition-based concerns (mark is_intuition=true for vague feelings)
 4. Peripheral or emerging concerns that may not appear in a standard interview guide (e.g., economic pressures, regulatory burden, data governance, team dynamics, training/education gaps)
 5. Edge cases or scenario-specific issues (e.g., differences between routine vs. emergency settings, or between experienced vs. novice practitioners)
+6. Prioritize one representative leaf per meaningfully distinct concern instead of enumerating many slight variants
+7. If two candidate leaves would map to the same interview follow-up in almost the same way, merge them into one stronger leaf
 
 Description and aliases guidance:
 - Write each "description" as you would actually SAY it in a real conversation — use plain, vivid language with concrete examples rather than formal definitions.
@@ -377,6 +415,73 @@ Guidelines for alignment judgment:
 - is_aligned=false: Concepts differ in perspective, scope, or meaning
 - semantic_similarity: 0.0 (completely different) to 1.0 (identical concept)
 - Always include the root-to-root alignment as is_aligned=true in concept_alignments
+"""
+
+# Split prompts used for faster Agent C execution.
+# We keep the original prompt above for compatibility/reference.
+ALIGNMENT_JUDGE_CONCEPT_PROMPT = """You are analyzing concept-level semantic alignments (L1/L2) between an Expert tree and a Researcher tree.
+
+**Interview Topic:** {topic}
+
+**Expert Tree (TExp):**
+{expert_tree_json}
+
+**Researcher Tree (TRes):**
+{researcher_tree_json}
+
+Task:
+- Judge ONLY concept-level alignments (L1/L2 nodes), not leaf-level.
+- Mark concept pairs as aligned when they are semantically equivalent or highly similar.
+- Mark concept pairs as misaligned when they differ in perspective, scope, or meaning.
+- Always include root-to-root as is_aligned=true.
+
+Return ONLY valid JSON:
+{{
+  "concept_alignments": [
+    {{
+      "expert_node_id": "L1 or L2 node ID from expert tree",
+      "researcher_node_id": "L1 or L2 node ID from researcher tree",
+      "is_aligned": true/false,
+      "reason": "Why aligned/misaligned",
+      "semantic_similarity": 0.0-1.0
+    }}
+  ]
+}}
+"""
+
+ALIGNMENT_JUDGE_LEAF_PROMPT = """You are analyzing leaf-level semantic alignments between an Expert tree and a Researcher tree.
+
+**Interview Topic:** {topic}
+
+**Expert Tree Batch (concept skeleton + a subset of expert leaves):**
+{expert_tree_json}
+
+**Researcher Tree (full):**
+{researcher_tree_json}
+
+Task:
+- Judge ONLY LEAF-level pairs.
+- For each expert leaf in this batch, output 2-3 candidate pairs in total:
+  1) At least one "semantic anchor" pair (can be aligned or misaligned)
+  2) At least one MISALIGNED bridge pair when meaningful
+- Avoid near-duplicate pairs for the same expert leaf.
+- If a pair is misaligned, relation_type is REQUIRED and must be one of:
+  LexicalGap | ConceptualGap | TacitGap | ScopeGap | ProcessGap
+- Prefer TacitGap when the expert leaf has non-empty attributes and the gap is about implicit experiential judgment.
+
+Return ONLY valid JSON:
+{{
+  "leaf_alignments": [
+    {{
+      "expert_node_id": "exact expert leaf ID",
+      "researcher_node_id": "exact researcher leaf ID",
+      "is_aligned": true/false,
+      "reason": "Why aligned/misaligned",
+      "semantic_similarity": 0.0-1.0,
+      "relation_type": "REQUIRED when is_aligned=false. Omit when is_aligned=true."
+    }}
+  ]
+}}
 """
 
 # Legacy prompt kept for reference (no longer used)
@@ -1294,6 +1399,65 @@ def generate_all_assistance_payloads(
     return links
 
 
+def _build_minimal_assistance_payload(
+    link: GapLink,
+    expert_tree: TaxonomyTree,
+    researcher_tree: TaxonomyTree,
+) -> Dict[str, Any]:
+    """
+    Deterministic payload fallback to guarantee every persisted GapLink is actionable.
+    This avoids runtime "selected link but empty assistance" cases.
+    """
+    exp_node = expert_tree.get_node(link.expert_leaf_id)
+    res_node = researcher_tree.get_node(link.researcher_leaf_id)
+    expert_label = exp_node.label if exp_node else (link.conflict.get("expert_branch", "") or "expert concept")
+    researcher_label = res_node.label if res_node else (link.conflict.get("researcher_branch", "") or "research goal")
+    relation = (link.relation_type or RelationType.CONCEPTUAL_GAP.value).strip()
+
+    if relation == RelationType.LEXICAL_GAP.value:
+        return {
+            "term_mapping": {
+                "expert_term": expert_label,
+                "researcher_term": researcher_label,
+                "explanation": "These terms likely describe related ideas with different wording.",
+            }
+        }
+    if relation == RelationType.TACIT_GAP.value:
+        attrs = list(getattr(exp_node, "attributes", []) or [])
+        return {
+            "attributes": attrs[:3] if attrs else [expert_label],
+            "probes": [],
+            "hypothetical_scenarios": [],
+            "extracted_attributes": [],
+            "mentioned_attributes": [],
+        }
+    if relation == RelationType.SCOPE_GAP.value:
+        return {
+            "pivot": {
+                "condensed_explanation": (
+                    f"Expert answer emphasizes '{expert_label}' while the researcher asks about "
+                    f"'{researcher_label}'. A bridge question is needed to connect their scopes."
+                )
+            }
+        }
+    if relation == RelationType.PROCESS_GAP.value:
+        return {
+            "sub_type": "factual_risk",
+            "vulnerable_assumption": f"Assuming '{researcher_label}' directly maps to expert workflow.",
+            "domain_correction": f"Expert framing appears closer to '{expert_label}'.",
+            "safe_phrasing": "Could you walk me through how this works in your actual grading process?",
+            "misalignment_reason": "Factory fallback payload generated due missing template payload.",
+        }
+    return {
+        "analogy": {
+            "source_concept": expert_label,
+            "target_concept": researcher_label,
+            "structural_mapping": {"inputs": "", "logic": "", "outputs": ""},
+            "explanation": "Use the expert-side concept to explain the research-side target concept.",
+        }
+    }
+
+
 # ============== Main Factory Class ==============
 
 class GraphFactory:
@@ -1359,13 +1523,19 @@ class GraphFactory:
             f"Last raw response preview: {str(last_content)[:240]}"
         )
     
-    def generate_expert_tree(self, topic: str, expert_bg: str) -> TaxonomyTree:
+    def generate_expert_tree(
+        self,
+        topic: str,
+        expert_bg: str,
+        questionnaire: str = "",
+    ) -> TaxonomyTree:
         """Agent A: Generate expert taxonomy tree."""
         parsed = self._invoke_tree_prompt_with_retry(
             prompt_text=EXPERT_PERSONA_PROMPT,
             variables={
             "topic": topic,
             "expert_bg": expert_bg,
+            "questionnaire": questionnaire or "",
             },
             tree_name="Expert tree",
         )
@@ -1399,37 +1569,112 @@ class GraphFactory:
         Agent C (new): Judge semantic alignments between trees.
         This replaces direct link generation.
         """
-        print("[GraphFactory] Agent C: Judging alignments between trees...")
+        print("[GraphFactory] Agent C: Judging alignments (concept + parallel leaf batches)...")
+
+        researcher_summary = self._tree_to_summary(researcher_tree)
+        researcher_tree_json = json.dumps(researcher_summary, indent=2, ensure_ascii=False)
+
+        # 1) Concept alignments (single call)
         llm = self._get_llm()
-        prompt = ChatPromptTemplate.from_messages([
-            ("user", ALIGNMENT_JUDGE_PROMPT)
-        ])
-        chain = prompt | llm
-        
-        # Prepare tree summaries for the prompt
-        expert_tree_json = json.dumps(
+        concept_prompt = ChatPromptTemplate.from_messages([("user", ALIGNMENT_JUDGE_CONCEPT_PROMPT)])
+        concept_chain = concept_prompt | llm
+        expert_tree_json_full = json.dumps(
             self._tree_to_summary(expert_tree),
             indent=2,
-            ensure_ascii=False
+            ensure_ascii=False,
         )
-        researcher_tree_json = json.dumps(
-            self._tree_to_summary(researcher_tree),
-            indent=2,
-            ensure_ascii=False
-        )
-        
-        response = chain.invoke({
+        concept_resp = concept_chain.invoke({
             "topic": topic,
-            "expert_tree_json": expert_tree_json,
+            "expert_tree_json": expert_tree_json_full,
             "researcher_tree_json": researcher_tree_json,
         })
-        content = getattr(response, "content", str(response))
-        parsed = _parse_json(content)
-        
-        alignments = _parse_alignments(parsed)
-        print(f"[GraphFactory] Agent C found {len(alignments.leaf_alignments)} leaf alignments, "
-              f"{len(alignments.concept_alignments)} concept alignments")
-        
+        concept_parsed = _parse_json(getattr(concept_resp, "content", str(concept_resp)))
+        concept_alignments = _parse_alignments(concept_parsed).concept_alignments
+
+        # 2) Leaf alignments (chunked + parallel)
+        expert_nodes = list(expert_tree.nodes.values())
+        expert_leaf_nodes = [n for n in expert_nodes if n.layer == Layer.LEAF.value]
+        expert_concept_nodes = [n for n in expert_nodes if n.layer != Layer.LEAF.value]
+
+        chunk_size = max(1, int(os.getenv("DSAG_LEAF_ALIGN_CHUNK_SIZE", "6")))
+        max_workers = max(1, int(os.getenv("DSAG_ALIGN_MAX_WORKERS", "3")))
+
+        leaf_chunks: List[List[DSAGNode]] = [
+            expert_leaf_nodes[i:i + chunk_size]
+            for i in range(0, len(expert_leaf_nodes), chunk_size)
+        ]
+
+        def _leaf_summary_for_chunk(chunk: List[DSAGNode]) -> Dict[str, Any]:
+            chunk_ids = {n.id for n in chunk}
+            summary_nodes = []
+            for node in expert_concept_nodes + chunk:
+                if node.layer == Layer.LEAF.value and node.id not in chunk_ids:
+                    continue
+                node_info = {
+                    "id": node.id,
+                    "layer": node.layer,
+                    "label": node.label,
+                    "description": node.description,
+                    "parent_id": node.parent_id,
+                }
+                if node.attributes:
+                    node_info["attributes"] = node.attributes
+                if node.aliases:
+                    node_info["aliases"] = node.aliases
+                summary_nodes.append(node_info)
+            return {"tower": expert_tree.tower, "nodes": summary_nodes}
+
+        def _run_leaf_chunk(chunk: List[DSAGNode]) -> List[NodeAlignment]:
+            local_llm = _build_llm(temperature=0.3)
+            leaf_prompt = ChatPromptTemplate.from_messages([("user", ALIGNMENT_JUDGE_LEAF_PROMPT)])
+            leaf_chain = leaf_prompt | local_llm
+            expert_tree_json_chunk = json.dumps(
+                _leaf_summary_for_chunk(chunk),
+                indent=2,
+                ensure_ascii=False,
+            )
+            response = leaf_chain.invoke({
+                "topic": topic,
+                "expert_tree_json": expert_tree_json_chunk,
+                "researcher_tree_json": researcher_tree_json,
+            })
+            parsed = _parse_json(getattr(response, "content", str(response)))
+            return _parse_alignments(parsed).leaf_alignments
+
+        leaf_alignments: List[NodeAlignment] = []
+        if leaf_chunks:
+            if max_workers > 1 and len(leaf_chunks) > 1:
+                with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                    chunk_results = list(executor.map(_run_leaf_chunk, leaf_chunks))
+                for res in chunk_results:
+                    leaf_alignments.extend(res)
+            else:
+                for chunk in leaf_chunks:
+                    leaf_alignments.extend(_run_leaf_chunk(chunk))
+
+        # 3) Deduplicate leaf alignments, keep highest similarity per key
+        dedup: Dict[Tuple[str, str, bool, Optional[str]], NodeAlignment] = {}
+        for a in leaf_alignments:
+            key = (
+                a.expert_node_id,
+                a.researcher_node_id,
+                a.is_aligned,
+                a.relation_type,
+            )
+            prev = dedup.get(key)
+            if prev is None or a.semantic_similarity > prev.semantic_similarity:
+                dedup[key] = a
+        merged_leaf_alignments = list(dedup.values())
+
+        alignments = TreeAlignments(
+            leaf_alignments=merged_leaf_alignments,
+            concept_alignments=concept_alignments,
+        )
+        print(
+            f"[GraphFactory] Agent C found {len(alignments.leaf_alignments)} leaf alignments, "
+            f"{len(alignments.concept_alignments)} concept alignments "
+            f"(leaf chunks={len(leaf_chunks)}, workers={max_workers})."
+        )
         return alignments
     
     def generate_links(
@@ -1470,7 +1715,9 @@ class GraphFactory:
             misaligned_expert = {a.expert_node_id for a in misaligned_pairs}
             gap_coverage = len(misaligned_expert) / total_expert_leaves
 
-            min_gap_coverage = float(os.getenv("DSAG_GAPLINK_MIN_COVERAGE", "0.8"))
+            # Keep fallback as a safety net, but avoid over-triggering it when
+            # Agent C already provides reasonably broad initial coverage.
+            min_gap_coverage = float(os.getenv("DSAG_GAPLINK_MIN_COVERAGE", "0.65"))
             top_k = int(os.getenv("DSAG_FORCE_PAIRING_TOP_K", "3"))
             per_leaf = int(os.getenv("DSAG_FORCE_PAIRING_PER_LEAF", "1"))
             sim_min = float(os.getenv("DSAG_FORCE_PAIRING_SIM_MIN", "0.25"))
@@ -1600,6 +1847,18 @@ class GraphFactory:
                 researcher_tree=researcher_tree,
                 alignments=alignments,
             )
+
+        # Hard guarantee for runtime: every link must be a usable mismatch link.
+        # Fill missing relation type / payload deterministically instead of leaving empty cards.
+        for link in links:
+            if not link.relation_type:
+                link.relation_type = RelationType.CONCEPTUAL_GAP.value
+            if not isinstance(link.assistance_payload, dict) or not link.assistance_payload:
+                link.assistance_payload = _build_minimal_assistance_payload(
+                    link=link,
+                    expert_tree=expert_tree,
+                    researcher_tree=researcher_tree,
+                )
         
         return links, alignments
     
@@ -1703,7 +1962,12 @@ class GraphFactory:
             print(f"[GraphFactory] Agent A & B: Generating trees concurrently (workers={tree_workers})...")
             try:
                 with concurrent.futures.ThreadPoolExecutor(max_workers=tree_workers) as executor:
-                    future_expert = executor.submit(self.generate_expert_tree, topic, expert_bg)
+                    future_expert = executor.submit(
+                        self.generate_expert_tree,
+                        topic,
+                        expert_bg,
+                        questionnaire,
+                    )
                     future_researcher = executor.submit(
                         self.generate_researcher_tree,
                         topic,
@@ -1717,11 +1981,11 @@ class GraphFactory:
                 # Fall back to serial generation for higher success rate.
                 print(f"[GraphFactory] Concurrent tree generation failed: {exc}")
                 print("[GraphFactory] Falling back to serial tree generation...")
-                expert_tree = self.generate_expert_tree(topic, expert_bg)
+                expert_tree = self.generate_expert_tree(topic, expert_bg, questionnaire)
                 researcher_tree = self.generate_researcher_tree(topic, researcher_bg, questionnaire)
         else:
             print("[GraphFactory] Agent A: Generating expert tree (serial mode)...")
-            expert_tree = self.generate_expert_tree(topic, expert_bg)
+            expert_tree = self.generate_expert_tree(topic, expert_bg, questionnaire)
             print("[GraphFactory] Agent B: Generating researcher tree (serial mode)...")
             researcher_tree = self.generate_researcher_tree(topic, researcher_bg, questionnaire)
 

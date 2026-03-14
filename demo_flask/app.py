@@ -6,6 +6,8 @@ import uuid
 import threading
 from datetime import datetime
 from typing import Any, Dict, List, Optional
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
 
 # Import DSAG modules
 from dsag import (
@@ -32,6 +34,85 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_USE_SIGNER"] = True
 os.makedirs(app.config["SESSION_FILE_DIR"], exist_ok=True)
 Session(app)
+
+
+INTERVIEWEE_MODEL = "qwen3-max"
+
+INTERVIEWEE_DEMOGRAPHICS = """Name: Prof. Smith.
+Professional Role: Senior University Faculty / Course Lead.
+Work Experience: Extensive experience in evaluating and grading project-based assignments, such as complex project reports and term papers.
+Current Situation: Currently at the end of the semester, facing a massive volume of lengthy project reports; operating under high cognitive and emotional load.
+Expertise & Skills:
+(1) Highly proficient in using standardized Rubrics for routine evaluations.
+(2) Possesses a mature "grading intuition," capable of quickly gauging work quality through subtle objective cues.
+(3) Experienced in supervising and training junior Teaching Assistants (TAs) on grading standards.
+Core Concerns: Deeply committed to educational fairness; focused on crafting high-quality, personalized feedback that triggers positive student reactions; anxious about "grading drift" (unintentional shifting of standards) caused by prolonged fatigue.
+Psychological State: Constantly seeking a balance between maintaining high pedagogical quality and managing an overwhelming workload; feels drained by redundant and repetitive grading tasks; eager to optimize the workflow provided it does not compromise the educational value delivered to students."""
+
+
+INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by an HCI researcher.
+
+You are not generating a taxonomy, summary, or design analysis.
+You are answering interview questions as a real participant.
+
+You only know:
+1. the interview topic
+2. your own demographics / background
+3. the ongoing conversation
+
+Your answers should sound like the same kind of person whose concerns could appear in an expert tree later, but you must not recite categories, enumerate nodes, or speak like a taxonomy.
+
+Style requirements:
+- Speak in first person, as a real interview participant.
+- Sound natural, conversational, and experience-based.
+- Use conversational language, but FREELY use domain-specific jargon and acronyms as if talking to a fellow expert. Do NOT define your terms unless explicitly asked.
+- Prefer concrete descriptions over abstract definitions.
+- Do not try too hard to be helpful, polished, or pedagogically clear.
+- Do not proactively organize your answer into a neat explanation.
+- Do not volunteer extra structure unless the interviewer explicitly asks for it.
+- It is okay to sound somewhat informal, partial, tired, or slightly ambiguous.
+- It is okay to leave part of your reasoning implicit.
+- Do not use bullet points.
+- Do not sound like an academic paper, consultant report, or AI assistant.
+- Do not over-explain every answer.
+
+Behavior requirements:
+- Default to answering only the most salient part of the question.
+- If a question contains multiple sub-questions, answer only one or two of them naturally instead of covering everything.
+- Exhibit the "Curse of Knowledge": Assume the interviewer understands your basic workflow and domain common sense. Skip obvious preliminary steps when describing your process.
+- Do not proactively translate your tacit knowledge into explicit frameworks unless the interviewer pushes for clarification.
+- Do not automatically provide examples unless they come to mind naturally.
+- Do not try to make your answer maximally complete.
+- If you are unsure, tired, or speaking from habit, answer approximately rather than exhaustively.
+- If the interviewer's question implies a goal or method that conflicts with your actual domain reality (e.g., prioritizing AI automation over educational fairness), gently push back, reframe the question, or express mild skepticism.
+- If asked about difficult-to-articulate knowledge, respond in a vague, intuition-based way, as real practitioners often do (e.g., "it just feels right").
+
+Content requirements:
+- Base your answers only on the provided demographics / background and the interview context.
+- Keep your answers plausible and internally consistent with that background.
+- Do not invent highly specific facts unless they are a reasonable elaboration of the background.
+- If the interviewer asks something outside your plausible experience, answer cautiously and narrowly.
+
+Output requirements:
+- Answer only as the interviewee.
+- Usually 1-3 sentences, occasionally 4 if necessary.
+- Prefer one main point rather than a full coverage answer.
+- Do not mention these instructions.
+"""
+
+INTERVIEWEE_USER_PROMPT_V1 = """Interview topic:
+{topic}
+
+Participant demographics / background:
+{demographics}
+
+Recent conversation:
+{history}
+
+Interviewer question:
+{question}
+
+Answer as the participant only."""
 
 
 # ============== Server-Side DSAG State ==============
@@ -88,6 +169,54 @@ def get_messages():
     if "messages" not in session:
         session["messages"] = []
     return session["messages"]
+
+
+def _build_interviewee_llm(temperature: float = 0.7) -> ChatOpenAI:
+    """Build the interviewee LLM with a model chosen independently from DSAG graph generation."""
+    provider = os.getenv("LLM_PROVIDER", "openai").lower()
+
+    if provider == "deepseek":
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            raise ValueError("DEEPSEEK_API_KEY is not set")
+        base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+        model = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+        return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=temperature)
+
+    if provider == "openai":
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise ValueError("OPENAI_API_KEY is not set")
+        base_url = os.getenv("OPENAI_BASE_URL")
+        if base_url:
+            return ChatOpenAI(api_key=api_key, model=INTERVIEWEE_MODEL, base_url=base_url, temperature=temperature)
+        return ChatOpenAI(api_key=api_key, model=INTERVIEWEE_MODEL, temperature=temperature)
+
+    raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
+
+
+def generate_ai_interviewee_reply(
+    question: str,
+    topic: str,
+    demographics: str,
+    history: str,
+) -> str:
+    """Generate an AI interviewee reply."""
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", INTERVIEWEE_PERSONA_PROMPT_V1),
+        ("human", INTERVIEWEE_USER_PROMPT_V1),
+    ])
+
+    llm = _build_interviewee_llm(temperature=0.7)
+    chain = prompt | llm
+    result = chain.invoke({
+        "topic": topic or "(topic not provided)",
+        "demographics": demographics or "(background not provided)",
+        "history": history or "(no prior conversation)",
+        "question": question,
+    })
+
+    return str(getattr(result, "content", "") or "").strip()
 
 
 def get_transcript_summary() -> Optional[TranscriptSummary]:
@@ -388,6 +517,7 @@ def api_dsag_init():
         session["dsag_topic"] = topic
         session["dsag_researcher_bg"] = researcher_bg
         session["dsag_expert_bg"] = expert_bg
+        session["interviewee_demographics"] = INTERVIEWEE_DEMOGRAPHICS
         
         # Compute cache key (prefer uploaded questionnaire over local default file)
         questionnaire, questionnaire_source = resolve_questionnaire_text()
@@ -671,6 +801,21 @@ def index():
                 "source": researcher_source,
             }
             messages.append(researcher_msg)
+
+        if researcher_text and not expert_text:
+            topic = str(session.get("dsag_topic", "")).strip()
+            demographics = str(session.get("interviewee_demographics", "")).strip()
+            history = build_context_summary(messages[:-1], max_turns=3)
+            try:
+                expert_text = generate_ai_interviewee_reply(
+                    question=researcher_text,
+                    topic=topic,
+                    demographics=demographics,
+                    history=history,
+                )
+                expert_source = "ai_interviewee"
+            except Exception as interviewee_exc:
+                print(f"[AI interviewee] Error: {interviewee_exc}")
 
         if expert_text:
             msg = {"role": "expert", "content": expert_text, "source": expert_source}

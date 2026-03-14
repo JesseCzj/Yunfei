@@ -51,7 +51,7 @@
                   <input type="text" id="dsagExpertBg" required />
                 </div>
                 <button type="submit" class="btn btn-primary dsag-init-btn" id="dsagInitBtn">
-                  Initialize DSAG
+                  Initialize
                 </button>
                 <div class="dsag-init-status" id="dsagInitStatus"></div>
               </form>
@@ -476,8 +476,8 @@
             {% if not dsag_ready %}
               <div class="process-empty-state">
                 <div class="empty-icon">📋</div>
-                <div class="empty-text">Initialize DSAG to enable transcript summarization.</div>
-                <div class="empty-hint">Upload an interview script and initialize DSAG to see structured summaries.</div>
+                <div class="empty-text">Initialize to enable transcript summarization.</div>
+                <div class="empty-hint">Upload an interview script and initialize to see structured summaries.</div>
               </div>
             {% elif not transcript_summary or not transcript_summary.main_bullets %}
               <div class="process-empty-state">

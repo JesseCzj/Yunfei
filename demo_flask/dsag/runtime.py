@@ -272,6 +272,114 @@ class RuntimeEngine:
         self.index = embedding_index
         self._llm = None
 
+    @staticmethod
+    def _has_non_empty_payload(payload: Optional[Dict[str, Any]]) -> bool:
+        """Treat payload as usable only when it has at least one non-empty value."""
+        if not isinstance(payload, dict) or not payload:
+            return False
+        return any(value not in (None, "", [], {}) for value in payload.values())
+
+    def _build_minimal_payload(self, link: GapLink) -> Dict[str, Any]:
+        """Build a deterministic fallback payload so a selected mismatch is always actionable."""
+        exp_node = self.graph.expert_tree.get_node(link.expert_leaf_id)
+        res_node = self.graph.researcher_tree.get_node(link.researcher_leaf_id)
+        expert_label = exp_node.label if exp_node else (link.conflict.get("expert_branch", "") or "expert concept")
+        researcher_label = res_node.label if res_node else (link.conflict.get("researcher_branch", "") or "research goal")
+        relation = (link.relation_type or RelationType.CONCEPTUAL_GAP.value).strip()
+
+        if relation == RelationType.LEXICAL_GAP.value:
+            return {
+                "term_mapping": {
+                    "expert_term": expert_label,
+                    "researcher_term": researcher_label,
+                    "explanation": "These terms likely refer to related ideas but use different wording.",
+                }
+            }
+        if relation == RelationType.TACIT_GAP.value:
+            attrs = list(getattr(exp_node, "attributes", []) or [])
+            return {
+                "attributes": attrs[:3] if attrs else [expert_label],
+                "probes": [],
+                "hypothetical_scenarios": [],
+                "extracted_attributes": [],
+                "mentioned_attributes": [],
+            }
+        if relation == RelationType.SCOPE_GAP.value:
+            return {
+                "pivot": {
+                    "condensed_explanation": (
+                        f"Expert answer focuses on '{expert_label}', while your question targets "
+                        f"'{researcher_label}'. A bridging question can connect these scopes."
+                    )
+                }
+            }
+        if relation == RelationType.PROCESS_GAP.value:
+            return {
+                "sub_type": "factual_risk",
+                "vulnerable_assumption": f"Assuming '{researcher_label}' directly maps to expert workflow.",
+                "domain_correction": f"The expert framing appears closer to '{expert_label}'.",
+                "safe_phrasing": "Could you walk me through how this works in your actual grading process?",
+                "misalignment_reason": "Runtime fallback payload generated due missing offline payload.",
+            }
+        return {
+            "analogy": {
+                "source_concept": expert_label,
+                "target_concept": researcher_label,
+                "structural_mapping": {"inputs": "", "logic": "", "outputs": ""},
+                "explanation": "Use the expert concept to explain the research target in the same task context.",
+            }
+        }
+
+    def _ensure_actionable_link(self, link: GapLink) -> GapLink:
+        """
+        Ensure selected links are always usable at runtime:
+        relation_type is set and assistance_payload is non-empty.
+        """
+        if not link.relation_type:
+            link.relation_type = RelationType.CONCEPTUAL_GAP.value
+        if not self._has_non_empty_payload(link.assistance_payload):
+            link.assistance_payload = self._build_minimal_payload(link)
+        return link
+
+    def _build_runtime_fallback_link(self, located: LocatedPosition) -> Optional[GapLink]:
+        """Create a minimal mismatch link when graph links are missing for a matched expert leaf."""
+        expert_leaf_id = located.best_expert_leaf_id
+        if not expert_leaf_id:
+            return None
+
+        researcher_leaf_id = located.best_researcher_leaf_id
+        if not researcher_leaf_id and located.researcher_results:
+            researcher_leaf_id = located.researcher_results[0].node_id
+        if not researcher_leaf_id:
+            researcher_leaves = self.graph.researcher_tree.get_leaves()
+            if researcher_leaves:
+                researcher_leaf_id = researcher_leaves[0].id
+        if not researcher_leaf_id:
+            return None
+
+        expert_path = self.graph.expert_tree.get_aligned_path(expert_leaf_id)
+        researcher_path = self.graph.researcher_tree.get_aligned_path(researcher_leaf_id)
+        lca_layer = compute_lca_layer(expert_path, researcher_path)
+        exp_node = self.graph.expert_tree.get_node(expert_leaf_id)
+        res_node = self.graph.researcher_tree.get_node(researcher_leaf_id)
+        relation = RelationType.TACIT_GAP.value if (exp_node and exp_node.attributes) else RelationType.CONCEPTUAL_GAP.value
+
+        link = GapLink(
+            expert_leaf_id=expert_leaf_id,
+            researcher_leaf_id=researcher_leaf_id,
+            aligned_path_expert=expert_path,
+            aligned_path_researcher=researcher_path,
+            lca_layer=lca_layer,
+            conflict={
+                "expert_branch": (exp_node.label if exp_node else (expert_path[-1] if expert_path else "")),
+                "researcher_branch": (res_node.label if res_node else (researcher_path[-1] if researcher_path else "")),
+            },
+            relation_type=relation,
+            assistance_payload={},
+            weight=0.01,
+        )
+        return self._ensure_actionable_link(link)
+
     def _get_llm(self) -> ChatOpenAI:
         """Lazy load LLM for template filling."""
         if self._llm is None:
@@ -787,13 +895,14 @@ POLISHABLE fields:
 
     def find_best_link(
         self,
-        expert_leaf_id: Optional[str],
-        researcher_leaf_id: Optional[str],
+        located: LocatedPosition,
     ) -> Optional[GapLink]:
         """
         Find the best link connecting the located positions.
         Falls back to finding any link from the expert leaf.
         """
+        expert_leaf_id = located.best_expert_leaf_id
+        researcher_leaf_id = located.best_researcher_leaf_id
         if not expert_leaf_id:
             return None
 
@@ -801,15 +910,20 @@ POLISHABLE fields:
         if researcher_leaf_id:
             link = self.graph.get_link(expert_leaf_id, researcher_leaf_id)
             if link:
-                return link
+                return self._ensure_actionable_link(link)
 
-        # Fallback: find any link from expert leaf
+        # Fallback: find any link from expert leaf (prefer links tied to top researcher candidates)
         links = self.graph.get_links_by_expert_leaf(expert_leaf_id)
         if links:
-            links.sort(key=lambda l: l.weight, reverse=True)
-            return links[0]
+            top_researcher_ids = [r.node_id for r in located.researcher_results[:3]]
+            preferred = [l for l in links if l.researcher_leaf_id in top_researcher_ids]
+            pool = preferred if preferred else links
+            pool.sort(key=lambda l: l.weight, reverse=True)
+            return self._ensure_actionable_link(pool[0])
 
-        return None
+        # Runtime hard guarantee requested by product logic:
+        # if expert leaf is matched, force-create a minimal actionable link.
+        return self._build_runtime_fallback_link(located)
 
     def compute_divergence(self, link: GapLink) -> DivergenceInfo:
         """Compute divergence information from a link."""
@@ -917,6 +1031,7 @@ Return ONLY valid JSON:
         if not selected_link:
             return Assistance()
 
+        selected_link = self._ensure_actionable_link(selected_link)
         relation = selected_link.relation_type
         payload = dict(selected_link.assistance_payload)
         assistance = Assistance(relation_type=relation, payload=payload)
@@ -963,9 +1078,11 @@ Return ONLY valid JSON:
         except Exception:
             confidence_threshold = 0.45
 
-        if analysis.located.expert_confidence < confidence_threshold:
+        # Product rule: "No mismatch" is shown when expert leaf cannot be matched.
+        # A matched expert leaf must always map to an actionable link.
+        if not analysis.located.best_expert_leaf_id:
             analysis.confidence_warning = (
-                "Low-confidence expert match; showing the top possible expert concepts instead."
+                "No expert concept was matched for this turn; showing the no-mismatch fallback."
             )
             analysis.uncertain_interpretation = self._build_uncertain_interpretation(
                 analysis.located
@@ -977,10 +1094,13 @@ Return ONLY valid JSON:
                 context_summary,
             )
         else:
+            if analysis.located.expert_confidence < confidence_threshold:
+                analysis.confidence_warning = (
+                    "Low-confidence expert match; proceeding with conservative link selection."
+                )
             # 2. Find best link
             analysis.selected_link = self.find_best_link(
-                analysis.located.best_expert_leaf_id,
-                analysis.located.best_researcher_leaf_id,
+                analysis.located,
             )
 
             if analysis.selected_link:
