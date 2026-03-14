@@ -15,13 +15,11 @@ const chatWindow = document.getElementById("chatWindow");
 if (chatWindow) {
   const savedScrollPos = sessionStorage.getItem("chatScrollPos");
   if (savedScrollPos !== null) {
-    // Use requestAnimationFrame to ensure DOM is fully rendered before restoring scroll
     requestAnimationFrame(() => {
       chatWindow.scrollTop = parseInt(savedScrollPos, 10);
       sessionStorage.removeItem("chatScrollPos");
     });
   } else {
-    // First load - scroll to bottom
     requestAnimationFrame(() => {
       chatWindow.scrollTop = chatWindow.scrollHeight;
     });
@@ -39,157 +37,6 @@ function saveScrollPosition() {
 document.querySelectorAll("form").forEach((form) => {
   form.addEventListener("submit", saveScrollPosition);
 });
-
-// Context slider behavior
-document.querySelectorAll(".context-slider").forEach((block) => {
-  const slider = block.querySelector('input[type="range"]');
-  const output = block.querySelector(".context-output");
-  const mapping = [
-    block.dataset.coarse || "",
-    block.dataset.balanced || "",
-    block.dataset.fine || "",
-  ];
-  if (slider && output) {
-    slider.addEventListener("input", (event) => {
-      output.textContent = mapping[Number(event.target.value)] || "";
-    });
-  }
-});
-
-// ============== DSAG Initialization ==============
-
-const dsagInitForm = document.getElementById("dsagInitForm");
-const dsagInitBtn = document.getElementById("dsagInitBtn");
-const dsagInitStatus = document.getElementById("dsagInitStatus");
-const dsagTopicInput = document.getElementById("dsagTopic");
-const dsagResearcherBgInput = document.getElementById("dsagResearcherBg");
-const dsagExpertBgInput = document.getElementById("dsagExpertBg");
-
-function restoreDsagDraft() {
-  if (dsagTopicInput) dsagTopicInput.value = sessionStorage.getItem("dsagDraftTopic") || "";
-  if (dsagResearcherBgInput) dsagResearcherBgInput.value = sessionStorage.getItem("dsagDraftResearcherBg") || "";
-  if (dsagExpertBgInput) dsagExpertBgInput.value = sessionStorage.getItem("dsagDraftExpertBg") || "";
-}
-
-function persistDsagDraft() {
-  if (dsagTopicInput) sessionStorage.setItem("dsagDraftTopic", dsagTopicInput.value || "");
-  if (dsagResearcherBgInput) sessionStorage.setItem("dsagDraftResearcherBg", dsagResearcherBgInput.value || "");
-  if (dsagExpertBgInput) sessionStorage.setItem("dsagDraftExpertBg", dsagExpertBgInput.value || "");
-}
-
-restoreDsagDraft();
-if (dsagTopicInput) dsagTopicInput.addEventListener("input", persistDsagDraft);
-if (dsagResearcherBgInput) dsagResearcherBgInput.addEventListener("input", persistDsagDraft);
-if (dsagExpertBgInput) dsagExpertBgInput.addEventListener("input", persistDsagDraft);
-
-if (dsagInitForm) {
-  dsagInitForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const topic = dsagTopicInput ? dsagTopicInput.value.trim() : "";
-    const researcherBg = dsagResearcherBgInput ? dsagResearcherBgInput.value.trim() : "";
-    const expertBg = dsagExpertBgInput ? dsagExpertBgInput.value.trim() : "";
-
-    if (!topic || !researcherBg || !expertBg) {
-      if (dsagInitStatus) dsagInitStatus.textContent = "All fields are required.";
-      return;
-    }
-
-    // Disable button and show loading
-    if (dsagInitBtn) {
-      dsagInitBtn.disabled = true;
-      dsagInitBtn.textContent = "Building graph...";
-    }
-    if (dsagInitStatus) {
-      dsagInitStatus.textContent = "Generating DSAG graph...";
-      dsagInitStatus.className = "dsag-init-status dsag-status-building";
-    }
-
-    try {
-      const response = await fetch("/api/dsag/init", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          topic: topic,
-          researcher_bg: researcherBg,
-          expert_bg: expertBg,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        sessionStorage.removeItem("dsagDraftTopic");
-        sessionStorage.removeItem("dsagDraftResearcherBg");
-        sessionStorage.removeItem("dsagDraftExpertBg");
-        if (dsagInitStatus) {
-          dsagInitStatus.textContent = result.cached
-            ? "DSAG graph loaded from cache. Ready!"
-            : "DSAG graph built successfully. Ready!";
-          dsagInitStatus.className = "dsag-init-status dsag-status-ready";
-        }
-        // Reload page to update the status badge and enable auto-analysis
-        setTimeout(() => window.location.reload(), 1000);
-      } else {
-        if (dsagInitStatus) {
-          dsagInitStatus.textContent = `Error: ${result.error || "Failed to build graph"}`;
-          dsagInitStatus.className = "dsag-init-status dsag-status-error";
-        }
-        if (dsagInitBtn) {
-          dsagInitBtn.disabled = false;
-          dsagInitBtn.textContent = "Initialize DSAG";
-        }
-      }
-    } catch (error) {
-      if (dsagInitStatus) {
-        dsagInitStatus.textContent = `Network error: ${error.message}`;
-        dsagInitStatus.className = "dsag-init-status dsag-status-error";
-      }
-      if (dsagInitBtn) {
-        dsagInitBtn.disabled = false;
-        dsagInitBtn.textContent = "Initialize DSAG";
-      }
-    }
-  });
-}
-
-// ============== Inline Jargon Highlighting ==============
-// Highlight jargon terms directly in expert message text with hover tooltips
-
-function highlightJargonInText(element) {
-  const jargonData = element.dataset.jargon;
-  if (!jargonData) return;
-  
-  let jargonList;
-  try {
-    jargonList = JSON.parse(jargonData);
-  } catch (e) {
-    return;
-  }
-  
-  if (!jargonList || jargonList.length === 0) return;
-  
-  let html = element.textContent;
-  
-  // Sort by term length (longest first) to avoid partial replacements
-  jargonList.sort((a, b) => b.term.length - a.term.length);
-  
-  // Replace each jargon term with highlighted version
-  jargonList.forEach((item) => {
-    const term = item.term;
-    const desc = item.desc || "";
-    // Escape special regex characters in term
-    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    // Create case-insensitive regex for whole word match
-    const regex = new RegExp(`\\b(${escapedTerm})\\b`, "gi");
-    html = html.replace(regex, `<span class="inline-jargon" data-tooltip="${desc.replace(/"/g, '&quot;')}">$1</span>`);
-  });
-  
-  element.innerHTML = html;
-}
-
-// Apply jargon highlighting to all expert messages
-document.querySelectorAll(".expert-content").forEach(highlightJargonInText);
 
 // Speech Recognition handling
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -210,7 +57,6 @@ function setupMic(role) {
   const transcript = document.getElementById(`${role}Transcript`);
   const input = document.getElementById(`${role}Input`);
   const sourceInput = document.getElementById(`${role}Source`);
-  const form = document.getElementById(`${role}Form`);
 
   if (!SpeechRecognition) {
     setStatus(role, "Not supported", false);
@@ -238,7 +84,6 @@ function setupMic(role) {
     }
 
     const recognition = new SpeechRecognition();
-    // Use English for speech recognition
     recognition.lang = "en-US";
     recognition.interimResults = true;
     recognition.continuous = true;
@@ -305,7 +150,6 @@ function setupMic(role) {
 
     try {
       recognition.start();
-      console.log("Speech recognition started with language:", recognition.lang);
     } catch (err) {
       console.error("Failed to start speech recognition:", err);
       setStatus(role, "Failed to start", false);
@@ -321,7 +165,7 @@ function setupMic(role) {
 setupMic("researcher");
 setupMic("expert");
 
-// Custom file input label
+// Custom file input - auto-submit on file selection
 const fileInput = document.getElementById("guideFile");
 const fileLabel = document.querySelector(".file-text");
 if (fileInput && fileLabel) {
@@ -330,263 +174,59 @@ if (fileInput && fileLabel) {
     const selectedFile = fileInput.files[0];
     fileLabel.textContent = fileInput.files[0]?.name || "Upload interview script (txt, docx, pdf)";
     if (selectedFile && uploadForm) {
-      persistDsagDraft();
       saveScrollPosition();
       uploadForm.submit();
     }
   });
 }
 
-// Selection tooltip for expert domain concepts
-const selectionTooltip = document.getElementById("selectionTooltip");
-
-function hideSelectionTooltip() {
-  if (selectionTooltip) selectionTooltip.classList.add("hidden");
-}
-
-function showSelectionTooltip(rect, term, desc, found) {
-  if (!selectionTooltip) return;
-  selectionTooltip.innerHTML = `
-    <div class="selection-title">Selected term</div>
-    <div class="selection-term">${term}</div>
-    <div class="selection-desc">${desc}</div>
-  `;
-  selectionTooltip.style.top = `${Math.max(10, rect.top - 10)}px`;
-  selectionTooltip.style.left = `${Math.min(window.innerWidth - 340, rect.left)}px`;
-  selectionTooltip.classList.remove("hidden");
-}
-
-document.addEventListener("mouseup", (event) => {
-  const selection = window.getSelection();
-  if (!selection || selection.isCollapsed) {
-    hideSelectionTooltip();
-    return;
-  }
-  const selectedText = selection.toString().trim();
-  if (!selectedText) {
-    hideSelectionTooltip();
-    return;
-  }
-
-  const anchorNode = selection.anchorNode;
-  const contentEl = anchorNode ? anchorNode.parentElement?.closest(".expert-content") : null;
-  if (!contentEl) {
-    hideSelectionTooltip();
-    return;
-  }
-
-  let jargonList = [];
-  try {
-    jargonList = JSON.parse(contentEl.dataset.jargon || "[]");
-  } catch (err) {
-    jargonList = [];
-  }
-
-  const match = jargonList.find((item) => {
-    const term = String(item.term || "").toLowerCase();
-    const selected = selectedText.toLowerCase();
-    return term && (selected === term || selected.includes(term) || term.includes(selected));
-  });
-
-  const rect = selection.getRangeAt(0).getBoundingClientRect();
-  const description = match
-    ? match.desc
-    : "No detected domain concept for this selection. Consider rephrasing or tagging manually.";
-
-  showSelectionTooltip(rect, selectedText, description, Boolean(match));
-});
-
-document.addEventListener("click", (event) => {
-  if (!selectionTooltip) return;
-  if (!selectionTooltip.contains(event.target)) {
-    hideSelectionTooltip();
-  }
-});
-
-// Legacy llm_backend on-demand actions removed; DSAG-only UI now.
-
-// ============== Flag as Mis-map ==============
-
-function handleFlagMismapClick(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  const button = event.currentTarget;
-  const msgIndex = button.dataset.msgIndex;
-  
-  // Create and submit a form programmatically
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = window.location.href;
-  
-  const actionInput = document.createElement("input");
-  actionInput.type = "hidden";
-  actionInput.name = "action";
-  actionInput.value = "toggle_mismap";
-  form.appendChild(actionInput);
-  
-  const indexInput = document.createElement("input");
-  indexInput.type = "hidden";
-  indexInput.name = "msg_index";
-  indexInput.value = msgIndex;
-  form.appendChild(indexInput);
-  
-  document.body.appendChild(form);
-  form.submit();
-}
-
-document.querySelectorAll('.action-btn[data-action="flag-mismap"]').forEach((btn) => {
-  btn.addEventListener("click", handleFlagMismapClick);
-});
-
-// ============== Collapsible Cards ==============
-
-function handleCollapseToggle(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  const button = event.currentTarget;
-  const card = button.closest(".collapsible");
-  if (card) {
-    card.classList.toggle("collapsed");
-  }
-}
-
-document.querySelectorAll(".collapse-toggle").forEach((btn) => {
-  btn.addEventListener("click", handleCollapseToggle);
-});
-
-// ============== DSAG Toggle Buttons (progressive disclosure) ==============
-
-document.addEventListener("click", (event) => {
-  const btn = event.target.closest(".dsag-toggle-btn");
-  if (!btn) return;
-  event.preventDefault();
-  event.stopPropagation();
-
-  const label = btn.textContent.trim();
-
-  // For ConceptualGap: buttons are in a .dsag-toggle-row and content panels
-  // are siblings of the row, matched by data-toggle-label attribute.
-  const row = btn.closest(".dsag-toggle-row");
-  if (row) {
-    const parent = row.parentElement;
-    const panel = parent.querySelector(
-      `.dsag-toggle-content[data-toggle-label="${label}"]`
-    );
-    if (panel) {
-      const isOpen = panel.style.display !== "none";
-      panel.style.display = isOpen ? "none" : "block";
-      btn.classList.toggle("active", !isOpen);
-    }
-    return;
-  }
-
-  // For TacitGap / ScopeGap: the content panel is the next sibling element.
-  const content = btn.nextElementSibling;
-  if (content && content.classList.contains("dsag-toggle-content")) {
-    const isOpen = content.style.display !== "none";
-    content.style.display = isOpen ? "none" : "block";
-    btn.classList.toggle("active", !isOpen);
-  }
-});
-
-// ============== Clickable Follow-up Questions ==============
-
-function handleFollowupClick(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  const item = event.currentTarget;
-  const question = item.dataset.question || item.textContent.replace(/^💭\s*/, "").trim();
-  
-  // Find the researcher input textarea
-  const researcherInput = document.getElementById("researcherInput");
-  if (researcherInput) {
-    researcherInput.value = question;
-    researcherInput.focus();
-    
-    // Visual feedback - show clicked state briefly
-    item.classList.add("clicked");
-    setTimeout(() => {
-      item.classList.remove("clicked");
-    }, 1500);
-    
-    // Scroll the input into view
-    researcherInput.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-}
-
-document.querySelectorAll(".clickable-followup").forEach((item) => {
-  item.addEventListener("click", handleFollowupClick);
-});
-
-// ============== Resizable Three-Panel Layout ==============
+// ============== Resizable Two-Panel Layout ==============
 
 function initPanelResizers() {
   const container = document.querySelector(".main-panels");
   if (!container) return;
 
   const leftPanel = container.querySelector(".script-panel");
-  const rightPanel = container.querySelector(".process-panel");
   const leftResizer = container.querySelector('.panel-resizer[data-resizer="left"]');
-  const rightResizer = container.querySelector('.panel-resizer[data-resizer="right"]');
-  if (!leftPanel || !rightPanel || !leftResizer || !rightResizer) return;
+  if (!leftPanel || !leftResizer) return;
 
   const minLeft = 240;
   const minCenter = 420;
-  const minRight = 240;
-  const resizerWidth = 16; // two resizers, 8px each
 
-  let dragSide = null;
+  let isDragging = false;
   let startX = 0;
   let startLeftWidth = 0;
-  let startRightWidth = 0;
 
   const stopDragging = () => {
-    if (!dragSide) return;
-    dragSide = null;
+    if (!isDragging) return;
+    isDragging = false;
     leftResizer.classList.remove("is-dragging");
-    rightResizer.classList.remove("is-dragging");
     document.body.classList.remove("is-resizing-panels");
     window.removeEventListener("mousemove", onDragMove);
     window.removeEventListener("mouseup", stopDragging);
   };
 
   const onDragMove = (event) => {
-    if (!dragSide) return;
+    if (!isDragging) return;
     const dx = event.clientX - startX;
     const totalWidth = container.clientWidth;
-
-    if (dragSide === "left") {
-      let nextLeft = startLeftWidth + dx;
-      const maxLeft = totalWidth - startRightWidth - minCenter - resizerWidth;
-      nextLeft = Math.max(minLeft, Math.min(maxLeft, nextLeft));
-      container.style.setProperty("--left-panel-width", `${nextLeft}px`);
-      return;
-    }
-
-    let nextRight = startRightWidth - dx;
-    const leftCurrent = leftPanel.getBoundingClientRect().width;
-    const maxRight = totalWidth - leftCurrent - minCenter - resizerWidth;
-    nextRight = Math.max(minRight, Math.min(maxRight, nextRight));
-    container.style.setProperty("--right-panel-width", `${nextRight}px`);
+    let nextLeft = startLeftWidth + dx;
+    const maxLeft = totalWidth - minCenter - 8;
+    nextLeft = Math.max(minLeft, Math.min(maxLeft, nextLeft));
+    container.style.setProperty("--left-panel-width", `${nextLeft}px`);
   };
 
-  const startDragging = (side, event) => {
+  leftResizer.addEventListener("mousedown", (event) => {
     if (window.innerWidth <= 1024) return;
-    dragSide = side;
+    isDragging = true;
     startX = event.clientX;
     startLeftWidth = leftPanel.getBoundingClientRect().width;
-    startRightWidth = rightPanel.getBoundingClientRect().width;
-
     document.body.classList.add("is-resizing-panels");
-    (side === "left" ? leftResizer : rightResizer).classList.add("is-dragging");
+    leftResizer.classList.add("is-dragging");
     window.addEventListener("mousemove", onDragMove);
     window.addEventListener("mouseup", stopDragging);
     event.preventDefault();
-  };
-
-  leftResizer.addEventListener("mousedown", (event) => startDragging("left", event));
-  rightResizer.addEventListener("mousedown", (event) => startDragging("right", event));
+  });
 
   window.addEventListener("blur", stopDragging);
 }

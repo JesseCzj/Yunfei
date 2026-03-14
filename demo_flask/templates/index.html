@@ -14,7 +14,7 @@
 
       <div class="main-panels">
         <aside class="script-panel">
-          {% if dsag_ready and questionnaire_uploaded and questionnaire_text %}
+          {% if questionnaire_uploaded and questionnaire_text %}
             <div class="panel-header">
               <h2 class="panel-title">Interview Questionnaire</h2>
             </div>
@@ -24,71 +24,23 @@
               </div>
             </div>
           {% else %}
-            {# ====== DSAG Initialization Section ====== #}
-            <div class="dsag-init-section">
-              <div class="panel-header">
-                <h2 class="panel-title">Setup</h2>
-                <span class="dsag-status-badge" id="dsagStatusBadge">
-                  {% if dsag_ready %}
-                    <span class="badge badge-ready">Ready</span>
-                  {% else %}
-                    <span class="badge badge-inactive">Not initialized</span>
-                  {% endif %}
-                </span>
-              </div>
-              {% if not dsag_ready %}
-              <form id="dsagInitForm" class="dsag-init-form">
-                <div class="dsag-field">
-                  <label for="dsagTopic">Topic</label>
-                  <input type="text" id="dsagTopic" required />
-                </div>
-                <div class="dsag-field">
-                  <label for="dsagResearcherBg">Researcher Background</label>
-                  <input type="text" id="dsagResearcherBg" required />
-                </div>
-                <div class="dsag-field">
-                  <label for="dsagExpertBg">Expert Background</label>
-                  <input type="text" id="dsagExpertBg" required />
-                </div>
-                <button type="submit" class="btn btn-primary dsag-init-btn" id="dsagInitBtn">
-                  Initialize
-                </button>
-                <div class="dsag-init-status" id="dsagInitStatus"></div>
-              </form>
-              {% else %}
-              <div class="dsag-ready-info"></div>
-              {% endif %}
-            </div>
-
-            <hr class="panel-divider" />
-
             <div class="panel-header">
               <h2 class="panel-title">Interview Questionnaire</h2>
             </div>
             <div class="script-content">
-              <div class="script-upload-center {% if not questionnaire_uploaded %}is-empty{% endif %}">
+              <div class="script-upload-center is-empty">
                 <form method="post" enctype="multipart/form-data" class="upload-form script-upload-form">
                   <input type="hidden" name="action" value="upload_questionnaire" />
                   <div class="file-input-wrapper upload-dropzone-wrapper">
                     <input type="file" name="questionnaire_file" id="guideFile" accept=".txt,.docx,.pdf" class="file-input" />
-                    <label for="guideFile" class="file-label upload-dropzone-label {% if questionnaire_uploaded %}upload-dropzone-compact{% endif %}">
+                    <label for="guideFile" class="file-label upload-dropzone-label">
                       <span class="file-icon">📄</span>
                       <span class="upload-dropzone-title">Upload interview questionnaire</span>
                       <span class="file-text">txt, docx, pdf</span>
                     </label>
                   </div>
-                  {% if questionnaire_uploaded %}
-                    <div class="upload-success-message">Interview questionnaire uploaded.</div>
-                  {% endif %}
                   {% if questionnaire_error %}
                     <div class="error-message">{{ questionnaire_error }}</div>
-                  {% endif %}
-
-                  {% if questionnaire_uploaded and questionnaire_text %}
-                    <div class="script-text-viewer">
-                      <div class="script-text-title">Uploaded interview questionnaire</div>
-                      <div class="script-text-content">{{ questionnaire_text }}</div>
-                    </div>
                   {% endif %}
                 </form>
               </div>
@@ -130,13 +82,7 @@
                   <div class="message-avatar researcher-avatar">🧑‍💻</div>
                 </div>
               {% else %}
-                {# Expert message with progressive disclosure #}
-                {% set has_mismap = msg.mismap is defined and msg.mismap.detected %}
-                {% set has_manual_mismap = msg.manual_mismap is defined and msg.manual_mismap %}
-                {% set show_mismap = has_mismap or has_manual_mismap %}
-                {% set mismap_data = msg.mismap if msg.mismap is defined else {} %}
-
-                <div class="message-row expert-row" data-msg-index="{{ loop.index0 }}">
+                <div class="message-row expert-row">
                   <div class="message-avatar expert-avatar">👨‍⚕️</div>
                   <div class="message-card expert-card">
                     <div class="message-header">
@@ -145,259 +91,7 @@
                         <span class="badge badge-voice">Voice</span>
                       {% endif %}
                     </div>
-                    <div
-                      class="message-content expert-content"
-                      data-jargon='{{ (msg.jargon_terms if msg.jargon_terms is defined else []) | tojson | safe }}'
-                    >{{ msg.content }}</div>
-
-                    <div class="analysis-section">
-
-                      {# DSAG Assistance Card #}
-                      {% set dsag = msg.dsag_analysis if msg.dsag_analysis is defined and msg.dsag_analysis else {} %}
-                      {% set uncertainty = dsag.uncertain_interpretation if dsag.uncertain_interpretation is defined else {} %}
-                      {% set has_uncertainty = uncertainty and ((uncertainty.candidates is defined and uncertainty.candidates) or uncertainty.status is defined) %}
-                      {% set has_assistance = dsag.assistance is defined and dsag.assistance and dsag.assistance.relation_type and dsag.assistance.payload %}
-                      {% set has_dsag = has_assistance or has_uncertainty %}
-                      {% if has_dsag %}
-                        {% set assist = dsag.assistance if dsag.assistance is defined else {} %}
-                        {% set rtype = assist.relation_type if assist.relation_type is defined else "" %}
-                        {% set payload = assist.payload if assist.payload is defined else {} %}
-                        <div class="analysis-card dsag-card">
-                          {% if not has_uncertainty %}
-                          <div class="gap-type-hint">
-                            {% if rtype %}
-                              {% if rtype == "TacitGap" %}
-                                <span class="gap-type-badge gap-type-tacitgap">Tacit Gap</span>
-                                <span class="gap-type-desc">Implicit knowledge the expert hasn't fully articulated</span>
-                              {% elif rtype == "ConceptualGap" %}
-                                <span class="gap-type-badge gap-type-conceptualgap">Conceptual Gap</span>
-                                <span class="gap-type-desc">Different mental models of the same concept</span>
-                              {% elif rtype == "ScopeGap" %}
-                                <span class="gap-type-badge gap-type-scopegap">Scope Gap</span>
-                                <span class="gap-type-desc">Diverging goals — practical utility vs. research value</span>
-                              {% elif rtype == "LexicalGap" %}
-                                <span class="gap-type-badge gap-type-lexicalgap">Lexical Gap</span>
-                                <span class="gap-type-desc">Same concept, different terminology</span>
-                              {% elif rtype == "ProcessGap" %}
-                                <span class="gap-type-badge gap-type-processgap">Process Gap</span>
-                                <span class="gap-type-desc">Risk of disrupting the interview flow</span>
-                              {% else %}
-                                <span class="gap-type-badge gap-type-{{ rtype|lower }}">{{ rtype }}</span>
-                              {% endif %}
-                            {% endif %}
-                          </div>
-                          {% endif %}
-                          <div class="card-body">
-                            {% if has_uncertainty %}
-                              <div class="dsag-no-gap-note">No mismatch requiring system intervention has been found yet.</div>
-
-                            {% endif %}
-
-                            {# ---- LexicalGap ---- #}
-                            {% if rtype == "LexicalGap" and payload.term_mapping is defined %}
-                              <div class="dsag-lexical">
-                                <div class="term-mapping-row">
-                                  <span class="term-expert">{{ payload.term_mapping.expert_term }}</span>
-                                  <span class="term-arrow">&rarr;</span>
-                                  <span class="term-researcher">{{ payload.term_mapping.researcher_term }}</span>
-                                </div>
-                                {% if payload.term_mapping.explanation %}
-                                  <div class="term-explanation-text">{{ payload.term_mapping.explanation }}</div>
-                                {% endif %}
-                              </div>
-
-                            {# ---- ConceptualGap ---- #}
-                            {% elif rtype == "ConceptualGap" %}
-                              <div class="dsag-conceptual">
-                                <div class="dsag-toggle-row">
-                                  {% if payload.analogy is defined %}
-                                    <button type="button" class="dsag-toggle-btn">Analogy</button>
-                                  {% endif %}
-                                  {% if payload.scenario is defined and payload.scenario %}
-                                    <button type="button" class="dsag-toggle-btn">Scenario</button>
-                                  {% endif %}
-                                </div>
-                                {% if payload.analogy is defined %}
-                                  <div class="dsag-toggle-content" data-toggle-label="Analogy" style="display:none;">
-                                    <div class="analogy-compact">
-                                      <span class="analogy-chip">
-                                        {{ payload.analogy.source_concept if payload.analogy.source_concept else (dsag.divergence.expert_branch if dsag.divergence is defined else "Expert concept") }}
-                                      </span>
-                                      <span class="analogy-arrow">→</span>
-                                      <span class="analogy-chip">
-                                        {{ dsag.divergence.researcher_branch if dsag.divergence is defined and dsag.divergence.researcher_branch else "Researcher concept" }}
-                                      </span>
-                                    </div>
-                                  </div>
-                                {% endif %}
-                                {% if payload.scenario is defined and payload.scenario %}
-                                  <div class="dsag-toggle-content" data-toggle-label="Scenario" style="display:none;">
-                                    <div class="scenario-prose">
-                                      {% if payload.scenario is string %}
-                                        {{ payload.scenario }}
-                                      {% else %}
-                                        {{ payload.scenario.inputs }} {{ payload.scenario.outputs }} {{ payload.scenario.edge_cases }}
-                                      {% endif %}
-                                    </div>
-                                  </div>
-                                {% endif %}
-                              </div>
-
-                            {# ---- TacitGap ---- #}
-                            {% elif rtype == "TacitGap" %}
-                              <div class="dsag-tacit">
-                                {% if payload.extracted_attributes is defined and payload.extracted_attributes|length > 0 %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Expert Already Mentioned</div>
-                                    <div class="tacit-tags">
-                                      {% for attr in payload.extracted_attributes %}
-                                        <span class="tacit-tag tacit-tag-mentioned">{{ attr }}</span>
-                                      {% endfor %}
-                                    </div>
-                                  </div>
-                                {% endif %}
-                                {% if payload.attributes is defined and payload.attributes|length > 0 %}
-                                  <div class="dsag-subsection">
-                                    <div class="dsag-subsection-title">Still to Explore</div>
-                                    <div class="tacit-attr-list">
-                                      {% for attr in payload.attributes[:3] %}
-                                        {% set attr_lower = attr|lower|replace(" ", "_")|replace("-", "_") %}
-                                        <div class="tacit-attr-group">
-                                          <button type="button" class="dsag-toggle-btn tacit-attr-btn" data-attr="{{ attr_lower }}">{{ attr }}</button>
-                                          <div class="dsag-toggle-content" style="display:none;">
-                                            {# Find the matching probe for this attribute #}
-                                            {% if payload.probes is defined %}
-                                              {% for probe in payload.probes %}
-                                                {% if probe.attribute|lower|replace(" ", "_")|replace("-", "_") == attr_lower %}
-                                                  <div class="probe-item">
-                                                    <div class="probe-question">{{ probe.question }}</div>
-                                                    {% if probe.choices is defined %}
-                                                      <div class="probe-choices">
-                                                        {% for choice in probe.choices %}
-                                                          <span class="probe-choice">{{ choice }}</span>
-                                                        {% endfor %}
-                                                      </div>
-                                                    {% endif %}
-                                                  </div>
-                                                {% endif %}
-                                              {% endfor %}
-                                            {% endif %}
-                                            {# Find the matching hypothetical scenario for this attribute #}
-                                            {% if payload.hypothetical_scenarios is defined %}
-                                              {% for sc in payload.hypothetical_scenarios %}
-                                                {% if sc is mapping and sc.attribute and sc.attribute|lower|replace(" ", "_")|replace("-", "_") == attr_lower %}
-                                                  <div class="tacit-hypo-item">
-                                                    <span class="tacit-hypo-label">Hypothetical Scenario</span>
-                                                    <span class="tacit-hypo-text">{{ sc.scenario }}</span>
-                                                  </div>
-                                                {% endif %}
-                                              {% endfor %}
-                                            {% endif %}
-                                          </div>
-                                        </div>
-                                      {% endfor %}
-                                    </div>
-                                  </div>
-                                {% endif %}
-                              </div>
-
-                            {# ---- ScopeGap ---- #}
-                            {% elif rtype == "ScopeGap" %}
-                              <div class="dsag-scope">
-                                {% if payload.pivot is defined %}
-                                  <div class="dsag-subsection">
-                                    <button type="button" class="dsag-toggle-btn">Further Explanation</button>
-                                    <div class="dsag-toggle-content" style="display:none;">
-                                      {% if payload.pivot.condensed_explanation is defined and payload.pivot.condensed_explanation %}
-                                        <div class="scope-text">{{ payload.pivot.condensed_explanation }}</div>
-                                      {% else %}
-                                        {% if payload.pivot.limitation %}
-                                          <div class="scope-row">{{ payload.pivot.limitation }}</div>
-                                        {% endif %}
-                                        {% if payload.pivot.research_goal %}
-                                          <div class="scope-row">{{ payload.pivot.research_goal }}</div>
-                                        {% endif %}
-                                        {% if payload.pivot.compelling_reason %}
-                                          <div class="scope-row">{{ payload.pivot.compelling_reason }}</div>
-                                        {% endif %}
-                                      {% endif %}
-                                      {% if payload.pivot.coarse_scenario %}
-                                        <button type="button" class="dsag-toggle-btn dsag-toggle-btn-nested">Scenario</button>
-                                        <div class="dsag-toggle-content" style="display:none;">
-                                          <div class="scope-scenario">{{ payload.pivot.coarse_scenario }}</div>
-                                        </div>
-                                      {% endif %}
-                                    </div>
-                                  </div>
-                                {% endif %}
-                              </div>
-
-                            {# ---- ProcessGap ---- #}
-                            {% elif rtype == "ProcessGap" %}
-                              <div class="dsag-process">
-                                {% if payload.sub_type == "factual_risk" %}
-                                  <div class="process-subtype-badge process-badge-factual">Factual Risk</div>
-                                  {% if payload.vulnerable_assumption %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Vulnerable Assumption</div>
-                                      <div class="process-warning-text">{{ payload.vulnerable_assumption }}</div>
-                                    </div>
-                                  {% endif %}
-                                  {% if payload.domain_correction %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Domain Reality</div>
-                                      <div class="process-correction-text">{{ payload.domain_correction }}</div>
-                                    </div>
-                                  {% endif %}
-                                  {% if payload.safe_phrasing %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Suggested Phrasing</div>
-                                      <div class="process-suggestion">"{{ payload.safe_phrasing }}"</div>
-                                    </div>
-                                  {% endif %}
-
-                                {% elif payload.sub_type == "methodology_conflict" %}
-                                  <div class="process-subtype-badge process-badge-method">Methodology Conflict</div>
-                                  {% if payload.known_approaches is defined and payload.known_approaches|length > 0 %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Known Approaches</div>
-                                      <ul class="process-approaches-list">
-                                        {% for approach in payload.known_approaches %}
-                                          <li>{{ approach }}</li>
-                                        {% endfor %}
-                                      </ul>
-                                    </div>
-                                  {% endif %}
-                                  {% if payload.researcher_assumed_approach %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Your Assumed Approach</div>
-                                      <div class="process-warning-text">{{ payload.researcher_assumed_approach }}</div>
-                                    </div>
-                                  {% endif %}
-                                  {% if payload.open_process_question %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Suggested Open Question</div>
-                                      <div class="process-suggestion">"{{ payload.open_process_question }}"</div>
-                                    </div>
-                                  {% endif %}
-
-                                {% else %}
-                                  {# Fallback for ProcessGap without sub_type #}
-                                  {% if payload.misalignment_reason %}
-                                    <div class="dsag-subsection">
-                                      <div class="dsag-subsection-title">Misalignment</div>
-                                      <div class="scope-text">{{ payload.misalignment_reason }}</div>
-                                    </div>
-                                  {% endif %}
-                                {% endif %}
-                              </div>
-
-                            {% endif %}
-                          </div>
-                        </div>
-                      {% endif %}
-
-                    </div>
+                    <div class="message-content">{{ msg.content }}</div>
                   </div>
                 </div>
               {% endif %}
@@ -463,61 +157,8 @@
           </div>
         </div>
       </main>
-      <div class="panel-resizer" data-resizer="right" role="separator" aria-label="Resize center and right panels"></div>
-
-        <aside class="process-panel">
-          <div class="panel-header">
-            <div>
-              <h2 class="panel-title">Transcript Summary</h2>
-            </div>
-          </div>
-
-          <div class="process-panel-content">
-            {% if not dsag_ready %}
-              <div class="process-empty-state">
-                <div class="empty-icon">📋</div>
-                <div class="empty-text">Initialize to enable transcript summarization.</div>
-                <div class="empty-hint">Upload an interview script and initialize to see structured summaries.</div>
-              </div>
-            {% elif not transcript_summary or not transcript_summary.main_bullets %}
-              <div class="process-empty-state">
-                <div class="empty-icon">📝</div>
-                <div class="empty-text">No transcript summary yet.</div>
-                <div class="empty-hint">Upload an interview script to generate topic bullets, then start the interview.</div>
-              </div>
-            {% else %}
-              {% for mb in transcript_summary.main_bullets %}
-                {% set main_question = mb.source_question if mb.source_question else mb.label %}
-                <div class="ts-main-bullet">
-                  <div class="ts-main-header">
-                    <span class="ts-main-label">{{ main_question }}</span>
-                    {% if mb.sub_bullets %}
-                      <span class="ts-sub-count">{{ mb.sub_bullets|length }}</span>
-                    {% endif %}
-                  </div>
-                  <div class="ts-sub-bullets">
-                    {% if mb.sub_bullets %}
-                      {% for sb in mb.sub_bullets %}
-                        <div class="ts-sub-bullet">
-                          <div class="ts-sub-line">
-                            <span class="ts-sub-tag">T{{ loop.index }}</span>
-                            <span class="ts-sub-summary">{{ sb.summary }}</span>
-                          </div>
-                        </div>
-                      {% endfor %}
-                    {% else %}
-                      <div class="ts-not-discussed">Not discussed yet</div>
-                    {% endif %}
-                  </div>
-                </div>
-              {% endfor %}
-            {% endif %}
-          </div>
-        </aside>
       </div>
     </div>
-
-    <div id="selectionTooltip" class="selection-tooltip hidden" role="status"></div>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
