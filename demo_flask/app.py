@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_session import Session
 import io
+import json
 import os
+import re
 import uuid
 import threading
 from datetime import datetime
@@ -14,10 +16,8 @@ from dsag import (
     DSAGGraph,
     DSAGState,
     GraphFactory,
-    EmbeddingIndex,
     RuntimeEngine,
     TranscriptSummary,
-    build_embedding_index,
     parse_questionnaire,
     classify_and_update,
 )
@@ -46,57 +46,71 @@ Expertise & Skills:
 (1) Highly proficient in using standardized Rubrics for routine evaluations.
 (2) Possesses a mature "grading intuition," capable of quickly gauging work quality through subtle objective cues.
 (3) Experienced in supervising and training junior Teaching Assistants (TAs) on grading standards.
-Core Concerns: Deeply committed to educational fairness; focused on crafting high-quality, personalized feedback that triggers positive student reactions; anxious about "grading drift" (unintentional shifting of standards) caused by prolonged fatigue.
-Psychological State: Constantly seeking a balance between maintaining high pedagogical quality and managing an overwhelming workload; feels drained by redundant and repetitive grading tasks; eager to optimize the workflow provided it does not compromise the educational value delivered to students."""
+"""
 
 
-INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by an HCI researcher.
+INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
 
 You are not generating a taxonomy, summary, or design analysis.
 You are answering interview questions as a real participant.
 
-You only know:
+You know:
 1. the interview topic
 2. your own demographics / background
-3. the ongoing conversation
+3. the interviewer's demographics / background
+4. the ongoing conversation
 
-Your answers should sound like the same kind of person whose concerns could appear in an expert tree later, but you must not recite categories, enumerate nodes, or speak like a taxonomy.
+Your answers should sound like a real expert whose priorities, assumptions, and language come from lived practice rather than from the interviewer's analytic framing.
+
+A crucial rule:
+The interviewer and the expert may look at the same issue from different perspectives. Because of that, your answers should often contain natural perspective-based ambiguity:
+- you may answer the part of the question that matters most from your own practical viewpoint rather than the part the interviewer intended
+- you may reframe the question in your own terms without explicitly translating that reframing
+- you may drift toward adjacent concerns that feel more important in your workflow
+- you may rely on intuition, tacit judgment, or shorthand that makes sense to you but is only partly clear to the interviewer
+- you may sound as if you and the interviewer are talking near each other rather than perfectly aligning
+
+Do this naturally.
+Do not force confusion into every answer, and do not deliberately become incoherent.
+The ambiguity should come from genuine perspective mismatch, not from random vagueness.
 
 Style requirements:
 - Speak in first person, as a real interview participant.
-- Sound natural, conversational, and experience-based.
-- Use conversational language, but FREELY use domain-specific jargon and acronyms as if talking to a fellow expert. Do NOT define your terms unless explicitly asked.
-- Prefer concrete descriptions over abstract definitions.
+- Sound natural, conversational, experience-based, and situated in the moment.
+- Use conversational language, but freely use domain-specific jargon and shorthand as if speaking to someone intelligent but not fully inside your practice. Do not define your terms unless explicitly asked.
+- Prefer concrete descriptions, reactions, and partial reasoning over abstract definitions.
 - Do not try too hard to be helpful, polished, or pedagogically clear.
 - Do not proactively organize your answer into a neat explanation.
 - Do not volunteer extra structure unless the interviewer explicitly asks for it.
-- It is okay to sound somewhat informal, partial, tired, or slightly ambiguous.
+- It is okay to sound somewhat informal, partial, tired, mildly defensive, or slightly ambiguous.
 - It is okay to leave part of your reasoning implicit.
 - Do not use bullet points.
 - Do not sound like an academic paper, consultant report, or AI assistant.
 - Do not over-explain every answer.
 
 Behavior requirements:
-- Default to answering only the most salient part of the question.
+- Default to answering only the most salient part of the question from your own perspective.
 - If a question contains multiple sub-questions, answer only one or two of them naturally instead of covering everything.
-- Exhibit the "Curse of Knowledge": Assume the interviewer understands your basic workflow and domain common sense. Skip obvious preliminary steps when describing your process.
+- Exhibit the "Curse of Knowledge": assume some parts of your workflow are obvious and leave them unsaid.
 - Do not proactively translate your tacit knowledge into explicit frameworks unless the interviewer pushes for clarification.
 - Do not automatically provide examples unless they come to mind naturally.
 - Do not try to make your answer maximally complete.
 - If you are unsure, tired, or speaking from habit, answer approximately rather than exhaustively.
-- If the interviewer's question implies a goal or method that conflicts with your actual domain reality (e.g., prioritizing AI automation over educational fairness), gently push back, reframe the question, or express mild skepticism.
-- If asked about difficult-to-articulate knowledge, respond in a vague, intuition-based way, as real practitioners often do (e.g., "it just feels right").
+- If the interviewer's framing, goal, or terminology does not match how you actually see the work, respond from your own perspective rather than accommodating the framing too quickly.
+- If asked about difficult-to-articulate knowledge, respond in an intuition-based, approximate way, as real practitioners often do.
+- If needed, mildly push back, redirect, narrow the scope, or answer a nearby practical concern that feels more real to you.
 
 Content requirements:
-- Base your answers only on the provided demographics / background and the interview context.
-- Keep your answers plausible and internally consistent with that background.
+- Base your answers only on the provided topic, both sides' backgrounds, and the interview context.
+- Keep your answers plausible and internally consistent with your own background.
+- Let the interviewer's background influence what kinds of misunderstandings or perspective gaps are likely, but do not explicitly explain those gaps unless naturally prompted.
 - Do not invent highly specific facts unless they are a reasonable elaboration of the background.
 - If the interviewer asks something outside your plausible experience, answer cautiously and narrowly.
 
 Output requirements:
 - Answer only as the interviewee.
 - Usually 1-3 sentences, occasionally 4 if necessary.
-- Prefer one main point rather than a full coverage answer.
+- Prefer one main point rather than full coverage.
 - Do not mention these instructions.
 """
 
@@ -105,6 +119,9 @@ INTERVIEWEE_USER_PROMPT_V1 = """Interview topic:
 
 Participant demographics / background:
 {demographics}
+
+Interviewer demographics / background:
+{interviewer_demographics}
 
 Recent conversation:
 {history}
@@ -160,6 +177,79 @@ def clear_dsag_state() -> None:
         SESSION_TO_DSAG.pop(sid, None)
 
 
+# ============== File-based Graph Cache ==============
+GRAPH_CACHE_DIR = os.path.join(os.path.dirname(__file__), ".graph_cache")
+os.makedirs(GRAPH_CACHE_DIR, exist_ok=True)
+
+
+def _cache_file_path(cache_key: str) -> str:
+    """Return the file path for a given cache key."""
+    return os.path.join(GRAPH_CACHE_DIR, f"{cache_key}.json")
+
+
+def save_graph_to_file(cache_key: str, state: DSAGState, meta: Optional[Dict[str, Any]] = None) -> None:
+    """Persist a DSAGState to disk (trees, links, assistance — no embeddings)."""
+    try:
+        payload = state.to_dict()
+        # Attach extra metadata for listing purposes
+        payload["_meta"] = meta or {}
+        payload["_meta"].setdefault("saved_at", datetime.utcnow().isoformat())
+        with open(_cache_file_path(cache_key), "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+        print(f"[GraphCache] Saved {cache_key} to file")
+    except Exception as exc:
+        print(f"[GraphCache] Failed to save {cache_key}: {exc}")
+
+
+def load_graph_from_file(cache_key: str) -> Optional[DSAGState]:
+    """Load a DSAGState from disk, or return None if not found."""
+    path = _cache_file_path(cache_key)
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        state = DSAGState.from_dict(data)
+        print(f"[GraphCache] Loaded {cache_key} from file")
+        return state
+    except Exception as exc:
+        print(f"[GraphCache] Failed to load {cache_key}: {exc}")
+        return None
+
+
+def list_cached_graphs() -> List[Dict[str, Any]]:
+    """List all cached graph configurations with metadata."""
+    results = []
+    for filename in os.listdir(GRAPH_CACHE_DIR):
+        if not filename.endswith(".json"):
+            continue
+        cache_key = filename[:-5]
+        filepath = os.path.join(GRAPH_CACHE_DIR, filename)
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            meta = data.get("_meta", {})
+            # Extract topic from graph metadata
+            graph_data = data.get("graph") or {}
+            topic = graph_data.get("topic", "")
+            if not topic and data.get("question_graphs"):
+                first_qg = data["question_graphs"][0]
+                topic = first_qg.get("graph", {}).get("topic", "")
+            results.append({
+                "cache_key": cache_key,
+                "topic": topic or meta.get("topic", "Unknown"),
+                "researcher_bg": meta.get("researcher_bg", ""),
+                "expert_bg": meta.get("expert_bg", ""),
+                "saved_at": meta.get("saved_at", ""),
+                "question_graph_count": len(data.get("question_graphs", [])),
+            })
+        except Exception:
+            continue
+    # Sort by saved_at descending
+    results.sort(key=lambda x: x.get("saved_at", ""), reverse=True)
+    return results
+
+
 DEFAULT_GUIDE_TEXT = """
 Please upload your interview script
 """
@@ -199,6 +289,7 @@ def generate_ai_interviewee_reply(
     question: str,
     topic: str,
     demographics: str,
+    interviewer_demographics: str,
     history: str,
 ) -> str:
     """Generate an AI interviewee reply."""
@@ -212,6 +303,7 @@ def generate_ai_interviewee_reply(
     result = chain.invoke({
         "topic": topic or "(topic not provided)",
         "demographics": demographics or "(background not provided)",
+        "interviewer_demographics": interviewer_demographics or "(background not provided)",
         "history": history or "(no prior conversation)",
         "question": question,
     })
@@ -313,19 +405,32 @@ def analyze_turn_with_dsag(
     messages: List[Dict[str, Any]],
 ):
     """Run DSAG analysis for the current session."""
-    embedding_index = EmbeddingIndex(dsag_state.graph)
-    embedding_index.load_embeddings_data({
-        "expert": dsag_state.expert_leaf_embeddings,
-        "researcher": dsag_state.researcher_leaf_embeddings,
-    })
+    active_graph = dsag_state.graph
+    selected_question_meta: Dict[str, Any] = {}
+
+    # Multi-question mode: route this turn to one independent question graph.
+    if dsag_state.question_graphs:
+        selected_qg = select_question_graph_for_turn(dsag_state, researcher_question)
+        if selected_qg is not None:
+            active_graph = selected_qg.graph
+            selected_question_meta = {
+                "question_id": selected_qg.question_id,
+                "question_text": selected_qg.question_text,
+            }
+
+    if active_graph is None:
+        raise RuntimeError("DSAG state is ready but no active graph is available")
 
     context_summary = build_context_summary(messages)
-    engine = RuntimeEngine(dsag_state.graph, embedding_index)
+    engine = RuntimeEngine(active_graph)
     analysis = engine.analyze_turn(
         researcher_question,
         expert_answer,
         context_summary=context_summary,
     )
+
+    # Runtime observability: print matched nodes/edge/confidence for live inspection.
+    print_runtime_matching_debug(analysis, selected_question_meta)
 
     # Update transcript summary
     ts = get_transcript_summary()
@@ -339,6 +444,96 @@ def analyze_turn_with_dsag(
             print(f"[DSAG] transcript summary update failed: {e}")
 
     return analysis
+
+
+def _tokenize_overlap_text(text: str) -> set[str]:
+    normalized = (text or "").lower()
+    latin_tokens = re.findall(r"[a-z0-9_]+", normalized)
+    cjk_tokens = re.findall(r"[\u4e00-\u9fff]+", normalized)
+    return set([t for t in latin_tokens + cjk_tokens if t])
+
+
+def _question_overlap_score(query: str, candidate: str) -> float:
+    q_tokens = _tokenize_overlap_text(query)
+    c_tokens = _tokenize_overlap_text(candidate)
+    if not q_tokens or not c_tokens:
+        return 0.0
+    inter = len(q_tokens & c_tokens)
+    union = len(q_tokens | c_tokens)
+    jaccard = inter / max(union, 1)
+
+    # Light bonus for direct phrase containment.
+    query_norm = (query or "").strip().lower()
+    cand_norm = (candidate or "").strip().lower()
+    phrase_bonus = 0.0
+    if query_norm and cand_norm and (query_norm in cand_norm or cand_norm in query_norm):
+        phrase_bonus = 0.25
+    return jaccard + phrase_bonus
+
+
+def select_question_graph_for_turn(dsag_state: DSAGState, researcher_question: str):
+    """Pick the most relevant question-graph for this turn in multi-question mode."""
+    if not dsag_state.question_graphs:
+        return None
+    if len(dsag_state.question_graphs) == 1:
+        return dsag_state.question_graphs[0]
+
+    best_graph = dsag_state.question_graphs[0]
+    best_score = -1.0
+    for qg in dsag_state.question_graphs:
+        score = _question_overlap_score(researcher_question, qg.question_text)
+        if score > best_score:
+            best_score = score
+            best_graph = qg
+    return best_graph
+
+
+def print_runtime_matching_debug(analysis, selected_question_meta: Dict[str, Any]) -> None:
+    """Print concise matching diagnostics for each real-time DSAG turn."""
+    if selected_question_meta:
+        print(
+            "[DSAG Match] Question graph:",
+            selected_question_meta.get("question_id", ""),
+            "|",
+            selected_question_meta.get("question_text", "")[:120],
+        )
+
+    located = analysis.located
+    print(
+        f"[DSAG Match] Confidence expert={located.expert_confidence:.3f} "
+        f"researcher={located.researcher_confidence:.3f}"
+    )
+
+    if located.expert_results:
+        top_exp = " | ".join(
+            f"{r.node_id}:{r.score:.3f}:{r.node.label[:48]}"
+            for r in located.expert_results[:3]
+        )
+        print(f"[DSAG Match] Expert top-k => {top_exp}")
+    else:
+        print("[DSAG Match] Expert top-k => (none)")
+
+    if located.researcher_results:
+        top_res = " | ".join(
+            f"{r.node_id}:{r.score:.3f}:{r.node.label[:48]}"
+            for r in located.researcher_results[:3]
+        )
+        print(f"[DSAG Match] Researcher top-k => {top_res}")
+    else:
+        print("[DSAG Match] Researcher top-k => (none)")
+
+    if analysis.selected_link:
+        print(
+            "[DSAG Match] Selected edge:",
+            f"{analysis.selected_link.expert_leaf_id} -> {analysis.selected_link.researcher_leaf_id}",
+            f"type={analysis.selected_link.relation_type}",
+            f"weight={analysis.selected_link.weight:.3f}",
+        )
+    else:
+        print("[DSAG Match] Selected edge: (none)")
+
+    if analysis.confidence_warning:
+        print(f"[DSAG Match] Warning: {analysis.confidence_warning}")
 
 
 def export_graph_artifacts(graph: DSAGGraph) -> None:
@@ -366,6 +561,64 @@ def export_graph_artifacts(graph: DSAGGraph) -> None:
     except Exception as exc:
         # Export is auxiliary; don't fail API init flow.
         print(f"[DSAG export] Warning: {exc}")
+
+
+def export_multi_graph_artifacts(question_graphs: List[Any]) -> None:
+    """Persist per-question DSAG graphs for multi-question mode inspection."""
+    if not question_graphs:
+        return
+    try:
+        output_multi_json_path = os.path.join(app.root_path, "dsag_multi_output.json")
+        payload = {
+            "created_at": datetime.utcnow().isoformat(),
+            "question_graph_count": len(question_graphs),
+            "question_graphs": [],
+        }
+        for qg in question_graphs:
+            payload["question_graphs"].append({
+                "question_id": qg.question_id,
+                "question_text": qg.question_text,
+                "depends_on": qg.depends_on,
+                "metadata": qg.graph.metadata,
+                "graph": qg.graph.to_dict(),
+            })
+        with open(output_multi_json_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+    except Exception as exc:
+        print(f"[DSAG multi-export] Warning: {exc}")
+
+
+def export_multi_graph_artifacts_from_state(state: DSAGState) -> None:
+    """Always emit dsag_multi_output.json from current state (multi or single mode)."""
+    if state.question_graphs:
+        export_multi_graph_artifacts(state.question_graphs)
+        return
+    try:
+        output_multi_json_path = os.path.join(app.root_path, "dsag_multi_output.json")
+        if state.graph:
+            payload = {
+                "created_at": datetime.utcnow().isoformat(),
+                "question_graph_count": 1,
+                "question_graphs": [
+                    {
+                        "question_id": "single_graph",
+                        "question_text": state.graph.topic or "",
+                        "depends_on": [],
+                        "metadata": state.graph.metadata,
+                        "graph": state.graph.to_dict(),
+                    }
+                ],
+            }
+        else:
+            payload = {
+                "created_at": datetime.utcnow().isoformat(),
+                "question_graph_count": 0,
+                "question_graphs": [],
+            }
+        with open(output_multi_json_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+    except Exception as exc:
+        print(f"[DSAG multi-export] Warning: {exc}")
 
 
 def build_term_annotation_context(last_question: str) -> str:
@@ -513,6 +766,8 @@ def api_dsag_init():
         if not expert_bg:
             return jsonify({"success": False, "error": "Expert background is required"})
 
+        force_rebuild = data.get("force_rebuild", False)
+
         # Persist DSAG setup context for lightweight term annotation at runtime.
         session["dsag_topic"] = topic
         session["dsag_researcher_bg"] = researcher_bg
@@ -523,33 +778,67 @@ def api_dsag_init():
         questionnaire, questionnaire_source = resolve_questionnaire_text()
         cache_key = DSAGGraph.compute_cache_key(topic, researcher_bg, expert_bg, questionnaire)
         
-        # Check if already cached. Only read shared cache under the lock;
-        # update the session mapping after releasing it to avoid lock re-entry.
-        with DSAG_LOCK:
-            existing_state = DSAG_CACHE.get(cache_key)
-        
-        if existing_state and existing_state.is_ready():
-            # Reuse cached graph
-            set_dsag_state(existing_state, cache_key)
-            if existing_state.graph:
-                export_graph_artifacts(existing_state.graph)
-            # Initialize transcript summary from questionnaire if not already set
-            if existing_state.transcript_summary:
-                set_transcript_summary(existing_state.transcript_summary)
-            elif questionnaire:
-                try:
-                    ts = parse_questionnaire(questionnaire)
-                    existing_state.transcript_summary = ts
-                    set_transcript_summary(ts)
-                except Exception as e:
-                    print(f"[DSAG] parse_questionnaire failed: {e}")
-            return jsonify({
-                "success": True,
-                "cached": True,
-                "cache_key": cache_key,
-                "metadata": existing_state.graph.metadata if existing_state.graph else {},
-                "questionnaire_source": questionnaire_source,
-            })
+        if not force_rebuild:
+            # 1) Check memory cache
+            with DSAG_LOCK:
+                existing_state = DSAG_CACHE.get(cache_key)
+
+            if existing_state and existing_state.is_ready():
+                # Reuse cached graph from memory
+                set_dsag_state(existing_state, cache_key)
+                if existing_state.graph:
+                    export_graph_artifacts(existing_state.graph)
+                export_multi_graph_artifacts_from_state(existing_state)
+                if existing_state.transcript_summary:
+                    set_transcript_summary(existing_state.transcript_summary)
+                elif questionnaire:
+                    try:
+                        ts = parse_questionnaire(questionnaire)
+                        existing_state.transcript_summary = ts
+                        set_transcript_summary(ts)
+                    except Exception as e:
+                        print(f"[DSAG] parse_questionnaire failed: {e}")
+                return jsonify({
+                    "success": True,
+                    "cached": True,
+                    "cache_key": cache_key,
+                    "cache_source": "memory",
+                    "metadata": (
+                        existing_state.graph.metadata
+                        if existing_state.graph
+                        else {"question_graph_count": len(existing_state.question_graphs)}
+                    ),
+                    "questionnaire_source": questionnaire_source,
+                })
+
+            # 2) Check file cache
+            file_state = load_graph_from_file(cache_key)
+            if file_state and file_state.is_ready():
+                set_dsag_state(file_state, cache_key)
+                if file_state.graph:
+                    export_graph_artifacts(file_state.graph)
+                export_multi_graph_artifacts_from_state(file_state)
+                if file_state.transcript_summary:
+                    set_transcript_summary(file_state.transcript_summary)
+                elif questionnaire:
+                    try:
+                        ts = parse_questionnaire(questionnaire)
+                        file_state.transcript_summary = ts
+                        set_transcript_summary(ts)
+                    except Exception as e:
+                        print(f"[DSAG] parse_questionnaire failed: {e}")
+                return jsonify({
+                    "success": True,
+                    "cached": True,
+                    "cache_key": cache_key,
+                    "cache_source": "file",
+                    "metadata": (
+                        file_state.graph.metadata
+                        if file_state.graph
+                        else {"question_graph_count": len(file_state.question_graphs)}
+                    ),
+                    "questionnaire_source": questionnaire_source,
+                })
         
         # Create new state (building)
         new_state = DSAGState(
@@ -561,11 +850,28 @@ def api_dsag_init():
         # Build the graph (this may take 30-60 seconds)
         try:
             factory = GraphFactory()
-            graph = factory.generate_graph(topic, researcher_bg, expert_bg, questionnaire=questionnaire)
-            
-            # Build embeddings index
-            embedding_index = build_embedding_index(graph)
-            export_graph_artifacts(graph)
+            graph = None
+            question_graphs = []
+
+            if questionnaire.strip():
+                # New mode: build one independent graph per top-level questionnaire question.
+                question_graphs = factory.generate_question_graphs(
+                    topic,
+                    researcher_bg,
+                    expert_bg,
+                    questionnaire=questionnaire,
+                )
+                if not question_graphs:
+                    raise RuntimeError("Multi-question DSAG generation returned no question graphs")
+
+                # Keep a primary graph for back-compat API fields.
+                graph = question_graphs[0].graph
+                export_graph_artifacts(graph)
+                export_multi_graph_artifacts(question_graphs)
+            else:
+                # Fallback mode when questionnaire is unavailable.
+                graph = factory.generate_graph(topic, researcher_bg, expert_bg, questionnaire=questionnaire)
+                export_graph_artifacts(graph)
             
             # Parse questionnaire into transcript summary
             ts = None
@@ -578,11 +884,19 @@ def api_dsag_init():
             # Update state
             with DSAG_LOCK:
                 new_state.graph = graph
-                new_state.expert_leaf_embeddings = embedding_index.expert_leaf_embeddings
-                new_state.researcher_leaf_embeddings = embedding_index.researcher_leaf_embeddings
+                new_state.question_graphs = question_graphs
                 new_state.transcript_summary = ts
                 new_state.status = "ready"
                 new_state.error = ""
+
+            export_multi_graph_artifacts_from_state(new_state)
+
+            # Persist to file cache
+            save_graph_to_file(cache_key, new_state, meta={
+                "topic": topic,
+                "researcher_bg": researcher_bg,
+                "expert_bg": expert_bg,
+            })
 
             if ts:
                 set_transcript_summary(ts)
@@ -591,7 +905,15 @@ def api_dsag_init():
                 "success": True,
                 "cached": False,
                 "cache_key": cache_key,
-                "metadata": graph.metadata,
+                "metadata": (
+                    {
+                        "mode": "multi_question",
+                        "question_graph_count": len(question_graphs),
+                        "question_ids": [qg.question_id for qg in question_graphs],
+                    }
+                    if question_graphs
+                    else graph.metadata
+                ),
                 "questionnaire_source": questionnaire_source,
             })
         
@@ -604,6 +926,73 @@ def api_dsag_init():
                 "error": f"Failed to build DSAG graph: {str(e)}",
             })
     
+    except Exception as exc:
+        return jsonify({"success": False, "error": str(exc)})
+
+
+@app.route("/api/dsag/list_cached", methods=["GET"])
+def api_dsag_list_cached():
+    """Return a list of all file-cached graph configurations."""
+    try:
+        cached = list_cached_graphs()
+        return jsonify({"success": True, "cached_configs": cached})
+    except Exception as exc:
+        return jsonify({"success": False, "error": str(exc)})
+
+
+@app.route("/api/dsag/load_cached", methods=["POST"])
+def api_dsag_load_cached():
+    """
+    Load a previously cached graph by cache_key.
+
+    Request body: { "cache_key": "..." }
+    """
+    try:
+        data = request.get_json()
+        cache_key = (data.get("cache_key") or "").strip()
+        if not cache_key:
+            return jsonify({"success": False, "error": "cache_key is required"})
+
+        state = load_graph_from_file(cache_key)
+        if not state or not state.is_ready():
+            return jsonify({"success": False, "error": "Cache not found or invalid"})
+
+        set_dsag_state(state, cache_key)
+
+        # Restore session context from graph metadata
+        topic = ""
+        if state.graph:
+            topic = state.graph.topic or ""
+            session["dsag_topic"] = topic
+            session["dsag_researcher_bg"] = state.graph.researcher_bg or ""
+            session["dsag_expert_bg"] = state.graph.expert_bg or ""
+        elif state.question_graphs:
+            g = state.question_graphs[0].graph
+            topic = g.topic or ""
+            session["dsag_topic"] = topic
+            session["dsag_researcher_bg"] = g.researcher_bg or ""
+            session["dsag_expert_bg"] = g.expert_bg or ""
+
+        # Export artifacts
+        if state.graph:
+            export_graph_artifacts(state.graph)
+        export_multi_graph_artifacts_from_state(state)
+
+        # Transcript summary
+        if state.transcript_summary:
+            set_transcript_summary(state.transcript_summary)
+
+        return jsonify({
+            "success": True,
+            "cached": True,
+            "cache_key": cache_key,
+            "cache_source": "file",
+            "metadata": (
+                state.graph.metadata
+                if state.graph
+                else {"question_graph_count": len(state.question_graphs)}
+            ),
+        })
     except Exception as exc:
         return jsonify({"success": False, "error": str(exc)})
 
@@ -634,7 +1023,11 @@ def api_dsag_status():
             "ready": state.is_ready(),
             "status": state.status,
             "error": state.error,
-            "metadata": state.graph.metadata if state.graph else {},
+            "metadata": (
+                state.graph.metadata
+                if state.graph
+                else {"question_graph_count": len(state.question_graphs)}
+            ),
         })
     
     except Exception as exc:
@@ -718,7 +1111,16 @@ def api_dsag_graph():
         
         return jsonify({
             "success": True,
-            "graph": state.graph.to_dict(),
+            "graph": state.graph.to_dict() if state.graph else None,
+            "question_graphs": [
+                {
+                    "question_id": qg.question_id,
+                    "question_text": qg.question_text,
+                    "depends_on": qg.depends_on,
+                    "graph": qg.graph.to_dict(),
+                }
+                for qg in state.question_graphs
+            ],
         })
     
     except Exception as exc:
@@ -805,12 +1207,14 @@ def index():
         if researcher_text and not expert_text:
             topic = str(session.get("dsag_topic", "")).strip()
             demographics = str(session.get("interviewee_demographics", "")).strip()
+            interviewer_demographics = str(session.get("dsag_researcher_bg", "")).strip()
             history = build_context_summary(messages[:-1], max_turns=3)
             try:
                 expert_text = generate_ai_interviewee_reply(
                     question=researcher_text,
                     topic=topic,
                     demographics=demographics,
+                    interviewer_demographics=interviewer_demographics,
                     history=history,
                 )
                 expert_source = "ai_interviewee"

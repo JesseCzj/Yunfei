@@ -13,10 +13,13 @@ Flow:
 3. Math Algorithm: Build GapLinks from alignments using tree traversal
 """
 
+import itertools
 import json
 import os
 import re
 import concurrent.futures
+import random
+import threading
 import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
@@ -29,6 +32,7 @@ from .schema import (
     TaxonomyTree,
     GapLink,
     DSAGGraph,
+    QuestionGraph,
     Tower,
     Layer,
     RelationType,
@@ -38,7 +42,45 @@ from .schema import (
     validate_graph,
 )
 
-from .embedding_index import build_embedding_index
+
+
+# ============== Multi-Key Pool (round-robin for high concurrency) ==============
+
+_KEY_POOL: List[str] = []
+_KEY_POOL_LOCK = threading.Lock()
+_KEY_POOL_CYCLE = None   # initialized lazily on first call
+
+
+def _init_key_pool() -> None:
+    """Collect all OPENAI_API_KEY / OPENAI_API_KEY_1 … OPENAI_API_KEY_N into a pool."""
+    global _KEY_POOL, _KEY_POOL_CYCLE
+    keys: List[str] = []
+    # Numbered variants: OPENAI_API_KEY_1 … OPENAI_API_KEY_20
+    for i in range(1, 21):
+        k = os.getenv(f"OPENAI_API_KEY_{i}")
+        if k and k not in keys:
+            keys.append(k)
+    # Always include the base key
+    base = os.getenv("OPENAI_API_KEY", "")
+    if base and base not in keys:
+        keys.insert(0, base)
+    _KEY_POOL = keys
+    _KEY_POOL_CYCLE = itertools.cycle(keys) if keys else None
+    if len(keys) > 1:
+        print(f"[KeyPool] {len(keys)} API keys loaded — round-robin enabled")
+    elif len(keys) == 1:
+        print("[KeyPool] 1 API key loaded")
+
+
+def _next_openai_key() -> str:
+    """Return the next API key in the round-robin pool (thread-safe)."""
+    global _KEY_POOL_CYCLE
+    if _KEY_POOL_CYCLE is None:
+        _init_key_pool()
+    if _KEY_POOL_CYCLE is None:
+        raise ValueError("No OPENAI_API_KEY found")
+    with _KEY_POOL_LOCK:
+        return next(_KEY_POOL_CYCLE)
 
 
 # ============== LLM Builder ==============
@@ -61,9 +103,7 @@ def _build_llm(temperature: float = 0.3) -> ChatOpenAI:
         )
     
     if provider == "openai":
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY is not set")
+        api_key = _next_openai_key()  # round-robin across key pool
         # Use a capable model for graph generation
         model = os.getenv("OPENAI_MODEL_GRAPH", os.getenv("OPENAI_MODEL", "qwen3.5-plus-2026-02-15"))
         base_url = os.getenv("OPENAI_BASE_URL")
@@ -71,6 +111,68 @@ def _build_llm(temperature: float = 0.3) -> ChatOpenAI:
             return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=temperature)
         return ChatOpenAI(api_key=api_key, model=model, temperature=temperature)
     
+    raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
+
+
+def _build_llm_fast(temperature: float = 0.7) -> ChatOpenAI:
+    """Build a lightweight/fast LLM instance for simulation tasks (coverage sampling).
+
+    Uses OPENAI_MODEL_SIMULATE env var (default: qwen-turbo) which is much faster
+    than the reasoning model used for graph generation, while being sufficient for
+    sampling diverse expert responses used only in coverage checks.
+    """
+    provider = os.getenv("LLM_PROVIDER", "openai").lower()
+
+    if provider == "deepseek":
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            raise ValueError("DEEPSEEK_API_KEY is not set")
+        model = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+        base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+        return ChatOpenAI(
+            api_key=api_key,
+            model=model,
+            base_url=base_url,
+            temperature=temperature,
+        )
+
+    if provider == "openai":
+        api_key = _next_openai_key()  # round-robin across key pool
+        # Fast model: OPENAI_MODEL_SIMULATE overrides, falls back to qwen-turbo
+        model = os.getenv("OPENAI_MODEL_SIMULATE", "qwen-turbo")
+        base_url = os.getenv("OPENAI_BASE_URL")
+        if base_url:
+            return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=temperature)
+        return ChatOpenAI(api_key=api_key, model=model, temperature=temperature)
+
+    raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
+
+
+def _build_llm_dependency(temperature: float = 0.1) -> ChatOpenAI:
+    """Build a fast LLM instance for questionnaire splitting and dependency judgment."""
+    provider = os.getenv("LLM_PROVIDER", "openai").lower()
+
+    if provider == "deepseek":
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            raise ValueError("DEEPSEEK_API_KEY is not set")
+        model = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+        base_url = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+        return ChatOpenAI(
+            api_key=api_key,
+            model=model,
+            base_url=base_url,
+            temperature=temperature,
+        )
+
+    if provider == "openai":
+        api_key = _next_openai_key()
+        model = os.getenv("OPENAI_MODEL_DEPENDENCY", "qwen-turbo")
+        base_url = os.getenv("OPENAI_BASE_URL")
+        if base_url:
+            return ChatOpenAI(api_key=api_key, model=model, base_url=base_url, temperature=temperature)
+        return ChatOpenAI(api_key=api_key, model=model, temperature=temperature)
+
     raise ValueError(f"Unsupported LLM_PROVIDER: {provider}")
 
 
@@ -126,7 +228,7 @@ Your goal is to construct an Expert Tree (TExp) that is comparable in size to th
 Do NOT maximize coverage by generating many overlapping leaves.
 Instead, produce a compact but diverse taxonomy of the most interview-relevant expert concerns.
 
-Please identify approximately 10-18 key pain points, concerns, practices, or tacit judgments you face in this domain.
+Please identify approximately 5-10 key pain points, concerns, practices, or tacit judgments you face in this domain.
 Organize them into a hierarchical taxonomy with the following structure:
 
 - Layer 1 (Perspective): High-level viewpoints or concerns (e.g., "Clinical Outcomes", "Workflow Disruption")
@@ -159,10 +261,10 @@ Return ONLY valid JSON with this schema:
 }}
 
 Scale requirements:
-- Target total leaves: 10-18
-- 3-4 perspectives (L1)
-- 2-3 categories under each perspective (L2)
-- 1-3 leaves per category (L3)
+- Target total leaves: 5-10
+- 2-3 perspectives (L1)
+- 1-2 categories under each perspective (L2)
+- 1-2 leaves per category (L3)
 - Prefer fewer, better-separated leaves over exhaustive enumeration
 
 Diversity requirements:
@@ -212,7 +314,7 @@ You are preparing to interview domain experts about: {topic}
 Here is your INTERVIEW QUESTIONNAIRE / GUIDE:
 \"\"\"\n{questionnaire}\n\"\"\"
 
-Please identify 8-15 key research goals, design hypotheses, or information needs you want to explore.
+Please identify 5-10 key research goals, design hypotheses, or information needs you want to explore.
 Construct the Researcher Tree (TRes) based PRIMARILY on the questionnaire above:
 1. Extract the core intent behind each question and turn it into a Leaf Node (Research Goal).
 2. If the questionnaire is sparse, infer logical follow-up goals to fill the tree.
@@ -247,9 +349,10 @@ Return ONLY valid JSON with this schema:
 }}
 
 Scale and coverage requirements:
-- 3-5 perspectives (L1)
-- 2-4 categories under each perspective (L2)
-- 3-5 leaves per category (L3)
+- 2-3 perspectives (L1)
+- 1-2 categories under each perspective (L2)
+- 1-3 leaves per category (L3)
+- Target total leaves: 5-10
 
 Focus on goals that:
 1. Require understanding from domain experts
@@ -273,14 +376,15 @@ ALIGNMENT_JUDGE_PROMPT = """You are analyzing two taxonomy trees to identify sem
 {researcher_tree_json}
 
 Your task is to identify which nodes are semantically ALIGNED (same concept, similar meaning) and which are MISALIGNED (different concepts, potential communication gap).
-
+**CRITICAL INSTRUCTION: BASE YOUR ANALYSIS ON DESCRIPTIONS!** 
+You MUST evaluate alignments and gaps strictly based on the detailed semantics within the "description" (and "attributes" if present) fields. Do NOT hallucinate conflicts or alignments based solely on the short labels
 Instructions:
 1. For each LEAF node in the Expert tree, determine if there's a semantically similar leaf in the Researcher tree
 2. For each CONCEPT node (L1/L2 level) in the Expert tree, determine if there's a similar concept in the Researcher tree
 3. Mark pairs as "aligned" (true) if they represent the same or very similar concept
 4. Mark pairs as "misaligned" (false) if they represent different perspectives or concepts
 5. Provide a reason explaining WHY they are aligned or misaligned
-6. For every MISALIGNED pair (is_aligned=false), you MUST set "relation_type" to exactly one of the 5 gap categories below. Do NOT omit this field for misaligned pairs.
+6. For every MISALIGNED pair (is_aligned=false), you MUST set "relation_type" to exactly one of the 4 gap categories below. Do NOT omit this field for misaligned pairs.
 
 IMPORTANT:
 - Root nodes are always considered aligned (they share the same topic)
@@ -292,100 +396,46 @@ IMPORTANT:
 - It is acceptable to pair one expert leaf with multiple researcher leaves if that creates meaningful gaps
 
 Gap type definitions for "relation_type" (misaligned pairs only):
-- "LexicalGap": The two sides use different terms, jargon, or labels for the same concept.
 - "ConceptualGap": The two sides hold different mental models, analogies, or interpretations of the concept.
 - "TacitGap": The expert relies on intuition, implicit knowledge, or experience that the researcher cannot easily observe or quantify. This includes methodology-level tacit knowledge — when the expert's working approach is an intuitive blend of multiple frameworks rather than a nameable paradigm, and they cannot articulate a structured workflow because their practice is driven by experiential pattern recognition.
 - "ScopeGap": The two sides differ in purpose or expectations — the expert focuses on practical utility while the researcher focuses on research value, leading to inconsistent goals about "what to do."
-- "ProcessGap": A mismatch that risks disrupting the interview process. Two sub-types:
-  (a) Factual Risk — The researcher's preparation contains assumptions or claims that may conflict with established domain practice. If stated as fact during the interview, the expert will correct the error, derailing the original discussion flow.
-  (b) Methodology Conflict — The domain has multiple accepted paradigms or approaches for the same task, but the researcher only anticipates one. Using confirmatory questions ("You use X, right?") would miss the expert's actual practice. KEY BOUNDARY: This applies only when the expert CAN name their approach (e.g., "I use rolling CV, not k-fold"). If the expert's methodology is an unarticulated intuitive blend that resists being named or structured, classify as TacitGap instead — the problem is articulability, not paradigm selection.
 
 Classification hint: Expert leaf nodes that contain a non-empty "attributes" list indicate tacit, intuition-based knowledge (Tacit Knowledge Facets). When such a leaf is part of a misaligned pair, strongly prefer "TacitGap" as the relation_type.
 
----
+Gap type definitions for "relation_type" (misaligned pairs only):
+- "ConceptualGap": The primary mismatch is that the expert and researcher are operating with different conceptual models of what the phenomenon IS, how it works, or what structure it has. Even if the expert fully articulated their view, the mismatch would still remain, because the disagreement is about the underlying construct or mechanism.
+- "TacitGap": The primary mismatch is that the expert's knowledge is real and relevant, but is carried in implicit judgment, experiential pattern recognition, or hard-to-articulate heuristics. If the expert's internal cues, thresholds, or decision process were successfully surfaced, the researcher could translate them into observable variables, probes, or representations without needing to replace the expert's core concept.
 
-**One canonical example per gap type** (node format: label — description):
+Classification principle:
+- Do NOT classify based on whether the expert leaf merely "sounds intuitive" or "sounds abstract".
+- Do NOT default to TacitGap just because the expert uses experience-based language.
+- Do NOT default to ConceptualGap just because the two descriptions use different wording.
+- First ask: If the expert fully unpacked their reasoning in explicit detail, would the gap mostly disappear?
+  - If YES, prefer "TacitGap".
+  - If NO, prefer "ConceptualGap".
+- Second ask: Is the researcher mainly trying to surface / parameterize / observe the expert's existing judgment process, rather than replace it with a different theory?
+  - If YES, that supports "TacitGap".
+  - If NO, and the researcher is imposing a different construct or explanatory frame, that supports "ConceptualGap".
 
-LexicalGap example:
-  Expert:     "EHR audit trail" — The log of all actions performed on a patient's record, used by clinicians for accountability.
-  Researcher: "Activity log" — A timestamped record of system interactions stored in the database, used for access-control analysis.
-  → LexicalGap: Both sides describe the same artifact. The difference is purely terminological — adopting a shared label would fully close the gap.
+Important signal from expert leaf attributes:
+- A non-empty "attributes" list is evidence that the expert leaf may contain tacit knowledge facets.
+- Treat this as a supporting signal, NOT an automatic rule.
+- Use "TacitGap" only when the misalignment is primarily about articulability / surfacing implicit knowledge.
+- If the pair still reflects a genuine difference in underlying model or interpretation, use "ConceptualGap" even when attributes are present.
+**Boundary rule: ConceptualGap vs TacitGap**
 
-ConceptualGap example:
-  Expert:     "Clinical reliability" — A system that is always available when I need it during rounds — no downtime, no lag.
-  Researcher: "System reliability" — The degree to which a system produces consistent, reproducible outputs under repeated testing conditions.
-  → ConceptualGap: Both use "reliability" but hold fundamentally different mental models — uptime/availability vs. statistical reproducibility. Agreeing on a term would not resolve the disagreement; the underlying constructs differ.
+Use this decision boundary:
 
-TacitGap example:
-  Expert:     "Deterioration judgment" — Recognizing when a patient is about to decline based on subtle cues — skin tone, breathing rhythm, demeanor — before vitals change. [attributes: "skin color change", "respiratory pattern shift", "patient demeanor", "nurse intuition threshold"]
-  Researcher: "Early deterioration signal" — A quantifiable indicator that precedes a clinical deterioration event, suitable for inclusion in a predictive model.
-  → TacitGap: The expert possesses valid, structured knowledge (confirmed by non-empty attributes list) but it exists as implicit pattern recognition. The knowledge is real — it has not yet been surfaced and made explicit.
+- Choose "TacitGap" when:
+  - The expert and researcher are fundamentally looking at the SAME phenomenon,
+  - and the researcher's task is to extract, clarify, elicit, parameterize, or make observable the expert's implicit judgment,
+  - and a sufficiently detailed unpacking of the expert's cues/process would largely reduce the mismatch.
 
-ScopeGap example:
-  Expert:     "Alarm threshold tuning" — Adjusting alert thresholds to reduce false positives and make the alarm system practical for daily clinical use.
-  Researcher: "Alarm fatigue measurement" — Quantifying the systemic cognitive burden that high alarm volumes impose on clinical staff, as a variable in a human-factors study.
-  → ScopeGap: The expert's goal is practical utility (make alarms less disruptive); the researcher's goal is research value (measure alarm fatigue as a construct). They disagree on what this work should produce — not on what the concept means.
+- Choose "ConceptualGap" when:
+  - The expert and researcher are framing the phenomenon through DIFFERENT underlying constructs, mechanisms, or explanatory models,
+  - and the mismatch would persist even after the expert fully articulates their reasoning,
+  - because the issue is not hidden knowledge but a different conceptualization.
 
-ProcessGap example (Factual Risk):
-  Expert:     "Patient discharge bottleneck" — The final pharmacy reconciliation review takes 30-60 minutes per patient and is the rate-limiting step before discharge.
-  Researcher: "Discharge workflow delay" — The primary bottleneck in the discharge process is waiting for the attending physician's sign-off, which could be streamlined through automation.
-  → ProcessGap: The researcher's preparation assumes physician sign-off is the bottleneck, but in this expert's domain, pharmacy reconciliation is the actual rate-limiting step. If the researcher states "the main delay is physician sign-off" as fact, the expert will correct the error, consuming interview time on factual correction instead of sharing deeper workflow insights. The gap is about a factual vulnerability in the researcher's preparation, not about differing mental models.
-
-ProcessGap example (Methodology Conflict):
-  Expert:     "Model validation practice" — We validate using rolling cross-validation tailored to our temporal clinical data; standard k-fold would leak future information into training.
-  Researcher: "Cross-validation protocol" — Applying k-fold cross-validation as the standard evaluation methodology for predictive model performance.
-  → ProcessGap: The domain has multiple valid validation approaches depending on data structure. The researcher only anticipates standard k-fold, but the expert uses a domain-specific variant that avoids temporal data leakage. If the researcher asks "How do you handle your k-fold splits?", the expert may either correct the premise or answer within the wrong framework. The gap is about procedural multiplicity — the researcher must use open-ended process questions ("How do you validate your models?") instead of confirmatory ones.
-
----
-
-**One boundary edge case per pair of types** (what looks like X but is actually Y):
-
-[LexicalGap vs ConceptualGap]
-  Expert:     "Patient risk score" — The number the system gives a patient; high means they need attention soon.
-  Researcher: "Risk stratification" — Classifying patients into probabilistic risk tiers based on weighted feature combinations in a predictive model.
-  → ConceptualGap (NOT LexicalGap): The expert's concept is a simple output number for triage priority; the researcher's concept is a multi-step classification process. These are different mental models of what risk assessment IS — not the same concept under different labels. A shared label would not close the gap.
-
-[LexicalGap vs TacitGap]
-  Expert:     "Clinical intuition" — The sense that something is wrong with a patient even when numbers look normal — experienced nurses develop this over years.
-  Researcher: "Non-quantifiable clinical signal" — An expert-identified indicator that lacks a formal operational definition.
-  → TacitGap (NOT LexicalGap): The researcher's label is an attempt to formalize what the expert experiences as intuition. Simply agreeing on a shared term would not help the researcher extract the actual knowledge — the gap is about surfacing implicit experiential knowledge, not about aligning vocabulary.
-
-[LexicalGap vs ScopeGap]
-  Expert:     "Medication reconciliation" — Checking that drugs listed in the system match what the patient is actually taking at every care transition.
-  Researcher: "Drug list validation" — Verifying the completeness and accuracy of the pharmacological record in the EHR.
-  → LexicalGap (NOT ScopeGap): Both sides describe the same process and share the same goal — understand this verification step. The difference is vocabulary only ("medication reconciliation" vs. "drug list validation"). There is no divergence in purpose or expectations.
-
-[ConceptualGap vs TacitGap]
-  Expert:     "Patient severity assessment" — I look at labs, vitals, how the patient looks, and just know whether they're sick. Hard to explain, but you learn it. [attributes: "lab trend pattern", "vital sign cluster", "patient appearance", "gut feeling threshold"]
-  Researcher: "Acuity scoring" — A structured composite score based on weighted physiological parameters that classifies patient severity on a standardized scale.
-  → TacitGap (NOT ConceptualGap): The expert is not operating on a different model of what "severity" means — they agree it involves labs, vitals, and patient state. The problem is that their assessment process is experiential and unarticulated, confirmed by the non-empty attributes list. A ConceptualGap would require fundamental disagreement about what "severity" IS.
-
-[ConceptualGap vs ScopeGap]
-  Expert:     "Workflow efficiency" — Getting through the patient list faster by reducing the number of steps and screens needed to document each encounter.
-  Researcher: "Workflow optimization" — Identifying cognitive bottlenecks in clinical workflows that can be modeled and reduced through system redesign.
-  → ConceptualGap (NOT ScopeGap): Both sides want to improve workflows — their interview goals are aligned. The gap is in their mental models of what "optimization" means: reducing manual steps vs. modeling cognitive bottlenecks. This is a disagreement about how the concept works, not about what the interview should produce.
-
-[TacitGap vs ScopeGap]
-  Expert:     "Drug dosing judgment" — Adjusting doses based on weight, age, renal function, and what's worked before — I know when to deviate from the protocol. [attributes: "patient weight", "renal function marker", "prior drug response", "experience threshold"]
-  Researcher: "Dosing parameter study" — Identifying which patient variables most influence clinician deviation from standard protocols, to inform future guideline development.
-  → TacitGap (NOT ScopeGap): The researcher's goal — extract dosing variables — is fully aligned with the interview purpose. The problem is that the expert's decisions are driven by implicit pattern recognition (confirmed by attributes). There is no divergence in expectations; there is an articulability problem. A ScopeGap would require the expert to want the interview to produce something entirely different.
-
-[ConceptualGap vs ProcessGap]
-  Expert:     "Feature engineering" — Manually crafting domain-specific input features based on years of clinical knowledge before feeding them to the model.
-  Researcher: "Feature extraction" — Using automated methods (PCA, autoencoders) to derive discriminative features from raw data.
-  → ConceptualGap (NOT ProcessGap): The difference is in their mental models of what "feature creation" means — manual domain knowledge vs. automated computation. Neither side's approach is factually wrong, and the domain does not have "multiple paradigms for the same step" — these are genuinely different concepts based on different philosophies. A ProcessGap would require either a factual error in the researcher's claim or the existence of multiple valid approaches to the SAME task that the researcher fails to anticipate.
-
-[ScopeGap vs ProcessGap]
-  Expert:     "Clinical trial endpoint selection" — We pick endpoints based on what is achievable in our patient population and what regulators accept.
-  Researcher: "Outcome measure selection" — Selecting outcomes that maximize statistical power and align with the study's theoretical framework.
-  → ScopeGap (NOT ProcessGap): Both sides describe the same procedural step (selecting endpoints/outcomes). The difference is in their priorities — practical feasibility vs. research rigor. There is no factual error in the researcher's approach, and both accept that endpoint selection is necessary. The gap is about purpose/focus divergence, not about the researcher misunderstanding domain practice or missing alternative methodologies.
-
-[TacitGap vs ProcessGap]
-  Expert:     "Therapeutic approach selection" — I draw from CBT, psychodynamic, and mindfulness techniques depending on what the patient presents — it's not one framework, I just know what fits after years of practice. [attributes: "patient presentation pattern", "therapeutic rapport cues", "intervention selection intuition", "session pacing judgment"]
-  Researcher: "Therapeutic methodology" — Identifying which evidence-based therapeutic framework (CBT, psychodynamic, DBT) the clinician primarily uses, to document a step-by-step treatment protocol.
-  → TacitGap (NOT ProcessGap): This looks like methodology_conflict because the domain has multiple paradigms and the researcher assumes one. But the expert CANNOT name a single method — their practice is an intuitive blend driven by experiential pattern recognition (confirmed by non-empty attributes). The core problem is not "the researcher picked the wrong paradigm" but "the expert's methodology is itself tacit and resists structured-workflow extraction." An open-process question alone cannot solve this; the researcher needs attribute decomposition and probes to surface the implicit decision factors.
-
----
 
 Return ONLY valid JSON with this schema:
 {{
@@ -396,7 +446,7 @@ Return ONLY valid JSON with this schema:
       "is_aligned": true/false,
       "reason": "Explanation of why they are aligned/misaligned",
       "semantic_similarity": 0.0-1.0,
-      "relation_type": "REQUIRED when is_aligned=false. One of: LexicalGap | ConceptualGap | TacitGap | ScopeGap | ProcessGap. Omit only when is_aligned=true."
+      "relation_type": "REQUIRED when is_aligned=false. One of:  ConceptualGap | TacitGap | ScopeGap . Omit only when is_aligned=true."
     }}
   ],
   "concept_alignments": [
@@ -449,43 +499,411 @@ Return ONLY valid JSON:
 }}
 """
 
-ALIGNMENT_JUDGE_LEAF_PROMPT = """You are analyzing leaf-level semantic alignments between an Expert tree and a Researcher tree.
+ALIGNMENT_JUDGE_LEAF_PROMPT = """You are an expert alignment analyst helping prepare for a research interview.
 
 **Interview Topic:** {topic}
 
-**Expert Tree Batch (concept skeleton + a subset of expert leaves):**
-{expert_tree_json}
+**Expert Leaf Node (one node):**
+{expert_leaf_json}
 
-**Researcher Tree (full):**
-{researcher_tree_json}
+**All Researcher Leaf Nodes:**
+{researcher_leaves_json}
 
 Task:
-- Judge ONLY LEAF-level pairs.
-- For each expert leaf in this batch, output 2-3 candidate pairs in total:
-  1) At least one "semantic anchor" pair (can be aligned or misaligned)
-  2) At least one MISALIGNED bridge pair when meaningful
-- Avoid near-duplicate pairs for the same expert leaf.
-- If a pair is misaligned, relation_type is REQUIRED and must be one of:
-  LexicalGap | ConceptualGap | TacitGap | ScopeGap | ProcessGap
-- Prefer TacitGap when the expert leaf has non-empty attributes and the gap is about implicit experiential judgment.
+For the expert leaf above, examine it against EACH researcher leaf one by one.
+- If the pair has a semantic gap that could cause miscommunication during the interview → include it in the output
+- If there is no meaningful divergence → skip it entirely (do NOT output it)
 
-Return ONLY valid JSON:
+A semantic gap exists when the researcher and expert would misunderstand each other, talk past each other, or expect different outcomes from the same discussion topic.
+
+Gap type definitions (choose exactly one):
+- "ConceptualGap": Different mental models of what the concept IS. Agreeing on a shared label alone would not resolve the disagreement — the underlying constructs differ.
+- "TacitGap": Expert's knowledge is implicit, experiential, or hard to articulate. STRONGLY prefer this when the expert leaf has a non-empty "attributes" list.
+- "ScopeGap": Same concept but different goals — expert wants practical utility, researcher wants research value. They'd expect different outcomes from the interview discussion.
+
+Skip the pair entirely if:
+- The only difference is vocabulary or terminology (same concept, different labels) — this is handled by the UI highlighting system, not by gap links.
+- The gap is about a factual risk in the researcher's preparation or a methodology blindspot — this is handled separately by the transcript summarization module.
+
+Return ONLY valid JSON. Only include pairs that HAVE a gap:
 {{
   "leaf_alignments": [
     {{
-      "expert_node_id": "exact expert leaf ID",
-      "researcher_node_id": "exact researcher leaf ID",
-      "is_aligned": true/false,
-      "reason": "Why aligned/misaligned",
+      "expert_node_id": "{expert_node_id}",
+      "researcher_node_id": "exact researcher leaf ID from the list above",
+      "is_aligned": false,
+      "reason": "Specific explanation of the gap and why it matters in this interview context",
       "semantic_similarity": 0.0-1.0,
-      "relation_type": "REQUIRED when is_aligned=false. Omit when is_aligned=true."
+      "relation_type": "ConceptualGap | TacitGap | ScopeGap"
+    }}
+  ]
+}}
+
+If no researcher leaf has a meaningful gap with this expert leaf, return {{"leaf_alignments": []}}.
+"""
+
+# Legacy prompt kept for reference (no longer used)
+GRAPH_ARCHITECT_PROMPT_LEGACY = """[DEPRECATED - See ALIGNMENT_JUDGE_PROMPT]"""
+
+
+# ============== Multi-Question Prompts ==============
+
+SPLIT_QUESTIONS_PROMPT = """You are given an interview questionnaire/script. Your job is to extract the TOP-LEVEL questions.
+
+## Questionnaire text
+{questionnaire_text}
+
+## How to identify top-level questions
+- **Numbered items** (1. / 2. / Q1 / Question 1) are top-level.
+- **Bolded or larger headings** that introduce a new theme are top-level.
+- **Sub-items** nested under a top-level question (marked by "o", "-", "•", "a)", indentation, or follow-up probes) are NOT separate questions — they belong to their parent.
+- If the questionnaire has NO explicit numbering or headings, group by thematic shift.
+- When in doubt, prefer FEWER, BROADER questions.
+
+Return ONLY valid JSON:
+{{
+  "questions": [
+    {{
+      "id": "q_01",
+      "text": "Full original text of this top-level question including all its sub-items, verbatim or lightly cleaned"
     }}
   ]
 }}
 """
 
-# Legacy prompt kept for reference (no longer used)
-GRAPH_ARCHITECT_PROMPT_LEGACY = """[DEPRECATED - See ALIGNMENT_JUDGE_PROMPT]"""
+JUDGE_DEPENDENCIES_PROMPT = """You are analyzing dependencies between top-level interview questions.
+
+## Questions
+{questions_json}
+
+## Task
+For each pair of questions, judge whether one DEPENDS on another. 
+Dependency means: to fully address question B, you need context or answers from question A.
+
+Common dependency patterns:
+- A "background" or "introduction" question often provides context for later questions.
+- Questions about "workflow" or "process" often provide context for questions about "challenges" or "improvements".
+- A question asking about general practices often precedes one asking about specific edge cases.
+
+Rules:
+- Dependencies should be DIRECTIONAL: A -> B means B depends on A (A should be processed first).
+- Only flag STRONG dependencies where B truly cannot be well-addressed without A's context.
+- A question can depend on multiple others, but keep it minimal.
+- Circular dependencies are NOT allowed.
+
+Return ONLY valid JSON:
+{{
+  "dependencies": [
+    {{
+      "from_id": "q_01",
+      "to_id": "q_03",
+      "reason": "Brief explanation of why q_03 depends on q_01"
+    }}
+  ]
+}}
+If no dependencies exist, return: {{"dependencies": []}}
+"""
+
+# Per-question tree prompts — scoped to a single questionnaire question.
+# These reuse the same output schema as the original prompts but narrow the focus.
+
+INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
+
+You are not generating a taxonomy, summary, or design analysis.
+You are answering interview questions as a real participant.
+
+You know:
+1. the interview topic
+2. your own demographics / background
+3. the interviewer's demographics / background
+4. the ongoing conversation
+
+Your answers should sound like a real expert whose priorities, assumptions, and language come from lived practice rather than from the interviewer's analytic framing.
+
+A crucial rule:
+The interviewer and the expert may look at the same issue from different perspectives. Because of that, your answers should often contain natural perspective-based ambiguity:
+- you may answer the part of the question that matters most from your own practical viewpoint rather than the part the interviewer intended
+- you may reframe the question in your own terms without explicitly translating that reframing
+- you may drift toward adjacent concerns that feel more important in your workflow
+- you may rely on intuition, tacit judgment, or shorthand that makes sense to you but is only partly clear to the interviewer
+- you may sound as if you and the interviewer are talking near each other rather than perfectly aligning
+
+Do this naturally.
+Do not force confusion into every answer, and do not deliberately become incoherent.
+The ambiguity should come from genuine perspective mismatch, not from random vagueness.
+
+Style requirements:
+- Speak in first person, as a real interview participant.
+- Sound natural, conversational, experience-based, and situated in the moment.
+- Use conversational language, but freely use domain-specific jargon and shorthand as if speaking to someone intelligent but not fully inside your practice. Do not define your terms unless explicitly asked.
+- Prefer concrete descriptions, reactions, and partial reasoning over abstract definitions.
+- Do not try too hard to be helpful, polished, or pedagogically clear.
+- Do not proactively organize your answer into a neat explanation.
+- Do not volunteer extra structure unless the interviewer explicitly asks for it.
+- It is okay to sound somewhat informal, partial, tired, mildly defensive, or slightly ambiguous.
+- It is okay to leave part of your reasoning implicit.
+- Do not use bullet points.
+- Do not sound like an academic paper, consultant report, or AI assistant.
+- Do not over-explain every answer.
+
+Behavior requirements:
+- Default to answering only the most salient part of the question from your own perspective.
+- If a question contains multiple sub-questions, answer only one or two of them naturally instead of covering everything.
+- Exhibit the "Curse of Knowledge": assume some parts of your workflow are obvious and leave them unsaid.
+- Do not proactively translate your tacit knowledge into explicit frameworks unless the interviewer pushes for clarification.
+- Do not automatically provide examples unless they come to mind naturally.
+- Do not try to make your answer maximally complete.
+- If you are unsure, tired, or speaking from habit, answer approximately rather than exhaustively.
+- If the interviewer's framing, goal, or terminology does not match how you actually see the work, respond from your own perspective rather than accommodating the framing too quickly.
+- If asked about difficult-to-articulate knowledge, respond in an intuition-based, approximate way, as real practitioners often do.
+- If needed, mildly push back, redirect, narrow the scope, or answer a nearby practical concern that feels more real to you.
+
+Content requirements:
+- Base your answers only on the provided topic, both sides' backgrounds, and the interview context.
+- Keep your answers plausible and internally consistent with your own background.
+- Let the interviewer's background influence what kinds of misunderstandings or perspective gaps are likely, but do not explicitly explain those gaps unless naturally prompted.
+- Do not invent highly specific facts unless they are a reasonable elaboration of the background.
+- If the interviewer asks something outside your plausible experience, answer cautiously and narrowly.
+
+Output requirements:
+- Answer only as the interviewee.
+- Usually 1-3 sentences, occasionally 4 if necessary.
+- Prefer one main point rather than full coverage.
+- Do not mention these instructions.
+"""
+
+INTERVIEWEE_USER_PROMPT_V1 = """Interview topic:
+{topic}
+
+Participant demographics / background:
+{demographics}
+
+Interviewer demographics / background:
+{interviewer_demographics}
+
+Recent conversation:
+{history}
+
+Interviewer question:
+{question}
+
+Answer as the participant only."""
+
+PER_QUESTION_EXPERT_PROMPT = """You are an experienced domain expert with the following background:
+
+{expert_bg}
+
+You are participating in an interview about: {topic}
+
+The interviewer will ask you the following SPECIFIC question (and its sub-items):
+\"\"\"
+{question_text}
+\"\"\"
+
+{dependency_context}
+
+Your goal is to construct an Expert Tree (TExp) that captures your expert knowledge, concerns, practices, and tacit judgments RELEVANT TO THIS SPECIFIC QUESTION.
+
+Please identify approximately 5-10 key pain points, concerns, practices, or tacit judgments related to this question.
+Organize them into a hierarchical taxonomy with the following structure:
+
+- Layer 1 (Perspective): High-level viewpoints or concerns (e.g., "Clinical Outcomes", "Workflow Disruption")
+- Layer 2 (Category): Categories under each perspective (e.g., "Alert Fatigue", "Time Pressure")
+- Layer 3 (Leaf): Specific, concrete pain points, practices, decision points, or tacit judgments
+
+Return ONLY valid JSON with this schema:
+{{
+  "perspectives": [
+    {{
+      "label": "Perspective name",
+      "description": "Brief description",
+      "categories": [
+        {{
+          "label": "Category name",
+          "description": "Brief description",
+          "pain_points": [
+            {{
+              "label": "Specific pain point",
+              "description": "A concrete, conversational description written the way you would actually explain this to a colleague over coffee — avoid academic or textbook-style definitions",
+              "aliases": ["synonym or informal phrasing", "domain jargon or abbreviation"],
+              "is_intuition": true/false,
+              "attributes": ["attr1", "attr2"] // Only if is_intuition=true: tacit knowledge facets
+            }}
+          ]
+        }}
+      ]
+    }}
+  ]
+}}
+
+Scale requirements:
+- Target total leaves: 5-10
+- 2-3 perspectives (L1)
+- 1-2 categories under each perspective (L2)
+- 1-2 leaves per category (L3)
+
+Diversity requirements:
+- Each leaf should represent a DISTINCT concern, practice, bottleneck, judgment, trade-off, or situational cue
+- Avoid near-duplicate leaves
+- At least 25-40% of leaves should involve tacit, experiential, or hard-to-articulate knowledge when appropriate
+
+Description and aliases guidance:
+- Write each "description" as you would actually SAY it in a real conversation — use plain, vivid language with concrete examples.
+- For "aliases", provide 2-4 alternative phrasings drawn from realistic expert vocabulary.
+
+For intuition-based pain points, add 2-4 "attributes" that represent Tacit Knowledge Facets (decision heuristics, contextual cues, data characteristics, value trade-offs).
+"""
+
+PER_QUESTION_RESEARCHER_PROMPT = """You are an HCI/Visualization researcher with the following background:
+
+{researcher_bg}
+
+You are preparing to interview domain experts about: {topic}
+
+You will ask the following SPECIFIC question:
+\"\"\"
+{question_text}
+\"\"\"
+
+{dependency_context}
+
+{other_questions_block}
+
+Please identify 5-10 key research goals, design hypotheses, or information needs you want to explore SPECIFICALLY for this question.
+Construct the Researcher Tree (TRes) based PRIMARILY on this question.
+
+Sub-questions must be UNIQUE to this question — they must NOT overlap in scope with any of the other questions
+listed in the "OTHER QUESTIONS" section above (if provided). A sub-question is invalid if it could stand alone
+as one of the other top-level questions.
+
+Organize them into a hierarchical taxonomy with the following structure:
+
+- Layer 1 (Perspective): High-level research angles
+- Layer 2 (Category): Research categories
+- Layer 3 (Leaf): Specific research questions or design goals
+
+Return ONLY valid JSON with this schema:
+{{
+  "perspectives": [
+    {{
+      "label": "Research perspective",
+      "description": "Brief description",
+      "categories": [
+        {{
+          "label": "Research category",
+          "description": "Brief description",
+          "goals": [
+            {{
+              "label": "Specific goal or question",
+              "description": "Detailed description",
+              "hci_terms": ["term1", "term2"]
+            }}
+          ]
+        }}
+      ]
+    }}
+  ]
+}}
+
+Scale and coverage requirements:
+- 2-3 perspectives (L1)
+- 1-2 categories under each perspective (L2)
+- 1-3 leaves per category (L3)
+- Target total leaves: 5-10
+
+Focus on goals that:
+1. Require understanding from domain experts
+2. Use HCI/UX concepts that might need explanation
+3. Could be mapped to expert pain points
+"""
+
+EXTEND_EXPERT_TREE_PROMPT = """You are refining an expert taxonomy for ONE interview question.
+
+Interview topic: {topic}
+Expert background:
+{expert_bg}
+
+Question:
+\"\"\"
+{question_text}
+\"\"\"
+
+{dependency_context}
+
+Current expert tree summary (label + description only):
+{expert_tree_json}
+
+All 8 simulated expert answers for this SAME original question:
+{simulated_responses_json}
+
+Task:
+- Your goal is to return a refined expert tree that best covers the semantics in the 8 simulated answers.
+- Keep the tree concise and avoid duplicates.
+
+CRITICAL: HOW TO JUDGE COVERAGE (STEP-BY-STEP)
+
+Do not look at the answers superficially. To determine if the current tree "covers" the 8 answers, you MUST perform the following mental mapping:
+
+1) Decompose:
+Break down EACH of the 8 simulated answers into atomic claims (core pain points, workflows, assumptions, constraints, tacit judgments).
+One answer may contain multiple claims.
+
+2) Map to Descriptions:
+Try to map every atomic claim to the semantics of existing LEAF `description` fields.
+- One simulated answer may be covered by MULTIPLE leaf nodes.
+- Do NOT rely on `label` matching. Coverage is determined primarily by semantic fit with `description`.
+
+3) Identify Residuals:
+Any atomic claim not covered by ANY existing leaf description is a Residual.
+
+Extension & Modification Strategy (Based on Residuals):
+
+- If there are NO residuals:
+  Return the original tree structure and content unchanged.
+
+- If there ARE residuals, apply:
+  [MODIFY]
+  If a residual is only a nuance, jargon variant, or minor elaboration of an existing leaf:
+  - Do NOT create a new node.
+  - Integrate the nuance into that leaf's `description`.
+  - Add jargon/variant phrasing into that leaf's `aliases`.
+
+  [ADD]
+  If a residual is a genuinely novel concept/pain point/workflow that cannot logically fit existing leaves:
+  - Create a NEW leaf node.
+  - You may attach it under an existing L2 category, OR create a new L1/L2 path if needed.
+
+Additional constraints:
+1) Preserve existing nodes whenever possible; modify minimally.
+2) Avoid duplicate / near-duplicate leaves.
+3) Keep total leaves compact (roughly 5-12).
+4) Descriptions should remain concrete and conversational.
+
+Return ONLY valid JSON with the SAME schema as PER_QUESTION_EXPERT_PROMPT:
+{{
+  "perspectives": [
+    {{
+      "label": "Perspective name",
+      "description": "Brief description",
+      "categories": [
+        {{
+          "label": "Category name",
+          "description": "Brief description",
+          "pain_points": [
+            {{
+              "label": "Specific pain point",
+              "description": "Concrete conversational description",
+              "aliases": ["synonym or informal phrasing"],
+              "is_intuition": true/false,
+              "attributes": ["attr1", "attr2"]
+            }}
+          ]
+        }}
+      ]
+    }}
+  ]
+}}
+"""
 
 
 # ============== Tree Building Helpers ==============
@@ -638,6 +1056,31 @@ def _build_researcher_tree(llm_response: Dict[str, Any], topic: str) -> Taxonomy
         root_id=root_id,
         nodes=nodes,
     )
+
+
+def _prefix_tree_node_ids(tree: TaxonomyTree, question_id: str) -> TaxonomyTree:
+    """Prefix every node id with the question_id to ensure uniqueness across question graphs.
+
+    e.g.  exp_leaf_00_01_00  →  q_01__exp_leaf_00_01_00
+    The shared_root is also prefixed so each question graph is fully independent.
+    """
+    prefix = f"{question_id}__"
+    old_to_new: Dict[str, str] = {}
+    for nid in list(tree.nodes.keys()):
+        new_id = f"{prefix}{nid}"
+        old_to_new[nid] = new_id
+
+    new_nodes: Dict[str, DSAGNode] = {}
+    for old_id, node in tree.nodes.items():
+        new_id = old_to_new[old_id]
+        node.id = new_id
+        node.parent_id = old_to_new.get(node.parent_id, node.parent_id) if node.parent_id else None
+        node.children_ids = [old_to_new.get(c, c) for c in node.children_ids]
+        new_nodes[new_id] = node
+
+    tree.nodes = new_nodes
+    tree.root_id = old_to_new.get(tree.root_id, tree.root_id)
+    return tree
 
 
 def _build_links_legacy(
@@ -1113,11 +1556,13 @@ Strategy 1 — Analogy Construction:
 - Do NOT merely swap nouns. Map the relational structure: Inputs, Logic, Outputs.
 - Explain how the researcher's concept behaves similarly to the expert's familiar concept.
 
-Strategy 2 — Fine-grained Scenario:
-- A highly specific, low-level concrete example written as a single coherent paragraph.
-- Cover three beats in order: (1) a situation the expert would recognize, (2) what the researcher's approach would produce in that situation, (3) the edge case where the two mental models diverge most sharply.
-- Write as exactly 3 sentences (one per beat), no more. Max 60 words total. Do NOT use bullet points or sub-labels.
-- Avoid overarching metaphors that require secondary interpretation.
+Strategy 2 — Scenario (a sentence the researcher can say directly to the expert):
+- Write ONE sentence (max 40 words) that the researcher can speak directly to the expert during the interview.
+- The sentence should describe a concrete, specific situation the expert would recognize from their own practice,
+  and naturally lead the expert to articulate the gap between their framing and the researcher's framing.
+- Write in SECOND PERSON ("you"), as if the researcher is speaking to the expert face-to-face.
+- It must sound like a natural interview prompt — NOT a third-person case study or academic description.
+- Example tone: "When you're grading 200 reports in finals week, do you find yourself relying more on pattern recognition than the rubric?"
 
 Return ONLY valid JSON:
 {{
@@ -1130,7 +1575,7 @@ Return ONLY valid JSON:
     }},
     "explanation": "How the researcher's concept behaves similarly to the source concept"
   }},
-  "scenario": "Single paragraph covering: situation the expert recognizes → what the researcher's approach produces → edge case where mental models diverge. Max 60 words."
+  "scenario": "One sentence the researcher can say directly to the expert to surface the gap. Max 40 words, second person."
 }}
 """
 
@@ -1339,22 +1784,37 @@ def generate_assistance_payload_for_link(
     }
 
     prompt = ChatPromptTemplate.from_messages([("user", prompt_template)])
-    chain = prompt | llm
 
-    try:
-        response = chain.invoke(variables)
-        content = response.content if hasattr(response, 'content') else str(response)
-        data = _parse_json(content)
-        if not data:
-            data = {}
-        if link.relation_type == RelationType.PROCESS_GAP.value:
-            data["misalignment_reason"] = misalignment_reason
-        return data
-    except Exception as e:
-        print(f"[GraphFactory] Error generating payload for {link.relation_type}: {e}")
-        if link.relation_type == RelationType.PROCESS_GAP.value:
-            return {"misalignment_reason": misalignment_reason}
-        return {}
+    max_retries = 5
+    base_delay = 5.0  # seconds
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            # Rebuild LLM client on retry to rotate to a different API key
+            if attempt > 1:
+                llm = _build_llm(temperature=0.7)
+            chain = prompt | llm
+            response = chain.invoke(variables)
+            content = response.content if hasattr(response, 'content') else str(response)
+            data = _parse_json(content)
+            if not data:
+                data = {}
+            if link.relation_type == RelationType.PROCESS_GAP.value:
+                data["misalignment_reason"] = misalignment_reason
+            return data
+        except Exception as e:
+            err_str = str(e)
+            is_rate_limit = "429" in err_str or "limit_requests" in err_str or "rate" in err_str.lower()
+            if is_rate_limit and attempt < max_retries:
+                delay = base_delay * (2 ** (attempt - 1)) + random.uniform(0, 2)
+                print(f"[GraphFactory] 429 on {link.relation_type} (attempt {attempt}/{max_retries}), "
+                      f"retrying in {delay:.1f}s …")
+                time.sleep(delay)
+            else:
+                print(f"[GraphFactory] Error generating payload for {link.relation_type}: {e}")
+                if link.relation_type == RelationType.PROCESS_GAP.value:
+                    return {"misalignment_reason": misalignment_reason}
+                return {}
 
 
 def generate_all_assistance_payloads(
@@ -1364,10 +1824,12 @@ def generate_all_assistance_payloads(
     alignments: TreeAlignments,
 ) -> List[GapLink]:
     """Generate type-specific assistance payloads for all GapLinks concurrently."""
-    print(f"[GraphFactory] Generating assistance payloads for {len(links)} links concurrently...")
-
-    # Keep this configurable to match provider rate limits.
-    max_workers = max(1, int(os.getenv("DSAG_PAYLOAD_MAX_WORKERS", "5")))
+    # Scale default workers with key-pool size: 6 concurrent calls per key
+    pool_size = len(_KEY_POOL) if _KEY_POOL else 1
+    default_workers = max(5, pool_size * 6)
+    max_workers = max(1, int(os.getenv("DSAG_PAYLOAD_MAX_WORKERS", str(default_workers))))
+    print(f"[GraphFactory] Generating assistance payloads for {len(links)} links concurrently "
+          f"(workers={max_workers}, key_pool={pool_size})...")
 
     # Build lookup for misalignment reasons
     reason_lookup = {}
@@ -1397,65 +1859,6 @@ def generate_all_assistance_payloads(
 
     print("[GraphFactory] Assistance payload generation complete")
     return links
-
-
-def _build_minimal_assistance_payload(
-    link: GapLink,
-    expert_tree: TaxonomyTree,
-    researcher_tree: TaxonomyTree,
-) -> Dict[str, Any]:
-    """
-    Deterministic payload fallback to guarantee every persisted GapLink is actionable.
-    This avoids runtime "selected link but empty assistance" cases.
-    """
-    exp_node = expert_tree.get_node(link.expert_leaf_id)
-    res_node = researcher_tree.get_node(link.researcher_leaf_id)
-    expert_label = exp_node.label if exp_node else (link.conflict.get("expert_branch", "") or "expert concept")
-    researcher_label = res_node.label if res_node else (link.conflict.get("researcher_branch", "") or "research goal")
-    relation = (link.relation_type or RelationType.CONCEPTUAL_GAP.value).strip()
-
-    if relation == RelationType.LEXICAL_GAP.value:
-        return {
-            "term_mapping": {
-                "expert_term": expert_label,
-                "researcher_term": researcher_label,
-                "explanation": "These terms likely describe related ideas with different wording.",
-            }
-        }
-    if relation == RelationType.TACIT_GAP.value:
-        attrs = list(getattr(exp_node, "attributes", []) or [])
-        return {
-            "attributes": attrs[:3] if attrs else [expert_label],
-            "probes": [],
-            "hypothetical_scenarios": [],
-            "extracted_attributes": [],
-            "mentioned_attributes": [],
-        }
-    if relation == RelationType.SCOPE_GAP.value:
-        return {
-            "pivot": {
-                "condensed_explanation": (
-                    f"Expert answer emphasizes '{expert_label}' while the researcher asks about "
-                    f"'{researcher_label}'. A bridge question is needed to connect their scopes."
-                )
-            }
-        }
-    if relation == RelationType.PROCESS_GAP.value:
-        return {
-            "sub_type": "factual_risk",
-            "vulnerable_assumption": f"Assuming '{researcher_label}' directly maps to expert workflow.",
-            "domain_correction": f"Expert framing appears closer to '{expert_label}'.",
-            "safe_phrasing": "Could you walk me through how this works in your actual grading process?",
-            "misalignment_reason": "Factory fallback payload generated due missing template payload.",
-        }
-    return {
-        "analogy": {
-            "source_concept": expert_label,
-            "target_concept": researcher_label,
-            "structural_mapping": {"inputs": "", "logic": "", "outputs": ""},
-            "explanation": "Use the expert-side concept to explain the research-side target concept.",
-        }
-    }
 
 
 # ============== Main Factory Class ==============
@@ -1591,89 +1994,75 @@ class GraphFactory:
         concept_parsed = _parse_json(getattr(concept_resp, "content", str(concept_resp)))
         concept_alignments = _parse_alignments(concept_parsed).concept_alignments
 
-        # 2) Leaf alignments (chunked + parallel)
-        expert_nodes = list(expert_tree.nodes.values())
-        expert_leaf_nodes = [n for n in expert_nodes if n.layer == Layer.LEAF.value]
-        expert_concept_nodes = [n for n in expert_nodes if n.layer != Layer.LEAF.value]
+        # 2) Leaf alignments: one LLM call per expert leaf, exhaustive pairwise
+        expert_leaf_nodes = [n for n in expert_tree.nodes.values() if n.layer == Layer.LEAF.value]
 
-        chunk_size = max(1, int(os.getenv("DSAG_LEAF_ALIGN_CHUNK_SIZE", "6")))
-        max_workers = max(1, int(os.getenv("DSAG_ALIGN_MAX_WORKERS", "3")))
-
-        leaf_chunks: List[List[DSAGNode]] = [
-            expert_leaf_nodes[i:i + chunk_size]
-            for i in range(0, len(expert_leaf_nodes), chunk_size)
+        # Prepare researcher leaves summary once (shared across all parallel calls)
+        researcher_leaf_summary = [
+            {
+                "id": n.id,
+                "label": n.label,
+                "description": n.description,
+            }
+            for n in researcher_tree.nodes.values()
+            if n.layer == Layer.LEAF.value
         ]
+        researcher_leaves_json = json.dumps(researcher_leaf_summary, indent=2, ensure_ascii=False)
 
-        def _leaf_summary_for_chunk(chunk: List[DSAGNode]) -> Dict[str, Any]:
-            chunk_ids = {n.id for n in chunk}
-            summary_nodes = []
-            for node in expert_concept_nodes + chunk:
-                if node.layer == Layer.LEAF.value and node.id not in chunk_ids:
-                    continue
-                node_info = {
-                    "id": node.id,
-                    "layer": node.layer,
-                    "label": node.label,
-                    "description": node.description,
-                    "parent_id": node.parent_id,
-                }
-                if node.attributes:
-                    node_info["attributes"] = node.attributes
-                if node.aliases:
-                    node_info["aliases"] = node.aliases
-                summary_nodes.append(node_info)
-            return {"tower": expert_tree.tower, "nodes": summary_nodes}
+        pool_size_align = len(_KEY_POOL) if _KEY_POOL else 1
+        default_align_workers = max(5, pool_size_align * 4)
+        max_workers = max(1, int(os.getenv("DSAG_ALIGN_MAX_WORKERS", str(default_align_workers))))
 
-        def _run_leaf_chunk(chunk: List[DSAGNode]) -> List[NodeAlignment]:
+        def _run_single_leaf(exp_leaf: DSAGNode) -> List[NodeAlignment]:
+            """Judge one expert leaf against all researcher leaves, return only gapped pairs."""
+            expert_info: Dict[str, Any] = {
+                "id": exp_leaf.id,
+                "label": exp_leaf.label,
+                "description": exp_leaf.description,
+            }
+
             local_llm = _build_llm(temperature=0.3)
             leaf_prompt = ChatPromptTemplate.from_messages([("user", ALIGNMENT_JUDGE_LEAF_PROMPT)])
             leaf_chain = leaf_prompt | local_llm
-            expert_tree_json_chunk = json.dumps(
-                _leaf_summary_for_chunk(chunk),
-                indent=2,
-                ensure_ascii=False,
-            )
             response = leaf_chain.invoke({
                 "topic": topic,
-                "expert_tree_json": expert_tree_json_chunk,
-                "researcher_tree_json": researcher_tree_json,
+                "expert_leaf_json": json.dumps(expert_info, indent=2, ensure_ascii=False),
+                "researcher_leaves_json": researcher_leaves_json,
+                "expert_node_id": exp_leaf.id,
             })
             parsed = _parse_json(getattr(response, "content", str(response)))
-            return _parse_alignments(parsed).leaf_alignments
+            aligns = _parse_alignments(parsed).leaf_alignments
+            # Guard: only keep misaligned pairs (prompt should already guarantee this)
+            return [a for a in aligns if not a.is_aligned]
 
+        print(
+            f"[GraphFactory] Agent C: Judging {len(expert_leaf_nodes)} expert leaves × "
+            f"{len(researcher_leaf_summary)} researcher leaves pairwise "
+            f"(parallel workers={max_workers})..."
+        )
         leaf_alignments: List[NodeAlignment] = []
-        if leaf_chunks:
-            if max_workers > 1 and len(leaf_chunks) > 1:
-                with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-                    chunk_results = list(executor.map(_run_leaf_chunk, leaf_chunks))
-                for res in chunk_results:
-                    leaf_alignments.extend(res)
-            else:
-                for chunk in leaf_chunks:
-                    leaf_alignments.extend(_run_leaf_chunk(chunk))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            chunk_results = list(executor.map(_run_single_leaf, expert_leaf_nodes))
+        for res in chunk_results:
+            leaf_alignments.extend(res)
 
-        # 3) Deduplicate leaf alignments, keep highest similarity per key
-        dedup: Dict[Tuple[str, str, bool, Optional[str]], NodeAlignment] = {}
+        # 3) Deduplicate: per (expert, researcher) pair keep highest-similarity entry
+        dedup_map: Dict[Tuple[str, str], NodeAlignment] = {}
         for a in leaf_alignments:
-            key = (
-                a.expert_node_id,
-                a.researcher_node_id,
-                a.is_aligned,
-                a.relation_type,
-            )
-            prev = dedup.get(key)
+            key = (a.expert_node_id, a.researcher_node_id)
+            prev = dedup_map.get(key)
             if prev is None or a.semantic_similarity > prev.semantic_similarity:
-                dedup[key] = a
-        merged_leaf_alignments = list(dedup.values())
+                dedup_map[key] = a
+        merged_leaf_alignments = list(dedup_map.values())
 
         alignments = TreeAlignments(
             leaf_alignments=merged_leaf_alignments,
             concept_alignments=concept_alignments,
         )
         print(
-            f"[GraphFactory] Agent C found {len(alignments.leaf_alignments)} leaf alignments, "
-            f"{len(alignments.concept_alignments)} concept alignments "
-            f"(leaf chunks={len(leaf_chunks)}, workers={max_workers})."
+            f"[GraphFactory] Agent C found {len(alignments.leaf_alignments)} gap pairs "
+            f"({len(expert_leaf_nodes)} expert leaves × {len(researcher_leaf_summary)} researcher leaves), "
+            f"{len(alignments.concept_alignments)} concept alignments."
         )
         return alignments
     
@@ -1701,137 +2090,9 @@ class GraphFactory:
         Returns:
             Tuple of (List of GapLinks, TreeAlignments)
         """
-        # Step 1: Agent C judges alignments
+        # Step 1: Agent C judges alignments (exhaustive pairwise, no fallback)
         alignments = self.generate_alignments(topic, expert_tree, researcher_tree)
 
-        # Fallback pairing when coverage is low (relevance + mismatch)
-        total_expert_leaves = len(expert_tree.get_leaves())
-        total_researcher_leaves = len(researcher_tree.get_leaves())
-        if total_expert_leaves > 0:
-            misaligned_pairs = [
-                a for a in alignments.leaf_alignments
-                if not a.is_aligned
-            ]
-            misaligned_expert = {a.expert_node_id for a in misaligned_pairs}
-            gap_coverage = len(misaligned_expert) / total_expert_leaves
-
-            # Keep fallback as a safety net, but avoid over-triggering it when
-            # Agent C already provides reasonably broad initial coverage.
-            min_gap_coverage = float(os.getenv("DSAG_GAPLINK_MIN_COVERAGE", "0.65"))
-            top_k = int(os.getenv("DSAG_FORCE_PAIRING_TOP_K", "3"))
-            per_leaf = int(os.getenv("DSAG_FORCE_PAIRING_PER_LEAF", "1"))
-            sim_min = float(os.getenv("DSAG_FORCE_PAIRING_SIM_MIN", "0.25"))
-            sim_max = float(os.getenv("DSAG_FORCE_PAIRING_SIM_MAX", "0.75"))
-            alpha = float(os.getenv("DSAG_FORCE_PAIRING_ALPHA", "0.6"))
-            beta = float(os.getenv("DSAG_FORCE_PAIRING_BETA", "0.4"))
-
-            if gap_coverage < min_gap_coverage and top_k > 0:
-                print(f"[GraphFactory] Gap coverage low ({gap_coverage:.2f}), applying fallback pairing...")
-
-                # Build temporary graph for embeddings
-                temp_graph = DSAGGraph(
-                    topic=topic,
-                    researcher_bg="",
-                    expert_bg="",
-                    expert_tree=expert_tree,
-                    researcher_tree=researcher_tree,
-                    links=[],
-                )
-                index = build_embedding_index(temp_graph)
-
-                existing_pairs = {
-                    (a.expert_node_id, a.researcher_node_id)
-                    for a in alignments.leaf_alignments
-                }
-                concept_map = alignments.get_aligned_concepts()
-
-                added_pairs = 0
-                for exp_leaf in expert_tree.get_leaves():
-                    if exp_leaf.id in misaligned_expert:
-                        continue
-
-                    query_text = index.expert_leaf_texts.get(exp_leaf.id) or index._node_to_text(exp_leaf)
-                    candidates = index.search_researcher_leaves(query_text, top_k=top_k)
-                    if not candidates:
-                        continue
-
-                    filtered = []
-                    for cand in candidates:
-                        sim = cand.score
-                        if sim < sim_min or sim > sim_max:
-                            continue
-
-                        aligned_path_expert = expert_tree.get_aligned_path(exp_leaf.id)
-                        aligned_path_researcher = researcher_tree.get_aligned_path(cand.node_id)
-                        lca_layer = compute_lca_layer(aligned_path_expert, aligned_path_researcher)
-
-                        exp_l1 = _get_ancestor_by_layer(expert_tree, exp_leaf.id, Layer.L1.value)
-                        res_l1 = _get_ancestor_by_layer(researcher_tree, cand.node_id, Layer.L1.value)
-                        exp_l2 = _get_ancestor_by_layer(expert_tree, exp_leaf.id, Layer.L2.value)
-                        res_l2 = _get_ancestor_by_layer(researcher_tree, cand.node_id, Layer.L2.value)
-                        aligned_l1 = exp_l1 and concept_map.get(exp_l1) == res_l1
-                        path_mismatch = bool(aligned_l1 and exp_l2 and res_l2 and exp_l2 != res_l2)
-
-                        # Structural divergence filter: keep high-level mismatch or path mismatch
-                        if lca_layer not in (Layer.ROOT.value, Layer.L1.value) and not path_mismatch:
-                            continue
-
-                        divergence_level = 2 if lca_layer == Layer.ROOT.value else 1 if lca_layer == Layer.L1.value else 0
-                        gap_score = alpha * (1 - sim) + beta * divergence_level
-                        if path_mismatch:
-                            gap_score += 0.2
-
-                        filtered.append((gap_score, sim, lca_layer, path_mismatch, cand))
-
-                    # If no candidates passed filters, relax to top-K by similarity window only
-                    if not filtered:
-                        for cand in candidates:
-                            sim = cand.score
-                            if sim < sim_min or sim > sim_max:
-                                continue
-                            aligned_path_expert = expert_tree.get_aligned_path(exp_leaf.id)
-                            aligned_path_researcher = researcher_tree.get_aligned_path(cand.node_id)
-                            lca_layer = compute_lca_layer(aligned_path_expert, aligned_path_researcher)
-                            divergence_level = 2 if lca_layer == Layer.ROOT.value else 1 if lca_layer == Layer.L1.value else 0
-                            gap_score = alpha * (1 - sim) + beta * divergence_level
-                            filtered.append((gap_score, sim, lca_layer, False, cand))
-
-                    if not filtered:
-                        continue
-
-                    filtered.sort(key=lambda x: x[0], reverse=True)
-                    for gap_score, sim, lca_layer, path_mismatch, cand in filtered[:per_leaf]:
-                        pair = (exp_leaf.id, cand.node_id)
-                        if pair in existing_pairs:
-                            continue
-
-                        gap_type = RelationType.CONCEPTUAL_GAP.value
-                        if exp_leaf.attributes:
-                            gap_type = RelationType.TACIT_GAP.value
-                        elif lca_layer == Layer.ROOT.value:
-                            gap_type = RelationType.CONCEPTUAL_GAP.value
-                        elif lca_layer == Layer.L1.value:
-                            gap_type = RelationType.SCOPE_GAP.value
-
-                        alignments.leaf_alignments.append(NodeAlignment(
-                            expert_node_id=exp_leaf.id,
-                            researcher_node_id=cand.node_id,
-                            is_aligned=False,
-                            reason=f"{gap_type}: fallback mismatch (sim={sim:.2f}, lca={lca_layer})",
-                            semantic_similarity=sim,
-                            relation_type=gap_type,
-                        ))
-                        existing_pairs.add(pair)
-                        misaligned_expert.add(exp_leaf.id)
-                        misaligned_pairs.append(alignments.leaf_alignments[-1])
-                        added_pairs += 1
-
-                gap_coverage_after = len(misaligned_expert) / total_expert_leaves
-                print(
-                    f"[GraphFactory] Fallback added {added_pairs} pairs. "
-                    f"Gap coverage {gap_coverage:.2f} -> {gap_coverage_after:.2f}."
-                )
-        
         # Step 2: Math algorithm builds links
         links = build_links_from_alignments(
             expert_tree=expert_tree,
@@ -1847,18 +2108,6 @@ class GraphFactory:
                 researcher_tree=researcher_tree,
                 alignments=alignments,
             )
-
-        # Hard guarantee for runtime: every link must be a usable mismatch link.
-        # Fill missing relation type / payload deterministically instead of leaving empty cards.
-        for link in links:
-            if not link.relation_type:
-                link.relation_type = RelationType.CONCEPTUAL_GAP.value
-            if not isinstance(link.assistance_payload, dict) or not link.assistance_payload:
-                link.assistance_payload = _build_minimal_assistance_payload(
-                    link=link,
-                    expert_tree=expert_tree,
-                    researcher_tree=researcher_tree,
-                )
         
         return links, alignments
     
@@ -1912,14 +2161,707 @@ class GraphFactory:
                 "description": node.description,
                 "parent_id": node.parent_id,
             }
-            if node.attributes:
-                node_info["attributes"] = node.attributes
-            if node.aliases:
-                node_info["aliases"] = node.aliases
             summary["nodes"].append(node_info)
         
         return summary
     
+    # ============== Multi-Question Graph Generation ==============
+
+    def split_questionnaire(self, questionnaire: str) -> List[Dict[str, str]]:
+        """Split questionnaire text into top-level questions using LLM.
+
+        Returns a list of dicts: [{"id": "q_01", "text": "..."}, ...]
+        """
+        llm = _build_llm_dependency(temperature=0.1)
+        prompt = ChatPromptTemplate.from_messages([("user", SPLIT_QUESTIONS_PROMPT)])
+        chain = prompt | llm
+        response = chain.invoke({"questionnaire_text": questionnaire[:6000]})
+        content = getattr(response, "content", str(response))
+        parsed = _parse_json(content)
+        questions = parsed.get("questions", [])
+        # Normalise ids
+        result: List[Dict[str, str]] = []
+        for i, q in enumerate(questions):
+            if not isinstance(q, dict):
+                continue
+            qid = q.get("id", f"q_{i + 1:02d}")
+            text = str(q.get("text", "")).strip()
+            if text:
+                result.append({"id": qid, "text": text})
+        if not result:
+            raise ValueError("Failed to split questionnaire into questions")
+        print(f"[GraphFactory] Split questionnaire into {len(result)} top-level questions")
+        return result
+
+    def judge_dependencies(
+        self, questions: List[Dict[str, str]]
+    ) -> Dict[str, List[str]]:
+        """Use LLM to judge dependencies between top-level questions.
+
+        Returns a dict mapping question_id -> list of question_ids it depends on.
+        E.g. {"q_03": ["q_01"]} means q_03 depends on q_01.
+        """
+        llm = _build_llm_dependency(temperature=0.1)
+        prompt = ChatPromptTemplate.from_messages([("user", JUDGE_DEPENDENCIES_PROMPT)])
+        chain = prompt | llm
+        questions_json = json.dumps(questions, indent=2, ensure_ascii=False)
+        response = chain.invoke({"questions_json": questions_json})
+        content = getattr(response, "content", str(response))
+        parsed = _parse_json(content)
+
+        deps_raw = parsed.get("dependencies", [])
+        # Build adjacency: to_id -> [from_id, ...]
+        dep_map: Dict[str, List[str]] = {q["id"]: [] for q in questions}
+        valid_ids = {q["id"] for q in questions}
+        for d in deps_raw:
+            if not isinstance(d, dict):
+                continue
+            from_id = d.get("from_id", "")
+            to_id = d.get("to_id", "")
+            if from_id in valid_ids and to_id in valid_ids and from_id != to_id:
+                if from_id not in dep_map[to_id]:
+                    dep_map[to_id].append(from_id)
+
+        print(f"[GraphFactory] Dependencies: {dep_map}")
+        return dep_map
+
+    @staticmethod
+    def _topological_sort(
+        questions: List[Dict[str, str]],
+        dep_map: Dict[str, List[str]],
+    ) -> List[Dict[str, str]]:
+        """Return questions in dependency-safe order (Kahn's algorithm)."""
+        id_to_q = {q["id"]: q for q in questions}
+        in_degree: Dict[str, int] = {q["id"]: 0 for q in questions}
+        children: Dict[str, List[str]] = {q["id"]: [] for q in questions}
+
+        for qid, deps in dep_map.items():
+            for dep_id in deps:
+                children.setdefault(dep_id, []).append(qid)
+                in_degree[qid] = in_degree.get(qid, 0) + 1
+
+        queue = [qid for qid in in_degree if in_degree[qid] == 0]
+        ordered: List[Dict[str, str]] = []
+        while queue:
+            qid = queue.pop(0)
+            ordered.append(id_to_q[qid])
+            for child in children.get(qid, []):
+                in_degree[child] -= 1
+                if in_degree[child] == 0:
+                    queue.append(child)
+
+        # If cycle detected, just append remaining in original order
+        if len(ordered) < len(questions):
+            seen = {q["id"] for q in ordered}
+            for q in questions:
+                if q["id"] not in seen:
+                    ordered.append(q)
+        return ordered
+
+    def _build_dependency_context(
+        self,
+        question_id: str,
+        dep_map: Dict[str, List[str]],
+        built_graphs: Dict[str, DSAGGraph],
+        questions_by_id: Dict[str, str],
+    ) -> str:
+        """Build a textual context block from dependency questions' expert trees."""
+        dep_ids = dep_map.get(question_id, [])
+        if not dep_ids:
+            return ""
+        parts: List[str] = []
+        for dep_id in dep_ids:
+            dep_graph = built_graphs.get(dep_id)
+            dep_text = questions_by_id.get(dep_id, "")
+            if dep_graph:
+                tree_summary = json.dumps(
+                    self._tree_to_summary(dep_graph.expert_tree),
+                    indent=2, ensure_ascii=False,
+                )
+                parts.append(
+                    f"--- Context from prior question ({dep_id}): \"{dep_text[:200]}\" ---\n"
+                    f"Expert tree summary:\n{tree_summary}\n"
+                )
+        if not parts:
+            return ""
+        return (
+            "The following context is from a PRIOR interview question that this question builds upon. "
+            "Use it to maintain continuity and avoid redundancy, but do NOT simply copy its nodes.\n\n"
+            + "\n".join(parts)
+        )
+
+    def _simulate_expert_responses(
+        self,
+        topic: str,
+        expert_bg: str,
+        researcher_bg: str,
+        question_text: str,
+        dependency_context: str = "",
+    ) -> List[str]:
+        """Simulate 8 independent expert responses in parallel using a fast lightweight model.
+
+        Each of the 8 turns is dispatched concurrently (no history chaining) because the
+        goal is purely *coverage sampling* — we want diverse responses, not a realistic
+        sequential dialogue. This cuts simulation time from ~8 × T_llm down to ~1 × T_llm
+        and lets the key pool be used in parallel (one key per worker).
+        """
+        rounds = int(os.getenv("DSAG_SIMULATE_ROUNDS", "8"))
+        # Base history: include dependency context if provided; otherwise a neutral stub.
+        base_history = dependency_context.strip() or "(no prior conversation)"
+        prompt_template = ChatPromptTemplate.from_messages(
+            [("system", INTERVIEWEE_PERSONA_PROMPT_V1), ("human", INTERVIEWEE_USER_PROMPT_V1)]
+        )
+
+        def _one_turn(_seed: int) -> str:
+            """Each worker gets its own LLM instance so round-robin assigns different keys."""
+            try:
+                llm = _build_llm_fast(temperature=0.7)
+                result = (prompt_template | llm).invoke(
+                    {
+                        "topic": topic or "(topic not provided)",
+                        "demographics": expert_bg or "(background not provided)",
+                        "interviewer_demographics": researcher_bg or "(background not provided)",
+                        "history": base_history,
+                        "question": question_text,
+                    }
+                )
+                return str(getattr(result, "content", "") or "").strip()
+            except Exception as exc:
+                print(f"[GraphFactory] _simulate_expert_responses turn {_seed} failed (non-fatal): {exc}")
+                return ""
+
+        try:
+            with concurrent.futures.ThreadPoolExecutor(
+                max_workers=rounds, thread_name_prefix="sim"
+            ) as pool:
+                results = list(pool.map(_one_turn, range(rounds)))
+            return [r for r in results if r]
+        except Exception as e:
+            print(f"[GraphFactory] _simulate_expert_responses failed (non-fatal): {e}")
+            return []
+
+    @staticmethod
+    def _tokenize_for_overlap(text: str) -> set[str]:
+        normalized = (text or "").lower()
+        latin = re.findall(r"[a-z0-9_]+", normalized)
+        cjk = re.findall(r"[\u4e00-\u9fff]+", normalized)
+        return {t for t in (latin + cjk) if t}
+
+    def _count_repeated_uncovered_themes(self, responses: List[str], threshold: float = 0.45) -> int:
+        """Cluster uncovered responses by lexical overlap and return largest cluster size."""
+        if not responses:
+            return 0
+        token_sets = [self._tokenize_for_overlap(r) for r in responses]
+        max_cluster = 1
+        for i, tok_i in enumerate(token_sets):
+            if not tok_i:
+                continue
+            cluster = 1
+            for j, tok_j in enumerate(token_sets):
+                if i == j or not tok_j:
+                    continue
+                inter = len(tok_i & tok_j)
+                union = len(tok_i | tok_j)
+                score = inter / max(union, 1)
+                if score >= threshold:
+                    cluster += 1
+            max_cluster = max(max_cluster, cluster)
+        return max_cluster
+
+    def _extend_expert_tree_with_uncovered(
+        self,
+        topic: str,
+        expert_bg: str,
+        question_text: str,
+        dependency_context: str,
+        tree: TaxonomyTree,
+        simulated_responses: List[str],
+    ) -> TaxonomyTree:
+        """Use LLM to extend the expert tree when uncovered response themes are stable."""
+        llm = _build_llm(temperature=0.3)
+        prompt = ChatPromptTemplate.from_messages([("user", EXTEND_EXPERT_TREE_PROMPT)])
+        chain = prompt | llm
+        tree_json = json.dumps(self._tree_to_summary(tree), ensure_ascii=False, indent=2)
+        simulated_json = json.dumps(simulated_responses[:8], ensure_ascii=False, indent=2)
+        resp = chain.invoke(
+            {
+                "topic": topic,
+                "expert_bg": expert_bg,
+                "question_text": question_text,
+                "dependency_context": dependency_context,
+                "expert_tree_json": tree_json,
+                "simulated_responses_json": simulated_json,
+            }
+        )
+        parsed = _parse_json(getattr(resp, "content", str(resp)))
+        if not parsed.get("perspectives"):
+            return tree
+        return _build_expert_tree(parsed, topic)
+
+    def generate_per_question_expert_tree(
+        self,
+        topic: str,
+        expert_bg: str,
+        researcher_bg: str,
+        question_text: str,
+        question_id: str,
+        dependency_context: str = "",
+    ) -> TaxonomyTree:
+        """Agent A: Generate expert tree scoped to a single questionnaire question.
+        """
+        # Step 1: Build initial expert tree from question scope only.
+        parsed = self._invoke_tree_prompt_with_retry(
+            prompt_text=PER_QUESTION_EXPERT_PROMPT,
+            variables={
+                "topic": topic,
+                "expert_bg": expert_bg,
+                "question_text": question_text,
+                "dependency_context": dependency_context,
+            },
+            tree_name=f"Expert tree ({question_id})",
+        )
+        tree = _build_expert_tree(parsed, topic)
+
+        # Step 2: Simulate 8 turns with the runtime interviewee prompt.
+        print(f"[GraphFactory] Simulating expert responses for {question_id} …")
+        simulated_responses = self._simulate_expert_responses(
+            topic=topic,
+            expert_bg=expert_bg,
+            researcher_bg=researcher_bg,
+            question_text=question_text,
+            dependency_context=dependency_context,
+        )
+        if simulated_responses:
+            print(f"[GraphFactory] Got {len(simulated_responses)} simulated responses for {question_id}")
+        else:
+            print(f"[GraphFactory] No simulated responses for {question_id}, proceeding without extension")
+
+        # Step 3: Extend directly from the 8 sampled answers (no pre-gating).
+        if simulated_responses:
+            print(f"[GraphFactory] {question_id}: extending expert tree from sampled answers")
+            tree = self._extend_expert_tree_with_uncovered(
+                topic=topic,
+                expert_bg=expert_bg,
+                question_text=question_text,
+                dependency_context=dependency_context,
+                tree=tree,
+                simulated_responses=simulated_responses,
+            )
+        # Prefix node ids with question_id to avoid collisions across question graphs
+        tree = _prefix_tree_node_ids(tree, question_id)
+        return tree
+
+    def generate_per_question_researcher_tree(
+        self,
+        topic: str,
+        researcher_bg: str,
+        question_text: str,
+        question_id: str,
+        dependency_context: str = "",
+        other_questions: Optional[List[Dict[str, str]]] = None,
+    ) -> TaxonomyTree:
+        """Agent B: Generate researcher tree scoped to a single questionnaire question.
+
+        Args:
+            other_questions: List of dicts with 'id' and 'text' for all OTHER questions
+                             (not this one), used to prevent sub-question overlap.
+        """
+        # Build the "other questions" block to inject into the prompt
+        if other_questions:
+            lines = [
+                f"  - [{q['id']}] {q['text'][:200]}"
+                for q in other_questions
+            ]
+            other_questions_block = (
+                "## OTHER QUESTIONS in this questionnaire (already covered by their own trees):\n"
+                + "\n".join(lines)
+                + "\n\nDo NOT generate sub-questions that overlap with any of the above."
+            )
+        else:
+            other_questions_block = ""
+
+        parsed = self._invoke_tree_prompt_with_retry(
+            prompt_text=PER_QUESTION_RESEARCHER_PROMPT,
+            variables={
+                "topic": topic,
+                "researcher_bg": researcher_bg,
+                "question_text": question_text,
+                "dependency_context": dependency_context,
+                "other_questions_block": other_questions_block,
+            },
+            tree_name=f"Researcher tree ({question_id})",
+        )
+        tree = _build_researcher_tree(parsed, topic)
+        tree = _prefix_tree_node_ids(tree, question_id)
+        return tree
+
+    # -------- topological-level grouping for same-level parallelism --------
+
+    @staticmethod
+    def _topological_levels(
+        questions: List[Dict[str, str]],
+        dep_map: Dict[str, List[str]],
+    ) -> List[List[Dict[str, str]]]:
+        """Group questions into topological levels.
+
+        Level 0 = questions with no dependencies (can all run in parallel).
+        Level 1 = questions whose dependencies are all in level 0, etc.
+        """
+        id_to_q = {q["id"]: q for q in questions}
+        in_degree: Dict[str, int] = {q["id"]: 0 for q in questions}
+        children: Dict[str, List[str]] = {q["id"]: [] for q in questions}
+
+        for qid, deps in dep_map.items():
+            for dep_id in deps:
+                children.setdefault(dep_id, []).append(qid)
+                in_degree[qid] = in_degree.get(qid, 0) + 1
+
+        levels: List[List[Dict[str, str]]] = []
+        queue = [qid for qid in in_degree if in_degree[qid] == 0]
+
+        while queue:
+            level = [id_to_q[qid] for qid in queue]
+            levels.append(level)
+            next_queue: List[str] = []
+            for qid in queue:
+                for child in children.get(qid, []):
+                    in_degree[child] -= 1
+                    if in_degree[child] == 0:
+                        next_queue.append(child)
+            queue = next_queue
+
+        # Append any remaining (cycle fallback) at the end
+        seen = {q["id"] for lvl in levels for q in lvl}
+        leftover = [q for q in questions if q["id"] not in seen]
+        if leftover:
+            levels.append(leftover)
+
+        return levels
+
+    # -------- pipeline-parallel question graph generation --------
+
+    def generate_question_graphs(
+        self,
+        topic: str,
+        researcher_bg: str,
+        expert_bg: str,
+        questionnaire: str,
+        generate_templates: bool = True,
+    ) -> List[QuestionGraph]:
+        """
+        Pipeline-parallel generation of independent DSAG graphs for each
+        top-level question in the questionnaire.
+
+        Speed-up strategy
+        -----------------
+        1. **Tree-internal parallelism**: For each question, Expert and
+           Researcher trees are generated concurrently (2 threads).
+        2. **Early unlock**: As soon as a question's *nodes* are ready, a
+           signal (``threading.Event``) is fired so that dependent questions
+           can immediately start their own node generation — they do NOT
+           have to wait for the predecessor's link generation to finish.
+        3. **Background links**: Link generation (alignment judge + math
+           algorithm) runs in background threads, fully
+           overlapped with the next question's node generation.
+        4. **Same-level parallelism**: Questions at the same topological
+           level (no mutual dependencies) start their node generation
+           concurrently, further reducing wall-clock time.
+
+        Returns:
+            List[QuestionGraph] — one per top-level question, in original
+            questionnaire order.
+        """
+        print(f"[GraphFactory] === Multi-Question Pipeline Mode === topic: {topic}")
+        t_start = time.time()
+
+        # ----- Step 1: Split questionnaire -----
+        questions = self.split_questionnaire(questionnaire)
+
+        # ----- Step 2: Judge dependencies -----
+        dep_map = self.judge_dependencies(questions)
+
+        # ----- Step 3: Group into topological levels -----
+        levels = self._topological_levels(questions, dep_map)
+        questions_by_id = {q["id"]: q["text"] for q in questions}
+        print(
+            f"[GraphFactory] Topological levels: "
+            + " → ".join(str([q["id"] for q in lvl]) for lvl in levels)
+        )
+
+        # ----- Bookkeeping -----
+        node_ready_events: Dict[str, threading.Event] = {
+            q["id"]: threading.Event() for q in questions
+        }
+        # Store (expert_tree, researcher_tree) once nodes are done
+        node_results: Dict[str, Tuple[TaxonomyTree, TaxonomyTree]] = {}
+        # Store partial DSAGGraph (links placeholder) to provide dep context
+        built_graphs: Dict[str, DSAGGraph] = {}
+        # Final results keyed by qid
+        question_graph_map: Dict[str, QuestionGraph] = {}
+        # Futures for background link jobs
+        link_futures: Dict[str, concurrent.futures.Future] = {}
+        # Lock for shared dicts
+        _lock = threading.Lock()
+
+        tree_concurrent = os.getenv("DSAG_TREE_CONCURRENT", "1").strip().lower() not in (
+            "0", "false", "no",
+        )
+
+        # Shared executor for background link jobs (kept alive across all levels)
+        link_pool = concurrent.futures.ThreadPoolExecutor(
+            max_workers=max(4, len(questions)),
+            thread_name_prefix="link",
+        )
+
+        # Global payload pool: ALL questions share one pool so their payload
+        # tasks are dispatched together, maximising key-pool utilisation.
+        pool_size = len(_KEY_POOL) if _KEY_POOL else 1
+        payload_workers = max(5, pool_size * 6)
+        payload_pool = concurrent.futures.ThreadPoolExecutor(
+            max_workers=payload_workers,
+            thread_name_prefix="payload",
+        )
+        # payload_futures_map[qid] = list of (link, future) for that question's tasks
+        payload_futures_map: Dict[str, List[Tuple[GapLink, concurrent.futures.Future]]] = {}
+        # store (links, alignments, exp_tree, res_tree) after phase-1 link build
+        links_stage: Dict[str, Tuple[List[GapLink], "TreeAlignments", TaxonomyTree, TaxonomyTree]] = {}
+        _stage_lock = threading.Lock()
+
+        def _generate_nodes_for_question(q: Dict[str, str]) -> None:
+            """Generate Expert + Researcher nodes for one question.
+
+            Blocks until all dependency *nodes* are ready, then generates
+            trees (in parallel if enabled), signals readiness, and submits
+            link generation to the background pool.
+            """
+            qid = q["id"]
+            qtext = q["text"]
+            deps = dep_map.get(qid, [])
+
+            # ① Wait for dependency *nodes* only (not their links)
+            for dep_id in deps:
+                node_ready_events[dep_id].wait()
+
+            print(f"\n  [pipeline] {qid}: generating nodes …")
+            t0 = time.time()
+
+            # Build dependency context (uses expert trees already in built_graphs)
+            dep_context = self._build_dependency_context(
+                qid, dep_map, built_graphs, questions_by_id,
+            )
+
+            # Build "other questions" list for researcher tree overlap prevention
+            other_qs = [
+                {"id": q["id"], "text": q["text"]}
+                for q in questions
+                if q["id"] != qid
+            ]
+
+            # ② Generate Expert + Researcher trees (parallel inside)
+            expert_tree: TaxonomyTree
+            researcher_tree: TaxonomyTree
+
+            if tree_concurrent:
+                try:
+                    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as tp:
+                        fut_exp = tp.submit(
+                            self.generate_per_question_expert_tree,
+                            topic, expert_bg, qtext, qid, dep_context,
+                        )
+                        fut_res = tp.submit(
+                            self.generate_per_question_researcher_tree,
+                            topic, researcher_bg, qtext, qid, dep_context, other_qs,
+                        )
+                        expert_tree = fut_exp.result()
+                        researcher_tree = fut_res.result()
+                except Exception as exc:
+                    print(f"  [pipeline] {qid}: concurrent tree gen failed ({exc}), serial fallback")
+                    expert_tree = self.generate_per_question_expert_tree(
+                        topic, expert_bg, researcher_bg, qtext, qid, dep_context,
+                    )
+                    researcher_tree = self.generate_per_question_researcher_tree(
+                        topic, researcher_bg, qtext, qid, dep_context, other_qs,
+                    )
+            else:
+                expert_tree = self.generate_per_question_expert_tree(
+                    topic, expert_bg, researcher_bg, qtext, qid, dep_context,
+                )
+                researcher_tree = self.generate_per_question_researcher_tree(
+                    topic, researcher_bg, qtext, qid, dep_context, other_qs,
+                )
+
+            print(
+                f"  [pipeline] {qid}: nodes ready ({time.time() - t0:.1f}s) — "
+                f"exp_leaves={len(expert_tree.get_leaves())}, "
+                f"res_leaves={len(researcher_tree.get_leaves())}"
+            )
+
+            # ③ Store results & signal downstream
+            with _lock:
+                node_results[qid] = (expert_tree, researcher_tree)
+                # Create a placeholder graph so downstream can read expert_tree for context
+                placeholder_graph = DSAGGraph(
+                    topic=topic,
+                    researcher_bg=researcher_bg,
+                    expert_bg=expert_bg,
+                    expert_tree=expert_tree,
+                    researcher_tree=researcher_tree,
+                    links=[],
+                    metadata={"question_id": qid},
+                )
+                built_graphs[qid] = placeholder_graph
+
+            # Signal: nodes ready — downstream questions can start now
+            node_ready_events[qid].set()
+
+            # ④ Fire-and-forget: link generation (phase 1: alignments + math, no payload)
+            def _build_links_phase1(
+                _qid: str = qid,
+                _exp: TaxonomyTree = expert_tree,
+                _res: TaxonomyTree = researcher_tree,
+            ) -> Tuple[str, List[GapLink], "TreeAlignments", TaxonomyTree, TaxonomyTree]:
+                t1 = time.time()
+                # Phase 1: alignments + math build only (no LLM payload calls)
+                alignments = self.generate_alignments(topic, _exp, _res)
+                links = build_links_from_alignments(
+                    expert_tree=_exp,
+                    researcher_tree=_res,
+                    alignments=alignments,
+                )
+                print(f"  [pipeline] {_qid}: {len(links)} links built ({time.time() - t1:.1f}s) — submitting payloads to global pool")
+
+                # Phase 2: submit each link's payload generation to the global pool
+                reason_lookup = {
+                    (a.expert_node_id, a.researcher_node_id): a.reason
+                    for a in alignments.leaf_alignments
+                }
+
+                def _gen_payload(link: GapLink, reason: str, exp: TaxonomyTree, res: TaxonomyTree) -> GapLink:
+                    local_llm = _build_llm(temperature=0.7)
+                    payload = generate_assistance_payload_for_link(
+                        link=link,
+                        expert_tree=exp,
+                        researcher_tree=res,
+                        misalignment_reason=reason,
+                        llm=local_llm,
+                    )
+                    link.assistance_payload = payload
+                    return link
+
+                pfuts: List[Tuple[GapLink, concurrent.futures.Future]] = []
+                if generate_templates and links:
+                    for lnk in links:
+                        reason = reason_lookup.get((lnk.expert_leaf_id, lnk.researcher_leaf_id), "")
+                        fut = payload_pool.submit(_gen_payload, lnk, reason, _exp, _res)
+                        pfuts.append((lnk, fut))
+
+                with _stage_lock:
+                    payload_futures_map[_qid] = pfuts
+                    links_stage[_qid] = (links, alignments, _exp, _res)
+
+                return (_qid, links, alignments, _exp, _res)
+
+            fut = link_pool.submit(_build_links_phase1)
+            with _lock:
+                link_futures[qid] = fut
+
+        # ----- Step 4: Process levels -----
+        # Questions within the same level have no mutual dependencies,
+        # so we launch their node-generation concurrently.
+
+        for level_idx, level in enumerate(levels):
+            level_ids = [q["id"] for q in level]
+            print(f"\n[GraphFactory] Level {level_idx}: {level_ids}")
+
+            if len(level) == 1:
+                # Single question in this level — run directly
+                _generate_nodes_for_question(level[0])
+            else:
+                # Multiple independent questions — parallelize node generation
+                with concurrent.futures.ThreadPoolExecutor(
+                    max_workers=len(level),
+                    thread_name_prefix=f"lvl{level_idx}",
+                ) as level_pool:
+                    futs = [
+                        level_pool.submit(_generate_nodes_for_question, q)
+                        for q in level
+                    ]
+                    # Wait for all node-gen in this level to finish
+                    for fut in concurrent.futures.as_completed(futs):
+                        exc = fut.exception()
+                        if exc:
+                            print(f"[GraphFactory] Level {level_idx} node-gen error: {exc}")
+                            raise exc
+
+        # ----- Step 5: Collect all link results -----
+        print(f"\n[GraphFactory] Waiting for phase-1 link jobs (alignments + math) …")
+
+        for qid, fut in link_futures.items():
+            fut.result()  # blocks until phase-1 (alignments + math) done for this q
+
+        # Phase-1 done for all questions — payload tasks are already submitted
+        # to the global payload_pool and running concurrently across all questions.
+        total_payloads = sum(len(pfuts) for pfuts in payload_futures_map.values())
+        print(f"\n[GraphFactory] Waiting for {total_payloads} payload tasks across "
+              f"{len(payload_futures_map)} questions (global pool workers={payload_workers}) …")
+
+        for _qid, pfuts in payload_futures_map.items():
+            t_pay = time.time()
+            for lnk, pfut in pfuts:
+                try:
+                    pfut.result()  # link.assistance_payload already set in-place
+                except Exception as _exc:
+                    print(f"[GraphFactory] Payload error for {_qid}: {_exc}")
+            links, alignments, _exp, _res = links_stage[_qid]
+
+            print(f"  [pipeline] {_qid}: {len(links)} links ready ({time.time() - t_pay:.1f}s)")
+
+            # Update the placeholder graph with real links + metadata
+            graph = built_graphs[_qid]
+            graph.links = links
+            qtext = questions_by_id[_qid]
+            graph.metadata = {
+                "created_at": datetime.utcnow().isoformat(),
+                "llm_provider": os.getenv("LLM_PROVIDER", "openai"),
+                "question_id": _qid,
+                "question_text": qtext[:200],
+                "expert_leaves": len(graph.expert_tree.get_leaves()),
+                "researcher_leaves": len(graph.researcher_tree.get_leaves()),
+                "link_count": len(links),
+                "alignment_stats": {
+                    "leaf_alignments": len(alignments.leaf_alignments),
+                    "concept_alignments": len(alignments.concept_alignments),
+                    "misaligned_leaves": len(alignments.get_misaligned_leaf_pairs()),
+                },
+                "construction_method": "math-based",
+                "depends_on": dep_map.get(_qid, []),
+            }
+
+            qg = QuestionGraph(
+                question_id=_qid,
+                question_text=qtext,
+                graph=graph,
+                depends_on=dep_map.get(_qid, []),
+            )
+            question_graph_map[_qid] = qg
+
+        link_pool.shutdown(wait=False)
+        payload_pool.shutdown(wait=False)
+
+        # ----- Step 6: Return in original questionnaire order -----
+        question_graph_list = [
+            question_graph_map[q["id"]]
+            for q in questions
+            if q["id"] in question_graph_map
+        ]
+
+        elapsed = time.time() - t_start
+        print(
+            f"\n[GraphFactory] === Multi-Question Pipeline complete: "
+            f"{len(question_graph_list)} graphs in {elapsed:.1f}s ==="
+        )
+        return question_graph_list
+
     def generate_graph(
         self,
         topic: str,
@@ -2038,7 +2980,7 @@ class GraphFactory:
         return graph
 
 
-# ============== Convenience Function ==============
+# ============== Convenience Functions ==============
 
 def create_dsag_graph(
     topic: str,
@@ -2047,15 +2989,24 @@ def create_dsag_graph(
     questionnaire: str = "",
 ) -> DSAGGraph:
     """
-    Convenience function to create a DSAG graph.
-    
-    Args:
-        topic: Interview topic (becomes shared root)
-        researcher_bg: Researcher background description
-        expert_bg: Expert background description
-    
-    Returns:
-        Complete DSAGGraph
+    Convenience function to create a DSAG graph (legacy single-graph mode).
     """
     factory = GraphFactory()
     return factory.generate_graph(topic, researcher_bg, expert_bg, questionnaire=questionnaire)
+
+
+def create_question_graphs(
+    topic: str,
+    researcher_bg: str,
+    expert_bg: str,
+    questionnaire: str,
+) -> List[QuestionGraph]:
+    """
+    Convenience function to create per-question DSAG graphs (new multi-question mode).
+
+    Requires a non-empty questionnaire.
+    """
+    factory = GraphFactory()
+    return factory.generate_question_graphs(
+        topic, researcher_bg, expert_bg, questionnaire=questionnaire,
+    )

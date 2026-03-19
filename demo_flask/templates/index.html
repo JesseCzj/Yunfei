@@ -37,6 +37,20 @@
                 </span>
               </div>
               {% if not dsag_ready %}
+              {# ---- Saved Configurations ---- #}
+              <div class="dsag-cached-section" id="dsagCachedSection" style="display:none;">
+                <label class="dsag-field-label">Saved Configurations</label>
+                <div class="dsag-cached-row">
+                  <select id="dsagCachedSelect" class="dsag-cached-select">
+                    <option value="">-- Select --</option>
+                  </select>
+                  <button type="button" class="btn btn-secondary dsag-load-btn" id="dsagLoadCachedBtn">
+                    Load Selected
+                  </button>
+                </div>
+              </div>
+              <div class="dsag-divider-text" id="dsagDividerText" style="display:none;">or create new</div>
+
               <form id="dsagInitForm" class="dsag-init-form">
                 <div class="dsag-field">
                   <label for="dsagTopic">Topic</label>
@@ -50,9 +64,15 @@
                   <label for="dsagExpertBg">Expert Background</label>
                   <input type="text" id="dsagExpertBg" required />
                 </div>
+                <div class="dsag-init-actions">
                 <button type="submit" class="btn btn-primary dsag-init-btn" id="dsagInitBtn">
                   Initialize
                 </button>
+                  <label class="dsag-force-rebuild-label">
+                    <input type="checkbox" id="dsagForceRebuild" />
+                    Force rebuild
+                  </label>
+                </div>
                 <div class="dsag-init-status" id="dsagInitStatus"></div>
               </form>
               {% else %}
@@ -135,6 +155,33 @@
                 {% set has_manual_mismap = msg.manual_mismap is defined and msg.manual_mismap %}
                 {% set show_mismap = has_mismap or has_manual_mismap %}
                 {% set mismap_data = msg.mismap if msg.mismap is defined else {} %}
+                {% set dsag = msg.dsag_analysis if msg.dsag_analysis is defined and msg.dsag_analysis else {} %}
+                {% set uncertainty = dsag.uncertain_interpretation if dsag.uncertain_interpretation is defined else {} %}
+                {% set has_uncertainty = uncertainty and ((uncertainty.candidates is defined and uncertainty.candidates) or uncertainty.status is defined) %}
+                {% set has_assistance = dsag.assistance is defined and dsag.assistance and dsag.assistance.relation_type and dsag.assistance.payload %}
+                {% set has_dsag = has_assistance or has_uncertainty %}
+                {% set assist = dsag.assistance if dsag.assistance is defined else {} %}
+                {% set rtype = assist.relation_type if assist.relation_type is defined else "" %}
+                {% set payload = assist.payload if assist.payload is defined else {} %}
+                {% set quote_highlights = [] %}
+                {% if rtype == "ConceptualGap" and payload.analogy is defined and payload.analogy.source_concept %}
+                  {% set _ = quote_highlights.append({
+                    "text": payload.analogy.source_concept,
+                    "kind": "conceptual",
+                    "label": "Conceptual source"
+                  }) %}
+                {% endif %}
+                {% if rtype == "TacitGap" and payload.extracted_quotes is defined and payload.extracted_quotes|length > 0 %}
+                  {% for quote in payload.extracted_quotes %}
+                    {% if quote %}
+                      {% set _ = quote_highlights.append({
+                        "text": quote,
+                        "kind": "tacit",
+                        "label": "Expert already mentioned"
+                      }) %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
 
                 <div class="message-row expert-row" data-msg-index="{{ loop.index0 }}">
                   <div class="message-avatar expert-avatar">👨‍⚕️</div>
@@ -148,20 +195,13 @@
                     <div
                       class="message-content expert-content"
                       data-jargon='{{ (msg.jargon_terms if msg.jargon_terms is defined else []) | tojson | safe }}'
+                      data-quote-highlights='{{ quote_highlights | tojson | safe }}'
                     >{{ msg.content }}</div>
 
                     <div class="analysis-section">
 
                       {# DSAG Assistance Card #}
-                      {% set dsag = msg.dsag_analysis if msg.dsag_analysis is defined and msg.dsag_analysis else {} %}
-                      {% set uncertainty = dsag.uncertain_interpretation if dsag.uncertain_interpretation is defined else {} %}
-                      {% set has_uncertainty = uncertainty and ((uncertainty.candidates is defined and uncertainty.candidates) or uncertainty.status is defined) %}
-                      {% set has_assistance = dsag.assistance is defined and dsag.assistance and dsag.assistance.relation_type and dsag.assistance.payload %}
-                      {% set has_dsag = has_assistance or has_uncertainty %}
                       {% if has_dsag %}
-                        {% set assist = dsag.assistance if dsag.assistance is defined else {} %}
-                        {% set rtype = assist.relation_type if assist.relation_type is defined else "" %}
-                        {% set payload = assist.payload if assist.payload is defined else {} %}
                         <div class="analysis-card dsag-card">
                           {% if not has_uncertainty %}
                           <div class="gap-type-hint">
@@ -246,11 +286,12 @@
                             {# ---- TacitGap ---- #}
                             {% elif rtype == "TacitGap" %}
                               <div class="dsag-tacit">
-                                {% if payload.extracted_attributes is defined and payload.extracted_attributes|length > 0 %}
+                                {% set mentioned_display = payload.extracted_quotes if payload.extracted_quotes is defined and payload.extracted_quotes|length > 0 else payload.extracted_attributes %}
+                                {% if mentioned_display is defined and mentioned_display|length > 0 %}
                                   <div class="dsag-subsection">
                                     <div class="dsag-subsection-title">Expert Already Mentioned</div>
                                     <div class="tacit-tags">
-                                      {% for attr in payload.extracted_attributes %}
+                                      {% for attr in mentioned_display %}
                                         <span class="tacit-tag tacit-tag-mentioned">{{ attr }}</span>
                                       {% endfor %}
                                     </div>

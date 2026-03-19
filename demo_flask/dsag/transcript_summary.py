@@ -131,6 +131,59 @@ Return ONLY valid JSON:
 """
 
 
+def _clean_block_text(text: str) -> str:
+    """Normalize whitespace inside a questionnaire block."""
+    lines = [re.sub(r"\s+", " ", line).strip() for line in str(text or "").splitlines()]
+    lines = [line for line in lines if line]
+    return "\n".join(lines).strip()
+
+
+def _derive_block_label(source_question: str) -> str:
+    """Create a short deterministic label from the first question line."""
+    text = _clean_block_text(source_question)
+    if not text:
+        return ""
+    first_line = text.splitlines()[0]
+    first_line = re.sub(
+        r"^\s*(?:question\s*)?(?:q\s*)?\d+\s*[\.\):：-]?\s*",
+        "",
+        first_line,
+        flags=re.IGNORECASE,
+    ).strip()
+    words = first_line.split()
+    if not words:
+        return ""
+    label = " ".join(words[:8]).strip()
+    return label[:80]
+
+
+def _split_numbered_questionnaire_blocks(questionnaire_text: str) -> list[str]:
+    """Split questionnaire into top-level numbered blocks when clear numbering exists."""
+    text = str(questionnaire_text or "").replace("\r\n", "\n").replace("\r", "\n")
+    lines = text.split("\n")
+    header_re = re.compile(
+        r"^\s*(?:question\s*)?(?:q\s*)?\d+\s*[\.\):：-]\s+\S+",
+        flags=re.IGNORECASE,
+    )
+
+    blocks: list[list[str]] = []
+    current: list[str] = []
+    for raw_line in lines:
+        line = raw_line.rstrip()
+        if header_re.match(line):
+            if current:
+                blocks.append(current)
+            current = [line]
+        elif current:
+            current.append(line)
+    if current:
+        blocks.append(current)
+
+    normalized_blocks = [_clean_block_text("\n".join(block)) for block in blocks]
+    normalized_blocks = [block for block in normalized_blocks if block]
+    return normalized_blocks if len(normalized_blocks) >= 2 else []
+
+
 def parse_questionnaire(questionnaire_text: str) -> TranscriptSummary:
     """Extract main bullet points from questionnaire text.
 
@@ -139,6 +192,20 @@ def parse_questionnaire(questionnaire_text: str) -> TranscriptSummary:
     """
     if not questionnaire_text.strip():
         return TranscriptSummary()
+
+    numbered_blocks = _split_numbered_questionnaire_blocks(questionnaire_text)
+    if numbered_blocks:
+        main_bullets = []
+        for i, block in enumerate(numbered_blocks):
+            label = _derive_block_label(block)
+            mb = MainBullet(
+                id=f"mb_{i+1:02d}",
+                label=label or f"Question {i+1}",
+                keywords=[],
+                source_question=block,
+            )
+            main_bullets.append(mb)
+        return TranscriptSummary(main_bullets=main_bullets, last_updated_turn=0)
 
     llm = _build_llm()
     prompt = ChatPromptTemplate.from_messages([

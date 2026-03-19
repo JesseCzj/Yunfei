@@ -11,7 +11,7 @@ Defines the JSON-serializable data structures for:
 from __future__ import annotations
 import hashlib
 import json
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict, fields
 from typing import Any, Dict, List, Optional, Literal
 from enum import Enum
 
@@ -74,7 +74,10 @@ class DSAGNode:
     
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> DSAGNode:
-        return cls(**data)
+        # Backward-compatible load: ignore unknown historical fields.
+        allowed = {f.name for f in fields(cls)}
+        cleaned = {k: v for k, v in data.items() if k in allowed}
+        return cls(**cleaned)
     
     def is_leaf(self) -> bool:
         return self.layer == Layer.LEAF.value or len(self.children_ids) == 0
@@ -438,29 +441,86 @@ class TranscriptSummary:
 
 
 @dataclass
+class QuestionGraph:
+    """One independent DSAG graph per top-level questionnaire question.
+
+    Attributes:
+        question_id: Stable identifier, e.g. "q_01"
+        question_text: Full original text of the top-level question
+        graph: The independent DSAGGraph built for this question
+        depends_on: list of question_ids this question depends on
+    """
+    question_id: str
+    question_text: str
+    graph: DSAGGraph
+    depends_on: List[str] = field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "question_id": self.question_id,
+            "question_text": self.question_text,
+            "graph": self.graph.to_dict(),
+            "depends_on": self.depends_on,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "QuestionGraph":
+        return cls(
+            question_id=data["question_id"],
+            question_text=data["question_text"],
+            graph=DSAGGraph.from_dict(data["graph"]),
+            depends_on=data.get("depends_on", []),
+        )
+
+
+@dataclass
 class DSAGState:
     """
     Runtime state for a DSAG session.
 
     Attributes:
-        graph: The DSAG graph
+        graph: The DSAG graph (legacy single-graph mode, kept for back-compat)
+        question_graphs: List of per-question independent graphs (new mode)
         cache_key: Cache key for this graph
-        expert_leaf_embeddings: Dict mapping leaf_id -> embedding vector
-        researcher_leaf_embeddings: Dict mapping leaf_id -> embedding vector
         status: Current status (building, ready, error)
         error: Error message if status is error
         transcript_summary: Structured transcript summary for the interview
     """
     graph: Optional[DSAGGraph] = None
+    question_graphs: List[QuestionGraph] = field(default_factory=list)
     cache_key: str = ""
-    expert_leaf_embeddings: Dict[str, List[float]] = field(default_factory=dict)
-    researcher_leaf_embeddings: Dict[str, List[float]] = field(default_factory=dict)
     status: Literal["building", "ready", "error"] = "building"
     error: str = ""
     transcript_summary: Optional[TranscriptSummary] = None
 
     def is_ready(self) -> bool:
-        return self.status == "ready" and self.graph is not None
+        # Ready if we have either the legacy single graph or new multi-graph
+        if self.status != "ready":
+            return False
+        return self.graph is not None or len(self.question_graphs) > 0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "graph": self.graph.to_dict() if self.graph else None,
+            "question_graphs": [qg.to_dict() for qg in self.question_graphs],
+            "cache_key": self.cache_key,
+            "status": self.status,
+            "error": self.error,
+            "transcript_summary": self.transcript_summary.to_dict() if self.transcript_summary else None,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "DSAGState":
+        graph_data = data.get("graph")
+        ts_data = data.get("transcript_summary")
+        return cls(
+            graph=DSAGGraph.from_dict(graph_data) if graph_data else None,
+            question_graphs=[QuestionGraph.from_dict(qg) for qg in data.get("question_graphs", [])],
+            cache_key=data.get("cache_key", ""),
+            status=data.get("status", "building"),
+            error=data.get("error", ""),
+            transcript_summary=TranscriptSummary.from_dict(ts_data) if ts_data else None,
+        )
 
 
 # ============== Validation Helpers ==============

@@ -24,18 +24,13 @@ from .factory import (
     create_dsag_graph,
 )
 
-from .embedding_index import (
-    EmbeddingIndex,
-    SearchResult,
-    build_embedding_index,
-)
-
 from .runtime import (
     RuntimeEngine,
     RuntimeAnalysis,
     Assistance,
     LocatedPosition,
     DivergenceInfo,
+    SearchResult,
     analyze_turn,
 )
 
@@ -64,12 +59,9 @@ __all__ = [
     # Factory
     "GraphFactory",
     "create_dsag_graph",
-    # Embedding Index
-    "EmbeddingIndex",
-    "SearchResult",
-    "build_embedding_index",
     # Runtime
     "RuntimeEngine",
+    "SearchResult",
     "RuntimeAnalysis",
     "Assistance",
     "LocatedPosition",

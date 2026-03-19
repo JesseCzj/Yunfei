@@ -82,6 +82,88 @@ if (dsagTopicInput) dsagTopicInput.addEventListener("input", persistDsagDraft);
 if (dsagResearcherBgInput) dsagResearcherBgInput.addEventListener("input", persistDsagDraft);
 if (dsagExpertBgInput) dsagExpertBgInput.addEventListener("input", persistDsagDraft);
 
+// ============== Cached Configurations ==============
+
+const dsagCachedSection = document.getElementById("dsagCachedSection");
+const dsagCachedSelect = document.getElementById("dsagCachedSelect");
+const dsagLoadCachedBtn = document.getElementById("dsagLoadCachedBtn");
+const dsagDividerText = document.getElementById("dsagDividerText");
+
+async function loadCachedConfigs() {
+  if (!dsagCachedSection) return;
+  try {
+    const resp = await fetch("/api/dsag/list_cached");
+    const data = await resp.json();
+    if (!data.success || !data.cached_configs || data.cached_configs.length === 0) {
+      dsagCachedSection.style.display = "none";
+      if (dsagDividerText) dsagDividerText.style.display = "none";
+      return;
+    }
+    // Populate dropdown
+    dsagCachedSelect.innerHTML = '<option value="">-- Select --</option>';
+    data.cached_configs.forEach((cfg) => {
+      const dateStr = cfg.saved_at ? cfg.saved_at.substring(0, 10) : "";
+      const label = `${cfg.topic || "Untitled"} (${dateStr})`;
+      const opt = document.createElement("option");
+      opt.value = cfg.cache_key;
+      opt.textContent = label;
+      dsagCachedSelect.appendChild(opt);
+    });
+    dsagCachedSection.style.display = "block";
+    if (dsagDividerText) dsagDividerText.style.display = "block";
+  } catch (e) {
+    console.error("Failed to load cached configs:", e);
+  }
+}
+loadCachedConfigs();
+
+if (dsagLoadCachedBtn) {
+  dsagLoadCachedBtn.addEventListener("click", async () => {
+    const cacheKey = dsagCachedSelect ? dsagCachedSelect.value : "";
+    if (!cacheKey) {
+      if (dsagInitStatus) dsagInitStatus.textContent = "Please select a configuration.";
+      return;
+    }
+    dsagLoadCachedBtn.disabled = true;
+    dsagLoadCachedBtn.textContent = "Loading...";
+    if (dsagInitStatus) {
+      dsagInitStatus.textContent = "Loading cached graph...";
+      dsagInitStatus.className = "dsag-init-status dsag-status-building";
+    }
+    try {
+      const resp = await fetch("/api/dsag/load_cached", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cache_key: cacheKey }),
+      });
+      const result = await resp.json();
+      if (result.success) {
+        if (dsagInitStatus) {
+          dsagInitStatus.textContent = "Cached graph loaded. Ready!";
+          dsagInitStatus.className = "dsag-init-status dsag-status-ready";
+        }
+        setTimeout(() => window.location.reload(), 800);
+      } else {
+        if (dsagInitStatus) {
+          dsagInitStatus.textContent = `Error: ${result.error || "Failed to load"}`;
+          dsagInitStatus.className = "dsag-init-status dsag-status-error";
+        }
+        dsagLoadCachedBtn.disabled = false;
+        dsagLoadCachedBtn.textContent = "Load Selected";
+      }
+    } catch (err) {
+      if (dsagInitStatus) {
+        dsagInitStatus.textContent = `Network error: ${err.message}`;
+        dsagInitStatus.className = "dsag-init-status dsag-status-error";
+      }
+      dsagLoadCachedBtn.disabled = false;
+      dsagLoadCachedBtn.textContent = "Load Selected";
+    }
+  });
+}
+
+// ============== DSAG Init Form Submit ==============
+
 if (dsagInitForm) {
   dsagInitForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -89,6 +171,7 @@ if (dsagInitForm) {
     const topic = dsagTopicInput ? dsagTopicInput.value.trim() : "";
     const researcherBg = dsagResearcherBgInput ? dsagResearcherBgInput.value.trim() : "";
     const expertBg = dsagExpertBgInput ? dsagExpertBgInput.value.trim() : "";
+    const forceRebuild = document.getElementById("dsagForceRebuild")?.checked || false;
 
     if (!topic || !researcherBg || !expertBg) {
       if (dsagInitStatus) dsagInitStatus.textContent = "All fields are required.";
@@ -101,7 +184,9 @@ if (dsagInitForm) {
       dsagInitBtn.textContent = "Building graph...";
     }
     if (dsagInitStatus) {
-      dsagInitStatus.textContent = "Generating DSAG graph...";
+      dsagInitStatus.textContent = forceRebuild
+        ? "Force rebuilding DSAG graph..."
+        : "Generating DSAG graph...";
       dsagInitStatus.className = "dsag-init-status dsag-status-building";
     }
 
@@ -113,6 +198,7 @@ if (dsagInitForm) {
           topic: topic,
           researcher_bg: researcherBg,
           expert_bg: expertBg,
+          force_rebuild: forceRebuild,
         }),
       });
 
@@ -123,8 +209,11 @@ if (dsagInitForm) {
         sessionStorage.removeItem("dsagDraftResearcherBg");
         sessionStorage.removeItem("dsagDraftExpertBg");
         if (dsagInitStatus) {
+          const sourceHint = result.cache_source
+            ? ` (from ${result.cache_source})`
+            : "";
           dsagInitStatus.textContent = result.cached
-            ? "DSAG graph loaded from cache. Ready!"
+            ? `DSAG graph loaded from cache${sourceHint}. Ready!`
             : "DSAG graph built successfully. Ready!";
           dsagInitStatus.className = "dsag-init-status dsag-status-ready";
         }
@@ -137,7 +226,7 @@ if (dsagInitForm) {
         }
         if (dsagInitBtn) {
           dsagInitBtn.disabled = false;
-          dsagInitBtn.textContent = "Initialize DSAG";
+          dsagInitBtn.textContent = "Initialize";
         }
       }
     } catch (error) {
@@ -147,49 +236,138 @@ if (dsagInitForm) {
       }
       if (dsagInitBtn) {
         dsagInitBtn.disabled = false;
-        dsagInitBtn.textContent = "Initialize DSAG";
+        dsagInitBtn.textContent = "Initialize";
       }
     }
   });
 }
 
-// ============== Inline Jargon Highlighting ==============
-// Highlight jargon terms directly in expert message text with hover tooltips
+// ============== Inline Expert Highlighting ==============
+// Highlight jargon terms with blue tooltip chips and quoted DSAG evidence with yellow chips.
 
-function highlightJargonInText(element) {
-  const jargonData = element.dataset.jargon;
-  if (!jargonData) return;
-  
-  let jargonList;
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function parseDatasetArray(rawValue) {
+  if (!rawValue) return [];
   try {
-    jargonList = JSON.parse(jargonData);
+    const parsed = JSON.parse(rawValue);
+    return Array.isArray(parsed) ? parsed : [];
   } catch (e) {
-    return;
+    return [];
   }
-  
-  if (!jargonList || jargonList.length === 0) return;
-  
-  let html = element.textContent;
-  
-  // Sort by term length (longest first) to avoid partial replacements
-  jargonList.sort((a, b) => b.term.length - a.term.length);
-  
-  // Replace each jargon term with highlighted version
-  jargonList.forEach((item) => {
-    const term = item.term;
-    const desc = item.desc || "";
-    // Escape special regex characters in term
-    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    // Create case-insensitive regex for whole word match
-    const regex = new RegExp(`\\b(${escapedTerm})\\b`, "gi");
-    html = html.replace(regex, `<span class="inline-jargon" data-tooltip="${desc.replace(/"/g, '&quot;')}">$1</span>`);
+}
+
+function collectQuoteRanges(text, quoteList) {
+  const ranges = [];
+  quoteList.forEach((item) => {
+    const quote = String(item.text || "").trim();
+    if (!quote) return;
+    let startIndex = 0;
+    while (startIndex < text.length) {
+      const found = text.indexOf(quote, startIndex);
+      if (found === -1) break;
+      ranges.push({
+        start: found,
+        end: found + quote.length,
+        type: "quote",
+      });
+      startIndex = found + quote.length;
+    }
   });
+  return ranges;
+}
+
+function collectJargonRanges(text, jargonList) {
+  const ranges = [];
+  const sorted = [...jargonList].sort(
+    (a, b) => String(b.term || "").length - String(a.term || "").length,
+  );
+  sorted.forEach((item) => {
+    const term = String(item.term || "").trim();
+    const desc = String(item.desc || "");
+    if (!term) return;
+    const regex = new RegExp(`\\b${escapeRegExp(term)}\\b`, "gi");
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      ranges.push({
+        start: match.index,
+        end: match.index + match[0].length,
+        type: "jargon",
+        desc,
+      });
+    }
+  });
+  return ranges;
+}
+
+function pickNonOverlappingRanges(ranges) {
+  const sorted = [...ranges].sort((a, b) => {
+    if (a.start !== b.start) return a.start - b.start;
+    if (a.type !== b.type) return a.type === "quote" ? -1 : 1;
+    return (b.end - b.start) - (a.end - a.start);
+  });
+
+  const picked = [];
+  sorted.forEach((range) => {
+    const overlaps = picked.some(
+      (item) => !(range.end <= item.start || range.start >= item.end),
+    );
+    if (!overlaps) {
+      picked.push(range);
+    }
+  });
+  return picked.sort((a, b) => a.start - b.start);
+}
+
+function renderExpertHighlights(element) {
+  const rawText = element.textContent || "";
+  if (!rawText) return;
+
+  const jargonList = parseDatasetArray(element.dataset.jargon);
+  const quoteList = parseDatasetArray(element.dataset.quoteHighlights);
+  const ranges = pickNonOverlappingRanges([
+    ...collectQuoteRanges(rawText, quoteList),
+    ...collectJargonRanges(rawText, jargonList),
+  ]);
+
+  if (ranges.length === 0) return;
+
+  let html = "";
+  let cursor = 0;
+  ranges.forEach((range) => {
+    if (cursor < range.start) {
+      html += escapeHtml(rawText.slice(cursor, range.start));
+    }
+
+    const chunk = escapeHtml(rawText.slice(range.start, range.end));
+    if (range.type === "quote") {
+      html += `<span class="inline-quote-highlight">${chunk}</span>`;
+    } else {
+      html += `<span class="inline-jargon" data-tooltip="${escapeHtml(range.desc)}">${chunk}</span>`;
+    }
+    cursor = range.end;
+  });
+
+  if (cursor < rawText.length) {
+    html += escapeHtml(rawText.slice(cursor));
+  }
   
   element.innerHTML = html;
 }
 
-// Apply jargon highlighting to all expert messages
-document.querySelectorAll(".expert-content").forEach(highlightJargonInText);
+// Apply expert text highlighting to all expert messages
+document.querySelectorAll(".expert-content").forEach(renderExpertHighlights);
 
 // Speech Recognition handling
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
