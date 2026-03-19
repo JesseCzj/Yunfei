@@ -354,16 +354,8 @@ class RuntimeEngine:
 
     # Confidence threshold for leaf matching (below this → "no mismatch" fallback)
     MATCH_THRESHOLD = 0.4
-    TACIT_PRIORITY_MIN_CONFIDENCE = 0.8
+    TACIT_PRIORITY_MIN_CONFIDENCE = 0.6
     TACIT_HINT_KEYWORDS = (
-        "经验",
-        "直觉",
-        "感觉",
-        "凭感觉",
-        "下意识",
-        "一眼",
-        "熟练",
-        "熟悉",
         "intuition",
         "intuitive",
         "experience",
@@ -1111,6 +1103,76 @@ This means:
         text = str(attr or "").strip().replace("_", " ").replace("-", " ")
         return re.sub(r"\s+", " ", text).strip()
 
+    @staticmethod
+    def _normalize_probe_choices(raw_choices: Any) -> List[str]:
+        """Normalize probe choices into a deduplicated, non-empty string list."""
+        if not isinstance(raw_choices, list):
+            return []
+        out: List[str] = []
+        for item in raw_choices:
+            choice = str(item).strip()
+            if choice and choice not in out:
+                out.append(choice)
+        return out
+
+    @staticmethod
+    def _clean_inferred_choice(text: str) -> str:
+        """Trim punctuation and leading connectors from inferred choice labels."""
+        cleaned = str(text or "").strip()
+        cleaned = re.sub(r"^[\s:;,\-]+", "", cleaned)
+        cleaned = re.sub(r"[\s\?\.\!;,:]+$", "", cleaned)
+        cleaned = re.sub(r"^(?:more about|mainly about|mostly about|related to)\s+", "", cleaned, flags=re.I)
+        cleaned = re.sub(r"^(?:是|更像是|主要是)\s*", "", cleaned)
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+        return cleaned
+
+    def _infer_choices_from_probe_question(self, question: str) -> List[str]:
+        """Infer 2-4 multiple-choice options from common probe phrasings."""
+        text = str(question or "").strip()
+        if not text:
+            return []
+
+        patterns = [
+            r"(?:which matters more|which is more important|is the unresolved issue mainly about|is your concern related to)\s+(.+?)\s*,\s*(.+?)\s*,\s*or\s+(.+?)(?:\?|$)",
+            r"(?:which matters more|which is more important|is the unresolved issue mainly about|is your concern related to)\s+(.+?)\s+or\s+(.+?)(?:\?|$)",
+            r"(?:主要是|更像是|是因为)(.+?)[、,，](.+?)[、,，]还是(.+?)(?:[？?]|$)",
+            r"(?:主要是|更像是|是因为)(.+?)还是(.+?)(?:[？?]|$)",
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, text, flags=re.I)
+            if not match:
+                continue
+            choices = [self._clean_inferred_choice(group) for group in match.groups()]
+            choices = [choice for choice in choices if choice]
+            if len(choices) >= 2:
+                return list(dict.fromkeys(choices))[:4]
+        return []
+
+    def _fallback_probe_choices(self, attr: str) -> List[str]:
+        """Provide a stable fallback set when a probe is missing explicit choices."""
+        attr_label = self._humanize_attr_label(attr) or "this factor"
+        return [
+            f"Mostly {attr_label}",
+            f"{attr_label} plus other cues",
+            "Something else",
+        ]
+
+    def _ensure_probe_has_choices(self, probe: Dict[str, Any]) -> Dict[str, Any]:
+        """Guarantee each TacitGap probe has 2-4 concise answer choices."""
+        probe_out = dict(probe)
+        choices = self._normalize_probe_choices(probe_out.get("choices", []))
+        if len(choices) >= 2:
+            probe_out["choices"] = choices[:4]
+            return probe_out
+
+        inferred = self._infer_choices_from_probe_question(probe_out.get("question", ""))
+        if len(inferred) >= 2:
+            probe_out["choices"] = inferred[:4]
+            return probe_out
+
+        probe_out["choices"] = self._fallback_probe_choices(probe_out.get("attribute", ""))
+        return probe_out
+
     def _contextualize_tacit_remaining_payload(
         self,
         payload: Dict[str, Any],
@@ -1149,7 +1211,9 @@ Requirements:
 - Keep the same number and order of attributes, probes, and hypothetical_scenarios.
 - Each attribute should become a short, human-readable label in English.
 - Each probe question must remain multiple-choice and directly help the user clarify what the expert means right now.
-- Keep each probe's choices EXACTLY unchanged.
+- Every probe MUST include a "choices" array with 2 to 4 concise options.
+- If the incoming probe already has choices and they still fit the rewritten question, preserve them.
+- If the incoming probe is missing choices or the choices no longer fit the rewritten question, regenerate a better-fitting set of 2 to 4 concise choices.
 - Each hypothetical scenario should test a concrete contrast the expert would recognize in this exact conversation.
 - Keep the JSON structure the same.
 
@@ -1173,7 +1237,11 @@ Return ONLY valid JSON with top-level key "payload".""")
             parsed = _parse_json_from_text(getattr(response, "content", str(response)))
             candidate = parsed.get("payload", {}) if isinstance(parsed, dict) else {}
             cand_attrs = [str(a).strip() for a in candidate.get("attributes", []) if str(a).strip()]
-            cand_probes = [dict(p) for p in candidate.get("probes", []) if isinstance(p, dict)]
+            cand_probes = [
+                self._ensure_probe_has_choices(dict(p))
+                for p in candidate.get("probes", [])
+                if isinstance(p, dict)
+            ]
             cand_scenarios = [dict(s) for s in candidate.get("hypothetical_scenarios", []) if isinstance(s, dict)]
             if len(cand_attrs) == len(attrs) and len(cand_probes) == len(attrs) and len(cand_scenarios) == len(attrs):
                 out["attributes"] = cand_attrs
@@ -1195,6 +1263,7 @@ Return ONLY valid JSON with top-level key "payload".""")
                     f'When the expert says "{ea_short}", is the unresolved issue mainly about {new_attr} '
                     "or about something else in the same answer?"
                 )
+            probes[idx] = self._ensure_probe_has_choices(probe)
         for idx, scenario in enumerate(scenarios):
             old_attr = str(scenario.get("attribute", "")).strip()
             new_attr = attr_map.get(old_attr, humanized_attrs[min(idx, len(humanized_attrs) - 1)])
@@ -1375,9 +1444,9 @@ Return ONLY valid JSON with top-level key "payload".""")
                 probe = {
                     "attribute": attr,
                     "question": f"When judging {attr.replace('_', ' ')}, is it mostly clearly visible or still something you infer indirectly?",
-                    "choices": ["Clearly visible", "Mostly inferred"],
+                    "choices": ["Clearly visible", "Inferred from the overall pattern", "Something else"],
                 }
-            probes_out.append(probe)
+            probes_out.append(self._ensure_probe_has_choices(probe))
 
             scenario = scenario_by_attr.get(attr)
             if not scenario:

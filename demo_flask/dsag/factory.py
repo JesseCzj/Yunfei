@@ -1610,6 +1610,8 @@ Step 2: For EACH attribute (both seed and expanded), generate a MULTIPLE-CHOICE 
   RULE: NEVER ask open-ended "Why" questions. Instead, formulate as:
   "Is your concern related to [Attribute A] or [Attribute B]?" or
   "Which matters more: A, B, or C?"
+  Each probe MUST include a "choices" array with 2 to 4 concise answer options.
+  The number of choices should fit the probe naturally; do NOT force every probe into exactly two options.
 
 Step 3: Generate hypothetical scenarios — exactly ONE per probe attribute output in Step 2.
   RULE: Each scenario alters only ONE variable at a time to test the boundaries of their intuition.
@@ -1623,7 +1625,7 @@ Return ONLY valid JSON:
     {{
       "attribute": "the attribute being probed",
       "question": "Multiple-choice question (never open-ended Why)",
-      "choices": ["Option A", "Option B"]
+      "choices": ["Option A", "Option B", "Option C if needed"]
     }}
   ],
   "hypothetical_scenarios": [
