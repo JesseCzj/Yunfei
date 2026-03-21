@@ -1,0 +1,67 @@
+{"level":"info","time":"2026-03-15T00:39:10Z","message":"Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps"}
+{"level":"info","time":"2026-03-15T00:39:10Z","message":"Requesting new quick Tunnel on trycloudflare.com..."}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"+--------------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"|  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"|  https://handling-aggregate-stephen-politicians.trycloudflare.com                          |"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"+--------------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"GOOS: windows, GOVersion: go1.24.13, GoArch: amd64"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"Settings: map[ha-connections:1 logfile:cf_tunnel_proxy.log loglevel:info no-autoupdate:true p:http2 protocol:http2 url:http://127.0.0.1:5000]"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"cloudflared will not automatically update on Windows systems."}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"Generated Connector ID: 59b3eda0-48df-4bfc-b9fd-67a063d1e8ef"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"Initial protocol http2"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"ICMP proxy will use 198.18.0.1 as source for IPv4"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"ICMP proxy will use fe80::65d:ac0a:793e:df78 in zone 本地连接* 1 as source for IPv6"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"ICMP proxy will use 198.18.0.1 as source for IPv4"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"ICMP proxy will use fe80::65d:ac0a:793e:df78 in zone 本地连接* 1 as source for IPv6"}
+{"level":"info","time":"2026-03-15T00:39:25Z","message":"Starting metrics server on 127.0.0.1:20241/metrics"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:26Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:26Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:39:26Z","message":"Retrying connection in up to 2s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:29Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:29Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:39:29Z","message":"Retrying connection in up to 4s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:32Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:32Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:39:32Z","message":"Retrying connection in up to 8s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:37Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:37Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:39:37Z","message":"Retrying connection in up to 16s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:45Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:39:45Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:39:45Z","message":"Retrying connection in up to 32s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:00Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:00Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:40:00Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:09Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:09Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:40:09Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:21Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:21Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:40:21Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:32Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:32Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:40:32Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:45Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:45Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:40:45Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:47Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:40:47Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:40:47Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:41:02Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:41:02Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:41:02Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:41:15Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:41:15Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:41:15Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:41:31Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:41:31Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:41:31Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:42:04Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.39","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:42:04Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.39","connIndex":0,"time":"2026-03-15T00:42:04Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:42:36Z","message":"Unable to establish connection with Cloudflare edge"}
+{"level":"error","event":0,"ip":"198.18.0.40","connIndex":0,"error":"TLS handshake with edge error: EOF","time":"2026-03-15T00:42:36Z","message":"Serve tunnel error"}
+{"level":"info","event":0,"ip":"198.18.0.40","connIndex":0,"time":"2026-03-15T00:42:36Z","message":"Retrying connection in up to 1m4s"}

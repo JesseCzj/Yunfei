@@ -1,0 +1,200 @@
+{
+  "description": "Test transcript for DSAG system validation. Each turn is designed to trigger a specific gap type with very high confidence (90/10 distinction, not 51/49). Vocabulary mirrors leaf descriptions closely. Includes LexicalGap, ProcessGap (factual_risk + methodology_conflict), and a dedicated drift trigger sequence.",
+  "topic": "AI-assisted Medical Diagnosis",
+  "researcher_bg": "HCI researcher studying explainable AI",
+  "expert_bg": "Radiologist with 10 years experience",
+  "turns": [
+    {
+      "turn_id": 1,
+      "researcher_question": "What metrics or criteria do you rely on to judge whether an AI diagnostic model is reliable? For example, accuracy, biological plausibility, or reproducibility?",
+      "expert_answer": "Honestly, the biggest problem is too many false alarms on incidental findings. The AI flags every tiny lung nodule as suspicious — even the ones I know are benign based on years of follow-up. It's like having a nervous intern who panics over coffee stains on the film. The overcalling is so bad that I've developed alarm fatigue from AI.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_00_00_00",
+        "target_expert_label": "Too many false alarms on incidental findings",
+        "target_researcher_leaf": "res_leaf_00_00_00",        "target_researcher_label": "Identify metrics used to judge model reliability",
+        "expected_gap_type": "ScopeGap",
+
+        "rationale": "Researcher asks about reliability metrics (res_leaf_00_00_00). Expert responds about false alarm rates on incidentals (exp_leaf_00_00_00). Link exists with ScopeGap, weight 7.0."
+      }
+    },
+    {
+      "turn_id": 2,
+      "researcher_question": "How does your clinical domain knowledge influence your judgment about whether to trust an AI system's output? When do you decide the AI is wrong based on your expertise?",
+      "expert_answer": "My domain knowledge is critical for catching what AI misses. Just last week, the AI completely breezed past an early subdural hematoma — a subtle but critical pathology. It missed it because it's trained mostly on textbook cases, not the messy reality we see at 2 a.m. in the ER. These silent misses are what scare me — edge-case blindness where the AI has tunnel vision.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_00_00_01",
+        "target_expert_label": "Misses subtle but critical pathologies",
+        "target_researcher_leaf": "res_leaf_00_00_01",
+        "target_researcher_label": "Assess role of domain knowledge in reliability judgments",
+        "expected_gap_type": "ConceptualGap",
+        "rationale": "Researcher asks about domain knowledge in reliability judgments (res_leaf_00_00_01). Expert talks about subtle pathology misses (exp_leaf_00_00_01). Link exists with ConceptualGap, weight 6.0."
+      }
+    },
+    {
+      "turn_id": 3,
+      "researcher_question": "How do you build an accurate mental model of the AI's behavior and limitations? What helps you understand what the AI system can and cannot do?",
+      "expert_answer": "That's the problem — I can't build any mental model because the AI keeps interrupting my deep focus during complex reads. When I'm deep in a neuro MRI trying to trace a subtle MS plaque, a pop-up saying 'lung nodule detected' yanks me completely out of the zone. The cognitive hijacking and focus fragmentation are terrible. Between the mental load saturation and the task-switching penalty, I never get a chance to actually learn the system's patterns.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_01_00_02",
+        "target_expert_label": "Interrupts deep focus during complex reads",
+        "target_researcher_leaf": "res_leaf_03_01_01",
+        "target_researcher_label": "Support mental model construction",
+        "expected_gap_type": "TacitGap",
+        "rationale": "Researcher asks about mental model construction (res_leaf_03_01_01). Expert describes focus interruption during complex reads (exp_leaf_01_00_02). Link exists with TacitGap, weight 5.0."
+      }
+    },
+    {
+      "turn_id": 4,
+      "researcher_question": "Where in the current diagnostic workflow do you see the most time-consuming or cognitively demanding bottlenecks where AI assistance could provide the most value?",
+      "expert_answer": "I'm actually more worried about the opposite effect. Our residents are leaning on AI instead of developing their own pattern recognition — it's eroding trainee learning. They can't read a scan without the digital crutch anymore. The cognitive offloading is creating skill atrophy. We're building a generation that treats AI as a training shortcut, and the mentorship relationship is being substituted by an algorithm. Their diagnostic self-efficacy is plummeting.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_02_02_02",
+        "target_expert_label": "Erodes trainee learning",
+        "target_researcher_leaf": "res_leaf_01_00_01",
+        "target_researcher_label": "Identify bottlenecks amenable to AI support",
+        "expected_gap_type": "TacitGap",
+        "rationale": "Researcher asks about workflow bottlenecks for AI support (res_leaf_01_00_01). Expert pivots to trainee learning erosion (exp_leaf_02_02_02). Link exists with TacitGap, weight 6.0."
+      }
+    },
+    {
+      "turn_id": 5,
+      "researcher_question": "What quantitative reliability metrics would give you the most confidence to adopt an AI diagnostic tool? Things like accuracy benchmarks, calibration scores, or reproducibility data?",
+      "expert_answer": "Before we even talk about reliability metrics, there's a much bigger issue: the medico-legal responsibility is completely unclear. If I rely on AI and it misses a brain bleed, who is liable — me or the vendor? My malpractice insurer has no clear answer. There's a total liability gray zone. It's an accountability fog. I can't adopt a tool when I don't know who takes the blame if something goes wrong.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_02_00_00",
+        "target_expert_label": "Unclear medico-legal responsibility",
+        "target_researcher_leaf": "res_leaf_00_00_00",
+        "target_researcher_label": "Identify metrics used to judge model reliability",
+        "expected_gap_type": "ScopeGap",
+        "rationale": "Researcher asks about reliability metrics again (res_leaf_00_00_00). Expert raises liability concerns (exp_leaf_02_00_00). Link exists with ScopeGap, weight 8.0."
+      }
+    },
+    {
+      "turn_id": 6,
+      "researcher_question": "When the AI gives a diagnosis with high confidence, how do you use your biological and clinical knowledge to cross-check whether it makes sense?",
+      "expert_answer": "The AI struggles with rare diseases — that's where my domain knowledge is essential. A 32-year-old patient had bilateral hilar lymphadenopathy, and the AI confidently said 'metastatic carcinoma' with 98% probability. But I know sarcoidosis is far more likely given the age, non-smoker status, and presentation. The AI has never seen enough rare cases — it defaults to common diagnoses. This is textbook zebra blindness, a rare disease gap from the long-tail ignorance in the training data.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_00_00_03",
+        "target_expert_label": "Struggles with rare diseases",
+        "target_researcher_leaf": "res_leaf_00_00_01",
+        "target_researcher_label": "Assess role of domain knowledge in reliability judgments",
+        "expected_gap_type": "ConceptualGap",
+        "rationale": "Researcher asks about domain knowledge for cross-checking (res_leaf_00_00_01). Expert talks about rare disease struggles (exp_leaf_00_00_03). Link exists with ConceptualGap, weight 6.83."
+      }
+    },
+    {
+      "turn_id": 7,
+      "researcher_question": "What are the main usability and technical barriers that prevent or complicate the adoption of AI diagnostic tools in your daily practice?",
+      "expert_answer": "The biggest barrier is economic, not technical. We're paying $150,000 per year per AI module in high licensing fees, but the studies show only marginal time savings — the productivity gains are completely unclear. It's impossible to defend this cost to hospital CFOs. There's a total cost-value disconnect. ROI is opaque, and the subscription bloat is eating into our operating margin with no clear return.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_04_00_00",
+        "target_expert_label": "High licensing fees with unclear productivity gains",
+        "target_researcher_leaf": "res_leaf_01_01_00",
+        "target_researcher_label": "Catalog usability and technical barriers",
+        "expected_gap_type": "ScopeGap",
+        "rationale": "Researcher asks about usability/technical barriers (res_leaf_01_01_00). Expert responds about licensing costs (exp_leaf_04_00_00). Link exists with ScopeGap, weight 7.5."
+      }
+    },
+    {
+      "turn_id": 8,
+      "researcher_question": "What types of explanations do you need from an AI system to support your scientific and clinical goals? For example, causal explanations, feature importance, or counterfactual reasoning?",
+      "expert_answer": "The core problem is there's no way to interrogate the 'why' behind the AI's decisions. When it says 'likely malignant,' I can't ask: compared to what? Which features tipped you off? It's a black box with a pretty UI. There's no audit trail, the logic is completely opaque, and there's a total reasoning vacuum. I need to weigh five differential diagnoses based on history, labs, and imaging — but the AI just spits out one label with no probabilistic nuance.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_00_02_01",
+        "target_expert_label": "No way to interrogate the 'why'",
+        "target_researcher_leaf": "res_leaf_00_01_01",
+        "target_researcher_label": "Map explanation types to scientific goals",
+        "expected_gap_type": "ConceptualGap",
+        "rationale": "Researcher asks about explanation types for scientific goals (res_leaf_00_01_01). Expert describes inability to interrogate AI reasoning (exp_leaf_00_02_01). Link exists with ConceptualGap, weight 6.33."
+      }
+    }
+  ],
+  "lexical_gap_turn": {
+    "note": "Current dsag_output.json has NO LexicalGap links. This turn is designed so that when you add a LexicalGap link (same concept, different terminology between researcher and expert), it will trigger. LexicalGap = terminology/wording mismatch, not conceptual or scope difference.",
+    "researcher_question": "How sufficient are current explainability techniques — for example saliency maps, attention maps, or feature importance — for helping you understand why the AI made a given prediction?",
+    "expert_answer": "The heatmaps they show us don't match how I actually reason. The AI highlights a spot on the liver, but I know that's just beam-hardening artifact — the saliency looks convincing but it's pointing at noise. It's misleading. I need to be able to interrogate the why — when it says 'likely malignant,' I want to ask which features tipped it off. Right now there's no audit trail, just a pretty UI. So the interpretability tools we have feel like visual gaslighting.",
+    "expected": {
+      "target_expert_leaf": "exp_leaf_00_02_00",
+      "target_expert_label": "Heatmaps don't match radiologist reasoning",
+      "target_researcher_leaf": "res_leaf_00_01_02",
+      "target_researcher_label": "Evaluate sufficiency of current XAI methods",
+      "expected_gap_type": "LexicalGap",
+      "rationale": "Same concept: understanding why the AI decided. Researcher uses terms 'explainability', 'saliency maps', 'feature importance'; expert uses 'heatmaps', 'interrogate the why', 'audit trail'. To test: add a LexicalGap link between this expert/researcher leaf pair in the graph (factory or manual JSON)."
+    }
+  },
+  "process_gap_turns": {
+    "note": "Current dsag_output.json has NO ProcessGap links. ProcessGap has two sub-types. Add a link between the indicated leaf pair with relation_type ProcessGap to test.",
+    "factual_risk": {
+      "researcher_question": "Is the main barrier to adopting AI in your practice the lack of integration with your PACS and voice recognition systems? If we could solve the workflow integration and technical interoperability, would that unlock adoption?",
+      "expert_answer": "No — the main barrier isn't technical at all. Our biggest issue is that the medico-legal responsibility is unclear. If I rely on AI and it misses a bleed, who's liable? And we're paying $150K per module with no clear productivity gain. So even if PACS integration were perfect, we still wouldn't adopt until liability and cost are addressed.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_02_00_00",
+        "target_expert_label": "Unclear medico-legal responsibility",
+        "target_researcher_leaf": "res_leaf_01_01_00",
+        "target_researcher_label": "Catalog usability and technical barriers",
+        "expected_gap_type": "ProcessGap",
+        "sub_type": "factual_risk",
+        "rationale": "Researcher assumes 'main barrier = PACS/workflow integration'. Expert corrects: main barriers are liability and cost. If researcher stated the assumption as fact, the interview would derail into factual correction. Requires a ProcessGap (factual_risk) link between a researcher leaf that presupposes integration as the bottleneck and this expert leaf."
+      }
+    },
+    "methodology_conflict": {
+      "researcher_question": "Do you use a single sensitivity threshold or detection threshold across all your AI tools — for example one setting for lung nodule detection and the same for stroke triage?",
+      "expert_answer": "We can't — and that's the problem. In screening mammo we want high sensitivity; in diagnostic MRI we need specificity. The AI uses the same threshold everywhere. It can't adapt to service-specific priorities. So it over-prioritizes trivial findings in one context and underestimates time-sensitive emergencies in another. There's no one-threshold-fits-all; the domain has different valid approaches depending on the clinical context.",
+      "expected": {
+        "target_expert_leaf": "exp_leaf_01_01_02",
+        "target_expert_label": "Can't adapt to service-specific priorities",
+        "target_researcher_leaf": "res_leaf_00_00_02",
+        "target_researcher_label": "Understand thresholds for acceptable uncertainty",
+        "expected_gap_type": "ProcessGap",
+        "sub_type": "methodology_conflict",
+        "rationale": "Researcher asks a confirmatory question assuming one threshold. Expert uses context-dependent thresholds (screening vs diagnostic). ProcessGap (methodology_conflict): researcher must use open-ended process questions ('How do you set thresholds for different contexts?') instead of confirmatory ones. Requires a ProcessGap link between this pair."
+      }
+    }
+  },
+  "drift_trigger_sequence": {
+    "usage": "Run these 6 turns IN ORDER in the SAME browser session (same session cookie so interview_timeline accumulates). Use the web form: submit Researcher + Expert for D1 through D6 — do NOT refresh or open a new tab. All 6 turns use vocabulary that maps to the SAME expert leaf (exp_leaf_00_00_00 — false alarms on incidental findings), so Topic Trail will show the same topic 6 times and drift_detected = true from D4 onward. Check: (1) Server console logs timeline length 1..6 and 'drift_detected=True' from the 4th turn. (2) Narrow Focus Alert in the DSAG Assistance card and Process Guidance panel.",
+    "turns": [
+      {
+        "turn_id": "D1",
+        "researcher_question": "When you evaluate an AI tool, how much do false positives on incidental findings affect your trust?",
+        "expert_answer": "A lot. Too many false alarms on incidental findings — the AI flags every tiny lung nodule as suspicious even when I know it's benign from follow-up. The overcalling causes real alarm fatigue."
+      },
+      {
+        "turn_id": "D2",
+        "researcher_question": "Can you give another example where the AI overcalls?",
+        "expert_answer": "Same theme — incidental findings. Small nodules, benign cysts, things we've tracked for years. The AI treats them all as suspicious. It's like nodule paranoia. I spend more time dismissing false alarms than on real findings."
+      },
+      {
+        "turn_id": "D3",
+        "researcher_question": "How do you handle the false positive rate in your workflow?",
+        "expert_answer": "We have to verify every alert. So the false alarms on incidental findings add steps — we can't trust the AI's flags. The overcalling means we're constantly dismissing. Alarm fatigue from AI is a real issue in our reading room."
+      },
+      {
+        "turn_id": "D4",
+        "researcher_question": "Would better calibration of the sensitivity threshold help with these false alarms?",
+        "expert_answer": "Maybe, but the core issue is still too many false alarms on incidental findings. Every little thing gets flagged. Until that's fixed, we'll keep having overcalling and alarm fatigue. It's the same problem across our protocols."
+      },
+      {
+        "turn_id": "D5",
+        "researcher_question": "Do your colleagues also complain about the false alarm rate on lung nodules?",
+        "expert_answer": "Yes. Everyone in the reading room talks about too many false alarms on incidental findings — especially with lung nodule detection. The overcalling is universal. We all have alarm fatigue from AI."
+      },
+      {
+        "turn_id": "D6",
+        "researcher_question": "What would need to change for you to trust the AI's flags on small nodules?",
+        "expert_answer": "The system would have to stop overcalling benign incidental findings. Right now it flags every tiny lung nodule. We need fewer false alarms, less nodule paranoia, and an end to this alarm fatigue from AI before we can really trust it."
+      }
+    ],
+    "expected_from_D4_onward": {
+      "drift_signal": {
+        "drift_detected": true,
+        "drift_detail": "The last N turns only cover 1 topic ('Too many false alarms on incidental findings'), while 3 sibling topics remain unexplored.",
+        "redirect": "Generated by LLM (context-aware sentence suggesting the researcher explore unvisited siblings)."
+      },
+      "coverage": {
+        "visited": ["Too many false alarms on incidental findings"],
+        "unvisited_siblings": ["Misses subtle but critical pathologies", "Overconfident wrong answers", "Struggles with rare diseases"]
+      }
+    }
+  }
+}

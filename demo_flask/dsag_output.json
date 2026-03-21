@@ -1,0 +1,1375 @@
+{
+  "topic": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+  "researcher_bg": "An HCI researcher specializing in Educational Technology (EdTech) and Human-AI Collaboration, focused on optimizing complex grading workflows and feedback quality.",
+  "expert_bg": "A seasoned university instructor with extensive experience in evaluating lengthy project reports, currently managing high-volume grading pressure while prioritizing educational fairness and student feedback.",
+  "expert_tree": {
+    "tower": "expert",
+    "root_id": "shared_root",
+    "nodes": {
+      "shared_root": {
+        "id": "shared_root",
+        "tower": "shared",
+        "layer": "root",
+        "label": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "description": "Interview topic: Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "parent_id": null,
+        "children_ids": [
+          "exp_L1_00",
+          "exp_L1_01",
+          "exp_L1_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L1_00": {
+        "id": "exp_L1_00",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Operational Realities of High-Volume Grading",
+        "description": "The logistical and cognitive constraints of managing large stacks of lengthy reports under time pressure.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_00_00",
+          "exp_L2_00_01",
+          "exp_L2_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_00_00": {
+        "id": "exp_L2_00_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Session Management & Fatigue",
+        "description": "How I structure grading sessions to maintain focus and avoid burnout.",
+        "parent_id": "exp_L1_00",
+        "children_ids": [
+          "exp_leaf_00_00_00",
+          "exp_leaf_00_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_00_00": {
+        "id": "exp_leaf_00_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Batching Strategy",
+        "description": "I never grade randomly; I chunk the stack into sets of 5 or 10 to keep my brain fresh, because switching contexts too often kills my consistency.",
+        "parent_id": "exp_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Chunking the stack",
+          "Grading sprints",
+          "Batch processing"
+        ]
+      },
+      "exp_leaf_00_00_01": {
+        "id": "exp_leaf_00_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Mid-Stack Slump",
+        "description": "There's a specific point, usually 60% through the pile, where my eyes glaze over and I know I'm missing nuances just because I've read the same intro paragraph 40 times.",
+        "parent_id": "exp_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Grading fatigue",
+          "The slump",
+          "Reviewer burnout"
+        ]
+      },
+      "exp_L2_00_01": {
+        "id": "exp_L2_00_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Standard Calibration",
+        "description": "Methods used to establish and maintain consistent scoring standards across the grading period.",
+        "parent_id": "exp_L1_00",
+        "children_ids": [
+          "exp_leaf_00_01_00",
+          "exp_leaf_00_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_01_00": {
+        "id": "exp_leaf_00_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Anchor Paper Ritual",
+        "description": "I always grade 3 or 4 papers unofficially at the start to find a 'benchmark' paper that defines what a B+ looks like, so I have something concrete to compare against.",
+        "parent_id": "exp_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Setting the bar",
+          "Benchmarking",
+          "Calibration set"
+        ]
+      },
+      "exp_leaf_00_01_01": {
+        "id": "exp_leaf_00_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Grading Drift Sense",
+        "description": "It's a gut feeling that I'm getting stricter or looser as the night goes on, like I'm penalizing minor formatting errors more heavily just because I'm annoyed.",
+        "parent_id": "exp_L2_00_01",
+        "children_ids": [],
+        "attributes": [
+          "Time-on-task duration",
+          "Emotional irritation level",
+          "Frequency of re-reading rubric"
+        ],
+        "aliases": [
+          "Standard drift",
+          "Rater creep",
+          "Consistency shift"
+        ]
+      },
+      "exp_L2_00_02": {
+        "id": "exp_L2_00_02",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Time-Depth Trade-offs",
+        "description": "Balancing the limited time available against the desire to provide meaningful evaluation.",
+        "parent_id": "exp_L1_00",
+        "children_ids": [
+          "exp_leaf_00_02_00"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_00_02_00": {
+        "id": "exp_leaf_00_02_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Comment Budget",
+        "description": "I mentally allocate about 15 minutes per paper; if I spend 20 on one, I know I'm stealing time from the next student, so I have to stop writing comments somewhere.",
+        "parent_id": "exp_L2_00_02",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Time boxing",
+          "Feedback rationing",
+          "Per-student allocation"
+        ]
+      },
+      "exp_L1_01": {
+        "id": "exp_L1_01",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Tacit Evaluative Judgments",
+        "description": "The unwritten, experience-based heuristics used to assess quality beyond the explicit rubric.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_01_00",
+          "exp_L2_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_01_00": {
+        "id": "exp_L2_01_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Spotting Quality Signals",
+        "description": "Immediate cues that indicate the overall level of student work before deep reading.",
+        "parent_id": "exp_L1_01",
+        "children_ids": [
+          "exp_leaf_01_00_00",
+          "exp_leaf_01_00_01",
+          "exp_leaf_01_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_00_00": {
+        "id": "exp_leaf_01_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Executive Summary Tell",
+        "description": "I can usually guess the grade band just by reading the abstract; if they can't summarize their own work clearly there, the report is usually messy throughout.",
+        "parent_id": "exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [
+          "Clarity of problem statement",
+          "Alignment with conclusions",
+          "Writing density"
+        ],
+        "aliases": [
+          "Abstract heuristic",
+          "First-page test",
+          "Signal reading"
+        ]
+      },
+      "exp_leaf_01_00_01": {
+        "id": "exp_leaf_01_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Effort vs. Insight Balance",
+        "description": "I have to decide if a student worked really hard but missed the point, versus someone who nailed the concept with less flashiness; hard work doesn't always equal an A.",
+        "parent_id": "exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [
+          "Conceptual accuracy",
+          "Complexity of analysis",
+          "Originality of approach"
+        ],
+        "aliases": [
+          "Process vs. outcome",
+          "Labor weighting",
+          "Depth check"
+        ]
+      },
+      "exp_leaf_01_00_02": {
+        "id": "exp_leaf_01_00_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The AI/Contract Cheating Smell",
+        "description": "Sometimes the writing style shifts abruptly or the tone is too perfect compared to their class participation, and I just suspect it without having hard proof.",
+        "parent_id": "exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [
+          "Tone consistency",
+          "Vocabulary sophistication gap",
+          "Reference to class-specific discussions"
+        ],
+        "aliases": [
+          "Voice mismatch",
+          "Authenticity check",
+          "Ghostwriting suspicion"
+        ]
+      },
+      "exp_L2_01_01": {
+        "id": "exp_L2_01_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Rubric Flexibility & Edge Cases",
+        "description": "Handling student work that deviates from expectations or falls on grade boundaries.",
+        "parent_id": "exp_L1_01",
+        "children_ids": [
+          "exp_leaf_01_01_00",
+          "exp_leaf_01_01_01",
+          "exp_leaf_01_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_01_01_00": {
+        "id": "exp_leaf_01_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Creative Pivot Dilemma",
+        "description": "When a student ignores the prompt structure but produces something brilliant, I struggle with whether to penalize them for not following instructions or reward the innovation.",
+        "parent_id": "exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Rubric mismatch",
+          "Innovation penalty",
+          "Structure vs. substance"
+        ]
+      },
+      "exp_leaf_01_01_01": {
+        "id": "exp_leaf_01_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Polish vs. Content Weight",
+        "description": "I try to ignore formatting, but if a report is visually painful to read, it subconsciously makes me assume the thinking is messy too, even if it's not.",
+        "parent_id": "exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [
+          "Visual clutter level",
+          "Navigation ease",
+          "Professional presentation"
+        ],
+        "aliases": [
+          "Halo effect",
+          "Formatting bias",
+          "Readability tax"
+        ]
+      },
+      "exp_leaf_01_01_02": {
+        "id": "exp_leaf_01_01_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Borderline Energy Cost",
+        "description": "The papers right on the edge between a B and a C take twice as long to grade because I have to justify the decision to myself more than the clear A's or F's.",
+        "parent_id": "exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [
+          "Rubric criterion ambiguity",
+          "Evidence strength",
+          "Cognitive load per decision"
+        ],
+        "aliases": [
+          "Boundary cases",
+          "Decision fatigue",
+          "Edge justification"
+        ]
+      },
+      "exp_L1_02": {
+        "id": "exp_L1_02",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Pedagogical Impact & Fairness",
+        "description": "Concerns regarding how grading decisions affect student learning, equity, and institutional accountability.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "exp_L2_02_00",
+          "exp_L2_02_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_L2_02_00": {
+        "id": "exp_L2_02_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Feedback Utility",
+        "description": "Ensuring that the comments provided actually help the student improve rather than just justifying the grade.",
+        "parent_id": "exp_L1_02",
+        "children_ids": [
+          "exp_leaf_02_00_00",
+          "exp_leaf_02_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_00_00": {
+        "id": "exp_leaf_02_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Read-Through Hope",
+        "description": "I spend time writing detailed comments, but I always worry students just look at the score and close the file, making my effort wasted.",
+        "parent_id": "exp_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Feedback uptake",
+          "Student engagement",
+          "Comment visibility"
+        ]
+      },
+      "exp_leaf_02_00_01": {
+        "id": "exp_leaf_02_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Actionable Specificity",
+        "description": "I try to avoid writing 'good job' or 'vague'; I force myself to write comments that tell them exactly what to change next time, which takes more mental energy.",
+        "parent_id": "exp_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Constructive feedback",
+          "Feed-forward",
+          "Specific guidance"
+        ]
+      },
+      "exp_L2_02_01": {
+        "id": "exp_L2_02_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Fairness & Accountability",
+        "description": "Anxieties about equity, bias, and defending grading decisions to students or administration.",
+        "parent_id": "exp_L1_02",
+        "children_ids": [
+          "exp_leaf_02_01_00",
+          "exp_leaf_02_01_01",
+          "exp_leaf_02_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "exp_leaf_02_01_00": {
+        "id": "exp_leaf_02_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Order Effect Worry",
+        "description": "I worry that the first few papers get graded harder because I'm setting the standard, or the last few get rushed, creating an unfair advantage based on submission order.",
+        "parent_id": "exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Positional bias",
+          "Sequence effect",
+          "Stack ordering"
+        ]
+      },
+      "exp_leaf_02_01_01": {
+        "id": "exp_leaf_02_01_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Contextual Equity Knowledge",
+        "description": "I sometimes know a student is going through personal issues, and I have to decide internally if I accommodate them informally or stick strictly to the rubric for fairness to others.",
+        "parent_id": "exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Compassionate grading",
+          "Contextual adjustment",
+          "Hidden accommodations"
+        ]
+      },
+      "exp_leaf_02_01_02": {
+        "id": "exp_leaf_02_01_02",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The Defensible Grade Mindset",
+        "description": "I write certain comments not for the student, but to protect myself if they appeal the grade; I need a paper trail that shows I followed the rubric.",
+        "parent_id": "exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Audit trail",
+          "Appeal protection",
+          "Justification logging"
+        ]
+      }
+    }
+  },
+  "researcher_tree": {
+    "tower": "researcher",
+    "root_id": "shared_root",
+    "nodes": {
+      "shared_root": {
+        "id": "shared_root",
+        "tower": "shared",
+        "layer": "root",
+        "label": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "description": "Interview topic: Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "parent_id": null,
+        "children_ids": [
+          "res_L1_00",
+          "res_L1_01",
+          "res_L1_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L1_00": {
+        "id": "res_L1_00",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "Grading Workflow & Cognitive Dynamics",
+        "description": "Examining the procedural steps and mental effort required during the evaluation process.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_00_00",
+          "res_L2_00_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_00_00": {
+        "id": "res_L2_00_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Process Mapping",
+        "description": "Understanding the sequence and structure of grading tasks.",
+        "parent_id": "res_L1_00",
+        "children_ids": [
+          "res_leaf_00_00_00",
+          "res_leaf_00_00_01",
+          "res_leaf_00_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_00_00_00": {
+        "id": "res_leaf_00_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Map end-to-end grading workflow",
+        "description": "Document the sequential steps educators take from receiving submissions to finalizing grades.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Workflow Bottleneck",
+          "Task Analysis"
+        ]
+      },
+      "res_leaf_00_00_01": {
+        "id": "res_leaf_00_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Identify high-friction steps",
+        "description": "Pinpoint specific stages in the workflow that cause delays or frustration.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Interaction Cost",
+          "Pain Points"
+        ]
+      },
+      "res_leaf_00_00_02": {
+        "id": "res_leaf_00_00_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Analyze context switching costs",
+        "description": "Evaluate the mental effort lost when switching between different student submissions or tasks.",
+        "parent_id": "res_L2_00_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Context Switching",
+          "Cognitive Overhead"
+        ]
+      },
+      "res_L2_00_01": {
+        "id": "res_L2_00_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Cognitive Load",
+        "description": "Assessing the mental and emotional strain during evaluation.",
+        "parent_id": "res_L1_00",
+        "children_ids": [
+          "res_leaf_00_01_00",
+          "res_leaf_00_01_01",
+          "res_leaf_00_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_00_01_00": {
+        "id": "res_leaf_00_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Pinpoint exhaustion phases",
+        "description": "Identify which specific phase of grading causes the most cognitive or emotional fatigue.",
+        "parent_id": "res_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Cognitive Load",
+          "Mental Fatigue"
+        ]
+      },
+      "res_leaf_00_01_01": {
+        "id": "res_leaf_00_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Assess volume impact",
+        "description": "Understand how massive volumes of assignments affect mindset and performance at term end.",
+        "parent_id": "res_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Scalability",
+          "Performance Degradation"
+        ]
+      },
+      "res_leaf_00_01_02": {
+        "id": "res_leaf_00_01_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Evaluate emotional toll",
+        "description": "Measure the emotional exhaustion associated with repetitive evaluation tasks.",
+        "parent_id": "res_L2_00_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Affective Computing",
+          "Burnout"
+        ]
+      },
+      "res_L1_01": {
+        "id": "res_L1_01",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "Evaluation Logic & Fairness",
+        "description": "Investigating how experts make judgments and maintain consistency.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_01_00",
+          "res_L2_01_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_01_00": {
+        "id": "res_L2_01_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Decision Making",
+        "description": "Exploring how educators handle standard and non-standard submissions.",
+        "parent_id": "res_L1_01",
+        "children_ids": [
+          "res_leaf_01_00_00",
+          "res_leaf_01_00_01",
+          "res_leaf_01_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_01_00_00": {
+        "id": "res_leaf_01_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Rubric recalibration",
+        "description": "Explore how experts internally weigh and adjust standards when work falls outside predefined rubrics.",
+        "parent_id": "res_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Decision Boundary",
+          "Adaptive Systems"
+        ]
+      },
+      "res_leaf_01_00_01": {
+        "id": "res_leaf_01_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Intuition articulation",
+        "description": "Extract the objective cues that underlie an expert's 'gut feeling' about quality.",
+        "parent_id": "res_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Tacit Knowledge",
+          "Heuristic Evaluation"
+        ]
+      },
+      "res_leaf_01_00_02": {
+        "id": "res_leaf_01_00_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Heuristic patterns",
+        "description": "Identify rapid gauging patterns used to distinguish between grade levels (e.g., A vs C).",
+        "parent_id": "res_L2_01_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Pattern Recognition",
+          "Mental Models"
+        ]
+      },
+      "res_L2_01_01": {
+        "id": "res_L2_01_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Consistency & Bias",
+        "description": "Understanding concerns regarding fairness and grading drift.",
+        "parent_id": "res_L1_01",
+        "children_ids": [
+          "res_leaf_01_01_00",
+          "res_leaf_01_01_01",
+          "res_leaf_01_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_01_01_00": {
+        "id": "res_leaf_01_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Grading drift awareness",
+        "description": "Measure educator awareness of shifting standards during prolonged evaluation sessions.",
+        "parent_id": "res_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Grading Drift",
+          "Consistency Metrics"
+        ]
+      },
+      "res_leaf_01_01_01": {
+        "id": "res_leaf_01_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Fairness anxiety",
+        "description": "Understand feelings of anxiety regarding educational fairness when standards shift due to fatigue.",
+        "parent_id": "res_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Algorithmic Fairness",
+          "User Anxiety"
+        ]
+      },
+      "res_leaf_01_01_02": {
+        "id": "res_leaf_01_01_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Consistency triggers",
+        "description": "Identify what prompts an educator to pause and recalibrate their grading standards.",
+        "parent_id": "res_L2_01_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Feedback Loop",
+          "Self-Regulation"
+        ]
+      },
+      "res_L1_02": {
+        "id": "res_L1_02",
+        "tower": "researcher",
+        "layer": "L1",
+        "label": "AI Collaboration & Feedback",
+        "description": "Defining the role of AI in enhancing feedback and automating workflows.",
+        "parent_id": "shared_root",
+        "children_ids": [
+          "res_L2_02_00",
+          "res_L2_02_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_L2_02_00": {
+        "id": "res_L2_02_00",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Feedback Quality",
+        "description": "Defining what constitutes valuable feedback for students.",
+        "parent_id": "res_L1_02",
+        "children_ids": [
+          "res_leaf_02_00_00",
+          "res_leaf_02_00_01",
+          "res_leaf_02_00_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_02_00_00": {
+        "id": "res_leaf_02_00_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Excellent vs Passing",
+        "description": "Define the fundamental differences between high-quality and merely sufficient feedback comments.",
+        "parent_id": "res_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Quality Heuristics",
+          "Content Analysis"
+        ]
+      },
+      "res_leaf_02_00_01": {
+        "id": "res_leaf_02_00_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Student reaction",
+        "description": "Anticipate the specific desired reaction from students when crafting personalized feedback.",
+        "parent_id": "res_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "User Response",
+          "Learning Outcome"
+        ]
+      },
+      "res_leaf_02_00_02": {
+        "id": "res_leaf_02_00_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Human element",
+        "description": "Determine which essential human elements must remain in feedback comments versus automated text.",
+        "parent_id": "res_L2_02_00",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Human-in-the-loop",
+          "Personalization"
+        ]
+      },
+      "res_L2_02_01": {
+        "id": "res_L2_02_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Automation Boundaries",
+        "description": "Identifying opportunities and limits for AI assistance.",
+        "parent_id": "res_L1_02",
+        "children_ids": [
+          "res_leaf_02_01_00",
+          "res_leaf_02_01_01",
+          "res_leaf_02_01_02"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "res_leaf_02_01_00": {
+        "id": "res_leaf_02_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Elimination candidates",
+        "description": "Identify specific workflow steps experts would eliminate without compromising educational value.",
+        "parent_id": "res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Task Offloading",
+          "Automation Potential"
+        ]
+      },
+      "res_leaf_02_01_01": {
+        "id": "res_leaf_02_01_01",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Trust requirements",
+        "description": "Assess the level of trust required for educators to accept AI-assisted grading suggestions.",
+        "parent_id": "res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Trust Calibration",
+          "Explainability"
+        ]
+      },
+      "res_leaf_02_01_02": {
+        "id": "res_leaf_02_01_02",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Oversight needs",
+        "description": "Define boundaries where human oversight remains mandatory despite AI capabilities.",
+        "parent_id": "res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Human Oversight",
+          "Control Boundaries"
+        ]
+      }
+    }
+  },
+  "links": [
+    {
+      "expert_leaf_id": "exp_leaf_01_00_02",
+      "researcher_leaf_id": "res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Tacit Evaluative Judgments",
+        "Spotting Quality Signals",
+        "The AI/Contract Cheating Smell"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "AI Collaboration & Feedback",
+        "Automation Boundaries",
+        "Elimination candidates"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_02",
+      "researcher_lca_id": "res_L1_02",
+      "conflict": {
+        "expert_branch": "The AI/Contract Cheating Smell",
+        "researcher_branch": "Elimination candidates"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "The Executive Summary Tell",
+          "structural_mapping": {
+            "inputs": "Abstract text vs. Workflow step data",
+            "logic": "Quality heuristic vs. Automation value heuristic",
+            "outputs": "Skip deep read vs. Skip human step"
+          },
+          "explanation": "Just as you skip deep reading when the abstract signals low quality, the tool skips human steps when signals show low educational value."
+        },
+        "scenario": "You spot a sudden tone shift in a report, signaling potential contract cheating to your intuition. The system marks this verification step as eliminable because previous rubric scores were consistent. Removing this check saves time but deletes your only chance to catch the integrity issue early."
+      },
+      "weight": 6.5
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_01_00",
+      "researcher_leaf_id": "res_leaf_01_01_01",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Tacit Evaluative Judgments",
+        "Rubric Flexibility & Edge Cases",
+        "The Creative Pivot Dilemma"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Evaluation Logic & Fairness",
+        "Consistency & Bias",
+        "Fairness anxiety"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_01",
+      "researcher_lca_id": "res_L2_01_01",
+      "conflict": {
+        "expert_branch": "The Creative Pivot Dilemma",
+        "researcher_branch": "Fairness anxiety"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "Your focus on navigating the tension between rewarding student innovation and enforcing prompt structure is highly applicable to real-world grading.",
+        "pivot": {
+          "limitation": "but we might encounter hidden inconsistencies where mental fatigue subtly shifts your threshold for accepting these creative pivots",
+          "research_goal": "understanding how fairness anxiety impacts evaluative consistency",
+          "compelling_reason": "Solving this helps us overcome the limitation because it ensures your intuitive judgments remain defensible and stable even during high-volume grading periods.",
+          "coarse_scenario": "Imagine finishing a long grading session where you confidently flag a brilliant rule-breaker without second-guessing yourself, knowing your consistency holds up even when you're tired. You walk away knowing every student received the same quality of judgment, regardless of when their paper was read."
+        }
+      },
+      "weight": 5.5
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_01_01",
+      "researcher_leaf_id": "res_leaf_02_00_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Tacit Evaluative Judgments",
+        "Rubric Flexibility & Edge Cases",
+        "Polish vs. Content Weight"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "AI Collaboration & Feedback",
+        "Feedback Quality",
+        "Excellent vs Passing"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_00",
+      "researcher_lca_id": "res_L2_02_00",
+      "conflict": {
+        "expert_branch": "Polish vs. Content Weight",
+        "researcher_branch": "Excellent vs Passing"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "Visual clutter level",
+          "Navigation ease",
+          "Professional presentation",
+          "Typographic consistency",
+          "Cognitive load density",
+          "Error frequency",
+          "Information hierarchy clarity",
+          "Tone uniformity"
+        ],
+        "probes": [
+          {
+            "attribute": "Visual clutter level",
+            "question": "Is your negative reaction triggered by dense text blocks or inconsistent spacing?",
+            "choices": [
+              "Dense text blocks",
+              "Inconsistent spacing"
+            ]
+          },
+          {
+            "attribute": "Navigation ease",
+            "question": "Is the friction caused by missing table of contents or inconsistent heading styles?",
+            "choices": [
+              "Missing table of contents",
+              "Inconsistent heading styles"
+            ]
+          },
+          {
+            "attribute": "Professional presentation",
+            "question": "Is the lack of polish due to informal language or missing branding elements?",
+            "choices": [
+              "Informal language",
+              "Missing branding elements"
+            ]
+          },
+          {
+            "attribute": "Typographic consistency",
+            "question": "Do mixed fonts bother you more than inconsistent font sizes?",
+            "choices": [
+              "Mixed fonts",
+              "Inconsistent font sizes"
+            ]
+          },
+          {
+            "attribute": "Cognitive load density",
+            "question": "Is the difficulty caused by complex sentence structures or lack of white space?",
+            "choices": [
+              "Complex sentence structures",
+              "Lack of white space"
+            ]
+          },
+          {
+            "attribute": "Error frequency",
+            "question": "Do spelling errors reduce trust more than alignment issues?",
+            "choices": [
+              "Spelling errors",
+              "Alignment issues"
+            ]
+          },
+          {
+            "attribute": "Information hierarchy clarity",
+            "question": "Is the confusion caused by missing section headers or unnumbered lists?",
+            "choices": [
+              "Missing section headers",
+              "Unnumbered lists"
+            ]
+          },
+          {
+            "attribute": "Tone uniformity",
+            "question": "Does shifting between formal and casual tone impact quality perception more than vocabulary choice?",
+            "choices": [
+              "Shifting between formal and casual tone",
+              "Vocabulary choice"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If text density increased by 50% but content remained identical, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Visual clutter level"
+          },
+          {
+            "scenario": "If hyperlinks were removed from a digital report but headings remained, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Navigation ease"
+          },
+          {
+            "scenario": "If a company logo was removed from the header but layout stayed perfect, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Professional presentation"
+          },
+          {
+            "scenario": "If the font family switched randomly every page but readability stayed high, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Typographic consistency"
+          },
+          {
+            "scenario": "If paragraph length doubled without adding new information, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Cognitive load density"
+          },
+          {
+            "scenario": "If three typos appeared in a 50-page document versus none, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Error frequency"
+          },
+          {
+            "scenario": "If bolding was removed from all section titles but text order stayed same, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Information hierarchy clarity"
+          },
+          {
+            "scenario": "If one section used slang while the rest was formal, would your judgment about 'Polish vs. Content Weight' change?",
+            "attribute": "Tone uniformity"
+          }
+        ]
+      },
+      "weight": 6.5
+    },
+    {
+      "expert_leaf_id": "exp_leaf_01_01_02",
+      "researcher_leaf_id": "res_leaf_01_00_02",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Tacit Evaluative Judgments",
+        "Rubric Flexibility & Edge Cases",
+        "Borderline Energy Cost"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Evaluation Logic & Fairness",
+        "Decision Making",
+        "Heuristic patterns"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_01_01",
+      "researcher_lca_id": "res_L2_01_00",
+      "conflict": {
+        "expert_branch": "Borderline Energy Cost",
+        "researcher_branch": "Heuristic patterns"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "Rubric criterion ambiguity",
+          "Evidence strength",
+          "Cognitive load per decision",
+          "Communication clarity",
+          "Completeness of required elements",
+          "Consistency with prior grading",
+          "Risk of student challenge",
+          "Alignment with learning outcomes"
+        ],
+        "probes": [
+          {
+            "attribute": "Rubric criterion ambiguity",
+            "question": "Is the grading hesitation caused by vague wording in the rubric or conflicting interpretations of specific terms?",
+            "choices": [
+              "Vague wording in the rubric",
+              "Conflicting interpretations of specific terms"
+            ]
+          },
+          {
+            "attribute": "Evidence strength",
+            "question": "Is the uncertainty due to a lack of supporting data or the presence of contradictory data?",
+            "choices": [
+              "Lack of supporting data",
+              "Presence of contradictory data"
+            ]
+          },
+          {
+            "attribute": "Cognitive load per decision",
+            "question": "Does the delay stem from recalling specific rules or calculating the weighted impact on the final grade?",
+            "choices": [
+              "Recalling specific rules",
+              "Calculating the weighted impact on the final grade"
+            ]
+          },
+          {
+            "attribute": "Communication clarity",
+            "question": "Is the difficulty driven by poor writing structure or incorrect technical terminology?",
+            "choices": [
+              "Poor writing structure",
+              "Incorrect technical terminology"
+            ]
+          },
+          {
+            "attribute": "Completeness of required elements",
+            "question": "Is the borderline status due to missing a minor section or missing a core argument?",
+            "choices": [
+              "Missing a minor section",
+              "Missing a core argument"
+            ]
+          },
+          {
+            "attribute": "Consistency with prior grading",
+            "question": "Are you comparing this paper to the average of the stack or the specific paper graded immediately before?",
+            "choices": [
+              "Average of the stack",
+              "Specific paper graded immediately before"
+            ]
+          },
+          {
+            "attribute": "Risk of student challenge",
+            "question": "Is the hesitation based on the objective quality or the likelihood of the student requesting a regrade?",
+            "choices": [
+              "Objective quality",
+              "Likelihood of the student requesting a regrade"
+            ]
+          },
+          {
+            "attribute": "Alignment with learning outcomes",
+            "question": "Is the decision weighted more on procedural accuracy or conceptual understanding?",
+            "choices": [
+              "Procedural accuracy",
+              "Conceptual understanding"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the rubric wording changed from \"demonstrates understanding\" to \"lists three examples\", would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Rubric criterion ambiguity"
+          },
+          {
+            "scenario": "If the student provided two additional citations supporting their claim, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Evidence strength"
+          },
+          {
+            "scenario": "If you had a checklist automation tool to calculate weighted scores, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Cognitive load per decision"
+          },
+          {
+            "scenario": "If the paper contained perfect grammar but incorrect concepts, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Communication clarity"
+          },
+          {
+            "scenario": "If the conclusion section was entirely omitted but the analysis was sound, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Completeness of required elements"
+          },
+          {
+            "scenario": "If this paper was the first one you graded instead of the tenth, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Consistency with prior grading"
+          },
+          {
+            "scenario": "If the student had a history of attending office hours, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Risk of student challenge"
+          },
+          {
+            "scenario": "If the paper missed minor details but nailed the core thesis, would your judgment about 'Borderline Energy Cost' change?",
+            "attribute": "Alignment with learning outcomes"
+          }
+        ]
+      },
+      "weight": 6.0
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_00_00",
+      "researcher_leaf_id": "res_leaf_02_01_01",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Pedagogical Impact & Fairness",
+        "Feedback Utility",
+        "The Read-Through Hope"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "AI Collaboration & Feedback",
+        "Automation Boundaries",
+        "Trust requirements"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_02",
+      "researcher_lca_id": "res_L1_02",
+      "conflict": {
+        "expert_branch": "The Read-Through Hope",
+        "researcher_branch": "Trust requirements"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "Your focus on ensuring students actually read and value your detailed comments is highly applicable, as feedback is useless if it remains unseen.",
+        "pivot": {
+          "limitation": "However, we might encounter a bottleneck where hesitation to rely on AI limits the consistency and timeliness of that feedback.",
+          "research_goal": "Solving the requirement for educator trust in AI suggestions",
+          "compelling_reason": "helps us overcome this because it ensures the tool becomes a reliable partner that frees up your energy to personalize the comments students actually value.",
+          "coarse_scenario": "In a typical week after adoption, you confidently approve AI-drafted insights early in the process. This leaves you ample time to add the human touch that convinces students to open the file and engage deeply with your guidance."
+        }
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_00_01",
+      "researcher_leaf_id": "res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Pedagogical Impact & Fairness",
+        "Feedback Utility",
+        "Actionable Specificity"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "AI Collaboration & Feedback",
+        "Automation Boundaries",
+        "Elimination candidates"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_02",
+      "researcher_lca_id": "res_L1_02",
+      "conflict": {
+        "expert_branch": "Actionable Specificity",
+        "researcher_branch": "Elimination candidates"
+      },
+      "relation_type": "ProcessGap",
+      "assistance_payload": {
+        "sub_type": "factual_risk",
+        "vulnerable_assumption": "That there are specific workflow steps in the feedback process that can be eliminated or automated without compromising educational value.",
+        "domain_correction": "Experts often view high-cognitive-load tasks, such as crafting actionable specific feedback, as essential to educational quality and not suitable for elimination.",
+        "safe_phrasing": "How do you determine which parts of the grading workflow require your personal cognitive effort versus those that might be open to tool support or streamlining?",
+        "misalignment_reason": "Expert views specific feedback as a necessary effort, while Researcher investigates which steps can be eliminated/automated."
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_01_00",
+      "researcher_leaf_id": "res_leaf_00_00_02",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Pedagogical Impact & Fairness",
+        "Fairness & Accountability",
+        "The Order Effect Worry"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Grading Workflow & Cognitive Dynamics",
+        "Process Mapping",
+        "Analyze context switching costs"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "exp_L1_00",
+      "researcher_lca_id": "res_L1_00",
+      "conflict": {
+        "expert_branch": "The Order Effect Worry",
+        "researcher_branch": "Analyze context switching costs"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Contextual Equity Knowledge",
+          "structural_mapping": {
+            "inputs": "Student circumstances correspond to previous task residue",
+            "logic": "Accommodation decisions correspond to mental reset efforts",
+            "outputs": "Informal fairness adjustments correspond to consistency drift"
+          },
+          "explanation": "Just as knowing a student's struggle silently alters your fairness calibration, switching submissions silently consumes mental energy that alters your consistency calibration."
+        },
+        "scenario": "You grade a complex project immediately after a simple essay, feeling your brain stumble to recalibrate expectations. My tool measures that stumble as wasted time rather than a positional bias affecting the score itself. A late submission gets penalized for your mental fatigue from switching topics, not its actual place in line."
+      },
+      "weight": 6.0
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_01_01",
+      "researcher_leaf_id": "res_leaf_02_00_02",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Pedagogical Impact & Fairness",
+        "Fairness & Accountability",
+        "Contextual Equity Knowledge"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "AI Collaboration & Feedback",
+        "Feedback Quality",
+        "Human element"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_00",
+      "researcher_lca_id": "res_L2_02_00",
+      "conflict": {
+        "expert_branch": "Contextual Equity Knowledge",
+        "researcher_branch": "Human element"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "The Defensible Grade Mindset",
+          "structural_mapping": {
+            "inputs": "Student submission plus external pressure (appeal risk vs. automation limits)",
+            "logic": "Filtering comments to satisfy a secondary constraint (legal protection vs. human authenticity)",
+            "outputs": "Text serving dual purposes (instruction + proof vs. guidance + efficiency)"
+          },
+          "explanation": "Just as you craft comments to satisfy an auditor rather than just the student, the researcher categorizes feedback to satisfy system constraints versus human connection. Both involve generating text where the visible output serves a hidden secondary purpose beyond pure assessment."
+        },
+        "scenario": "You notice a student's illness and silently lower expectations during grading. The AI tool instead tags which feedback sentences sound empathetic versus automated for transparency. Your private accommodation stays invisible, but the tool forces every human nuance into the visible comment log."
+      },
+      "weight": 5.5
+    },
+    {
+      "expert_leaf_id": "exp_leaf_02_01_02",
+      "researcher_leaf_id": "res_leaf_01_01_02",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Pedagogical Impact & Fairness",
+        "Fairness & Accountability",
+        "The Defensible Grade Mindset"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments to inform the design of AI-assisted evaluation tools.",
+        "Evaluation Logic & Fairness",
+        "Consistency & Bias",
+        "Consistency triggers"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "exp_L2_02_01",
+      "researcher_lca_id": "res_L2_01_01",
+      "conflict": {
+        "expert_branch": "The Defensible Grade Mindset",
+        "researcher_branch": "Consistency triggers"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "The Order Effect Worry",
+          "structural_mapping": {
+            "inputs": "Sequence of graded submissions",
+            "logic": "Monitoring for drift from intended standard",
+            "outputs": "Corrective adjustment to maintain fairness"
+          },
+          "explanation": "Just as you monitor submission order to prevent drift in harshness, consistency triggers monitor decision patterns to prevent drift in rubric interpretation."
+        },
+        "scenario": "You document rubric violations specifically to withstand a formal grade appeal later. My tool flags moments where your scoring deviates from your earlier batches to prompt recalibration. Conflict arises when your defensive documentation justifies a score that my system identifies as a statistical inconsistency requiring adjustment."
+      },
+      "weight": 6.5
+    }
+  ],
+  "metadata": {
+    "created_at": "2026-03-14T15:38:47.358209",
+    "llm_provider": "openai",
+    "expert_leaves": 16,
+    "researcher_leaves": 18,
+    "link_count": 9,
+    "alignment_stats": {
+      "leaf_alignments": 19,
+      "concept_alignments": 10,
+      "misaligned_leaves": 9
+    },
+    "construction_method": "math-based"
+  }
+}

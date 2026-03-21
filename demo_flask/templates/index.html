@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interview Session</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="main-panels">
+        <aside class="script-panel">
+          {% if questionnaire_uploaded and questionnaire_text %}
+            <div class="panel-header">
+              <h2 class="panel-title">Interview Questionnaire</h2>
+            </div>
+            <div class="script-content script-content-questionnaire-only">
+              <div class="script-text-viewer script-text-viewer-standalone">
+                <div class="script-text-content">{{ questionnaire_text }}</div>
+              </div>
+            </div>
+          {% else %}
+            <div class="panel-header">
+              <h2 class="panel-title">Interview Questionnaire</h2>
+            </div>
+            <div class="script-content">
+              <div class="script-upload-center is-empty">
+                <form method="post" enctype="multipart/form-data" class="upload-form script-upload-form">
+                  <input type="hidden" name="action" value="upload_questionnaire" />
+                  <div class="file-input-wrapper upload-dropzone-wrapper">
+                    <input type="file" name="questionnaire_file" id="guideFile" accept=".txt,.docx,.pdf" class="file-input" />
+                    <label for="guideFile" class="file-label upload-dropzone-label">
+                      <span class="file-icon">📄</span>
+                      <span class="upload-dropzone-title">Upload interview questionnaire</span>
+                      <span class="file-text">txt, docx, pdf</span>
+                    </label>
+                  </div>
+                  {% if questionnaire_error %}
+                    <div class="error-message">{{ questionnaire_error }}</div>
+                  {% endif %}
+                </form>
+              </div>
+            </div>
+          {% endif %}
+        </aside>
+        <div class="panel-resizer" data-resizer="left" role="separator" aria-label="Resize left and center panels"></div>
+
+        <main class="main-content">
+        <div class="chat-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Interview Session</h2>
+            <div class="panel-actions">
+              <span class="message-count">{{ messages|length }} messages</span>
+            </div>
+          </div>
+
+          <div class="chat-window" id="chatWindow">
+            {% if messages|length == 0 %}
+              <div class="empty-state">
+                <div class="empty-icon">💬</div>
+                <div class="empty-text">Start the interview by sending a question.</div>
+                <div class="empty-hint">The researcher asks questions, the expert responds.</div>
+              </div>
+            {% endif %}
+
+            {% for msg in messages %}
+              {% if msg.role == "researcher" %}
+                <div class="message-row researcher-row">
+                  <div class="message-card researcher-card">
+                    <div class="message-header">
+                      <span class="message-role">Researcher</span>
+                      {% if msg.source is defined and msg.source == "voice" %}
+                        <span class="badge badge-voice">Voice</span>
+                      {% endif %}
+                    </div>
+                    <div class="message-content">{{ msg.content }}</div>
+                  </div>
+                  <div class="message-avatar researcher-avatar">🧑‍💻</div>
+                </div>
+              {% else %}
+                <div class="message-row expert-row">
+                  <div class="message-avatar expert-avatar">👨‍⚕️</div>
+                  <div class="message-card expert-card">
+                    <div class="message-header">
+                      <span class="message-role">Expert</span>
+                      {% if msg.source is defined and msg.source == "voice" %}
+                        <span class="badge badge-voice">Voice</span>
+                      {% endif %}
+                    </div>
+                    <div class="message-content">{{ msg.content }}</div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="input-panel">
+          <div class="input-columns">
+            <div class="input-section expert-input input-divider-right">
+              <div class="input-header">
+                <span class="input-label">Domain Expert</span>
+              </div>
+              <form method="post" id="expertForm">
+                <input type="hidden" name="action" value="chat" />
+                <input type="hidden" name="expert_source" id="expertSource" value="text" />
+                <div class="voice-row">
+                  <button type="button" class="mic-btn" id="expertMicBtn" data-role="expert">
+                    <span class="mic-icon">🎤</span>
+                    <span class="mic-text">Start Mic</span>
+                  </button>
+                  <span class="mic-status" id="expertStatus">Ready</span>
+                </div>
+                <div class="transcript-box" id="expertTranscript">Voice transcript will appear here...</div>
+                <div class="input-row">
+                  <textarea
+                    name="expert_input"
+                    id="expertInput"
+                    placeholder="Type your response here..."
+                    rows="2"
+                  ></textarea>
+                  <button type="submit" class="btn btn-send">Send</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="input-section researcher-input">
+              <div class="input-header">
+                <span class="input-label">HCI Researcher</span>
+              </div>
+              <form method="post" id="researcherForm">
+                <input type="hidden" name="action" value="chat" />
+                <input type="hidden" name="researcher_source" id="researcherSource" value="text" />
+                <div class="voice-row">
+                  <button type="button" class="mic-btn" id="researcherMicBtn" data-role="researcher">
+                    <span class="mic-icon">🎤</span>
+                    <span class="mic-text">Start Mic</span>
+                  </button>
+                  <span class="mic-status" id="researcherStatus">Ready</span>
+                </div>
+                <div class="transcript-box" id="researcherTranscript">Voice transcript will appear here...</div>
+                <div class="input-row">
+                  <textarea
+                    name="researcher_input"
+                    id="researcherInput"
+                    placeholder="Type your question here..."
+                    rows="2"
+                  ></textarea>
+                  <button type="submit" class="btn btn-send">Send</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
