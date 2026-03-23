@@ -162,7 +162,7 @@ def _split_numbered_questionnaire_blocks(questionnaire_text: str) -> list[str]:
     text = str(questionnaire_text or "").replace("\r\n", "\n").replace("\r", "\n")
     lines = text.split("\n")
     header_re = re.compile(
-        r"^\s*(?:question\s*)?(?:q\s*)?\d+\s*[\.\):：-]\s+\S+",
+        r"^\s*(?:question\s*)?(?:q\s*)?\d+\s*[\.\):：-]\s*\S+",
         flags=re.IGNORECASE,
     )
 

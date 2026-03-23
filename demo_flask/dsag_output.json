@@ -1,6 +1,6 @@
 {
   "topic": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-  "researcher_bg": "An HCI researcher specializing in Educational Technology (EdTech) , focused on optimizing complex grading workflows and feedback quality",
+  "researcher_bg": "An HCI researcher specializing in Educational Technology (EdTech) and Human-AI Collaboration, focused on optimizing complex grading workflows and feedback quality.",
   "expert_bg": "A seasoned university instructor with extensive experience in evaluating lengthy project reports",
   "expert_tree": {
     "tower": "expert",
@@ -23,13 +23,14 @@
         "id": "q_01__exp_L1_00",
         "tower": "expert",
         "layer": "L1",
-        "label": "Expert Grading Workflow & Intuition",
-        "description": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments.",
+        "label": "Expert Grading Workflow",
+        "description": "The end-to-end process of evaluating project reports, balancing efficiency with deep judgment.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__exp_L2_00_00",
           "q_01__exp_L2_00_01",
-          "q_01__exp_L2_00_02"
+          "q_01__exp_L2_00_02",
+          "q_01__exp_L2_00_03"
         ],
         "attributes": [],
         "aliases": []
@@ -38,8 +39,8 @@
         "id": "q_01__exp_L2_00_00",
         "tower": "expert",
         "layer": "L2",
-        "label": "Workflow Logistics & Pacing",
-        "description": "Managing the physical and temporal mechanics of getting through a stack of reports without burning out.",
+        "label": "Navigation & Pacing",
+        "description": "Managing how I move through the document and the stack of assignments.",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_00_00",
@@ -54,72 +55,69 @@
         "id": "q_01__exp_leaf_00_00_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "The Two-Pass Sweep",
-        "description": "I don't grade linearly on the first try. I skim the summary and TOC first, then do a quick pass for structure before diving deep for content.",
+        "label": "The Holistic Skim",
+        "description": "I always start by skimming the whole report to get the scope and direction before I dive into the details.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Structure First Scan",
-          "Quick pass then deep dive",
-          "Skim before scoring"
+          "Initial scan",
+          "Scope check"
         ]
       },
       "q_01__exp_leaf_00_00_01": {
         "id": "q_01__exp_leaf_00_00_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Annotation Timing",
-        "description": "I have to decide whether to mark errors in the margins as I read or wait until I've finished the section to avoid breaking my flow.",
+        "label": "Non-Linear Navigation",
+        "description": "I don't read straight through; I jump back and forth if the conclusion makes me question the methodology.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Mark as you go",
-          "Read then mark",
-          "Delayed annotation"
+          "Jumping around",
+          "Recursive reading"
         ]
       },
       "q_01__exp_leaf_00_00_02": {
         "id": "q_01__exp_leaf_00_00_02",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Flagging Format Violations Early",
-        "description": "If the margins are wrong or the bibliography is missing, I stop right there. No point grading content if they didn't follow the basic rules of the game.",
+        "label": "Batching Strategy",
+        "description": "I debate whether to grade all Q1s at once for consistency or read full papers to understand the narrative.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Format check",
-          "Guideline compliance"
+          "Chunking",
+          "Question-by-question"
         ]
       },
       "q_01__exp_leaf_00_00_03": {
         "id": "q_01__exp_leaf_00_00_03",
         "tower": "expert",
         "layer": "leaf",
-        "label": "The 'Five-Paper Limit' Rule",
-        "description": "I force myself to stop after five reports. My feedback quality tanks if I try to power through ten in a row, so I cap the batch size.",
+        "label": "Fatigue & Autopilot",
+        "description": "After about 10 reports, I catch myself grading format over content or just going through the motions.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Batch sizing",
-          "Grading marathon"
+          "The Page 10 Slump",
+          "Grading autopilot"
         ]
       },
       "q_01__exp_L2_00_01": {
         "id": "q_01__exp_L2_00_01",
         "tower": "expert",
         "layer": "L2",
-        "label": "Grading Consistency & Calibration",
-        "description": "Ensuring that a student's grade depends on their work, not on where they fell in the grading queue.",
+        "label": "Judgment & Calibration",
+        "description": "Ensuring my scoring remains fair and stable across different students and ambiguous cases.",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_01_00",
           "q_01__exp_leaf_00_01_01",
-          "q_01__exp_leaf_00_01_02",
-          "q_01__exp_leaf_00_01_03"
+          "q_01__exp_leaf_00_01_02"
         ],
         "attributes": [],
         "aliases": []
@@ -128,73 +126,53 @@
         "id": "q_01__exp_leaf_00_01_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Re-anchoring Mid-Batch",
-        "description": "By paper fifteen, I realize I've gotten too easy. I have to pause and re-read the first paper to remember where I started and reset my strictness.",
+        "label": "Rubric Friction",
+        "description": "I get stuck when a student's work doesn't fit neatly into the rubric categories and have to second-guess my judgment.",
         "parent_id": "q_01__exp_L2_00_01",
         "children_ids": [],
         "attributes": [
-          "consistency",
-          "bias_mitigation"
+          "judgment",
+          "rubric"
         ],
         "aliases": [
-          "Calibration drift",
-          "Resetting the bar"
+          "Ambiguity",
+          "Category mismatch"
         ]
       },
       "q_01__exp_leaf_00_01_01": {
         "id": "q_01__exp_leaf_00_01_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "The 'Polish vs. Substance' Trade-off",
-        "description": "A pretty report tricks me into thinking the ideas are better. I have to consciously ignore the formatting to find the gold underneath the slick presentation.",
+        "label": "Standard Drift",
+        "description": "I keep a past 'A' example open to remind myself what excellence looks like so I don't drift too harsh or lenient.",
         "parent_id": "q_01__exp_L2_00_01",
         "children_ids": [],
-        "attributes": [
-          "bias_mitigation",
-          "evaluation"
-        ],
+        "attributes": [],
         "aliases": [
-          "Halo effect",
-          "Style over substance"
+          "Calibration",
+          "Anchoring"
         ]
       },
       "q_01__exp_leaf_00_01_02": {
         "id": "q_01__exp_leaf_00_01_02",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Routine Rubric Cross-Check",
-        "description": "I'm constantly pausing to match specific paragraphs against rubric criteria while reading the technical sections.",
+        "label": "Contrast Bias",
+        "description": "If I just graded a terrible report, the next average one looks amazing, and I have to fight that contrast effect.",
         "parent_id": "q_01__exp_L2_00_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Rubric alignment",
-          "Criteria checking"
-        ]
-      },
-      "q_01__exp_leaf_00_01_03": {
-        "id": "q_01__exp_leaf_00_01_03",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "When the Rubric Doesn't Fit",
-        "description": "Sometimes a student does something brilliant that isn't on the checklist. I have to decide in the moment if I reward the innovation or stick to the script.",
-        "parent_id": "q_01__exp_L2_00_01",
-        "children_ids": [],
-        "attributes": [
-          "rubric",
-          "judgment"
-        ],
-        "aliases": [
-          "Rubric exceptions",
-          "Innovation penalty"
+          "Previous Student Shadow",
+          "Sequence bias"
         ]
       },
       "q_01__exp_L2_00_02": {
         "id": "q_01__exp_L2_00_02",
         "tower": "expert",
         "layer": "L2",
-        "label": "Cognitive Load & Integrity",
-        "description": "Monitoring my own mental state and detecting when student work doesn't feel authentic.",
+        "label": "Diagnostic Intuition",
+        "description": "Quick heuristic checks I perform to gauge effort and authenticity early on.",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_02_00",
@@ -207,34 +185,61 @@
         "id": "q_01__exp_leaf_00_02_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Recognizing the 'Glaze Over' Moment",
-        "description": "There's a specific feeling where the words stop making sense. I know I've hit the wall and need to walk away before I miss something obvious.",
+        "label": "Effort Proxies",
+        "description": "I check references and formatting first; if they're shaky, I assume the analysis underneath is rushed too.",
         "parent_id": "q_01__exp_L2_00_02",
         "children_ids": [],
         "attributes": [
-          "fatigue",
-          "cognitive_load"
+          "heuristics",
+          "efficiency"
         ],
         "aliases": [
-          "Fatigue signals",
-          "Mental wall"
+          "Bibliography Sniff Test",
+          "Formatting as care"
         ]
       },
       "q_01__exp_leaf_00_02_01": {
         "id": "q_01__exp_leaf_00_02_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "The 'Voice Shift' Detection",
-        "description": "The writing style suddenly jumps from sophomore level to PhD thesis in paragraph three. I can't prove it, but my spidey senses tingle.",
+        "label": "Authenticity Checks",
+        "description": "I can feel it when the writing style suddenly changes from casual to overly academic; usually means something was copied.",
         "parent_id": "q_01__exp_L2_00_02",
         "children_ids": [],
         "attributes": [
-          "integrity",
-          "intuition"
+          "heuristics",
+          "integrity"
         ],
         "aliases": [
-          "Authenticity check",
-          "Plagiarism intuition"
+          "Voice Shift",
+          "Plagiarism sense"
+        ]
+      },
+      "q_01__exp_L2_00_03": {
+        "id": "q_01__exp_L2_00_03",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Feedback Construction",
+        "description": "The cognitive work of translating my evaluation into actionable guidance for the student.",
+        "parent_id": "q_01__exp_L1_00",
+        "children_ids": [
+          "q_01__exp_leaf_00_03_00"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "q_01__exp_leaf_00_03_00": {
+        "id": "q_01__exp_leaf_00_03_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Comment Synthesis",
+        "description": "The real work is organizing my scattered notes into feedback that guides them without being too harsh.",
+        "parent_id": "q_01__exp_L2_00_03",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Feedback construction",
+          "Note organization"
         ]
       }
     }
@@ -262,8 +267,8 @@
         "id": "q_01__res_L1_00",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Interaction Mechanics & Toolchain",
-        "description": "Examining the specific software tools, input methods, and navigation patterns used during the grading process.",
+        "label": "Digital Toolchain & Workspace Configuration",
+        "description": "Examining the software ecosystem and physical setup used to execute the grading process.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_00_00",
@@ -276,8 +281,8 @@
         "id": "q_01__res_L2_00_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Tool Interoperability & Input",
-        "description": "Understanding how educators move between different software environments and input grades or comments.",
+        "label": "Software Interoperability",
+        "description": "Understanding how different digital tools are linked or manually bridged during grading.",
         "parent_id": "q_01__res_L1_00",
         "children_ids": [
           "q_01__res_leaf_00_00_00",
@@ -290,40 +295,41 @@
         "id": "q_01__res_leaf_00_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Identify context switching frequency between LMS, PDF annotators, and gradebooks",
-        "description": "Determine how often the educator must alt-tab or switch windows to complete a single student's grade, highlighting potential friction points in tool integration.",
+        "label": "Map application switching sequences",
+        "description": "Identify the specific order of applications used (e.g., LMS -> PDF Editor -> Spreadsheet) and where manual data transfer occurs.",
         "parent_id": "q_01__res_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
+          "Interoperability",
           "Context Switching",
-          "Tool Interoperability"
+          "Workflow Integration"
         ]
       },
       "q_01__res_leaf_00_00_01": {
         "id": "q_01__res_leaf_00_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Determine if grading input is inline or post-reading",
-        "description": "Explore whether educators assign scores and write feedback while reading the document simultaneously or as a separate action after reading.",
+        "label": "Assess multi-window dependency",
+        "description": "Determine if educators rely on multiple monitors or window splitting to view rubrics and submissions simultaneously.",
         "parent_id": "q_01__res_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Interaction Mode",
-          "Direct Manipulation"
+          "Visual Workspace",
+          "Display Configuration",
+          "Screen Real Estate"
         ]
       },
       "q_01__res_L2_00_01": {
         "id": "q_01__res_L2_00_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Navigation Strategies",
-        "description": "Analyzing how educators move through the queue of submissions and within individual documents.",
+        "label": "Modality Switching",
+        "description": "Investigating if the workflow transitions between digital and physical mediums.",
         "parent_id": "q_01__res_L1_00",
         "children_ids": [
-          "q_01__res_leaf_00_01_00",
-          "q_01__res_leaf_00_01_01"
+          "q_01__res_leaf_00_01_00"
         ],
         "attributes": [],
         "aliases": []
@@ -332,36 +338,23 @@
         "id": "q_01__res_leaf_00_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Map inter-student navigation patterns",
-        "description": "Understand if educators grade submissions linearly (next button) or access them randomly from a list, affecting how mental context is maintained.",
+        "label": "Detect physical-digital hybridization",
+        "description": "Determine if any part of the workflow involves printing physical copies for annotation before digitizing the final grade.",
         "parent_id": "q_01__res_L2_00_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Navigation Structure",
-          "Sequential Access"
-        ]
-      },
-      "q_01__res_leaf_00_01_01": {
-        "id": "q_01__res_leaf_00_01_01",
-        "tower": "researcher",
-        "layer": "leaf",
-        "label": "Analyze intra-document foraging behaviors",
-        "description": "Investigate how educators locate specific sections within a long report (e.g., scrolling, searching, bookmarks) to find evidence for grading.",
-        "parent_id": "q_01__res_L2_00_01",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Information Foraging",
-          "Spatial Navigation"
+          "Multimodal Interaction",
+          "Tangible Interfaces",
+          "Affordances"
         ]
       },
       "q_01__res_L1_01": {
         "id": "q_01__res_L1_01",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Information Artifacts & Data Flow",
-        "description": "Investigating how grading criteria, rubrics, and feedback are managed, referenced, and stored during the workflow.",
+        "label": "Information Foraging & Navigation Patterns",
+        "description": "Analyzing how educators move through student content and manage task transitions.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_01_00",
@@ -374,8 +367,8 @@
         "id": "q_01__res_L2_01_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Rubric Engagement",
-        "description": "Understanding the physical or digital relationship between the grading rubric and the student submission.",
+        "label": "Document Traversal",
+        "description": "The specific path taken through the content of a single assignment.",
         "parent_id": "q_01__res_L1_01",
         "children_ids": [
           "q_01__res_leaf_01_00_00",
@@ -388,40 +381,41 @@
         "id": "q_01__res_leaf_01_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Assess rubric visibility during grading actions",
-        "description": "Determine if the rubric is always visible, toggled on/off, or printed separately, impacting working memory load.",
+        "label": "Trace information foraging path",
+        "description": "Map the linear or non-linear order in which sections of a report are read (e.g., Abstract first vs. Code first vs. Rubric first).",
         "parent_id": "q_01__res_L2_01_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Visible System Status",
-          "Recognition over Recall"
+          "Information Scent",
+          "Navigation Patterns",
+          "Reading Strategy"
         ]
       },
       "q_01__res_leaf_01_00_01": {
         "id": "q_01__res_leaf_01_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Identify criteria-to-evidence mapping methods",
-        "description": "Explore how educators link specific text in a report to specific rubric criteria (e.g., highlighting, side notes, mental mapping).",
+        "label": "Identify batching granularity",
+        "description": "Understand the unit of switching between students (e.g., grading all Introductions across class vs. grading Student A completely).",
         "parent_id": "q_01__res_L2_01_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Data Mapping",
-          "Annotation"
+          "Task Switching",
+          "Batch Processing",
+          "Flow State"
         ]
       },
       "q_01__res_L2_01_01": {
         "id": "q_01__res_L2_01_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Feedback Composition",
-        "description": "Examining where and how feedback text is generated and attached to the final grade.",
+        "label": "Rubric Integration Point",
+        "description": "The temporal relationship between viewing criteria and viewing student work.",
         "parent_id": "q_01__res_L1_01",
         "children_ids": [
-          "q_01__res_leaf_01_01_00",
-          "q_01__res_leaf_01_01_01"
+          "q_01__res_leaf_01_01_00"
         ],
         "attributes": [],
         "aliases": []
@@ -430,39 +424,27 @@
         "id": "q_01__res_leaf_01_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Locate feedback storage relative to the submission",
-        "description": "Identify if feedback is written directly on the PDF, in a separate LMS text box, or in an external document before copying.",
+        "label": "Pinpoint rubric consultation timing",
+        "description": "Clarify exactly when the grading rubric is opened relative to reading the content (pre-reading, concurrent, or post-reading).",
         "parent_id": "q_01__res_L2_01_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Data Locality",
-          "Input Affordance"
-        ]
-      },
-      "q_01__res_leaf_01_01_01": {
-        "id": "q_01__res_leaf_01_01_01",
-        "tower": "researcher",
-        "layer": "leaf",
-        "label": "Determine feedback drafting vs. finalizing steps",
-        "description": "Understand if feedback is written in a single pass or drafted elsewhere and edited before submission to the student.",
-        "parent_id": "q_01__res_L2_01_01",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Iterative Design",
-          "Workflow Stages"
+          "Decision Support Systems",
+          "Temporal Mapping",
+          "Reference Materials"
         ]
       },
       "q_01__res_L1_02": {
         "id": "q_01__res_L1_02",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Progress Tracking & State Management",
-        "description": "Exploring how educators monitor their progress through the grading queue and manage the state of unfinished work.",
+        "label": "Feedback Artifact Construction",
+        "description": "Focusing on the mechanics of creating and finalizing the feedback output.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
-          "q_01__res_L2_02_00"
+          "q_01__res_L2_02_00",
+          "q_01__res_L2_02_01"
         ],
         "attributes": [],
         "aliases": []
@@ -471,8 +453,8 @@
         "id": "q_01__res_L2_02_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Workflow Visibility",
-        "description": "Understanding how educators know what is done, what is pending, and when a task is complete.",
+        "label": "Comment Generation Strategy",
+        "description": "How the textual feedback is composed and input into the system.",
         "parent_id": "q_01__res_L1_02",
         "children_ids": [
           "q_01__res_leaf_02_00_00",
@@ -485,28 +467,58 @@
         "id": "q_01__res_leaf_02_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Identify mechanisms for tracking completion status",
-        "description": "Explore how educators mark a submission as 'graded' (e.g., checkbox, color change, moving to a folder) to prevent double grading.",
+        "label": "Quantify reusable component usage",
+        "description": "Investigate the ratio of pre-written comment banks versus unique typed comments during the workflow.",
         "parent_id": "q_01__res_L2_02_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Progress Visualization",
-          "State Management"
+          "Reusable Components",
+          "Input Modality",
+          "Efficiency"
         ]
       },
       "q_01__res_leaf_02_00_01": {
         "id": "q_01__res_leaf_02_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Define task completion criteria per student",
-        "description": "Determine what specific action signals the end of the grading workflow for a single assignment (e.g., clicking submit, saving file).",
+        "label": "Map feedback spatial anchoring",
+        "description": "Identify where feedback is anchored within the interface (in-margin comments vs. summary box vs. separate document).",
         "parent_id": "q_01__res_L2_02_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Task Completion",
-          "Closure"
+          "Spatial Mapping",
+          "Annotation Systems",
+          "Visual Context"
+        ]
+      },
+      "q_01__res_L2_02_01": {
+        "id": "q_01__res_L2_02_01",
+        "tower": "researcher",
+        "layer": "L2",
+        "label": "Finalization Protocol",
+        "description": "The specific steps taken to complete the grading transaction.",
+        "parent_id": "q_01__res_L1_02",
+        "children_ids": [
+          "q_01__res_leaf_02_01_00"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "q_01__res_leaf_02_01_00": {
+        "id": "q_01__res_leaf_02_01_00",
+        "tower": "researcher",
+        "layer": "leaf",
+        "label": "Describe verification mechanisms",
+        "description": "Identify if there is a specific review step where grades are summed or adjusted before final submission to the LMS.",
+        "parent_id": "q_01__res_L2_02_01",
+        "children_ids": [],
+        "attributes": [],
+        "aliases": [
+          "Error Prevention",
+          "Review Loops",
+          "Confirmation Dialogs"
         ]
       }
     }
@@ -514,1178 +526,833 @@
   "links": [
     {
       "expert_leaf_id": "q_01__exp_leaf_00_00_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "The Two-Pass Sweep"
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "The Holistic Skim"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Trace information foraging path"
       ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_00_00",
+      "researcher_lca_id": "q_01__res_L2_01_00",
       "conflict": {
-        "expert_branch": "The Two-Pass Sweep",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
+        "expert_branch": "The Holistic Skim",
+        "researcher_branch": "Trace information foraging path"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Annotation Timing",
+          "source_concept": "The Holistic Skim",
+          "target_concept": "Walking around a house before entering",
           "structural_mapping": {
-            "inputs": "The student submission being processed",
-            "logic": "Deciding when to interrupt current focus to record an observation",
-            "outputs": "Completed evaluation with varying levels of flow disruption"
+            "inputs": "Full report document vs. Entire house exterior",
+            "logic": "Skim for scope and direction vs. Walk perimeter for stability",
+            "outputs": "Context for grading vs. Decision to enter"
           },
-          "explanation": "Just as you decide when to break reading flow to mark margins, the researcher tracks tool switches. Both appear as workflow interruptions, but one is mechanical friction while the other is cognitive mode-shifting."
+          "explanation": "The researcher wants a log of which rooms you entered first (Trace), but you are walking the perimeter to check the foundation (Skim); tracking entry order misses the goal of assessing overall viability before committing."
         },
-        "scenario": "During your initial structure sweep, do you feel the drag comes from jumping between windows, or is it mostly the mental gear-shift of changing how you read within the same PDF?"
+        "scenario": "When you start grading, do you remember which section you read first, or do you just flip through the whole thing to get the gist before settling in?"
       },
-      "weight": 6.0
+      "weight": 5.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_00_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "The Two-Pass Sweep"
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "The Holistic Skim"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Navigation Strategies",
-        "Map inter-student navigation patterns"
+        "Information Foraging & Navigation Patterns",
+        "Rubric Integration Point",
+        "Pinpoint rubric consultation timing"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "The Two-Pass Sweep",
-        "researcher_branch": "Map inter-student navigation patterns"
+        "expert_branch": "The Holistic Skim",
+        "researcher_branch": "Pinpoint rubric consultation timing"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The Two-Pass Sweep",
+          "source_concept": "The Holistic Skim",
+          "target_concept": "Glancing at a map before a trip",
           "structural_mapping": {
-            "inputs": "The queue of student submissions (analogous to a document's sections)",
-            "logic": "Selecting the next submission via list order or random access (analogous to skimming TOC vs. diving into content)",
-            "outputs": "Consistency in mental context across the grading session (analogous to accurate assessment of project coherence)"
+            "inputs": "Report content and rubric criteria",
+            "logic": "Single orientation pass to gauge scope",
+            "outputs": "Sense of direction before detailed work"
           },
-          "explanation": "Just as you navigate within a paper to manage cognitive load, the researcher studies how you navigate between papers to manage that same load across the queue."
+          "explanation": "The researcher seeks distinct timing for rubric checks, but the expert's skim functions like glancing at a map: you absorb the route and legend together in one look, making separate timing hard to isolate."
         },
-        "scenario": "When you finish a report, do you automatically click next on the list, or do you scroll through the queue to pick a specific student based on your current headspace?"
+        "scenario": "When you do that initial holistic skim, are you mentally checking rubric criteria simultaneously, or is that purely for gist before you officially open the rubric?"
       },
-      "weight": 7.0
+      "weight": 5.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_00_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "Annotation Timing"
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "Non-Linear Navigation"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Trace information foraging path"
       ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_00_00",
+      "researcher_lca_id": "q_01__res_L2_01_00",
       "conflict": {
-        "expert_branch": "Annotation Timing",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
+        "expert_branch": "Non-Linear Navigation",
+        "researcher_branch": "Trace information foraging path"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The Two-Pass Sweep",
+          "source_concept": "Non-Linear Navigation",
+          "target_concept": "Following a hunch",
           "structural_mapping": {
-            "inputs": "Document sections (Summary vs. Body) vs. Tool states (LMS vs. PDF)",
-            "logic": "Strategic mode switching to preserve comprehension vs. Counting transitions for metrics",
-            "outputs": "High-quality grading outcomes vs. Tool integration scores"
+            "inputs": "A specific discrepancy or suspicion (e.g., conclusion doesn't match data)",
+            "logic": "Conditional jump to the source of evidence to verify the suspicion",
+            "outputs": "Confirmed understanding or identified flaw (rather than just completing a section)"
           },
-          "explanation": "Both concepts track state transitions to optimize workflow; however, while your Sweep manages cognitive modes to protect flow, the researcher tracks tool modes, risking oversight of the cognitive cost inherent in your annotation timing decisions."
+          "explanation": "The researcher's concept tracks the physical steps taken, similar to how 'following a hunch' involves moving, but the target concept clarifies that the expert's movement is conditional on a trigger. Like a detective chasing a clue rather than a tourist following a map, the expert jumps based on content quality, not a predetermined sequence."
         },
-        "scenario": "When you're deep in a student's argument, is the mental effort of deciding when to pause and annotate more draining than simply alt-tabbing to enter the final score?"
+        "scenario": "When you jump back to the methods because the conclusion feels off, is that a planned step in your route, or just you chasing a suspicion in the moment?"
+      },
+      "weight": 2.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "Batching Strategy"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Trace information foraging path"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_00_00",
+      "researcher_lca_id": "q_01__res_L2_01_00",
+      "conflict": {
+        "expert_branch": "Batching Strategy",
+        "researcher_branch": "Trace information foraging path"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Batching Strategy",
+          "target_concept": "Sorting laundry by color vs. washing one person's clothes",
+          "structural_mapping": {
+            "inputs": "Pile of reports (Stack of dirty clothes)",
+            "logic": "Group by question type (Sort by color) vs. Group by student (Sort by owner)",
+            "outputs": "Completed grades (Clean clothes)"
+          },
+          "explanation": "The researcher tracks your path through one person's load (single student report), but you might wash all whites from everyone first (batching questions), which changes how attention flows across the whole stack."
+        },
+        "scenario": "When grading, do you finish one student's whole paper before touching the next, or do you grade question one for everyone first?"
       },
       "weight": 4.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_01_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "Annotation Timing"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Feedback Composition",
-        "Determine feedback drafting vs. finalizing steps"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Annotation Timing",
-        "researcher_branch": "Determine feedback drafting vs. finalizing steps"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "The Two-Pass Sweep",
-          "structural_mapping": {
-            "inputs": "Ungraded student submission",
-            "logic": "Decoupling initial comprehension from final evaluation to maintain quality",
-            "outputs": "Completed assessment artifacts"
-          },
-          "explanation": "Your 'wait-to-mark' approach mirrors your Two-Pass Sweep; the mental buffer serves as a distinct drafting phase to protect flow, functioning like a separate draft even if the physical location doesn't change."
-        },
-        "scenario": "When you wait until finishing a section to mark errors so you don't break flow, do you view that mental pause as a drafting step even if you write directly in the margins?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "Flagging Format Violations Early"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Determine if grading input is inline or post-reading"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Flagging Format Violations Early",
-        "researcher_branch": "Determine if grading input is inline or post-reading"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "The Two-Pass Sweep",
-          "structural_mapping": {
-            "inputs": "A submitted assignment entering the grading queue",
-            "logic": "Expert evaluates compliance before engagement; Researcher assumes engagement before method selection",
-            "outputs": "Expert yields 'reject or proceed'; Researcher yields 'inline or post-reading'"
-          },
-          "explanation": "Both concepts define decision points in the workflow, but the expert's 'Two-Pass Sweep' acts as a prerequisite gate; if the first pass fails, the researcher's 'input timing' decision is bypassed entirely."
-        },
-        "scenario": "When you spot missing margins, does the choice of when to type feedback even matter, or do you just close the file before that decision arises?"
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "Flagging Format Violations Early"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Navigation Strategies",
-        "Analyze intra-document foraging behaviors"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Flagging Format Violations Early",
-        "researcher_branch": "Analyze intra-document foraging behaviors"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "The Two-Pass Sweep",
-          "structural_mapping": {
-            "inputs": "A document requiring evaluation",
-            "logic": "A conditional check precedes the deep search for evidence",
-            "outputs": "A decision to either abort or proceed with analysis"
-          },
-          "explanation": "Your 'Two-Pass Sweep' structures grading as a conditional workflow, similar to how my 'foraging' concept assumes a search process; however, your format flagging shows the search is often aborted before it begins."
-        },
-        "scenario": "When you spot a format violation early, do you still scroll through to find content evidence, or does that initial flag stop your search completely?"
-      },
-      "weight": 8.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "Flagging Format Violations Early"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Identify criteria-to-evidence mapping methods"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Flagging Format Violations Early",
-        "researcher_branch": "Identify criteria-to-evidence mapping methods"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "The Two-Pass Sweep",
-          "structural_mapping": {
-            "inputs": "Student text paired with rubric requirements",
-            "logic": "Verifying alignment similar to a structure check",
-            "outputs": "Evidence validation for scoring"
-          },
-          "explanation": "Just as your 'Two-Pass Sweep' validates the document's structure against rules before reading, the researcher's mapping validates the document's arguments against criteria before scoring."
-        },
-        "scenario": "In that second pass after you've cleared the format hurdles, do you find yourself linking specific sentences to rubric lines, or do you just sense if the criteria are met?"
-      },
-      "weight": 7.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "The 'Five-Paper Limit' Rule"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "The 'Five-Paper Limit' Rule",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      },
-      "relation_type": "ScopeGap",
-      "assistance_payload": {
-        "validate_focus": "Your focus on capping batch sizes to preserve feedback quality is highly applicable for managing cognitive fatigue. However, we might encounter hidden friction that undermines even those limited sessions.",
-        "pivot": {
-          "limitation": "Even within a small batch, constant window switching between disjointed applications drains cognitive energy faster than the grading itself.",
-          "research_goal": "Identifying context switching frequency between LMS, PDF annotators, and gradebooks.",
-          "compelling_reason": "Solving the identification of context switching frequency helps us overcome this because it ensures your mental endurance is spent on student feedback rather than navigation, effectively extending your high-quality grading window.",
-          "coarse_scenario": "Imagine finishing your batch of five reports feeling mentally fresh because the process flowed together seamlessly. You leave work on time without the usual digital exhaustion, ready to engage with students tomorrow rather than recovering from screen fatigue."
-        }
-      },
-      "weight": 6.5
-    },
-    {
       "expert_leaf_id": "q_01__exp_leaf_00_00_03",
       "researcher_leaf_id": "q_01__res_leaf_01_00_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "The 'Five-Paper Limit' Rule"
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "Fatigue & Autopilot"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "The 'Five-Paper Limit' Rule",
-        "researcher_branch": "Assess rubric visibility during grading actions"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Annotation Timing",
-          "structural_mapping": {
-            "inputs": "Student text + Identified issue or criterion",
-            "logic": "Pause reading to externalize (write note/check rubric) vs. hold in memory",
-            "outputs": "Recorded feedback vs. Applied score"
-          },
-          "explanation": "Both concepts address the trade-off between interrupting reading flow to offload information externally versus retaining it internally. Just as marking margins saves you from holding errors in mind, visible rubrics save you from holding criteria in mind."
-        },
-        "scenario": "When you're deep into that third paper, do you ever lose track of a specific criterion mid-paragraph, forcing you to scroll away from the student's text just to remember what you're looking for?"
-      },
-      "weight": 5.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Workflow Logistics & Pacing",
-        "The 'Five-Paper Limit' Rule"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Progress Tracking & State Management",
-        "Workflow Visibility",
-        "Define task completion criteria per student"
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Trace information foraging path"
       ],
       "lca_layer": "L2",
       "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_02_00",
-      "conflict": {
-        "expert_branch": "The 'Five-Paper Limit' Rule",
-        "researcher_branch": "Define task completion criteria per student"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "The Two-Pass Sweep",
-          "structural_mapping": {
-            "inputs": "A single student submission entering the workflow",
-            "logic": "Sequential phases determine processing depth (skim then deep dive)",
-            "outputs": "A fully evaluated single assignment"
-          },
-          "explanation": "Just as The Two-Pass Sweep governs the internal lifecycle of a single report, the researcher's concept seeks to define the exact final moment that lifecycle ends, distinct from your batch-level stopping point."
-        },
-        "scenario": "When you enforce your five-paper limit to manage fatigue, what specific action signals you're done with just one of those papers before moving to the next?"
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "Re-anchoring Mid-Batch"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Re-anchoring Mid-Batch",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Current student submission + Requirement to verify standards",
-            "logic": "Suspend evaluation to consult reference (rubric text or gradebook tool)",
-            "outputs": "Confirmed alignment + Resumed evaluation flow"
-          },
-          "explanation": "Just as cross-checking the rubric interrupts reading to prevent criteria drift, switching tools interrupts your screen to record data; both are friction points where your grading 'context'—whether mental or technical—must be re-established."
-        },
-        "scenario": "When you stop to switch windows on paper fifteen, is that technical click just about logging the grade, or is it the moment you mentally reset your strictness?"
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "Re-anchoring Mid-Batch"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Navigation Strategies",
-        "Map inter-student navigation patterns"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Re-anchoring Mid-Batch",
-        "researcher_branch": "Map inter-student navigation patterns"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Grading momentum + Sense of criteria drift",
-            "logic": "Halt forward progress to verify against a fixed reference point",
-            "outputs": "Restored confidence in scoring alignment"
-          },
-          "explanation": "The navigation step the researcher maps looks like random access, but functionally it matches your rubric cross-check: both interrupt flow to verify against a static baseline."
-        },
-        "scenario": "When you stop at paper fifteen to re-read the first submission, is that navigation inefficiency or a deliberate reset to maintain your grading standard?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "Re-anchoring Mid-Batch"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
       "researcher_lca_id": "q_01__res_L2_01_00",
       "conflict": {
-        "expert_branch": "Re-anchoring Mid-Batch",
-        "researcher_branch": "Assess rubric visibility during grading actions"
+        "expert_branch": "Fatigue & Autopilot",
+        "researcher_branch": "Trace information foraging path"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The 'Polish vs. Substance' Trade-off",
+          "source_concept": "Fatigue & Autopilot",
+          "target_concept": "Driving home on autopilot",
           "structural_mapping": {
-            "inputs": "Report formatting cues (Expert) | Rubric display state (Researcher)",
-            "logic": "Visual input interacts with subjective intuition (Expert) | Visual input assumed to load-balance memory (Researcher)",
-            "outputs": "Unintended score inflation (Expert) | Unintended consistency drift (Expert reality)"
+            "inputs": "Starting a repetitive task (grading reports vs. driving a familiar route)",
+            "logic": "Repetition triggers habitual execution over active attention",
+            "outputs": "Task completion with reduced detail awareness (format over content vs. missing scenery)"
           },
-          "explanation": "Both concepts rely on visual artifacts to manage judgment, but just as formatting fails to ensure substance accuracy, rubric visibility fails to prevent strictness drift without concrete re-anchoring."
+          "explanation": "The researcher's reading order map records which sections are visited, but like driving home on autopilot, the expert may follow the same route without actively processing the scenery due to fatigue."
         },
-        "scenario": "When you feel your strictness drifting after fifteen papers, does having the rubric visible prevent that slip, or do you still need to re-read a previous submission to reset your baseline?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "Re-anchoring Mid-Batch"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Progress Tracking & State Management",
-        "Workflow Visibility",
-        "Define task completion criteria per student"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_02_00",
-      "conflict": {
-        "expert_branch": "Re-anchoring Mid-Batch",
-        "researcher_branch": "Define task completion criteria per student"
-      },
-      "relation_type": "ScopeGap",
-      "assistance_payload": {
-        "validate_focus": "Your focus on re-anchoring mid-batch is highly applicable for maintaining fairness, but we might encounter consistency gaps if this process relies entirely on manual memory and fatigue-prone pauses.",
-        "pivot": {
-          "limitation": "Manual re-anchoring is cognitively taxing and easy to skip when fatigued, leading to hidden grading drift that undermines your quality assurance.",
-          "research_goal": "Defining workflow states that include these quality assurance interruptions as formal completion criteria rather than just per-student task endings.",
-          "compelling_reason": "Solving this helps us overcome the drift because it transforms your intuitive quality checks into a sustainable system that protects your grading standards without increasing your mental load.",
-          "coarse_scenario": "Imagine a day where the system recognizes when you've graded ten papers and gently prompts you to review a past example before continuing, ensuring your standards stay locked in without you having to stop and search for old files yourself. This flow keeps your consistency automatic rather than effortful, letting you focus on the student work instead of monitoring your own strictness."
-        }
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "The 'Polish vs. Substance' Trade-off"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "The 'Polish vs. Substance' Trade-off",
-        "researcher_branch": "Assess rubric visibility during grading actions"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Re-anchoring Mid-Batch",
-          "structural_mapping": {
-            "inputs": "Researcher: Rubric visibility state; Expert: Access to initial benchmark paper.",
-            "logic": "Researcher: Hidden tool forces active criteria recall; Expert: Drifted mindset forces active standard recall.",
-            "outputs": "Researcher: Working memory load; Expert: Calibration cognitive load."
-          },
-          "explanation": "The researcher's concept behaves like your re-anchoring process: both assume cognitive load spikes when an external reference (rubric/first paper) isn't immediately accessible, forcing internal retrieval."
-        },
-        "scenario": "When you force yourself to ignore fancy formatting to find the real ideas, does having the rubric constantly visible reduce that mental effort, or is that struggle internal regardless of the tool?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "The 'Polish vs. Substance' Trade-off"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Navigation Strategies",
-        "Analyze intra-document foraging behaviors"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "The 'Polish vs. Substance' Trade-off",
-        "researcher_branch": "Analyze intra-document foraging behaviors"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Rubric criteria and student text vs. Document sections and interface tools",
-            "logic": "Scanning for semantic alignment vs. Recording spatial navigation events",
-            "outputs": "Verified criteria match vs. Mapped evidence location"
-          },
-          "explanation": "Both involve a targeted search within the document structure; however, your logic filters for semantic value while my tools currently track spatial movement."
-        },
-        "scenario": "When you scroll past a polished intro to find the technical meat, are you just navigating to a section, or are you actively filtering out the style to find the substance?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "Routine Rubric Cross-Check"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Routine Rubric Cross-Check",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Re-anchoring Mid-Batch",
-          "structural_mapping": {
-            "inputs": "Current submission + Reference standard (Memory of Paper 1 vs. Digital Rubric)",
-            "logic": "Interrupt flow to retrieve external validation before proceeding",
-            "outputs": "Calibrated assessment (Reset strictness vs. Verified criteria match)"
-          },
-          "explanation": "Just as you mentally fetch a past paper to calibrate strictness, the researcher assumes you physically fetch a rubric window to calibrate grading; both are retrieval actions, but one is internal cognitive load while the other is external tool navigation."
-        },
-        "scenario": "When the rubric is visible right next to the student's PDF, do you still feel a distinct mental pause every time you stop to verify if their words match the criteria?"
+        "scenario": "When you reach that tenth report, do you still read each section deeply, or do you find yourself visiting the same spots without really processing the content?"
       },
       "weight": 4.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "Routine Rubric Cross-Check"
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "Fatigue & Autopilot"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
+        "Information Foraging & Navigation Patterns",
+        "Rubric Integration Point",
+        "Pinpoint rubric consultation timing"
       ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Routine Rubric Cross-Check",
-        "researcher_branch": "Assess rubric visibility during grading actions"
+        "expert_branch": "Fatigue & Autopilot",
+        "researcher_branch": "Pinpoint rubric consultation timing"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The 'Polish vs. Substance' Trade-off",
+          "source_concept": "The Holistic Skim",
+          "target_concept": "Checking a recipe but cooking from memory",
           "structural_mapping": {
-            "inputs": "Surface-level availability (slick formatting vs. visible rubric)",
-            "logic": "Active cognitive filtering (ignoring polish vs. mentally mapping text to criteria)",
-            "outputs": "Accurate judgment (finding gold vs. consistent scoring)"
+            "inputs": "Intention to follow guidelines (Rubric/Recipe)",
+            "logic": "Fatigue causes bypass of detailed criteria (Autopilot)",
+            "outputs": "Superficial compliance instead of deep adherence (Format/Habit)"
           },
-          "explanation": "Just as a polished report doesn't automate finding substance, a visible rubric doesn't automate the mental mapping of evidence; both require active cognitive work beyond mere access."
+          "explanation": "The researcher assumes opening the rubric ensures criteria usage, like opening a recipe ensures following steps. But like skimming a report when tired, you might open the recipe but cook from memory anyway; the tool is accessed, but fatigue triggers autopilot, invalidating the timing metric."
         },
-        "scenario": "Even with the rubric pinned open on your screen, do you still find yourself pausing to mentally translate student writing into those specific criteria boxes?"
+        "scenario": "When you're ten reports in and tired, do you ever open the rubric but find yourself ignoring the specific criteria and just grading on instinct?"
       },
       "weight": 3.0000000000000004
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_03",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "When the Rubric Doesn't Fit"
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "Fatigue & Autopilot"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "When the Rubric Doesn't Fit",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Student text segments (Expert) vs. Grade input fields (Researcher)",
-            "logic": "Halt primary evaluation to verify against external system constraints",
-            "outputs": "Validated criterion match (Expert) vs. Recorded score (Researcher)"
-          },
-          "explanation": "Just as you halt reading to verify text against rubric criteria, the tool forces you to halt grading to verify data against window boundaries; both interrupt flow to satisfy external constraints."
-        },
-        "scenario": "When you switch windows to record a grade, does that mechanical pause disrupt your flow as much as the mental shift of deciding when to ignore the rubric?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_03",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "When the Rubric Doesn't Fit"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Navigation Strategies",
-        "Analyze intra-document foraging behaviors"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "When the Rubric Doesn't Fit",
-        "researcher_branch": "Analyze intra-document foraging behaviors"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Student report text and predefined rubric criteria",
-            "logic": "Scanning document sections to locate specific evidence matching criteria",
-            "outputs": "Validation of criteria fulfillment for scoring"
-          },
-          "explanation": "Your \"foraging\" model mirrors my \"Routine Rubric Cross-Check,\" assuming I always scan text to locate specific criteria matches, but this logic fails when the student's innovation removes the target I am searching for."
-        },
-        "scenario": "When you encounter brilliant work outside the checklist, do you stop scanning for specific rubric matches and rely on intuition instead of hunting for evidence?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_03",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "When the Rubric Doesn't Fit"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
+        "Feedback Artifact Construction",
+        "Comment Generation Strategy",
+        "Quantify reusable component usage"
       ],
       "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "When the Rubric Doesn't Fit",
-        "researcher_branch": "Assess rubric visibility during grading actions"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Expert: Student text + Criteria list; Researcher: Screen layout + Grading task",
-            "logic": "Expert: Semantic matching process; Researcher: Visual search process",
-            "outputs": "Expert: Grading confidence; Researcher: Cognitive load measurement"
-          },
-          "explanation": "Just as you pause reading to verify criteria matches, I study how screen layout forces you to pause to find those criteria. Both measure the interruption cost of accessing the standard."
-        },
-        "scenario": "When you spot brilliant work that isn't on the checklist, does having the rubric visible on-screen change how much mental effort you spend deciding whether to reward it?"
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_03",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "When the Rubric Doesn't Fit"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Identify criteria-to-evidence mapping methods"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "When the Rubric Doesn't Fit",
-        "researcher_branch": "Identify criteria-to-evidence mapping methods"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
-          "structural_mapping": {
-            "inputs": "Technical sections of report + Rubric criteria list",
-            "logic": "Pausing reading to verify specific paragraphs against specific criteria",
-            "outputs": "Mental confirmation of alignment or identification of missing evidence"
-          },
-          "explanation": "The researcher's mapping methods describe the mechanical verification steps you perform during routine cross-checks, serving as the baseline process before you encounter cases where the rubric doesn't fit."
-        },
-        "scenario": "When you encounter a brilliant submission that isn't on the checklist, do you stop trying to map their text to specific criteria and instead decide whether to break the rubric?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_03",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Grading Consistency & Calibration",
-        "When the Rubric Doesn't Fit"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Progress Tracking & State Management",
-        "Workflow Visibility",
-        "Define task completion criteria per student"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
+      "expert_lca_id": "q_01__exp_L2_00_03",
       "researcher_lca_id": "q_01__res_L2_02_00",
       "conflict": {
-        "expert_branch": "When the Rubric Doesn't Fit",
-        "researcher_branch": "Define task completion criteria per student"
+        "expert_branch": "Fatigue & Autopilot",
+        "researcher_branch": "Quantify reusable component usage"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes that high reliance on standard responses often signals cognitive disengagement and grading fatigue.",
+        "pivot": {
+          "limitation": "If the discussion remains only on the feeling of autopilot, the researcher misses the opportunity to measure the specific behavioral patterns driving that state.",
+          "research_goal": "The researcher seeks to quantify the usage of reusable components to establish a baseline for feedback construction efficiency.",
+          "compelling_reason": "While the expert's warning about quality is vital, the researcher needs this metric to distinguish between helpful efficiency and harmful disengagement within the system design.",
+          "coarse_scenario": "I understand that using pre-written comments can feel like going through the motions, but measuring exactly how often you rely on them versus typing new thoughts helps us determine if the system is supporting you or contributing to that fatigue."
+        }
+      },
+      "weight": 3.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Navigation & Pacing",
+        "Fatigue & Autopilot"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Feedback Artifact Construction",
+        "Finalization Protocol",
+        "Describe verification mechanisms"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Fatigue & Autopilot",
+        "researcher_branch": "Describe verification mechanisms"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Routine Rubric Cross-Check",
+          "source_concept": "Fatigue & Autopilot",
+          "target_concept": "Noticing you're driving on autopilot",
           "structural_mapping": {
-            "inputs": "Submission file arrival vs. Paragraph text",
-            "logic": "Detect UI event (click) vs. Match text to criteria",
-            "outputs": "Workflow state 'complete' vs. Criterion status 'met'"
+            "inputs": "Repetitive task progression (10th report / Long highway stretch)",
+            "logic": "Awareness of focus drift triggers correction (Catching myself / Checking speed)",
+            "outputs": "Restored accuracy (Grading content again / Staying in lane)"
           },
-          "explanation": "Both treat a specific observable signal as the endpoint of a process, yet both risk marking a task as 'finished' before the deeper cognitive work is actually resolved."
+          "explanation": "The researcher's 'verification mechanism' behaves like the target concept of noticing driving drift: it is not a scheduled stop, but an internal alarm that triggers correction the moment focus slips, matching the expert's 'catching myself' rather than a formal review step."
         },
-        "scenario": "When you reward a student for breaking the rubric, does clicking 'submit' feel like the work is done, or is the real completion when you settle that judgment call?"
+        "scenario": "When you catch yourself drifting into autopilot, do you consider that moment of self-correction to be your verification step, even if you don't write it down?"
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Rubric Friction"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Digital Toolchain & Workspace Configuration",
+        "Software Interoperability",
+        "Map application switching sequences"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Rubric Friction",
+        "researcher_branch": "Map application switching sequences"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Rubric Friction",
+          "target_concept": "Stopping to check the recipe",
+          "structural_mapping": {
+            "inputs": "Student work and rubric criteria",
+            "logic": "Mismatch detected triggers uncertainty and a search for validation",
+            "outputs": "Delayed judgment or tool switch to find clarity"
+          },
+          "explanation": "The researcher records the 'app switch' as a regular step, but like a cook checking the recipe only when the dish tastes wrong, the expert switches tools only when judgment feels uncertain, marking a cognitive hurdle rather than a routine action."
+        },
+        "scenario": "When you switch between the PDF and the rubric sheet, is that a routine step, or does it happen specifically because the student's work doesn't fit the boxes?"
+      },
+      "weight": 6.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Rubric Friction"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Identify batching granularity"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Rubric Friction",
+        "researcher_branch": "Identify batching granularity"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert is emphasizing the cognitive load encountered when student work does not align neatly with rubric categories, causing hesitation in judgment.",
+        "pivot": {
+          "limitation": "Staying only on this friction risks missing how the expert structurally adapts their workflow to manage these high-load moments.",
+          "research_goal": "The researcher is trying to understand the batching granularity, specifically whether the expert grades by student or by section across the class.",
+          "compelling_reason": "Connecting the friction to the batching strategy reveals whether the expert's workflow is static or dynamically adjusted to handle cognitive bottlenecks.",
+          "coarse_scenario": "I know navigating those rubric mismatches is where the real work happens, but understanding whether you switch students or sections during those stuck moments helps us see how you manage that load."
+        }
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Rubric Friction"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Information Foraging & Navigation Patterns",
+        "Rubric Integration Point",
+        "Pinpoint rubric consultation timing"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Rubric Friction",
+        "researcher_branch": "Pinpoint rubric consultation timing"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Rubric Friction",
+          "target_concept": "Stopping at a confusing instruction",
+          "structural_mapping": {
+            "inputs": "Student work and rubric categories",
+            "logic": "Attempting to match evidence to fixed criteria",
+            "outputs": "Judgment hesitation and second-guessing"
+          },
+          "explanation": "Just as stopping at a confusing instruction reveals a map error, the moment you open the rubric (timing) is where the fit error (friction) becomes visible, linking the timestamp to the judgment struggle."
+        },
+        "scenario": "When you open the rubric while reading, do you ever freeze because the student's work doesn't fit the boxes, forcing you to second-guess the tool instead of just assigning a score?"
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Rubric Friction"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Feedback Artifact Construction",
+        "Finalization Protocol",
+        "Describe verification mechanisms"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Rubric Friction",
+        "researcher_branch": "Describe verification mechanisms"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes the internal cognitive friction and second-guessing that occurs when student work does not align neatly with rubric categories.",
+        "pivot": {
+          "limitation": "Focusing exclusively on this psychological experience may obscure the concrete procedural safeguards established to manage that uncertainty.",
+          "research_goal": "The researcher seeks to identify specific verification mechanisms, such as grade summation or adjustment protocols, that occur before final submission.",
+          "compelling_reason": "Understanding these procedural steps is essential to determine how institutional workflows support or constrain expert intuition during moments of rubric friction.",
+          "coarse_scenario": "I hear that the uncertainty is really challenging for you personally, and I want to understand how that uncertainty translates into the specific checks or review steps you take before locking in the grade."
+        }
+      },
+      "weight": 3.0000000000000004
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Standard Drift"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Digital Toolchain & Workspace Configuration",
+        "Software Interoperability",
+        "Assess multi-window dependency"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Standard Drift",
+        "researcher_branch": "Assess multi-window dependency"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Standard Drift",
+          "target_concept": "Keeping a paint sample chip visible while matching colors",
+          "structural_mapping": {
+            "inputs": "Current student work and a past 'A' example",
+            "logic": "Visual comparison to prevent internal standard shift",
+            "outputs": "Consistent grade assignment"
+          },
+          "explanation": "The researcher assumes the second window displays rules (rubric), but like a painter keeping a sample chip visible to prevent color drift, you use it for concrete calibration to maintain grading consistency over time."
+        },
+        "scenario": "When you split your screen to grade, is that second window mostly for checking rubric boxes, or do you keep a past 'A' paper open to calibrate your eye?"
+      },
+      "weight": 3.0000000000000004
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Standard Drift"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Information Foraging & Navigation Patterns",
+        "Rubric Integration Point",
+        "Pinpoint rubric consultation timing"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Standard Drift",
+        "researcher_branch": "Pinpoint rubric consultation timing"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Standard Drift",
+          "target_concept": "Comparing paint to a sample chip",
+          "structural_mapping": {
+            "inputs": "New wall section (Student work), Old paint chip (Past 'A' example), Color name label (Rubric)",
+            "logic": "Visual side-by-side matching (Exemplar calibration) vs. Reading text specifications (Rubric consultation)",
+            "outputs": "Confidence in color match (Grade consistency)"
+          },
+          "explanation": "Just as asking when a painter reads the color name misses that they are matching a chip for accuracy, asking about rubric timing misses that you use a past 'A' for visual calibration; both aim for consistency, but the tool shifts from text to example."
+        },
+        "scenario": "When you keep a past 'A' example open to prevent drifting, do you find the rubric timing matters less because the example becomes your primary standard instead?"
+      },
+      "weight": 2.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Standard Drift"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Feedback Artifact Construction",
+        "Finalization Protocol",
+        "Describe verification mechanisms"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Standard Drift",
+        "researcher_branch": "Describe verification mechanisms"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Contrast Bias",
+          "target_concept": "Keeping your balance while walking",
+          "structural_mapping": {
+            "inputs": "Uneven ground (varying student work quality)",
+            "logic": "Constant micro-adjustments (referencing past 'A' example)",
+            "outputs": "Staying upright (consistent grading standards)"
+          },
+          "explanation": "The researcher expects a final safety check (looking back after walking), but like Contrast Bias, the expert's verification is continuous (keeping balance), so corrections happen during the act rather than in a final review step."
+        },
+        "scenario": "When you keep that past 'A' example open, does that help you set the grade correctly the first time, or do you still need to review all grades again before submitting?"
+      },
+      "weight": 3.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Contrast Bias"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Identify batching granularity"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Contrast Bias",
+        "researcher_branch": "Identify batching granularity"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes a critical cognitive risk where grading sequence influences judgment accuracy through contrast effects. This psychological factor is vital for understanding grading reliability.",
+        "pivot": {
+          "limitation": "If the conversation remains solely on the expert's cognitive bias, the structural workflow decisions that trigger that bias remain undefined for the researcher.",
+          "research_goal": "The researcher is trying to understand the logistical unit of work, specifically whether the expert batches by student or by question across students.",
+          "compelling_reason": "Understanding the batching granularity is necessary for the researcher to map where the expert's contrast bias is most likely to occur within the workflow.",
+          "coarse_scenario": "That contrast effect is really important, and to see where it hits hardest, I need to understand if you grade all of Student A's work before moving to Student B, or if you grade all Introductions across the class at once."
+        }
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Judgment & Calibration",
+        "Contrast Bias"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Feedback Artifact Construction",
+        "Finalization Protocol",
+        "Describe verification mechanisms"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Contrast Bias",
+        "researcher_branch": "Describe verification mechanisms"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Contrast Bias",
+          "target_concept": "Steering a car in strong wind",
+          "structural_mapping": {
+            "inputs": "Previous grade impact and current student work",
+            "logic": "Continuous mental adjustments to neutralize bias",
+            "outputs": "Fair grade assignment"
+          },
+          "explanation": "The researcher expects verification to be a single destination check (like looking at a map once), but the expert's process behaves like steering in wind: accuracy comes from constant, invisible corrections rather than a single discrete step."
+        },
+        "scenario": "When you finish a stack, do you have a specific step to review grades, or is that checking happening continuously in your head while you read each one?"
       },
       "weight": 5.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_02_00",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Cognitive Load & Integrity",
-        "Recognizing the 'Glaze Over' Moment"
+        "Expert Grading Workflow",
+        "Diagnostic Intuition",
+        "Effort Proxies"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
+        "Feedback Artifact Construction",
+        "Finalization Protocol",
+        "Describe verification mechanisms"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Recognizing the 'Glaze Over' Moment",
-        "researcher_branch": "Assess rubric visibility during grading actions"
+        "expert_branch": "Effort Proxies",
+        "researcher_branch": "Describe verification mechanisms"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The 'Voice Shift' Detection",
+          "source_concept": "Authenticity Checks",
+          "target_concept": "Tapping a watermelon to check ripeness",
           "structural_mapping": {
-            "inputs": "Sudden changes in writing style vs. Visual access to grading criteria",
-            "logic": "Subconscious pattern matching alerts intuition vs. UI design offloads working memory",
-            "outputs": "Flag potential integrity issues vs. Prevent grading errors due to fatigue"
+            "inputs": "Surface cues (formatting/style vs sound/skin texture)",
+            "logic": "Heuristic inference (shaky surface implies poor interior)",
+            "outputs": "Early decision on quality validity (triage vs purchase)"
           },
-          "explanation": "Both act as early warning systems; just as your 'Voice Shift' intuition flags inconsistencies before you have proof, constant rubric visibility flags criteria before your memory fails, aiming to prevent the cognitive crash you describe."
+          "explanation": "Both concepts act as quality filters. Like tapping a watermelon, the expert checks the surface first to predict the inside before investing time, whereas the researcher assumes the check happens at the end to count the total."
         },
-        "scenario": "When you feel the words stop making sense, does having the rubric always visible help you push through, or do you still need to walk away regardless of the layout?"
+        "scenario": "Before you even read the analysis, do you scan the references to gauge effort, or is your main verification step just summing the points at the very end?"
       },
       "weight": 6.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Cognitive Load & Integrity",
-        "Recognizing the 'Glaze Over' Moment"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Progress Tracking & State Management",
-        "Workflow Visibility",
-        "Define task completion criteria per student"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Recognizing the 'Glaze Over' Moment",
-        "researcher_branch": "Define task completion criteria per student"
-      },
-      "relation_type": "ScopeGap",
-      "assistance_payload": {
-        "validate_focus": "Your focus on recognizing the 'glaze over' moment is highly applicable, as protecting grading integrity from fatigue is essential for accurate assessment.",
-        "pivot": {
-          "limitation": "relying solely on subjective fatigue signals might cause you to stop mid-workflow, leaving student assessments in an ambiguous state",
-          "research_goal": "defining specific task completion criteria per student",
-          "compelling_reason": "Solving defining specific task completion criteria per student helps us overcome this because it ensures your session ends at natural breakpoints, guaranteeing that every student file you touch is fully resolved before you walk away",
-          "coarse_scenario": "Imagine finishing your grading session knowing exactly how many full student profiles you completed without hitting the wall. You close your laptop confident that every open file is fully graded and ready for submission. You never have to wonder where you left off when you return."
-        }
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Cognitive Load & Integrity",
-        "The 'Voice Shift' Detection"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Identify criteria-to-evidence mapping methods"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "The 'Voice Shift' Detection",
-        "researcher_branch": "Identify criteria-to-evidence mapping methods"
-      },
-      "relation_type": "TacitGap",
-      "assistance_payload": {
-        "attributes": [
-          "integrity",
-          "intuition",
-          "lexical_density",
-          "syntactic_variance",
-          "tonal_consistency",
-          "citation_frequency",
-          "conceptual_depth",
-          "transition_smoothness"
-        ],
-        "probes": [
-          {
-            "attribute": "integrity",
-            "question": "Is the shift more concerning when it implies dishonesty or when it implies assistance?",
-            "choices": [
-              "Implies dishonesty",
-              "Implies assistance"
-            ]
-          },
-          {
-            "attribute": "intuition",
-            "question": "Does the detection happen immediately upon reading or only after finishing the section?",
-            "choices": [
-              "Immediately upon reading",
-              "After finishing the section"
-            ]
-          },
-          {
-            "attribute": "lexical_density",
-            "question": "Is the shift driven by rare words or by complex sentence structures?",
-            "choices": [
-              "Rare words",
-              "Complex sentence structures"
-            ]
-          },
-          {
-            "attribute": "syntactic_variance",
-            "question": "Do you notice passive voice usage or sentence length variation more?",
-            "choices": [
-              "Passive voice usage",
-              "Sentence length variation"
-            ]
-          },
-          {
-            "attribute": "tonal_consistency",
-            "question": "Is the break more obvious in formal sections or informal reflections?",
-            "choices": [
-              "Formal sections",
-              "Informal reflections"
-            ]
-          },
-          {
-            "attribute": "citation_frequency",
-            "question": "Does a sudden increase in citations trigger suspicion more than a sudden decrease?",
-            "choices": [
-              "Sudden increase",
-              "Sudden decrease"
-            ]
-          },
-          {
-            "attribute": "conceptual_depth",
-            "question": "Is the shift marked by abstract theory or by specific technical application?",
-            "choices": [
-              "Abstract theory",
-              "Specific technical application"
-            ]
-          },
-          {
-            "attribute": "transition_smoothness",
-            "question": "Do you flag abrupt topic changes or subtle logical gaps more often?",
-            "choices": [
-              "Abrupt topic changes",
-              "Subtle logical gaps"
-            ]
-          }
-        ],
-        "hypothetical_scenarios": [
-          {
-            "scenario": "If the student's admission status changed from undisclosed to disclosed, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "integrity"
-          },
-          {
-            "scenario": "If the review timing changed from immediate to delayed, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "intuition"
-          },
-          {
-            "scenario": "If the average word length changed from 5 letters to 8 letters, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "lexical_density"
-          },
-          {
-            "scenario": "If the average sentence length changed from 15 words to 30 words, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "syntactic_variance"
-          },
-          {
-            "scenario": "If the emotional tone changed from neutral to highly emotional, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "tonal_consistency"
-          },
-          {
-            "scenario": "If the reference count changed from 1 per page to 5 per page, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "citation_frequency"
-          },
-          {
-            "scenario": "If the content focus changed from descriptive facts to critical theory, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "conceptual_depth"
-          },
-          {
-            "scenario": "If the paragraph connectors changed from explicit phrases to none, would your judgment about 'The 'Voice Shift' Detection' change?",
-            "attribute": "transition_smoothness"
-          }
-        ]
-      },
-      "weight": 8.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Cognitive Load & Integrity",
-        "The 'Voice Shift' Detection"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Navigation Strategies",
-        "Analyze intra-document foraging behaviors"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "The 'Voice Shift' Detection",
-        "researcher_branch": "Analyze intra-document foraging behaviors"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Recognizing the 'Glaze Over' Moment",
-          "structural_mapping": {
-            "inputs": "Real-time reading stream (cognitive state vs. navigation events)",
-            "logic": "Threshold monitoring (comprehension drop vs. search intensity)",
-            "outputs": "Workflow interruption (stop grading vs. evidence flagged)"
-          },
-          "explanation": "The researcher's tracking of your scrolls functions like your internal 'glaze over' radar: both monitor the reading process in real-time to trigger a specific workflow decision when a threshold is crossed."
-        },
-        "scenario": "When that voice shift tingle hits, do you find yourself scrolling back to hunt for concrete proof, or does the intuition alone decide the grade?"
-      },
-      "weight": 7.0
-    },
-    {
       "expert_leaf_id": "q_01__exp_leaf_00_02_01",
       "researcher_leaf_id": "q_01__res_leaf_01_00_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Cognitive Load & Integrity",
-        "The 'Voice Shift' Detection"
+        "Expert Grading Workflow",
+        "Diagnostic Intuition",
+        "Authenticity Checks"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Artifacts & Data Flow",
-        "Rubric Engagement",
-        "Assess rubric visibility during grading actions"
+        "Information Foraging & Navigation Patterns",
+        "Document Traversal",
+        "Trace information foraging path"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "The 'Voice Shift' Detection",
-        "researcher_branch": "Assess rubric visibility during grading actions"
+        "expert_branch": "Authenticity Checks",
+        "researcher_branch": "Trace information foraging path"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Recognizing the 'Glaze Over' Moment",
+          "source_concept": "Effort Proxies",
+          "target_concept": "Smelling milk to check if it is sour",
           "structural_mapping": {
-            "inputs": "Expert: Mental fatigue signals; Researcher: Interface visibility state",
-            "logic": "Expert: Internal threshold breach halts process; Researcher: External aid reduces memory burden",
-            "outputs": "Expert: Error prevention via stopping; Researcher: Error prevention via sustained accuracy"
+            "inputs": "Surface details like formatting and references",
+            "logic": "Surface flaws indicate deeper quality issues",
+            "outputs": "Decision to grade strictly or skip deep reading"
           },
-          "explanation": "Both concepts act as regulatory mechanisms for cognitive load to preserve grading integrity, where the expert monitors internal capacity limits and the researcher optimizes external tool availability."
+          "explanation": "The researcher tracks where you look (foraging path), which is the physical trace of your quality check, similar to mapping the steps of someone smelling milk; the movement exists, but the goal is the sniff."
         },
-        "scenario": "When your intuition flags a voice shift, do you find the rubric helps you prove it, or does checking it disrupt the flow of that instinct?"
+        "scenario": "When you feel that sudden shift in writing style, do you jump to specific sections to confirm it, meaning your reading order follows the suspicion rather than the document structure?"
       },
-      "weight": 8.0
+      "weight": 5.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
       "aligned_path_expert": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow & Intuition",
-        "Cognitive Load & Integrity",
-        "The 'Voice Shift' Detection"
+        "Expert Grading Workflow",
+        "Diagnostic Intuition",
+        "Authenticity Checks"
       ],
       "aligned_path_researcher": [
         "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Interaction Mechanics & Toolchain",
-        "Tool Interoperability & Input",
-        "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
+        "Feedback Artifact Construction",
+        "Finalization Protocol",
+        "Describe verification mechanisms"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "The 'Voice Shift' Detection",
-        "researcher_branch": "Identify context switching frequency between LMS, PDF annotators, and gradebooks"
+        "expert_branch": "Authenticity Checks",
+        "researcher_branch": "Describe verification mechanisms"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Effort Proxies",
+          "target_concept": "Sniff test for spoilage",
+          "structural_mapping": {
+            "inputs": "Sensory cue (smell or formatting/style)",
+            "logic": "Deviation from norm indicates underlying failure",
+            "outputs": "Reject or Accept content"
+          },
+          "explanation": "Both concepts involve a verification step before finalizing, but the expert's acts like a sniff test (qualitative integrity) similar to effort proxies, whereas the researcher's assumes a count (quantitative total). The target concept clarifies that the expert is checking content safety, not arithmetic accuracy."
+        },
+        "scenario": "When you mention verifying the work before submission, do you mean checking the math adds up, or do you mean sensing if the student actually wrote it?"
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Feedback Construction",
+        "Comment Synthesis"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Feedback Artifact Construction",
+        "Comment Generation Strategy",
+        "Quantify reusable component usage"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_00_03",
+      "researcher_lca_id": "q_01__res_L2_02_00",
+      "conflict": {
+        "expert_branch": "Comment Synthesis",
+        "researcher_branch": "Quantify reusable component usage"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Comment Synthesis",
+          "target_concept": "Adjusting a recipe to taste",
+          "structural_mapping": {
+            "inputs": "Bank comments or raw notes",
+            "logic": "Tone calibration and organization",
+            "outputs": "Guiding feedback"
+          },
+          "explanation": "The researcher measures effort by ingredient origin (bank vs. typed), but like a chef, the expert knows the workload lies in adjusting the seasoning (tone) to fit the diner (student), regardless of who chopped the vegetables."
+        },
+        "scenario": "When you reuse a past comment, do you still spend significant mental energy adapting it so it doesn't sound too harsh for that specific student?"
+      },
+      "weight": 2.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Expert Grading Workflow",
+        "Feedback Construction",
+        "Comment Synthesis"
+      ],
+      "aligned_path_researcher": [
+        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "Digital Toolchain & Workspace Configuration",
+        "Software Interoperability",
+        "Map application switching sequences"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Comment Synthesis",
+        "researcher_branch": "Map application switching sequences"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "Your focus on detecting voice shifts is highly applicable for maintaining academic integrity.",
+        "validate_focus": "The expert emphasizes that organizing scattered notes into constructive feedback is the core challenge of the grading workflow. This cognitive effort is central to their experience.",
         "pivot": {
-          "limitation": "But we might encounter cognitive fatigue where excessive tool friction masks the intuition needed to spot those shifts.",
-          "research_goal": "Identify context switching frequency between LMS, PDF annotators, and gradebooks",
-          "compelling_reason": "Solving this helps us overcome this because streamlining the mechanical workflow preserves your cognitive bandwidth, ensuring your spidey senses remain sharp.",
-          "coarse_scenario": "Imagine finishing a grading session where the software fades into the background, allowing you to focus entirely on the student's narrative flow. You close your laptop feeling confident in your assessments rather than drained by the process of managing multiple windows."
+          "limitation": "Focusing solely on the cognitive organization misses how the mechanical act of switching applications might be fragmenting that thought process.",
+          "research_goal": "The researcher is trying to understand the specific sequence of software interactions to identify where manual data transfer occurs.",
+          "compelling_reason": "While the cognitive load is primary, the toolchain structure often dictates where that load is highest, making the mechanical mapping essential for holistic improvement.",
+          "coarse_scenario": "I agree that synthesizing the comments is the real work, but if we map out exactly which tools you switch between to do that, we might find where the software is adding unnecessary friction to that thinking process."
         }
       },
-      "weight": 9.0
+      "weight": 4.0
     }
   ],
   "metadata": {
-    "created_at": "2026-03-18T15:43:56.619102",
+    "created_at": "2026-03-22T05:58:42.834701",
     "llm_provider": "openai",
     "question_id": "q_01",
-    "question_text": "1.What’s your common grading workflow for these assignments?",
+    "question_text": "What’s your common grading workflow for these assignments?",
     "expert_leaves": 10,
-    "researcher_leaves": 10,
-    "link_count": 29,
+    "researcher_leaves": 9,
+    "link_count": 22,
     "alignment_stats": {
-      "leaf_alignments": 29,
-      "concept_alignments": 7,
-      "misaligned_leaves": 29
+      "leaf_alignments": 22,
+      "concept_alignments": 8,
+      "misaligned_leaves": 22
     },
     "construction_method": "math-based",
     "depends_on": []

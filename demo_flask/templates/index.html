@@ -137,7 +137,12 @@
 
             {% for msg in messages %}
               {% if msg.role == "researcher" %}
-                <div class="message-row researcher-row">
+                <div
+                  class="message-row researcher-row"
+                  {% if msg.turn_index is defined and msg.turn_index %}
+                  data-turn-index="{{ msg.turn_index }}"
+                  {% endif %}
+                >
                   <div class="message-card researcher-card">
                     <div class="message-header">
                       <span class="message-role">Researcher</span>
@@ -183,7 +188,13 @@
                   {% endfor %}
                 {% endif %}
 
-                <div class="message-row expert-row" data-msg-index="{{ loop.index0 }}">
+                <div
+                  class="message-row expert-row"
+                  data-msg-index="{{ loop.index0 }}"
+                  {% if msg.turn_index is defined and msg.turn_index %}
+                  data-turn-index="{{ msg.turn_index }}"
+                  {% endif %}
+                >
                   <div class="message-avatar expert-avatar">👨‍⚕️</div>
                   <div class="message-card expert-card">
                     <div class="message-header">
@@ -254,7 +265,7 @@
                                     <button type="button" class="dsag-toggle-btn">Analogy</button>
                                   {% endif %}
                                   {% if payload.scenario is defined and payload.scenario %}
-                                    <button type="button" class="dsag-toggle-btn">Scenario</button>
+                                    <button type="button" class="dsag-toggle-btn">Scenario (recommend to ask follow-up)</button>
                                   {% endif %}
                                 </div>
                                 {% if payload.analogy is defined %}
@@ -265,13 +276,13 @@
                                       </span>
                                       <span class="analogy-arrow">→</span>
                                       <span class="analogy-chip">
-                                        {{ dsag.divergence.researcher_branch if dsag.divergence is defined and dsag.divergence.researcher_branch else "Researcher concept" }}
+                                        {{ payload.analogy.target_concept if payload.analogy.target_concept else (dsag.divergence.researcher_branch if dsag.divergence is defined and dsag.divergence.researcher_branch else "Researcher concept") }}
                                       </span>
                                     </div>
                                   </div>
                                 {% endif %}
                                 {% if payload.scenario is defined and payload.scenario %}
-                                  <div class="dsag-toggle-content" data-toggle-label="Scenario" style="display:none;">
+                                  <div class="dsag-toggle-content" data-toggle-label="Scenario (recommend to ask follow-up)" style="display:none;">
                                     <div class="scenario-prose">
                                       {% if payload.scenario is string %}
                                         {{ payload.scenario }}
@@ -363,7 +374,7 @@
                                         {% endif %}
                                       {% endif %}
                                       {% if payload.pivot.coarse_scenario %}
-                                        <button type="button" class="dsag-toggle-btn dsag-toggle-btn-nested">Scenario</button>
+                                        <button type="button" class="dsag-toggle-btn dsag-toggle-btn-nested">Scenario (recommend to explain)</button>
                                         <div class="dsag-toggle-content" style="display:none;">
                                           <div class="scope-scenario">{{ payload.pivot.coarse_scenario }}</div>
                                         </div>
@@ -539,12 +550,27 @@
                   <div class="ts-sub-bullets">
                     {% if mb.sub_bullets %}
                       {% for sb in mb.sub_bullets %}
-                        <div class="ts-sub-bullet">
-                          <div class="ts-sub-line">
-                            <span class="ts-sub-tag">T{{ loop.index }}</span>
-                            <span class="ts-sub-summary">{{ sb.summary }}</span>
+                        {% set target_turn = sb.turn_indices[-1] if sb.turn_indices is defined and sb.turn_indices else "" %}
+                        {% if target_turn %}
+                          <button
+                            type="button"
+                            class="ts-sub-bullet ts-sub-bullet-clickable"
+                            data-target-turn="{{ target_turn }}"
+                            title="Jump to the related conversation turn"
+                          >
+                            <span class="ts-sub-line">
+                              <span class="ts-sub-tag">T{{ loop.index }}</span>
+                              <span class="ts-sub-summary">{{ sb.summary }}</span>
+                            </span>
+                          </button>
+                        {% else %}
+                          <div class="ts-sub-bullet">
+                            <div class="ts-sub-line">
+                              <span class="ts-sub-tag">T{{ loop.index }}</span>
+                              <span class="ts-sub-summary">{{ sb.summary }}</span>
+                            </div>
                           </div>
-                        </div>
+                        {% endif %}
                       {% endfor %}
                     {% else %}
                       <div class="ts-not-discussed">Not discussed yet</div>

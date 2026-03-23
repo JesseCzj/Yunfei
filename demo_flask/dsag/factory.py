@@ -384,7 +384,7 @@ Instructions:
 3. Mark pairs as "aligned" (true) if they represent the same or very similar concept
 4. Mark pairs as "misaligned" (false) if they represent different perspectives or concepts
 5. Provide a reason explaining WHY they are aligned or misaligned
-6. For every MISALIGNED pair (is_aligned=false), you MUST set "relation_type" to exactly one of the 4 gap categories below. Do NOT omit this field for misaligned pairs.
+6. For every MISALIGNED pair (is_aligned=false), you MUST set "relation_type" to exactly one of the 3 gap categories below. Do NOT omit this field for misaligned pairs.
 
 IMPORTANT:
 - Root nodes are always considered aligned (they share the same topic)
@@ -398,7 +398,7 @@ IMPORTANT:
 Gap type definitions for "relation_type" (misaligned pairs only):
 - "ConceptualGap": The two sides hold different mental models, analogies, or interpretations of the concept.
 - "TacitGap": The expert relies on intuition, implicit knowledge, or experience that the researcher cannot easily observe or quantify. This includes methodology-level tacit knowledge — when the expert's working approach is an intuitive blend of multiple frameworks rather than a nameable paradigm, and they cannot articulate a structured workflow because their practice is driven by experiential pattern recognition.
-- "ScopeGap": The two sides differ in purpose or expectations — the expert focuses on practical utility while the researcher focuses on research value, leading to inconsistent goals about "what to do."
+- "ScopeGap": Use this ONLY when the researcher has already made their own focus, goal, or concern explicit, but the expert answers by emphasizing a different practical concern, priority, or success criterion. The mismatch is about what this conversation should optimize for right now, not about a different concept or hidden tacit cues.
 
 Classification hint: Expert leaf nodes that contain a non-empty "attributes" list indicate tacit, intuition-based knowledge (Tacit Knowledge Facets). When such a leaf is part of a misaligned pair, strongly prefer "TacitGap" as the relation_type.
 
@@ -512,18 +512,56 @@ ALIGNMENT_JUDGE_LEAF_PROMPT = """You are an expert alignment analyst helping pre
 Task:
 For the expert leaf above, examine it against EACH researcher leaf one by one.
 - If the pair has a semantic gap that could cause miscommunication during the interview → include it in the output
-- If there is no meaningful divergence → skip it entirely (do NOT output it)
+- If there is clearly no meaningful divergence → skip it entirely
 
-A semantic gap exists when the researcher and expert would misunderstand each other, talk past each other, or expect different outcomes from the same discussion topic.
+A semantic gap exists when the researcher and expert would likely partially misunderstand each other, talk past each other, prioritize different aspects of the same topic, or need conversational repair to get onto the same page.
+A pair does NOT need to be completely incompatible to count as a gap.
+Partial overlap is allowed if the two sides are organizing the issue differently enough that it would change the follow-up question, interpretation, or expected answer.
 
 Gap type definitions (choose exactly one):
 - "ConceptualGap": Different mental models of what the concept IS. Agreeing on a shared label alone would not resolve the disagreement — the underlying constructs differ.
 - "TacitGap": Expert's knowledge is implicit, experiential, or hard to articulate. STRONGLY prefer this when the expert leaf has a non-empty "attributes" list.
-- "ScopeGap": Same concept but different goals — expert wants practical utility, researcher wants research value. They'd expect different outcomes from the interview discussion.
+- "ScopeGap": Same or closely related topic, but use this ONLY when the researcher has already made their own focus or goal explicit and the expert would likely answer by emphasizing a different practical concern, priority, or success criterion. If that explicit focus-shift pattern is absent, do NOT use ScopeGap.
 
 Skip the pair entirely if:
 - The only difference is vocabulary or terminology (same concept, different labels) — this is handled by the UI highlighting system, not by gap links.
 - The gap is about a factual risk in the researcher's preparation or a methodology blindspot — this is handled separately by the transcript summarization module.
+- The pair merely reflects a very broad difference in interests, with no plausible interview-relevant divergence in framing, mechanism, observability, practical priority, or expected follow-up direction.
+Classification hint: Expert leaf nodes that contain a non-empty "attributes" list indicate tacit, intuition-based knowledge (Tacit Knowledge Facets). When such a leaf is part of a misaligned pair, strongly prefer "TacitGap" as the relation_type.
+
+Gap type definitions for "relation_type" (misaligned pairs only):
+- "ConceptualGap": The primary mismatch is that the expert and researcher are operating with different conceptual models of what the phenomenon IS, how it works, or what structure it has. Even if the expert fully articulated their view, the mismatch would still remain, because the disagreement is about the underlying construct or mechanism.
+- "TacitGap": The primary mismatch is that the expert's knowledge is real and relevant, but is carried in implicit judgment, experiential pattern recognition, or hard-to-articulate heuristics. If the expert's internal cues, thresholds, or decision process were successfully surfaced, the researcher could translate them into observable variables, probes, or representations without needing to replace the expert's core concept.
+
+Classification principle:
+- Do NOT classify based on whether the expert leaf merely "sounds intuitive" or "sounds abstract".
+- Do NOT default to TacitGap just because the expert uses experience-based language.
+- Do NOT default to ConceptualGap just because the two descriptions use different wording.
+- First ask: If the expert fully unpacked their reasoning in explicit detail, would the gap mostly disappear?
+  - If YES, prefer "TacitGap".
+  - If NO, prefer "ConceptualGap".
+- Second ask: Is the researcher mainly trying to surface / parameterize / observe the expert's existing judgment process, rather than replace it with a different theory?
+  - If YES, that supports "TacitGap".
+  - If NO, and the researcher is imposing a different construct or explanatory frame, that supports "ConceptualGap".
+
+Important signal from expert leaf attributes:
+- A non-empty "attributes" list is evidence that the expert leaf may contain tacit knowledge facets.
+- Treat this as a supporting signal, NOT an automatic rule.
+- Use "TacitGap" only when the misalignment is primarily about articulability / surfacing implicit knowledge.
+- If the pair still reflects a genuine difference in underlying model or interpretation, use "ConceptualGap" even when attributes are present.
+**Boundary rule: ConceptualGap vs TacitGap**
+
+Use this decision boundary:
+
+- Choose "TacitGap" when:
+  - The expert and researcher are fundamentally looking at the SAME phenomenon,
+  - and the researcher's task is to extract, clarify, elicit, parameterize, or make observable the expert's implicit judgment,
+  - and a sufficiently detailed unpacking of the expert's cues/process would largely reduce the mismatch.
+
+- Choose "ConceptualGap" when:
+  - The expert and researcher are framing the phenomenon through DIFFERENT underlying constructs, mechanisms, or explanatory models,
+  - and the mismatch would persist even after the expert fully articulates their reasoning,
+  - because the issue is not hidden knowledge but a different conceptualization.
 
 Return ONLY valid JSON. Only include pairs that HAVE a gap:
 {{
@@ -1554,7 +1592,24 @@ Their mental models differ. Generate TWO parallel explanation strategies (no req
 Strategy 1 — Analogy Construction:
 - Consider the expert's related concepts listed above as potential analogy sources — they are concepts the expert already articulated at the same abstraction level. You may also use a different concept if it provides a stronger structural mapping.
 - Do NOT merely swap nouns. Map the relational structure: Inputs, Logic, Outputs.
-- Explain how the researcher's concept behaves similarly to the expert's familiar concept.
+- In addition to source_concept, generate target_concept for the RIGHT side of the UI arrow.
+- target_concept MUST be a common-sense, everyday concept or mini-case that a non-HCI person can understand immediately.
+- Do NOT use HCI, UX, CSCW, or interaction-design jargon in target_concept.
+- Prefer short plain-language labels such as "losing your place", "workflow interruption", "mental reset", or "switching gears" when they fit.
+- target_concept MUST make the expert's concept easier to understand, not merely more vivid.
+- Preserve the SAME underlying mechanism, failure mode, shift, or judgment pattern as the original concept.
+- Do NOT map based only on emotional tone, mood, or vibe similarity.
+- Do NOT introduce a mini-scene that changes the mechanism.
+- Keep the abstraction level aligned when possible:
+  * if the source concept is a state, shift, or judgment pattern, prefer a plain-language state, shift, or judgment pattern
+  * do NOT replace an internal state with an unrelated external scene unless that scene preserves the exact mechanism
+- Prefer a short everyday phrase over a colorful metaphor.
+- If the target_concept would make a researcher more confused, rewrite it.
+- Quick self-check before finalizing:
+  * Would a non-expert be more able to infer what the expert means after reading this phrase?
+  * Does it preserve what is going wrong, shifting, or breaking?
+  * If any answer is no, rewrite it.
+- Explain how the researcher's concept behaves similarly to the expert's familiar concept through that plain-language target_concept.
 
 Strategy 2 — Scenario (a sentence the researcher can say directly to the expert):
 - Write ONE sentence (max 40 words) that the researcher can speak directly to the expert during the interview.
@@ -1568,12 +1623,13 @@ Return ONLY valid JSON:
 {{
   "analogy": {{
     "source_concept": "A concept the expert already knows that is structurally similar",
+    "target_concept": "A plain-language common-sense concept or mini-case for the researcher-facing side that preserves the same core mechanism",
     "structural_mapping": {{
       "inputs": "What goes in (mapped to expert's frame)",
       "logic": "How it transforms (mapped to expert's frame)",
       "outputs": "What comes out (mapped to expert's frame)"
     }},
-    "explanation": "How the researcher's concept behaves similarly to the source concept"
+    "explanation": "How the researcher's concept behaves similarly to the source concept, explained through the common-sense target concept without changing the underlying mechanism"
   }},
   "scenario": "One sentence the researcher can say directly to the expert to surface the gap. Max 40 words, second person."
 }}
@@ -1641,7 +1697,7 @@ Return ONLY valid JSON:
 }}
 """
 
-SCOPE_GAP_PROMPT = """You are generating a validate-and-pivot bridge for an interview where the expert and researcher have different scope/focus.
+SCOPE_GAP_PROMPT = """You are generating a ScopeGap bridge for an interview where the expert and researcher have different scope/focus.
 
 **Expert Concept:**
 - Path: {expert_path}
@@ -1657,31 +1713,38 @@ SCOPE_GAP_PROMPT = """You are generating a validate-and-pivot bridge for an inte
 **Conflict:** Expert focuses on "{expert_branch}", Researcher focuses on "{researcher_branch}"
 **Misalignment Reason:** {misalignment_reason}
 
-The expert focuses on practical functions while the researcher focuses on research value. Their expectations of "what to do" differ.
+This type should ONLY be used when the researcher has already made their own focus or concern explicit, and the expert responds by emphasizing a different concern or priority.
+
+Your output has TWO distinct jobs:
+- Further Explanation: explain in THIRD PERSON what the expert is focusing on and what the researcher is focusing on.
+- Scenario: give a SECOND-PERSON line the researcher could say directly to the expert to explain why the researcher's concern also matters.
 
 Follow a strict 2-step sequence:
 
-Step 1 — Validate: Acknowledge the expert's practical focus genuinely.
+Step 1 — Further Explanation:
+- Explain, in third person, what the expert is emphasizing right now.
+- Explain, in third person, what the researcher is trying to understand right now.
+- Make clear that the expert's concern is important, but the researcher's concern is also important for the interview goal.
 
-Step 2 — Pivot: Inject the research goal by:
-  - Highlighting a potential limitation in the expert's current approach
-  - Presenting the research goal that addresses this limitation
-  - Generating a compelling reason (value proposition)
-  - Deploying a Coarse-grained Scenario (high-level macro narrative)
+Step 2 — Scenario:
+- Write a SECOND-PERSON line the researcher could say directly to the expert.
+- The line should explain why the researcher's concern also matters, without dismissing the expert's concern.
+- It should sound like a natural follow-up the researcher can actually say in the interview.
+- It should help the expert understand the relevance of the researcher's concern.
 
 THREE RULES to enforce:
-1. **Injection Strategy**: Use a "Validate & Pivot" template: "Your focus on [Practical Utility] is highly applicable, but we might encounter [Potential Limitation]. Solving [Research Goal] helps us overcome this because..."
-2. **Persuasion Rule**: Do NOT merely state the research is a "necessary step." Actively generate compelling reasons showing how the research safeguards or enhances the expert's interests.
-3. **Scenario Rule**: Deploy the Coarse-grained Scenario specifically as a persuasive tool to visualize the macro-level benefit. Keep it at the "story" level — what happens on a typical day AFTER adoption. NO technical details, NO budget arguments.
+1. **Further Explanation Rule**: pivot.condensed_explanation must be THIRD PERSON. Do NOT use "I" or "you". Explicitly name "the expert" and "the researcher".
+2. **Balance Rule**: Make it clear that the expert's concern is important, but the researcher's concern is also important for the interview goal.
+3. **Scenario Rule**: pivot.coarse_scenario must be SECOND PERSON, written as something the researcher could say directly to the expert. It should recommend how to explain the researcher's concern, not narrate a generic adoption story.
 
 Return ONLY valid JSON:
 {{
-  "validate_focus": "1-2 sentences acknowledging the expert's practical focus",
+  "validate_focus": "1-2 sentences acknowledging the expert's current concern",
   "pivot": {{
-    "limitation": "A real limitation of the expert's current approach",
-    "research_goal": "The researcher's goal that addresses this",
-    "compelling_reason": "Why the expert should care (framed as what they GAIN)",
-    "coarse_scenario": "2-3 sentence narrative of a typical day after adoption (no technical details, no budget)"
+    "limitation": "What remains missed if the conversation stays only on the expert's current concern",
+    "research_goal": "What the researcher is actually trying to understand",
+    "compelling_reason": "Why the researcher's concern also matters without dismissing the expert's concern",
+    "coarse_scenario": "1-2 sentence SECOND-PERSON line the researcher could say directly to the expert to explain why the researcher's concern matters"
   }}
 }}
 """
@@ -1826,9 +1889,9 @@ def generate_all_assistance_payloads(
     alignments: TreeAlignments,
 ) -> List[GapLink]:
     """Generate type-specific assistance payloads for all GapLinks concurrently."""
-    # Scale default workers with key-pool size: 6 concurrent calls per key
+    # Scale default workers with key-pool size: 3 concurrent calls per key
     pool_size = len(_KEY_POOL) if _KEY_POOL else 1
-    default_workers = max(5, pool_size * 6)
+    default_workers = max(5, pool_size * 3)
     max_workers = max(1, int(os.getenv("DSAG_PAYLOAD_MAX_WORKERS", str(default_workers))))
     print(f"[GraphFactory] Generating assistance payloads for {len(links)} links concurrently "
           f"(workers={max_workers}, key_pool={pool_size})...")
@@ -2186,7 +2249,7 @@ class GraphFactory:
         for i, q in enumerate(questions):
             if not isinstance(q, dict):
                 continue
-            qid = q.get("id", f"q_{i + 1:02d}")
+            qid = str(q.get("id", "")).strip() or f"q_{i + 1:02d}"
             text = str(q.get("text", "")).strip()
             if text:
                 result.append({"id": qid, "text": text})
@@ -2668,7 +2731,7 @@ class GraphFactory:
                     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as tp:
                         fut_exp = tp.submit(
                             self.generate_per_question_expert_tree,
-                            topic, expert_bg, qtext, qid, dep_context,
+                            topic, expert_bg, researcher_bg, qtext, qid, dep_context,
                         )
                         fut_res = tp.submit(
                             self.generate_per_question_researcher_tree,

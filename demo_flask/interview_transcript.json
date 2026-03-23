@@ -1,0 +1,468 @@
+{
+  "saved_at": "2026-03-22T14:15:45",
+  "message_count": 8,
+  "messages": [
+    {
+      "role": "researcher",
+      "content": "What’s your common grading workflow for these assignments?",
+      "source": "text",
+      "turn_index": 1
+    },
+    {
+      "role": "expert",
+      "content": "I usually start by skimming all the submissions to get a sense of the range—what’s clearly strong, what’s struggling, and where the middle clump is. Then I go back and grade them one by one against the rubric, but honestly, I’m constantly toggling between the rubric, the student’s code or write-up, my notes from class, and sometimes even past submissions if it’s a repeat project. Half the time, I’m making judgment calls that don’t cleanly map to the rubric categories—like when a team’s solution is messy but shows real creative problem-solving. I just… know it’s a B+ instead of an A-, but explaining why in writing takes way longer than the actual decision.",
+      "source": "ai_interviewee",
+      "turn_index": 1,
+      "dsag_analysis": {
+        "located": {
+          "expert": {
+            "best_leaf_id": "q_01__exp_leaf_00_00_00",
+            "confidence": 0.85,
+            "top_results": [
+              {
+                "node_id": "q_01__exp_leaf_00_00_00",
+                "label": "The Holistic Skim",
+                "description": "I always start by skimming the whole report to get the scope and direction before I dive into the details.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_01__exp_leaf_00_01_00",
+                "label": "Rubric Friction",
+                "description": "I get stuck when a student's work doesn't fit neatly into the rubric categories and have to second-guess my judgment.",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_01__exp_leaf_00_00_01",
+                "label": "Non-Linear Navigation",
+                "description": "I don't read straight through; I jump back and forth if the conclusion makes me question the methodology.",
+                "score": 0.7,
+                "snapped": true,
+                "snap_reason": "Low confidence match (score=0.70)"
+              }
+            ]
+          },
+          "researcher": {
+            "best_leaf_id": "q_01__res_leaf_00_00_00",
+            "confidence": 0.85,
+            "top_results": [
+              {
+                "node_id": "q_01__res_leaf_00_00_00",
+                "label": "Map application switching sequences",
+                "description": "Identify the specific order of applications used (e.g., LMS -> PDF Editor -> Spreadsheet) and where manual data transfer occurs.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_01__res_leaf_01_00_00",
+                "label": "Trace information foraging path",
+                "description": "Map the linear or non-linear order in which sections of a report are read (e.g., Abstract first vs. Code first vs. Rubric first).",
+                "score": 0.8,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_01__res_leaf_01_01_00",
+                "label": "Pinpoint rubric consultation timing",
+                "description": "Clarify exactly when the grading rubric is opened relative to reading the content (pre-reading, concurrent, or post-reading).",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              }
+            ]
+          }
+        },
+        "confidence_warning": "No direct mismatch link was found for the top matched expert/researcher leaves; showing the no-mismatch fallback.",
+        "uncertain_interpretation": {
+          "status": "No mismatch requiring system intervention has been found yet.",
+          "candidates": []
+        }
+      },
+      "jargon_terms": [
+        {
+          "term": "rubric",
+          "desc": "A set of criteria and standards used to grade student work, often outlining what is expected for different score levels."
+        },
+        {
+          "term": "judgment calls",
+          "desc": "Subjective decisions made by the grader when the assignment doesn’t clearly fit predefined grading criteria."
+        }
+      ]
+    },
+    {
+      "role": "researcher",
+      "content": "What are the main challenges you face when grading project reports? (e.g., massive volume? maintaining consistent grading standards?)",
+      "source": "text",
+      "turn_index": 2
+    },
+    {
+      "role": "expert",
+      "content": "Honestly, the biggest headache is keeping consistency when you’re deep in the weeds of one report and then jump to another that’s totally different in style or quality—it’s easy to drift from the rubric without realizing it. And yeah, volume doesn’t help; after the tenth report, your brain starts shortcutting, especially if they’re all using slightly different frameworks or approaches that make direct comparison messy.",
+      "source": "ai_interviewee",
+      "turn_index": 2,
+      "dsag_analysis": {
+        "located": {
+          "expert": {
+            "best_leaf_id": "q_02__exp_leaf_00_00_00",
+            "confidence": 0.85,
+            "top_results": [
+              {
+                "node_id": "q_02__exp_leaf_00_00_00",
+                "label": "Standard Drift & Fatigue",
+                "description": "You start strict on the first few, but by the tenth, fatigue or weird quality swings make you let slides slip. You realize you're grading against a moving target.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_02__exp_leaf_00_00_01",
+                "label": "Grading Confidence Erosion",
+                "description": "When work varies so much, you start second-guessing if you're applying the same standard. Adds a lot of mental weight and slows you down.",
+                "score": 0.8,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_02__exp_leaf_00_00_02",
+                "label": "Rubric Dimension Juggling",
+                "description": "Trying to track research, structure, and clarity all at once. Easy to get lost in the details and forget to check the big picture.",
+                "score": 0.7,
+                "snapped": true,
+                "snap_reason": "Low confidence match (score=0.70)"
+              }
+            ]
+          },
+          "researcher": {
+            "best_leaf_id": "q_02__res_leaf_00_00_00",
+            "confidence": 0.75,
+            "top_results": [
+              {
+                "node_id": "q_02__res_leaf_00_00_00",
+                "label": "How often do rigid rubric criteria fail to capture novel or unexpected student solutions?",
+                "description": "Identify instances where valid work is penalized due to lack of rubric flexibility, highlighting validity threats.",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_02__res_leaf_00_01_00",
+                "label": "How difficult is it to maintain scoring parity between the first and last report graded in a batch?",
+                "description": "Explore the challenge of standard drift over time without focusing on the fatigue phase itself.",
+                "score": 0.7,
+                "snapped": true,
+                "snap_reason": "Low confidence match (score=0.70)"
+              },
+              {
+                "node_id": "q_02__res_leaf_01_00_01",
+                "label": "How does switching between multiple digital artifacts (code, video, text) impact grading flow?",
+                "description": "Assess the disruption caused by multimodal submission formats on the grader's focus.",
+                "score": 0.65,
+                "snapped": true,
+                "snap_reason": "Low confidence match (score=0.65)"
+              }
+            ]
+          }
+        },
+        "confidence_warning": "",
+        "uncertain_interpretation": {},
+        "divergence": {
+          "lca_layer": "L1",
+          "expert_branch": "Consistency Drift & Volume Fatigue",
+          "researcher_branch": "Rigid Rubric & Novel Solutions",
+          "explanation": "Category-level difference within the same perspective. Expert: 'Standard Drift & Fatigue', You: 'How often do rigid rubric criteria fail to capture novel or unexpected student solutions?'. Try connecting through shared workflow concepts."
+        },
+        "assistance": {
+          "relation_type": "ConceptualGap",
+          "payload": {
+            "analogy": {
+              "source_concept": "drift from the rubric without realizing it",
+              "target_concept": "trying to match paint colors as the sun sets",
+              "structural_mapping": {
+                "inputs": "Varying student work submissions / Fading natural light conditions",
+                "logic": "Uncertainty grows as variance increases / Perception shifts as visibility decreases",
+                "outputs": "Inconsistent grading standards / Inconsistent color matching"
+              },
+              "explanation": "When you said 'it’s easy to drift from the rubric without realizing it,' this is like trying to match paint colors as the sun sets—what looked right in the morning starts looking off by afternoon, even if the colors haven’t changed.",
+              "source_evidence": {
+                "quote": "drift from the rubric without realizing it",
+                "start_char": 181,
+                "end_char": 223
+              }
+            },
+            "scenario": "When you said your brain starts shortcutting on the tenth report, does that mean the rubric feels less helpful when the work is all over the place, or when your focus has started to wane?"
+          }
+        },
+        "selected_link": {
+          "expert_leaf_id": "q_02__exp_leaf_00_00_00",
+          "researcher_leaf_id": "q_02__res_leaf_00_00_00",
+          "relation_type": "ConceptualGap",
+          "weight": 6.0
+        }
+      },
+      "jargon_terms": [
+        {
+          "term": "rubric",
+          "desc": "A set of criteria or guidelines used to assess and score student work consistently"
+        },
+        {
+          "term": "brain starts shortcutting",
+          "desc": "Mental fatigue leads to taking cognitive shortcuts, like relying on gut feelings instead of careful evaluation"
+        }
+      ]
+    },
+    {
+      "role": "researcher",
+      "content": "When faced with a massive volume of lengthy assignments (e.g., project reports) at the end of the term, what is your general mindset? Which specific phase of the grading causes you the most cognitive or emotional exhaustion?",
+      "source": "text",
+      "turn_index": 3
+    },
+    {
+      "role": "expert",
+      "content": "By the time I’m deep into the stack, I’m just trying to stay fair without burning out—my mindset shifts from “teaching through feedback” to “get through this without messing up.” The worst part is the middle phase: after the first few, when you’re not fresh anymore but still have dozens left, and every report demands you reorient to a new structure, argument flow, or codebase. That constant context-switching while holding the rubric in your head? That’s what drains me.",
+      "source": "ai_interviewee",
+      "turn_index": 3,
+      "dsag_analysis": {
+        "located": {
+          "expert": {
+            "best_leaf_id": "q_03__exp_leaf_01_00_01",
+            "confidence": 0.85,
+            "top_results": [
+              {
+                "node_id": "q_03__exp_leaf_01_00_01",
+                "label": "Decision Fatigue Wall",
+                "description": "By the middle, tracking inconsistencies (like methodology vs conclusion) feels like juggling plates. Deciding if a paragraph is 'B+' or 'A-' feels like lifting weights.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_03__exp_leaf_01_01_00",
+                "label": "The Translation Tax",
+                "description": "Reading is easy; writing the comment that doesn't crush their soul but fixes the error? That's where my brain fries. Often I'm just writing the same few comments over and over.",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_03__exp_leaf_02_00_00",
+                "label": "The \"Deep Dive\" Rationing",
+                "description": "I unconsciously pick only one or two papers to read deeply. The rest get the standard scan. It's unfair, but it's how I survive the stack.",
+                "score": 0.7,
+                "snapped": true,
+                "snap_reason": "Low confidence match (score=0.70)"
+              }
+            ]
+          },
+          "researcher": {
+            "best_leaf_id": "q_03__res_leaf_02_00_00",
+            "confidence": 0.85,
+            "top_results": [
+              {
+                "node_id": "q_03__res_leaf_02_00_00",
+                "label": "Detect Mentor-to-Auditor Mindset Shift",
+                "description": "Investigate if experts shift from a 'pedagogical mindset' to an 'audit mindset' to cope with volume, and how this affects satisfaction.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_03__res_leaf_02_00_01",
+                "label": "Correlate Mindset with Exhaustion Phases",
+                "description": "Understand if specific mindset shifts correlate with the phases of highest cognitive or emotional exhaustion.",
+                "score": 0.8,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_03__res_leaf_01_00_01",
+                "label": "Analyze Cumulative vs. Session-Based Fatigue",
+                "description": "Determine if exhaustion is cumulative across days or resettable within a single session to inform scheduling tools.",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              }
+            ]
+          }
+        },
+        "confidence_warning": "No direct mismatch link was found for the top matched expert/researcher leaves; showing the no-mismatch fallback.",
+        "uncertain_interpretation": {
+          "status": "No mismatch requiring system intervention has been found yet.",
+          "candidates": []
+        }
+      },
+      "jargon_terms": [
+        {
+          "term": "rubric",
+          "desc": "A set of criteria or guidelines used to assess and grade student work consistently"
+        },
+        {
+          "term": "context-switching",
+          "desc": "The mental effort required to shift attention between different tasks, topics, or frameworks—in this case, adapting to each new student report’s unique structure and content"
+        }
+      ]
+    },
+    {
+      "role": "researcher",
+      "content": "Many experienced educators rely on 'intuition' to quickly gauge whether a report is an A or a C. If you had to explain this to a novice Teaching Assistant, what 2 to 3 objective cues actually underlie this 'gut feeling'?",
+      "source": "text",
+      "turn_index": 4
+    },
+    {
+      "role": "expert",
+      "content": "Honestly, it’s less about gut feeling and more about pattern recognition after seeing hundreds of these. If I had to tell a new TA what to look for: first, how well the student anticipates and addresses edge cases or counterarguments—that separates surface-level from deep understanding. Second, the coherence of the narrative or architecture; strong work just *flows*, while weaker stuff feels patchy or reactive. And maybe third—though this is harder to pin down—the precision of their language or code. Sloppy terminology or inconsistent abstractions usually signal they’re faking it till they make it.",
+      "source": "ai_interviewee",
+      "turn_index": 4,
+      "dsag_analysis": {
+        "located": {
+          "expert": {
+            "best_leaf_id": "q_04__exp_leaf_00_01_00",
+            "confidence": 0.8,
+            "top_results": [
+              {
+                "node_id": "q_04__exp_leaf_00_01_00",
+                "label": "The \"So What?\" Factor",
+                "description": "I look for the moment where they stop describing what happened or restating the textbook, and start explaining why it matters or what it implies.",
+                "score": 0.8,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_04__exp_leaf_00_00_01",
+                "label": "Narrative Flow & Transitions",
+                "description": "If the report jumps around without clear transitions, it's a red flag that the thinking isn't solid or the logic has gaps.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_04__exp_leaf_01_01_01",
+                "label": "Tone & Voice Consistency",
+                "description": "If the writing sounds like they're trying too hard to sound smart, or the tone shifts suddenly, it feels inauthentic or copied.",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              }
+            ]
+          },
+          "researcher": {
+            "best_leaf_id": "q_04__res_leaf_01_00_00",
+            "confidence": 0.9,
+            "top_results": [
+              {
+                "node_id": "q_04__res_leaf_01_00_00",
+                "label": "Subjective-to-Objective Translation",
+                "description": "Investigate how to rewrite vague rubric terms (e.g., 'deep analysis') into the specific objective cues identified by the expert.",
+                "score": 0.9,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_04__res_leaf_01_00_01",
+                "label": "Triage Cue Identification",
+                "description": "Identify 'dealbreaker' cues that allow novices to quickly flag low-quality work for deeper review, optimizing their grading time.",
+                "score": 0.85,
+                "snapped": false,
+                "snap_reason": ""
+              },
+              {
+                "node_id": "q_04__res_leaf_00_00_00",
+                "label": "Textual & Visual Marker Identification",
+                "description": "Determine which specific textual patterns (e.g., sentence complexity) or visual elements (e.g., figure resolution) serve as primary triggers for the expert's initial quality estimate.",
+                "score": 0.75,
+                "snapped": false,
+                "snap_reason": ""
+              }
+            ]
+          }
+        },
+        "confidence_warning": "",
+        "uncertain_interpretation": {},
+        "divergence": {
+          "lca_layer": "L2",
+          "expert_branch": "Pattern Recognition",
+          "researcher_branch": "Objective Cues Translation",
+          "explanation": "Specific difference at detail level. Expert: 'The \"So What?\" Factor', You: 'Subjective-to-Objective Translation'. You can use concrete examples to bridge."
+        },
+        "assistance": {
+          "relation_type": "TacitGap",
+          "payload": {
+            "attributes": [
+              "Transition Point",
+              "Evidence Type"
+            ],
+            "probes": [
+              {
+                "attribute": "Transition Point",
+                "question": "Does the shift in focus rely on a clear verbal marker, like a pause or phrase, or is it more subtle?",
+                "choices": [
+                  "Clear verbal marker",
+                  "Subtle shift without marker",
+                  "Something else"
+                ]
+              },
+              {
+                "attribute": "Evidence Type",
+                "question": "What kind of support does the speaker use to back their insight—personal experience, data, or external validation?",
+                "choices": [
+                  "Personal experience",
+                  "Data or research",
+                  "External validation",
+                  "Something else"
+                ]
+              }
+            ],
+            "hypothetical_scenarios": [
+              {
+                "scenario": "If the speaker pauses for 5 seconds before stating the implication instead of 1 second, would your judgment about 'The \"So What?\" Factor' change?",
+                "attribute": "Transition Point"
+              },
+              {
+                "scenario": "If the implication is supported by anecdotal evidence versus peer-reviewed data, would your judgment about 'The \"So What?\" Factor' change?",
+                "attribute": "Evidence Type"
+              }
+            ],
+            "extracted_attributes": [
+              "Content Shift",
+              "Actionability Level",
+              "Insight Novelty"
+            ],
+            "mentioned_attributes": [
+              "Content Shift",
+              "Actionability Level",
+              "Insight Novelty"
+            ],
+            "extracted_quotes": [
+              "how well the student anticipates and addresses edge cases or counterarguments",
+              "the coherence of the narrative or architecture",
+              "the precision of their language or code"
+            ]
+          }
+        },
+        "selected_link": {
+          "expert_leaf_id": "q_04__exp_leaf_00_01_00",
+          "researcher_leaf_id": "q_04__res_leaf_01_00_00",
+          "relation_type": "TacitGap",
+          "weight": 3.0000000000000004
+        }
+      },
+      "jargon_terms": [
+        {
+          "term": "edge cases",
+          "desc": "Unusual or extreme situations that a solution might not handle well, often revealing how thoroughly a student has thought through their work"
+        },
+        {
+          "term": "coherence of the narrative or architecture",
+          "desc": "How logically and smoothly the ideas or system design fit together—whether the report tells a clear, consistent story or feels disjointed"
+        },
+        {
+          "term": "abstractions",
+          "desc": "Simplified representations of complex ideas or systems; inconsistent use suggests the student doesn’t fully grasp the underlying concepts"
+        }
+      ]
+    }
+  ]
+}

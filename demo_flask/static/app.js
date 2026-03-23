@@ -258,6 +258,28 @@ function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function createPendingResearcherBubble(text) {
+  if (!chatWindow || !text) return null;
+
+  const row = document.createElement("div");
+  row.className = "message-row researcher-row pending-message-row";
+  row.innerHTML = `
+    <div class="message-card researcher-card pending-message-card">
+      <div class="message-header">
+        <span class="message-role">Researcher</span>
+        <span class="badge badge-pending">Sending...</span>
+      </div>
+      <div class="message-content">${escapeHtml(text)}</div>
+    </div>
+    <div class="message-avatar researcher-avatar">🧑‍💻</div>
+  `;
+
+  chatWindow.appendChild(row);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  sessionStorage.setItem("chatScrollPos", chatWindow.scrollTop.toString());
+  return row;
+}
+
 function parseDatasetArray(rawValue) {
   if (!rawValue) return [];
   try {
@@ -695,6 +717,92 @@ function handleFollowupClick(event) {
 
 document.querySelectorAll(".clickable-followup").forEach((item) => {
   item.addEventListener("click", handleFollowupClick);
+});
+
+// ============== Optimistic Researcher Send ==============
+
+const optimisticResearcherForm = document.getElementById("researcherForm");
+const optimisticResearcherInput = document.getElementById("researcherInput");
+
+if (optimisticResearcherForm && optimisticResearcherInput) {
+  optimisticResearcherForm.addEventListener("submit", () => {
+    const text = optimisticResearcherInput.value.trim();
+    if (!text) return;
+
+    createPendingResearcherBubble(text);
+
+    // Preserve the submitted text in a hidden field before clearing the
+    // visible textarea, otherwise the browser may submit an empty value.
+    let hiddenField = optimisticResearcherForm.querySelector(
+      'input[data-optimistic-shadow="researcher"]'
+    );
+    if (!hiddenField) {
+      hiddenField = document.createElement("input");
+      hiddenField.type = "hidden";
+      hiddenField.name = "researcher_input";
+      hiddenField.setAttribute("data-optimistic-shadow", "researcher");
+      optimisticResearcherForm.appendChild(hiddenField);
+    }
+    hiddenField.value = text;
+
+    if (optimisticResearcherInput.name) {
+      optimisticResearcherInput.dataset.originalName = optimisticResearcherInput.name;
+      optimisticResearcherInput.name = "";
+    }
+    optimisticResearcherInput.value = "";
+
+    const sendButton = optimisticResearcherForm.querySelector(".btn-send");
+    if (sendButton) {
+      sendButton.disabled = true;
+      sendButton.textContent = "Sending...";
+    }
+  });
+}
+
+// ============== Transcript Summary Jump Links ==============
+
+let transcriptJumpTimeout = null;
+
+function clearTranscriptJumpHighlights() {
+  document.querySelectorAll(".conversation-jump-highlight").forEach((el) => {
+    el.classList.remove("conversation-jump-highlight");
+  });
+  document.querySelectorAll(".ts-sub-bullet-active").forEach((el) => {
+    el.classList.remove("ts-sub-bullet-active");
+  });
+  if (transcriptJumpTimeout) {
+    window.clearTimeout(transcriptJumpTimeout);
+    transcriptJumpTimeout = null;
+  }
+}
+
+function handleTranscriptSummaryJump(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const item = event.currentTarget;
+  const turn = String(item.dataset.targetTurn || "").trim();
+  if (!turn) return;
+
+  const targets = Array.from(
+    document.querySelectorAll(`.message-row[data-turn-index="${turn}"]`)
+  );
+  if (targets.length === 0) return;
+
+  clearTranscriptJumpHighlights();
+  item.classList.add("ts-sub-bullet-active");
+  targets.forEach((target) => target.classList.add("conversation-jump-highlight"));
+  targets[0].scrollIntoView({ behavior: "smooth", block: "center" });
+
+  transcriptJumpTimeout = window.setTimeout(() => {
+    targets.forEach((target) => target.classList.remove("conversation-jump-highlight"));
+    item.classList.remove("ts-sub-bullet-active");
+    transcriptJumpTimeout = null;
+  }, 2500);
+}
+
+document.querySelectorAll(".ts-sub-bullet-clickable").forEach((item) => {
+  item.addEventListener("click", handleTranscriptSummaryJump);
 });
 
 // ============== Resizable Three-Panel Layout ==============

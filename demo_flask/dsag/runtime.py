@@ -288,7 +288,8 @@ class Assistance:
 
     Payload shapes by type:
     - LexicalGap:    {"term_mapping": {"expert_term", "researcher_term", "explanation"}}
-    - ConceptualGap: {"analogy": {"source_concept", "source_evidence": {"quote", "start_char", "end_char"},
+    - ConceptualGap: {"analogy": {"source_concept", "target_concept",
+                      "source_evidence": {"quote", "start_char", "end_char"},
                       "structural_mapping": {inputs, logic, outputs}, "explanation"},
                       "scenario": "single prose paragraph (situation → researcher lens → tension point, max 60 words)"}
     - TacitGap:      {"attributes": [...], "probes": [{attribute, question, choices}],
@@ -469,11 +470,29 @@ class RuntimeEngine:
             }
         if relation == RelationType.SCOPE_GAP.value:
             return {
+                "validate_focus": (
+                    f"I can see why the expert is emphasizing '{expert_label}' here."
+                ),
                 "pivot": {
                     "condensed_explanation": (
-                        f"Expert answer focuses on '{expert_label}', while your question targets "
-                        f"'{researcher_label}'. A bridging question can connect these scopes."
-                    )
+                        f"The expert is emphasizing '{expert_label}', while your question is trying to understand "
+                        f"'{researcher_label}'. A useful next move is to acknowledge the expert's concern first, "
+                        "then explain why your concern also matters for understanding the practice."
+                    ),
+                    "limitation": (
+                        f"If the conversation stays only on '{expert_label}', part of the researcher's focus may remain unclear."
+                    ),
+                    "research_goal": (
+                        f"The researcher is trying to clarify '{researcher_label}' in a way the expert can connect to practice."
+                    ),
+                    "compelling_reason": (
+                        "Making that concern explicit can help the expert see that the question still supports what they care about."
+                    ),
+                    "coarse_scenario": (
+                        f"Imagine needing to explain to another instructor not just why '{expert_label}' matters, "
+                        f"but also how '{researcher_label}' changes what you notice. "
+                        "That extra explanation makes the reasoning easier to follow without dismissing the expert's priority."
+                    ),
                 }
             }
         if relation == RelationType.PROCESS_GAP.value:
@@ -595,6 +614,19 @@ POLISHABLE fields:
   - analogy.explanation — make it a fluent sentence the researcher could speak
     naturally. Reference the expert's actual vocabulary from their answer.
     Connect it to what was just discussed in the Q&A exchange.
+  - analogy.target_concept — rewrite to a short, plain-language target phrasing
+    that helps the researcher understand the expert's concept more directly;
+    keep it simple and non-jargon (<= 12 words).
+    It MUST preserve the same underlying mechanism, failure mode, shift, or
+    judgment pattern as the original concept.
+    It must NOT rely only on mood, vibe, or poetic similarity.
+    It must NOT replace an internal state with an unrelated external scene
+    unless that scene preserves the exact same mechanism.
+    Keep the abstraction level aligned when possible.
+    Prefer a short everyday phrase over a colorful metaphor or overly specific
+    mini-case.
+    Sanity check: after reading target_concept alone, a non-expert researcher
+    should be less confused, not more confused, about what the expert means.
 
 SOURCE GROUNDING (STRICT):
   - analogy.source_concept MUST be an exact substring copied from the expert's latest answer.
@@ -678,40 +710,47 @@ POLISHABLE fields:
   moment, not like a generic template.""",
 
         RelationType.SCOPE_GAP.value: """## ScopeGap polishing rules
-FROZEN fields (copy verbatim — do NOT alter):
-  - pivot.limitation (the factual limitation statement)
-  - pivot.research_goal (the factual research goal)
+This assistance has TWO distinct jobs:
+- Further Explanation: third-person explanation of what the expert is focusing on and what the researcher is focusing on.
+- Scenario: a second-person line the researcher could say directly to the expert.
+
+CRITICAL GATING:
+- Use this type ONLY when the researcher's current question already makes their own focus, goal, or concern explicit,
+  and the expert's answer responds by emphasizing a different concern, practical priority, or success criterion.
+- If that explicit focus-shift pattern is not clearly present in the CURRENT exchange, return:
+  {"payload": {}}
 
 POLISHABLE fields:
-  - validate_focus — this is the empathetic acknowledgment of the expert's
-    practical concern. Rewrite it to echo the expert's OWN words and tone.
-    It should feel genuinely validating, not formulaic.
-  - pivot.compelling_reason — make it persuasive and concrete. Show what the
-    expert GAINS. Do NOT just say "it's a necessary step."
-  - pivot.coarse_scenario — a 2-3 sentence "day after adoption" narrative.
-    Keep it at story level, NO technical details, NO budget arguments.
-    Make it vivid and relatable to the expert's world.
+  - validate_focus — keep this concise and neutral. It may acknowledge the
+    expert's current concern, but it should NOT introduce ambiguous "I/you"
+    references that make the speaker unclear in the UI.
+  - pivot.limitation — rewrite into a third-person explanation of what remains
+    unseen or underspecified if the conversation stays only on the expert's
+    current concern.
+  - pivot.research_goal — rewrite into a third-person explanation of what the
+    researcher is actually trying to understand in this exchange.
+  - pivot.compelling_reason — make it persuasive from the expert's perspective.
+    Show why engaging the researcher's concern still protects or supports what
+    the expert cares about.
+  - pivot.coarse_scenario — rewrite as a SECOND-PERSON line the researcher
+    could say directly to the expert. It should explain why the researcher's
+    concern also matters, while respecting the expert's concern.
 
 NEW REQUIRED field:
-  - pivot.condensed_explanation — produce a concise 2-3 sentence summary that
-    combines the essence of limitation, research_goal, and compelling_reason
-    into a single flowing paragraph. This is what the user sees first (the
-    detailed fields are hidden). Make it natural and persuasive, grounded in
-    the expert's actual words from the conversation.
+  - pivot.condensed_explanation — produce a concise 2-3 sentence "Further
+    Explanation" in THIRD PERSON. It must explicitly state:
+      1. what the expert is focusing on,
+      2. what the researcher is focusing on,
+      3. that both concerns matter,
+      4. why they are diverging in this exchange.
+    Do NOT use "I" or "you" here.
 
 ADDITIONAL PRIORITY:
-  - Make the explanation maximally helpful for showing the user why the
-    expert's current concern and the researcher's current goal are misaligned
-    in this moment.
-  - Prefer wording that helps the user understand how to pivot without losing
-    the expert.
-  - Make pivot.condensed_explanation directly explain:
-      1. what the expert is optimizing for right now,
-      2. what the researcher is trying to obtain,
-      3. why they are misaligned in this exact exchange,
-      4. what conversational bridge would help next.
-  - Make pivot.coarse_scenario feel like the user's next move in THIS interview,
-    not a generic adoption story.""",
+  - Do NOT make the expert sound wrong; make the focus mismatch legible.
+  - Keep Further Explanation easy to scan and role-explicit.
+  - Keep Scenario directly speakable by the researcher.
+  - Make Scenario feel like a recommendation to explain the researcher's
+    concern, not a generic adoption story.""",
 
         RelationType.PROCESS_GAP.value: """## ProcessGap polishing rules
 ProcessGap has two sub-types. Check the "sub_type" field to determine which.
@@ -830,10 +869,13 @@ This means:
         parsed = _parse_json_from_text(content)
         force_context_types = {
             RelationType.CONCEPTUAL_GAP.value,
-            RelationType.SCOPE_GAP.value,
             RelationType.TACIT_GAP.value,
         }
         if not parsed:
+            if assistance.relation_type == RelationType.SCOPE_GAP.value:
+                # ScopeGap must pass the explicit focus-shift gate in the polish
+                # step; if the model does not return a valid payload, suppress it.
+                return Assistance()
             if assistance.relation_type in force_context_types:
                 fallback = Assistance(relation_type=assistance.relation_type)
                 fallback_payload = self._must_contextualize_payload(
@@ -867,6 +909,15 @@ This means:
 
         polished = Assistance(relation_type=assistance.relation_type)
         polished.payload = parsed.get("payload", assistance.payload)
+        if polished.relation_type == RelationType.SCOPE_GAP.value:
+            if not polished.payload:
+                return Assistance()
+            polished.payload = self._must_contextualize_payload(
+                relation=polished.relation_type,
+                payload=polished.payload,
+                researcher_question=researcher_question,
+                expert_answer=expert_answer,
+            )
         if polished.relation_type in force_context_types:
             polished.payload = self._must_contextualize_payload(
                 relation=polished.relation_type,
@@ -984,19 +1035,40 @@ This means:
             return out
 
         if relation == RelationType.SCOPE_GAP.value:
+            validate_focus = str(out.get("validate_focus", "")).strip()
+            if not validate_focus:
+                out["validate_focus"] = (
+                    f'The expert is currently emphasizing "{ea_short}". '
+                    "That concern is important and worth keeping in view."
+                )
             pivot = dict(out.get("pivot", {}))
+            limitation = str(pivot.get("limitation", "")).strip()
+            if not limitation:
+                pivot["limitation"] = (
+                    f'If the conversation stays only on "{ea_short}", '
+                    f'the researcher\'s focus on "{rq_short}" may remain underspecified.'
+                )
+            research_goal = str(pivot.get("research_goal", "")).strip()
+            if not research_goal:
+                pivot["research_goal"] = (
+                    f'The researcher is trying to understand "{rq_short}" and how it matters within the expert\'s practice.'
+                )
+            compelling = str(pivot.get("compelling_reason", "")).strip()
+            if not compelling:
+                pivot["compelling_reason"] = (
+                    "Making that concern explicit can help the expert see that the researcher's line of questioning still supports the standards or outcomes the expert cares about."
+                )
             condensed = str(pivot.get("condensed_explanation", "")).strip()
             if not condensed:
                 pivot["condensed_explanation"] = (
-                    f'Your current question focuses on "{rq_short}", while this answer stresses "{ea_short}". '
-                    "A better bridge is to acknowledge the expert's immediate concern first, then pivot to your target scope in a way that still sounds useful to them."
+                    f'The expert is currently emphasizing "{ea_short}", while the researcher is trying to understand "{rq_short}". '
+                    "Both concerns matter in this exchange, but they are not the same immediate focus. "
+                    "A useful bridge is to connect the researcher's concern back to the practical outcome the expert already cares about."
                 )
             coarse = str(pivot.get("coarse_scenario", "")).strip()
             if not coarse:
                 pivot["coarse_scenario"] = (
-                    f'In the next turn, first reflect back the expert concern in "{ea_short}", '
-                    f'then connect it to what you were trying to learn in "{rq_short}". '
-                    "That bridge should make the pivot feel like a continuation of the expert's priorities, not a topic change."
+                    f'When you emphasize "{ea_short}", could you also explain how "{rq_short}" helps make that judgment clearer or more consistent in practice?'
                 )
             out["pivot"] = pivot
             return out
@@ -1749,9 +1821,12 @@ Return ONLY valid JSON with top-level key "payload".""")
         located: LocatedPosition,
     ) -> Optional[GapLink]:
         """
-        Find the link between the top-1 expert leaf and top-1 researcher leaf.
-        If no direct link exists between them, return None (show 'No mismatch').
+        Prefer the direct top-1 ↔ top-1 link.
+        If absent, scan the top-3 × top-3 candidate pairs and return the
+        existing non-ProcessGap link with the highest mean match score, but
+        only when both leaf scores are at least 0.7.
         """
+        match_threshold = 0.7
         expert_leaf_id = located.best_expert_leaf_id
         researcher_leaf_id = located.best_researcher_leaf_id
         if not expert_leaf_id or not researcher_leaf_id:
@@ -1760,6 +1835,34 @@ Return ONLY valid JSON with top-level key "payload".""")
         link = self.graph.get_link(expert_leaf_id, researcher_leaf_id)
         if link and link.relation_type != RelationType.PROCESS_GAP.value:
             return self._ensure_actionable_link(link)
+
+        best_link: Optional[GapLink] = None
+        best_score = -1.0
+
+        for expert_result in located.expert_results[:3]:
+            if expert_result.score < match_threshold:
+                continue
+            for researcher_result in located.researcher_results[:3]:
+                if researcher_result.score < match_threshold:
+                    continue
+
+                candidate_link = self.graph.get_link(
+                    expert_result.node_id,
+                    researcher_result.node_id,
+                )
+                if (
+                    not candidate_link
+                    or candidate_link.relation_type == RelationType.PROCESS_GAP.value
+                ):
+                    continue
+
+                pair_score = 0.5 * expert_result.score + 0.5 * researcher_result.score
+                if pair_score > best_score:
+                    best_score = pair_score
+                    best_link = candidate_link
+
+        if best_link:
+            return self._ensure_actionable_link(best_link)
 
         return None
 

@@ -38,14 +38,19 @@ Session(app)
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Prof. Smith.
-Professional Role: Senior University Faculty / Course Lead.
-Work Experience: Extensive experience in evaluating and grading project-based assignments, such as complex project reports and term papers.
-Current Situation: Currently at the end of the semester, facing a massive volume of lengthy project reports; operating under high cognitive and emotional load.
-Expertise & Skills:
-(1) Highly proficient in using standardized Rubrics for routine evaluations.
-(2) Possesses a mature "grading intuition," capable of quickly gauging work quality through subtle objective cues.
-(3) Experienced in supervising and training junior Teaching Assistants (TAs) on grading standards.
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Occupational Therapist (OT) / Clinical Geriatric Rehabilitation Specialist
+
+Work Experience: Extensive frontline clinical experience in hospital wards and care facilities. Has conducted hundreds of routine cognitive assessments (e.g., Abbreviated Mental Test - AMT) for patients with varying degrees of dementia, cognitive impairment, or physical limitations.
+
+Expertise:
+Deeply familiar with the unpredictable, chaotic dynamics of real-world clinical environments; skilled in dynamically adjusting the pacing and tone of assessments based on a patient's real-time emotional and physical state.
+
+Highly capable of relying on "clinical intuition" (tacit knowledge) to identify subtle signs of patient distress, agitation, or fatigue (e.g., micro-expressions, breathing changes) long before any formal medical alarm is triggered.
+
+Core Challenges & Pain Points:
+Profoundly understands the extreme difficulty of balancing "standardized data collection" with "human-centric care"—it requires strictly following the questionnaire protocol while preventing the patient from feeling frustrated, tested, or stripped of their dignity.
+
+Finds it challenging to articulate this "clinical intuition" to non-medical professionals (especially tech developers or HCI researchers). Often feels that tech designers oversimplify clinical workflows, focusing only on "efficiency and data" while completely ignoring the unspoken, messy, and highly emotional reality of interacting with vulnerable patients.
 """
 
 
@@ -1196,12 +1201,21 @@ def index():
         researcher_source = request.form.get("researcher_source", "text")
         expert_source = request.form.get("expert_source", "text")
 
+        ts_for_turns = get_transcript_summary()
+        pending_turn_index = (
+            ts_for_turns.last_updated_turn + 1
+            if ts_for_turns and ts_for_turns.main_bullets
+            else None
+        )
+
         if researcher_text:
             researcher_msg = {
                 "role": "researcher",
                 "content": researcher_text,
                 "source": researcher_source,
             }
+            if pending_turn_index is not None:
+                researcher_msg["turn_index"] = pending_turn_index
             messages.append(researcher_msg)
 
         if researcher_text and not expert_text:
@@ -1223,11 +1237,16 @@ def index():
 
         if expert_text:
             msg = {"role": "expert", "content": expert_text, "source": expert_source}
+            turn_index = pending_turn_index
             last_question = ""
             for m in reversed(messages):
                 if m["role"] == "researcher":
                     last_question = m["content"]
+                    if turn_index is None and m.get("turn_index") is not None:
+                        turn_index = m.get("turn_index")
                     break
+            if turn_index is not None:
+                msg["turn_index"] = turn_index
 
             # ---- DSAG auto-analysis ----
             dsag_state = get_dsag_state()
