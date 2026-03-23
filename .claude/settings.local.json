@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(wc:*)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && python test_dsag_v2.py 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 60 python test_dsag_v2.py 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 15 python -c \"from dsag.schema import GapLink, DSAGState, RelationType; print\\('schema OK'\\)\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 15 python -c \"from dsag.factory import build_links_from_alignments; print\\('factory OK'\\)\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 15 python -c \"from dsag.runtime import RuntimeEngine, Assistance; print\\('runtime OK'\\)\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 30 python -c \"\nimport sys\nsys.path.insert\\(0, '.'\\)\nfrom test_dsag_v2 import test_schema\nresult = test_schema\\(\\)\nprint\\('Result:', result\\)\n\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 30 python -c \"\nimport sys\nsys.path.insert\\(0, '.'\\)\nfrom test_dsag_v2 import test_graph_factory_mock\nresult = test_graph_factory_mock\\(\\)\nprint\\('Result:', result\\)\n\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask\" && timeout 30 python -c \"\nimport sys\nsys.path.insert\\(0, '.'\\)\nfrom test_dsag_v2 import test_runtime_type_branching\nresult = test_runtime_type_branching\\(\\)\nprint\\('Result:', result\\)\n\" 2>&1)",
+      "Bash(cd C:\\\\Users\\\\Yunfei Wang\\\\Desktop\\\\hci\\\\demo_flask\\\\demo_flask:*)"
+    ]
+  }
+}

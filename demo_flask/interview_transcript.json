@@ -1,0 +1,16 @@
+{
+  "saved_at": "2026-03-23T14:04:14",
+  "message_count": 2,
+  "messages": [
+    {
+      "role": "researcher",
+      "content": "introduce yourself",
+      "source": "text"
+    },
+    {
+      "role": "expert",
+      "content": "I’m a GP and Clinical Director of Preventive Medicine, mostly working in community health centers. I’ve spent the last fifteen years doing frontline screenings—cancer, cardiac risk, you name it—for folks who often come in with layers of social, emotional, and medical complexity that no algorithm really accounts for. My day-to-day is less about ticking boxes and more about reading the room: when to slow down, when to push gently, and how to make someone feel seen while still getting the clinical data we need.",
+      "source": "ai_interviewee"
+    }
+  ]
+}
