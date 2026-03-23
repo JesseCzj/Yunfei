@@ -41,23 +41,25 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Exploring the clinical workflows, communication challenges, and underlying support needs of general practitioners conducting medical screenings for high-risk populations."
+INTERVIEW_TOPIC = "Exploring the design principles, core challenges, and competency evaluation of interdisciplinary group assignments for university students."
 
-INTERVIEWEE_DEMOGRAPHICS = """Professional Role: General Practitioner (GP) / Clinical Director of Preventive Medicine / Community Health Specialist
+INTERVIEWEE_DEMOGRAPHICS = """Name:  Prof. Chen 
 
-Work Experience: Extensive frontline clinical experience in primary care and community health centers. Has conducted thousands of routine medical screenings (e.g., early cancer detection, cardiovascular risk assessments) for diverse and high-risk patient populations.
+Professional Role: University Faculty / Interdisciplinary Course Lead / Instructional Design Expert
+
+Work Experience: Extensive frontline teaching experience in Interdisciplinary Education. Has designed, organized, and evaluated interdisciplinary collaborative projects for university students from diverse academic majors multiple times.
 
 Expertise:
 
-Deeply familiar with the unpredictable dynamics of real-world clinical workflows; skilled at dynamically adjusting standardized screening protocols based on a patient's real-time physical responses and emotional state.
+Deeply familiar with the operational dynamics of interdisciplinary teams; skilled in designing "complex course problems" that require the integration of multidisciplinary knowledge to solve.
 
-Highly capable of relying on "clinical intuition" to detect hidden symptoms, non-verbal cues, and patient omissions that standard medical questionnaires or rigid digital forms often miss.
+Highly capable of observing and evaluating the "Core Interdisciplinary Competencies" demonstrated by students during their collaboration.
 
 Core Challenges & Pain Points:
 
-Profoundly understands the extreme difficulty of balancing "standardized data collection" with "human-centric care"—it requires gathering precise metrics for risk assessment without making a vulnerable, anxious patient feel like a mere data point.
+Profoundly understands the extreme difficulty of designing a "good interdisciplinary problem"—it requires preventing any single major from dominating while also avoiding the trap of "division without collaboration" (where students just patch individual parts together).
 
-Finds it challenging to translate complex statistical concepts (like "risk probabilities" or "false positives") into actionable, empathetic advice. Often frustrated by digital diagnostic tools that oversimplify the screening process into a rigid checklist, completely ignoring the high communication costs and emotional labor required in real-world medical triaging."""
+Finds it challenging to predict the specific frictions (e.g., in ice-breaking, communication, and knowledge integration) that students from different backgrounds will experience before the assignment is officially deployed."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
