@@ -781,6 +781,8 @@ body {
 .message-content {
   font-size: 0.9375rem;
   line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Inline Jargon Highlighting in Expert Text */
@@ -825,7 +827,7 @@ body {
 }
 
 .inline-quote-highlight {
-  display: inline-block;
+  display: inline;
   background: #f59e0b;
   color: #fff;
   padding: 3px 10px;
@@ -834,9 +836,13 @@ body {
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.2;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   vertical-align: baseline;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .analysis-section {
