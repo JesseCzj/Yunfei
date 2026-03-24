@@ -41,25 +41,12 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Exploring the design principles, core challenges, and competency evaluation of interdisciplinary group assignments for university students."
+INTERVIEW_TOPIC = "Exploring the manual workflows, reliability metrics, and the critical need for biological explainability when biologists use AI-based virtual cell models for genetic perturbation"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name:  Prof. Chen 
-
-Professional Role: University Faculty / Interdisciplinary Course Lead / Instructional Design Expert
-
-Work Experience: Extensive frontline teaching experience in Interdisciplinary Education. Has designed, organized, and evaluated interdisciplinary collaborative projects for university students from diverse academic majors multiple times.
-
-Expertise:
-
-Deeply familiar with the operational dynamics of interdisciplinary teams; skilled in designing "complex course problems" that require the integration of multidisciplinary knowledge to solve.
-
-Highly capable of observing and evaluating the "Core Interdisciplinary Competencies" demonstrated by students during their collaboration.
-
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Biologist / Computational Biologist specializing in Gene Regulation and Drug DiscoveryWork Experience: Extensive frontline experience conducting genetic perturbation experiments (e.g., CRISPR knockouts) both manually in the wet-lab and computationally. Frequently evaluates AI predictions and gene regulatory networks against real biological data and existing literature.Expertise:
+Deeply familiar with the biological mechanisms underlying cellular responses. Highly capable of cross-referencing AI outputs with extensive literature reviews to determine if a predicted gene perturbation result is a real biological discovery or just an algorithmic hallucination.
 Core Challenges & Pain Points:
-
-Profoundly understands the extreme difficulty of designing a "good interdisciplinary problem"—it requires preventing any single major from dominating while also avoiding the trap of "division without collaboration" (where students just patch individual parts together).
-
-Finds it challenging to predict the specific frictions (e.g., in ice-breaking, communication, and knowledge integration) that students from different backgrounds will experience before the assignment is officially deployed."""
+Profoundly frustrated by AI models acting as "black boxes"—where the model can highly accurately predict gene expression changes, but fails to explain the underlying biological mechanism (which is essential for drug discovery). Finds it challenging to evaluate the true "reliability" of virtual cell models because standard AI metrics (like loss or accuracy) often do not translate to biological validity."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
