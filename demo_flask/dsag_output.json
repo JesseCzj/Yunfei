@@ -1,7 +1,7 @@
 {
-  "topic": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-  "researcher_bg": "An HCI researcher specializing in Educational Technology (EdTech) and Human-AI Collaboration, focused on optimizing complex grading workflows and feedback quality.",
-  "expert_bg": "A seasoned university instructor with extensive experience in evaluating lengthy project reports",
+  "topic": "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+  "researcher_bg": "An HCI and Visualization (VIS) researcher specializing in human-in-the-loop bioinformatics. Focused on understanding the cognitive load, analytical bottlenecks, and the reliance on intuition when computational biologists analyze high-dimensional single-cell data. The goal is to design better visual analytics systems that bridge the gap between algorithmic clustering and biological interpretation",
+  "expert_bg": "An experienced computational biologist or bioinformatician heavily involved in single-cell RNA-seq or spatial transcriptomics data analysis. Proficient in tools like Seurat or Scanpy, they frequently navigate the ambiguity of defining, interpreting, and validating novel cell states from complex datasets, balancing statistical signals with biological intuition and wet-lab validation requirements",
   "expert_tree": {
     "tower": "expert",
     "root_id": "q_01__shared_root",
@@ -10,11 +10,13 @@
         "id": "q_01__shared_root",
         "tower": "shared",
         "layer": "root",
-        "label": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "description": "Interview topic: Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "label": "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "description": "Interview topic: Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
         "parent_id": null,
         "children_ids": [
-          "q_01__exp_L1_00"
+          "q_01__exp_L1_00",
+          "q_01__exp_L1_01",
+          "q_01__exp_L1_02"
         ],
         "attributes": [],
         "aliases": []
@@ -23,14 +25,12 @@
         "id": "q_01__exp_L1_00",
         "tower": "expert",
         "layer": "L1",
-        "label": "Expert Grading Workflow",
-        "description": "The end-to-end process of evaluating project reports, balancing efficiency with deep judgment.",
+        "label": "Navigating Computational Ambiguity",
+        "description": "Dealing with the mathematical artifacts and parameter sensitivities that mimic biological signals during initial processing",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__exp_L2_00_00",
-          "q_01__exp_L2_00_01",
-          "q_01__exp_L2_00_02",
-          "q_01__exp_L2_00_03"
+          "q_01__exp_L2_00_01"
         ],
         "attributes": [],
         "aliases": []
@@ -39,14 +39,12 @@
         "id": "q_01__exp_L2_00_00",
         "tower": "expert",
         "layer": "L2",
-        "label": "Navigation & Pacing",
-        "description": "Managing how I move through the document and the stack of assignments.",
+        "label": "Clustering Dynamics & Stability",
+        "description": "Managing how algorithms partition cells into groups and ensuring those groups aren't just math artifacts",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_00_00",
-          "q_01__exp_leaf_00_00_01",
-          "q_01__exp_leaf_00_00_02",
-          "q_01__exp_leaf_00_00_03"
+          "q_01__exp_leaf_00_00_01"
         ],
         "attributes": [],
         "aliases": []
@@ -55,69 +53,49 @@
         "id": "q_01__exp_leaf_00_00_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "The Holistic Skim",
-        "description": "I always start by skimming the whole report to get the scope and direction before I dive into the details.",
+        "label": "Resolution Parameter Tuning",
+        "description": "You run the clustering, but the default setting never works. You're constantly nudging that resolution number up or down until the splits feel biologically real rather than just mathematical noise.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
-        "attributes": [],
+        "attributes": [
+          "workflow_step",
+          "parameter_tuning",
+          "cognitive_load"
+        ],
         "aliases": [
-          "Initial scan",
-          "Scope check"
+          "Nudging resolution",
+          "Parameter sensitivity",
+          "Finding the right split"
         ]
       },
       "q_01__exp_leaf_00_00_01": {
         "id": "q_01__exp_leaf_00_00_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Non-Linear Navigation",
-        "description": "I don't read straight through; I jump back and forth if the conclusion makes me question the methodology.",
+        "label": "Rare Population vs. Doublet Filtering",
+        "description": "When you see a tiny cluster of 20 cells, you have to decide if it's a rare new cell type or just two cells stuck together. The software gives a score, but you often override it based on gene expression patterns.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
-        "attributes": [],
+        "attributes": [
+          "workflow_step",
+          "qc_decision",
+          "risk_assessment"
+        ],
         "aliases": [
-          "Jumping around",
-          "Recursive reading"
-        ]
-      },
-      "q_01__exp_leaf_00_00_02": {
-        "id": "q_01__exp_leaf_00_00_02",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Batching Strategy",
-        "description": "I debate whether to grade all Q1s at once for consistency or read full papers to understand the narrative.",
-        "parent_id": "q_01__exp_L2_00_00",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Chunking",
-          "Question-by-question"
-        ]
-      },
-      "q_01__exp_leaf_00_00_03": {
-        "id": "q_01__exp_leaf_00_00_03",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Fatigue & Autopilot",
-        "description": "After about 10 reports, I catch myself grading format over content or just going through the motions.",
-        "parent_id": "q_01__exp_L2_00_00",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "The Page 10 Slump",
-          "Grading autopilot"
+          "Signal vs. noise decision",
+          "Doublet override",
+          "Small cluster validation"
         ]
       },
       "q_01__exp_L2_00_01": {
         "id": "q_01__exp_L2_00_01",
         "tower": "expert",
         "layer": "L2",
-        "label": "Judgment & Calibration",
-        "description": "Ensuring my scoring remains fair and stable across different students and ambiguous cases.",
+        "label": "Visualization Trust",
+        "description": "Interpreting 2D projections without being misled by dimensionality reduction distortions",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
-          "q_01__exp_leaf_00_01_00",
-          "q_01__exp_leaf_00_01_01",
-          "q_01__exp_leaf_00_01_02"
+          "q_01__exp_leaf_00_01_00"
         ],
         "attributes": [],
         "aliases": []
@@ -126,120 +104,198 @@
         "id": "q_01__exp_leaf_00_01_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Rubric Friction",
-        "description": "I get stuck when a student's work doesn't fit neatly into the rubric categories and have to second-guess my judgment.",
+        "label": "UMAP Proximity Misleading",
+        "description": "It's tempting to think two dots close together on the UMAP are related, but sometimes the algorithm squishes distant populations together. You have to constantly check back against the high-dimensional distance matrix.",
         "parent_id": "q_01__exp_L2_00_01",
         "children_ids": [],
         "attributes": [
-          "judgment",
-          "rubric"
+          "visualization",
+          "interpretation_risk",
+          "technical_debt"
         ],
         "aliases": [
-          "Ambiguity",
-          "Category mismatch"
+          "Dimensionality reduction traps",
+          "Visual artifacts",
+          "High-dimensional check"
         ]
       },
-      "q_01__exp_leaf_00_01_01": {
-        "id": "q_01__exp_leaf_00_01_01",
+      "q_01__exp_L1_01": {
+        "id": "q_01__exp_L1_01",
         "tower": "expert",
-        "layer": "leaf",
-        "label": "Standard Drift",
-        "description": "I keep a past 'A' example open to remind myself what excellence looks like so I don't drift too harsh or lenient.",
-        "parent_id": "q_01__exp_L2_00_01",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Calibration",
-          "Anchoring"
-        ]
-      },
-      "q_01__exp_leaf_00_01_02": {
-        "id": "q_01__exp_leaf_00_01_02",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Contrast Bias",
-        "description": "If I just graded a terrible report, the next average one looks amazing, and I have to fight that contrast effect.",
-        "parent_id": "q_01__exp_L2_00_01",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Previous Student Shadow",
-          "Sequence bias"
-        ]
-      },
-      "q_01__exp_L2_00_02": {
-        "id": "q_01__exp_L2_00_02",
-        "tower": "expert",
-        "layer": "L2",
-        "label": "Diagnostic Intuition",
-        "description": "Quick heuristic checks I perform to gauge effort and authenticity early on.",
-        "parent_id": "q_01__exp_L1_00",
+        "layer": "L1",
+        "label": "Biological Meaning-Making",
+        "description": "The cognitive process of translating gene lists into functional cell identities and recognizing novelty",
+        "parent_id": "q_01__shared_root",
         "children_ids": [
-          "q_01__exp_leaf_00_02_00",
-          "q_01__exp_leaf_00_02_01"
+          "q_01__exp_L2_01_00",
+          "q_01__exp_L2_01_01"
         ],
         "attributes": [],
         "aliases": []
       },
-      "q_01__exp_leaf_00_02_00": {
-        "id": "q_01__exp_leaf_00_02_00",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Effort Proxies",
-        "description": "I check references and formatting first; if they're shaky, I assume the analysis underneath is rushed too.",
-        "parent_id": "q_01__exp_L2_00_02",
-        "children_ids": [],
-        "attributes": [
-          "heuristics",
-          "efficiency"
-        ],
-        "aliases": [
-          "Bibliography Sniff Test",
-          "Formatting as care"
-        ]
-      },
-      "q_01__exp_leaf_00_02_01": {
-        "id": "q_01__exp_leaf_00_02_01",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Authenticity Checks",
-        "description": "I can feel it when the writing style suddenly changes from casual to overly academic; usually means something was copied.",
-        "parent_id": "q_01__exp_L2_00_02",
-        "children_ids": [],
-        "attributes": [
-          "heuristics",
-          "integrity"
-        ],
-        "aliases": [
-          "Voice Shift",
-          "Plagiarism sense"
-        ]
-      },
-      "q_01__exp_L2_00_03": {
-        "id": "q_01__exp_L2_00_03",
+      "q_01__exp_L2_01_00": {
+        "id": "q_01__exp_L2_01_00",
         "tower": "expert",
         "layer": "L2",
-        "label": "Feedback Construction",
-        "description": "The cognitive work of translating my evaluation into actionable guidance for the student.",
-        "parent_id": "q_01__exp_L1_00",
+        "label": "Marker Gene Interpretation",
+        "description": "Evaluating whether differential expression results actually represent a coherent biological state",
+        "parent_id": "q_01__exp_L1_01",
         "children_ids": [
-          "q_01__exp_leaf_00_03_00"
+          "q_01__exp_leaf_01_00_00",
+          "q_01__exp_leaf_01_00_01"
         ],
         "attributes": [],
         "aliases": []
       },
-      "q_01__exp_leaf_00_03_00": {
-        "id": "q_01__exp_leaf_00_03_00",
+      "q_01__exp_leaf_01_00_00": {
+        "id": "q_01__exp_leaf_01_00_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Comment Synthesis",
-        "description": "The real work is organizing my scattered notes into feedback that guides them without being too harsh.",
-        "parent_id": "q_01__exp_L2_00_03",
+        "label": "Recognizing Program Coherence",
+        "description": "When you look at the top marker genes, you need to sense if they tell a story together. If it's a random mix of housekeeping genes, it's junk. If they pathway-align, you're onto something. This relies heavily on experience and pattern recognition.",
+        "parent_id": "q_01__exp_L2_01_00",
         "children_ids": [],
-        "attributes": [],
+        "attributes": [
+          "cognitive_load",
+          "experience_based",
+          "discovery_moment"
+        ],
         "aliases": [
-          "Feedback construction",
-          "Note organization"
+          "Gut feeling on markers",
+          "Story alignment",
+          "Signal vs. noise intuition",
+          "Pattern recognition"
+        ]
+      },
+      "q_01__exp_leaf_01_00_01": {
+        "id": "q_01__exp_leaf_01_00_01",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Distinguishing Gradients from States",
+        "description": "Sometimes cells aren't in a new box, they're just moving along a trajectory. You have to decide if you're looking at a discrete new state or just cells halfway through activation, often using trajectory analysis to back it up.",
+        "parent_id": "q_01__exp_L2_01_00",
+        "children_ids": [],
+        "attributes": [
+          "biological_model",
+          "validation_step",
+          "cognitive_load"
+        ],
+        "aliases": [
+          "Continuum vs. discrete",
+          "Trajectory verification",
+          "Activation state"
+        ]
+      },
+      "q_01__exp_L2_01_01": {
+        "id": "q_01__exp_L2_01_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Taxonomy Alignment",
+        "description": "Reconciling new findings with existing cell type nomenclature and literature",
+        "parent_id": "q_01__exp_L1_01",
+        "children_ids": [
+          "q_01__exp_leaf_01_01_00"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "q_01__exp_leaf_01_01_00": {
+        "id": "q_01__exp_leaf_01_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Annotation & Identity Mismatch",
+        "description": "You find a cluster that doesn't fit existing labels or literature. You spend time figuring out if you're actually new or just using different words, often cross-referencing other datasets to confirm the mismatch.",
+        "parent_id": "q_01__exp_L2_01_01",
+        "children_ids": [],
+        "attributes": [
+          "knowledge_retrieval",
+          "validation_step",
+          "discovery_moment"
+        ],
+        "aliases": [
+          "Literature conflicts",
+          "Label mismatch",
+          "Cross-referencing datasets",
+          "Novelty check"
+        ]
+      },
+      "q_01__exp_L1_02": {
+        "id": "q_01__exp_L1_02",
+        "tower": "expert",
+        "layer": "L1",
+        "label": "Validation & Confidence",
+        "description": "Closing the loop between computational prediction and experimental proof while managing risk",
+        "parent_id": "q_01__shared_root",
+        "children_ids": [
+          "q_01__exp_L2_02_00",
+          "q_01__exp_L2_02_01"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "q_01__exp_L2_02_00": {
+        "id": "q_01__exp_L2_02_00",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Experimental Translation",
+        "description": "Selecting the right computational findings to test in the wet lab given limited resources",
+        "parent_id": "q_01__exp_L1_02",
+        "children_ids": [
+          "q_01__exp_leaf_02_00_00"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "q_01__exp_leaf_02_00_00": {
+        "id": "q_01__exp_leaf_02_00_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "Marker Panel Selection",
+        "description": "You can't validate 50 genes. You pick the top 3 that are clean and distinct, knowing that if those fail, the whole hypothesis might collapse, even if the RNA-seq data looked great.",
+        "parent_id": "q_01__exp_L2_02_00",
+        "children_ids": [],
+        "attributes": [
+          "resource_management",
+          "risk_assessment",
+          "workflow_step"
+        ],
+        "aliases": [
+          "Resource constraints",
+          "Hypothesis risk",
+          "Panel design"
+        ]
+      },
+      "q_01__exp_L2_02_01": {
+        "id": "q_01__exp_L2_02_01",
+        "tower": "expert",
+        "layer": "L2",
+        "label": "Claiming Novelty",
+        "description": "Determining the threshold of evidence required to publicly assert a new cell state discovery",
+        "parent_id": "q_01__exp_L1_02",
+        "children_ids": [
+          "q_01__exp_leaf_02_01_00"
+        ],
+        "attributes": [],
+        "aliases": []
+      },
+      "q_01__exp_leaf_02_01_00": {
+        "id": "q_01__exp_leaf_02_01_00",
+        "tower": "expert",
+        "layer": "leaf",
+        "label": "The 'Bet Your Reputation' Check",
+        "description": "There's no p-value for 'novelty.' You just have to feel sure enough that when you present this at a conference, people won't tear it apart as an artifact. It's a gut check on risk before going to the lab.",
+        "parent_id": "q_01__exp_L2_02_01",
+        "children_ids": [],
+        "attributes": [
+          "career_risk",
+          "cognitive_load",
+          "decision_point"
+        ],
+        "aliases": [
+          "Gut check on risk",
+          "Reputation risk",
+          "Confidence threshold",
+          "Pre-validation intuition"
         ]
       }
     }
@@ -252,8 +308,8 @@
         "id": "q_01__shared_root",
         "tower": "shared",
         "layer": "root",
-        "label": "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "description": "Interview topic: Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
+        "label": "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "description": "Interview topic: Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
         "parent_id": null,
         "children_ids": [
           "q_01__res_L1_00",
@@ -267,8 +323,8 @@
         "id": "q_01__res_L1_00",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Digital Toolchain & Workspace Configuration",
-        "description": "Examining the software ecosystem and physical setup used to execute the grading process.",
+        "label": "Workflow Temporalities & Milestones",
+        "description": "Examining the sequential and iterative structure of the analysis pipeline to understand where time is spent and where progress is made.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_00_00",
@@ -281,8 +337,8 @@
         "id": "q_01__res_L2_00_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Software Interoperability",
-        "description": "Understanding how different digital tools are linked or manually bridged during grading.",
+        "label": "Process Granularity & Transitions",
+        "description": "Mapping the specific hand-offs and loops within the end-to-end data analysis journey.",
         "parent_id": "q_01__res_L1_00",
         "children_ids": [
           "q_01__res_leaf_00_00_00",
@@ -295,38 +351,36 @@
         "id": "q_01__res_leaf_00_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Map application switching sequences",
-        "description": "Identify the specific order of applications used (e.g., LMS -> PDF Editor -> Spreadsheet) and where manual data transfer occurs.",
+        "label": "Identify backtracking points",
+        "description": "Determine specific stages where analysts revert to raw data versus moving forward with processed objects.",
         "parent_id": "q_01__res_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Interoperability",
-          "Context Switching",
-          "Workflow Integration"
+          "Workflow Provenance",
+          "Interaction Cost"
         ]
       },
       "q_01__res_leaf_00_00_01": {
         "id": "q_01__res_leaf_00_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Assess multi-window dependency",
-        "description": "Determine if educators rely on multiple monitors or window splitting to view rubrics and submissions simultaneously.",
+        "label": "Measure iteration frequency",
+        "description": "Quantify how often analysts cycle between preprocessing and clustering before feeling ready to interpret.",
         "parent_id": "q_01__res_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Visual Workspace",
-          "Display Configuration",
-          "Screen Real Estate"
+          "Sensemaking Loop",
+          "Iterative Design"
         ]
       },
       "q_01__res_L2_00_01": {
         "id": "q_01__res_L2_00_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Modality Switching",
-        "description": "Investigating if the workflow transitions between digital and physical mediums.",
+        "label": "Effort-Insight Ratio",
+        "description": "Understanding the relationship between cognitive exertion and analytical value across different pipeline stages.",
         "parent_id": "q_01__res_L1_00",
         "children_ids": [
           "q_01__res_leaf_00_01_00"
@@ -338,23 +392,22 @@
         "id": "q_01__res_leaf_00_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Detect physical-digital hybridization",
-        "description": "Determine if any part of the workflow involves printing physical copies for annotation before digitizing the final grade.",
+        "label": "Pinpoint high-load low-value steps",
+        "description": "Locate workflow segments that demand high cognitive load but yield low perceived discovery value.",
         "parent_id": "q_01__res_L2_00_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Multimodal Interaction",
-          "Tangible Interfaces",
-          "Affordances"
+          "Cognitive Load",
+          "Analytical Reasoning"
         ]
       },
       "q_01__res_L1_01": {
         "id": "q_01__res_L1_01",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Information Foraging & Navigation Patterns",
-        "description": "Analyzing how educators move through student content and manage task transitions.",
+        "label": "Tacit Knowledge & Heuristic Application",
+        "description": "Investigating where and how human intuition overrides or supplements algorithmic outputs during analysis.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_01_00",
@@ -367,8 +420,8 @@
         "id": "q_01__res_L2_01_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Document Traversal",
-        "description": "The specific path taken through the content of a single assignment.",
+        "label": "Intuition Triggers",
+        "description": "Identifying the specific conditions that prompt an analyst to switch from automated to manual reasoning.",
         "parent_id": "q_01__res_L1_01",
         "children_ids": [
           "q_01__res_leaf_01_00_00",
@@ -381,38 +434,36 @@
         "id": "q_01__res_leaf_01_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Trace information foraging path",
-        "description": "Map the linear or non-linear order in which sections of a report are read (e.g., Abstract first vs. Code first vs. Rubric first).",
+        "label": "Detect algo-to-manual switch points",
+        "description": "Identify workflow stages where analysts switch from algorithmic reliance to manual curation based on suspicion.",
         "parent_id": "q_01__res_L2_01_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Information Scent",
-          "Navigation Patterns",
-          "Reading Strategy"
+          "Human-in-the-Loop",
+          "Decision Support"
         ]
       },
       "q_01__res_leaf_01_00_01": {
         "id": "q_01__res_leaf_01_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Identify batching granularity",
-        "description": "Understand the unit of switching between students (e.g., grading all Introductions across class vs. grading Student A completely).",
+        "label": "Articulate gut feelings",
+        "description": "Explore how analysts describe unquantifiable instincts when formal metrics are ambiguous.",
         "parent_id": "q_01__res_L2_01_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Task Switching",
-          "Batch Processing",
-          "Flow State"
+          "Tacit Knowledge",
+          "Explainable AI"
         ]
       },
       "q_01__res_L2_01_01": {
         "id": "q_01__res_L2_01_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Rubric Integration Point",
-        "description": "The temporal relationship between viewing criteria and viewing student work.",
+        "label": "Rule Flexibility",
+        "description": "Understanding how standard operating procedures are adapted based on expert experience.",
         "parent_id": "q_01__res_L1_01",
         "children_ids": [
           "q_01__res_leaf_01_01_00"
@@ -424,23 +475,22 @@
         "id": "q_01__res_leaf_01_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Pinpoint rubric consultation timing",
-        "description": "Clarify exactly when the grading rubric is opened relative to reading the content (pre-reading, concurrent, or post-reading).",
+        "label": "Map protocol deviations",
+        "description": "Document where expert-specific shortcuts diverge from published pipeline protocols.",
         "parent_id": "q_01__res_L2_01_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Decision Support Systems",
-          "Temporal Mapping",
-          "Reference Materials"
+          "Expertise Modeling",
+          "Workflow Adaptation"
         ]
       },
       "q_01__res_L1_02": {
         "id": "q_01__res_L1_02",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Feedback Artifact Construction",
-        "description": "Focusing on the mechanics of creating and finalizing the feedback output.",
+        "label": "Phenomenology of Discovery",
+        "description": "Characterizing the subjective experience and cognitive state associated with the moment of 'actual discovery'.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_02_00",
@@ -453,8 +503,8 @@
         "id": "q_01__res_L2_02_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Comment Generation Strategy",
-        "description": "How the textual feedback is composed and input into the system.",
+        "label": "The Discovery Event",
+        "description": "Defining the sensory and cognitive modality where the 'Aha!' moment typically occurs.",
         "parent_id": "q_01__res_L1_02",
         "children_ids": [
           "q_01__res_leaf_02_00_00",
@@ -467,38 +517,36 @@
         "id": "q_01__res_leaf_02_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Quantify reusable component usage",
-        "description": "Investigate the ratio of pre-written comment banks versus unique typed comments during the workflow.",
+        "label": "Characterize discovery modality",
+        "description": "Determine if the moment of insight is primarily visual, numerical, or collaborative in nature.",
         "parent_id": "q_01__res_L2_02_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Reusable Components",
-          "Input Modality",
-          "Efficiency"
+          "Visual Cognition",
+          "Multimodal Interaction"
         ]
       },
       "q_01__res_leaf_02_00_01": {
         "id": "q_01__res_leaf_02_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Map feedback spatial anchoring",
-        "description": "Identify where feedback is anchored within the interface (in-margin comments vs. summary box vs. separate document).",
+        "label": "Distinguish cluster vs. state",
+        "description": "Clarify the conceptual boundary between finding a computational cluster and biologically interpreting it as a state.",
         "parent_id": "q_01__res_L2_02_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Spatial Mapping",
-          "Annotation Systems",
-          "Visual Context"
+          "Conceptual Modeling",
+          "Semantic Mapping"
         ]
       },
       "q_01__res_L2_02_01": {
         "id": "q_01__res_L2_02_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Finalization Protocol",
-        "description": "The specific steps taken to complete the grading transaction.",
+        "label": "Internal Validation",
+        "description": "Understanding the subjective confidence required before seeking external proof.",
         "parent_id": "q_01__res_L1_02",
         "children_ids": [
           "q_01__res_leaf_02_01_00"
@@ -510,15 +558,14 @@
         "id": "q_01__res_leaf_02_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Describe verification mechanisms",
-        "description": "Identify if there is a specific review step where grades are summed or adjusted before final submission to the LMS.",
+        "label": "Define confidence thresholds",
+        "description": "Identify the subjective confidence level required before initiating formal validation protocols.",
         "parent_id": "q_01__res_L2_02_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Error Prevention",
-          "Review Loops",
-          "Confirmation Dialogs"
+          "Confidence Calibration",
+          "Uncertainty Visualization"
         ]
       }
     }
@@ -526,39 +573,145 @@
   "links": [
     {
       "expert_leaf_id": "q_01__exp_leaf_00_00_00",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "The Holistic Skim"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Trace information foraging path"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Process Granularity & Transitions",
+        "Identify backtracking points"
       ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_01_00",
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "The Holistic Skim",
-        "researcher_branch": "Trace information foraging path"
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Identify backtracking points"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes the iterative necessity of tuning resolution parameters to distinguish biological signal from noise. This highlights the cognitive load involved in stabilizing clustering dynamics.",
+        "pivot": {
+          "limitation": "Focusing solely on parameter adjustment overlooks whether analysts ever revert to raw data during these iterations. The researcher risks missing critical workflow breakpoints where processed objects are abandoned.",
+          "research_goal": "The researcher aims to identify specific stages where analysts backtrack to raw data versus moving forward with processed objects. This determines the process granularity and transition points.",
+          "compelling_reason": "While the expert prioritizes parameter tuning for biological validity, the researcher requires insight into raw data reversion to map workflow resilience. Both the expert's stability concerns and the researcher's transition goals are vital for capturing the full scope of computational ambiguity.",
+          "coarse_scenario": "I see how much effort you put into nudging these resolution numbers, but I also need to understand if there are moments where you decide to throw that work out and return to the raw data."
+        }
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Process Granularity & Transitions",
+        "Measure iteration frequency"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Measure iteration frequency"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert is currently emphasizing the nuanced challenge of tuning resolution parameters to ensure biological reality rather than mathematical noise during clustering.",
+        "pivot": {
+          "limitation": "Focusing solely on the expert's parameter nudging overlooks the broader workflow cycles where analysts might return to preprocessing before even reaching the clustering stage.",
+          "research_goal": "The researcher is trying to understand the frequency of iterations between major workflow stages, such as preprocessing and clustering, to map process granularity.",
+          "compelling_reason": "While the expert's parameter tuning is critical for cluster stability, the researcher's focus on iteration frequency reveals how much time is spent refining data before clustering begins, which impacts overall workflow efficiency.",
+          "coarse_scenario": "I see how critical nudging that resolution number is for getting real biological splits, but I'm also trying to capture how many times you might have to go back to preprocessing before you even get to this tuning step."
+        }
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Effort-Insight Ratio",
+        "Pinpoint high-load low-value steps"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Pinpoint high-load low-value steps"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The Holistic Skim",
-          "target_concept": "Walking around a house before entering",
+          "source_concept": "Resolution Parameter Tuning",
+          "target_concept": "Finding the right focus",
           "structural_mapping": {
-            "inputs": "Full report document vs. Entire house exterior",
-            "logic": "Skim for scope and direction vs. Walk perimeter for stability",
-            "outputs": "Context for grading vs. Decision to enter"
+            "inputs": "Default clustering output or auto-focused image",
+            "logic": "Nudging resolution based on biological feel or turning ring until image looks sharp",
+            "outputs": "Biologically real clusters or clear photo of the subject"
           },
-          "explanation": "The researcher wants a log of which rooms you entered first (Trace), but you are walking the perimeter to check the foundation (Skim); tracking entry order misses the goal of assessing overall viability before committing."
+          "explanation": "The researcher views the manual adjustment as inefficiency (high load), but like a photographer knows auto-focus often misses the true subject, the expert knows default settings miss biological reality. The effort creates the value."
         },
-        "scenario": "When you start grading, do you remember which section you read first, or do you just flip through the whole thing to get the gist before settling in?"
+        "scenario": "When you nudge that resolution number until the splits feel real, do you see that effort as fixing a tool's mistake or as the core work of discovery itself?"
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Detect algo-to-manual switch points"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Detect algo-to-manual switch points"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Rare Population vs. Doublet Filtering",
+          "target_concept": "Turning a radio dial to clear static",
+          "structural_mapping": {
+            "inputs": "Fuzzy signal or tiny cluster",
+            "logic": "Tweaking based on ear or biological feel",
+            "outputs": "Clear song or biologically valid group"
+          },
+          "explanation": "The researcher expects a clear hand-off from tool to human. But like tuning a radio, you are constantly adjusting the knob to find the signal. The 'manual' judgment is hidden inside the tuning, not a separate step."
+        },
+        "scenario": "When you're nudging that resolution number to make the splits feel real, do you see that tweaking as the computer working, or is that actually where you start taking over manually?"
       },
       "weight": 5.0
     },
@@ -566,793 +719,1947 @@
       "expert_leaf_id": "q_01__exp_leaf_00_00_00",
       "researcher_leaf_id": "q_01__res_leaf_01_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "The Holistic Skim"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Rubric Integration Point",
-        "Pinpoint rubric consultation timing"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Rule Flexibility",
+        "Map protocol deviations"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "The Holistic Skim",
-        "researcher_branch": "Pinpoint rubric consultation timing"
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Map protocol deviations"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The Holistic Skim",
-          "target_concept": "Glancing at a map before a trip",
+          "source_concept": "Rare Population vs. Doublet Filtering",
+          "target_concept": "Seasoning to taste",
           "structural_mapping": {
-            "inputs": "Report content and rubric criteria",
-            "logic": "Single orientation pass to gauge scope",
-            "outputs": "Sense of direction before detailed work"
+            "inputs": "Recipe default amount and specific ingredients",
+            "logic": "Taste and adjust amount",
+            "outputs": "Edible meal"
           },
-          "explanation": "The researcher seeks distinct timing for rubric checks, but the expert's skim functions like glancing at a map: you absorb the route and legend together in one look, making separate timing hard to isolate."
+          "explanation": "The researcher records your setting changes as deviations from the protocol, similar to noting a cook changed the salt amount. However, just as you override doublet scores to find real cells, the cook adjusts seasoning to make the meal edible; the change is the work, not a shortcut."
         },
-        "scenario": "When you do that initial holistic skim, are you mentally checking rubric criteria simultaneously, or is that purely for gist before you officially open the rubric?"
+        "scenario": "When you run the default clustering, do you view tweaking the resolution as cutting corners on the protocol, or as the necessary step to make the protocol actually fit your data?"
+      },
+      "weight": 3.0000000000000004
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "The Discovery Event",
+        "Distinguish cluster vs. state"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Distinguish cluster vs. state"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "workflow_step",
+          "parameter_tuning",
+          "cognitive_load",
+          "marker_gene_expression",
+          "cluster_stability",
+          "population_frequency",
+          "visual_separation",
+          "prior_knowledge_alignment"
+        ],
+        "probes": [
+          {
+            "attribute": "workflow_step",
+            "question": "When in the pipeline do you finalize the resolution value?",
+            "choices": [
+              "Before normalization",
+              "After dimensionality reduction",
+              "After initial clustering",
+              "During biological annotation"
+            ]
+          },
+          {
+            "attribute": "parameter_tuning",
+            "question": "What triggers a decision to increase resolution?",
+            "choices": [
+              "Clusters look too broad",
+              "Markers are diluted",
+              "Known subtypes are missing",
+              "Silhouette score is low"
+            ]
+          },
+          {
+            "attribute": "cognitive_load",
+            "question": "What makes the tuning process most exhausting?",
+            "choices": [
+              "Remembering previous values",
+              "Interpreting conflicting markers",
+              "Managing multiple plots",
+              "Justifying the choice to peers"
+            ]
+          },
+          {
+            "attribute": "marker_gene_expression",
+            "question": "Which gene pattern validates a split?",
+            "choices": [
+              "Binary on/off switch",
+              "Gradient intensity shift",
+              "Unique combination profile",
+              "Consistent housekeeping levels"
+            ]
+          },
+          {
+            "attribute": "cluster_stability",
+            "question": "How do you test if a cluster is robust?",
+            "choices": [
+              "Change random seed",
+              "Remove batch effects",
+              "Subsample cell count",
+              "Compare to public data"
+            ]
+          },
+          {
+            "attribute": "population_frequency",
+            "question": "What proportion suggests an artifact?",
+            "choices": [
+              "Under 0.5%",
+              "Over 80%",
+              "Inconsistent across donors",
+              "Perfectly equal sizes"
+            ]
+          },
+          {
+            "attribute": "visual_separation",
+            "question": "What UMAP feature justifies splitting?",
+            "choices": [
+              "Distinct voids between groups",
+              "Long branching tails",
+              "Tight spherical shapes",
+              "Color mixing boundaries"
+            ]
+          },
+          {
+            "attribute": "prior_knowledge_alignment",
+            "question": "How do you handle novel clusters?",
+            "choices": [
+              "Merge with known types",
+              "Label as unknown state",
+              "Discard as noise",
+              "Prioritize for validation"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If workflow_step changed from 'after clustering' to 'before normalization', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "workflow_step"
+          },
+          {
+            "scenario": "If parameter_tuning changed from 'manual nudging' to 'automated optimization', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "parameter_tuning"
+          },
+          {
+            "scenario": "If cognitive_load changed from 'high memory demand' to 'logged history tracking', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If marker_gene_expression changed from 'distinct upregulation' to 'subtle gradient shifts', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "marker_gene_expression"
+          },
+          {
+            "scenario": "If cluster_stability changed from 'consistent across seeds' to 'variable across seeds', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "cluster_stability"
+          },
+          {
+            "scenario": "If population_frequency changed from '5% of cells' to '0.1% of cells', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "population_frequency"
+          },
+          {
+            "scenario": "If visual_separation changed from 'clear gaps' to 'continuous overlap', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "visual_separation"
+          },
+          {
+            "scenario": "If prior_knowledge_alignment changed from 'matches taxonomy' to 'contradicts taxonomy', would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "prior_knowledge_alignment"
+          }
+        ]
+      },
+      "weight": 1.9999999999999996
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Resolution Parameter Tuning"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "Internal Validation",
+        "Define confidence thresholds"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Resolution Parameter Tuning",
+        "researcher_branch": "Define confidence thresholds"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "workflow_step",
+          "parameter_tuning",
+          "cognitive_load",
+          "visual_pattern_recognition",
+          "marker_gene_expression",
+          "cluster_stability",
+          "prior_knowledge_alignment",
+          "noise_floor_detection"
+        ],
+        "probes": [
+          {
+            "attribute": "workflow_step",
+            "question": "At which stage do you finalize the resolution value?",
+            "choices": [
+              "Before visualization",
+              "After initial clustering",
+              "After marker validation"
+            ]
+          },
+          {
+            "attribute": "parameter_tuning",
+            "question": "What dictates the magnitude of your adjustment?",
+            "choices": [
+              "Visual gap size",
+              "Marker gene specificity",
+              "Cluster count target"
+            ]
+          },
+          {
+            "attribute": "cognitive_load",
+            "question": "What factor most exhausts your decision capacity?",
+            "choices": [
+              "Verifying many small clusters",
+              "Resolving ambiguous boundaries",
+              "Cross-referencing literature"
+            ]
+          },
+          {
+            "attribute": "visual_pattern_recognition",
+            "question": "Which geometric feature confirms a valid split?",
+            "choices": [
+              "Clear void between groups",
+              "Distinct density core",
+              "Uniform shape distribution"
+            ]
+          },
+          {
+            "attribute": "marker_gene_expression",
+            "question": "What gene pattern validates a new cluster?",
+            "choices": [
+              "High expression in one group",
+              "Mutual exclusivity between groups",
+              "Gradient transition across groups"
+            ]
+          },
+          {
+            "attribute": "cluster_stability",
+            "question": "How do you assess robustness?",
+            "choices": [
+              "Consistency across resolutions",
+              "Consistency across subsamples",
+              "Consistency across algorithms"
+            ]
+          },
+          {
+            "attribute": "prior_knowledge_alignment",
+            "question": "When data contradicts expectations, you prioritize?",
+            "choices": [
+              "Novel data structure",
+              "Established cell types",
+              "Hybrid interpretation"
+            ]
+          },
+          {
+            "attribute": "noise_floor_detection",
+            "question": "What indicates a cluster is noise?",
+            "choices": [
+              "Zero unique markers",
+              "High mitochondrial content",
+              "Instability on rerun"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the finalization timing changed from after initial clustering to after marker validation, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "workflow_step"
+          },
+          {
+            "scenario": "If the resolution increment step changed from 0.1 to 0.5, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "parameter_tuning"
+          },
+          {
+            "scenario": "If the number of clusters to verify changed from 20 to 100, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If the spatial gap distance changed from 5 units to 1 unit, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "visual_pattern_recognition"
+          },
+          {
+            "scenario": "If the marker gene fold-change changed from 10x to 2x, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "marker_gene_expression"
+          },
+          {
+            "scenario": "If the cluster membership stability changed from 95% to 70%, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "cluster_stability"
+          },
+          {
+            "scenario": "If the expected cluster count changed from 5 known types to 8 observed groups, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "prior_knowledge_alignment"
+          },
+          {
+            "scenario": "If the minimum cell count per cluster changed from 50 cells to 10 cells, would your judgment about 'Resolution Parameter Tuning' change?",
+            "attribute": "noise_floor_detection"
+          }
+        ]
+      },
+      "weight": 1.9999999999999996
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Rare Population vs. Doublet Filtering"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Articulate gut feelings"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Rare Population vs. Doublet Filtering",
+        "researcher_branch": "Articulate gut feelings"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Resolution Parameter Tuning",
+          "target_concept": "Manually correcting photo exposure",
+          "structural_mapping": {
+            "inputs": "Default algorithm suggestion and raw data details",
+            "logic": "Adjusting based on known reality patterns versus mathematical defaults",
+            "outputs": "A refined result that matches reality rather than just the score"
+          },
+          "explanation": "Just as manually correcting photo exposure looks like artistic preference but relies on visual evidence, the researcher's 'gut feeling' is actually the expert's evidence-based override of mathematical defaults."
+        },
+        "scenario": "When you override the software score for a tiny cluster, are you spotting specific gene patterns the tool missed, or does it feel more like a hunch born from experience?"
       },
       "weight": 5.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_00_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "Non-Linear Navigation"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Rare Population vs. Doublet Filtering"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Trace information foraging path"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Non-Linear Navigation",
-        "researcher_branch": "Trace information foraging path"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Non-Linear Navigation",
-          "target_concept": "Following a hunch",
-          "structural_mapping": {
-            "inputs": "A specific discrepancy or suspicion (e.g., conclusion doesn't match data)",
-            "logic": "Conditional jump to the source of evidence to verify the suspicion",
-            "outputs": "Confirmed understanding or identified flaw (rather than just completing a section)"
-          },
-          "explanation": "The researcher's concept tracks the physical steps taken, similar to how 'following a hunch' involves moving, but the target concept clarifies that the expert's movement is conditional on a trigger. Like a detective chasing a clue rather than a tourist following a map, the expert jumps based on content quality, not a predetermined sequence."
-        },
-        "scenario": "When you jump back to the methods because the conclusion feels off, is that a planned step in your route, or just you chasing a suspicion in the moment?"
-      },
-      "weight": 2.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "Batching Strategy"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Trace information foraging path"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Batching Strategy",
-        "researcher_branch": "Trace information foraging path"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Batching Strategy",
-          "target_concept": "Sorting laundry by color vs. washing one person's clothes",
-          "structural_mapping": {
-            "inputs": "Pile of reports (Stack of dirty clothes)",
-            "logic": "Group by question type (Sort by color) vs. Group by student (Sort by owner)",
-            "outputs": "Completed grades (Clean clothes)"
-          },
-          "explanation": "The researcher tracks your path through one person's load (single student report), but you might wash all whites from everyone first (batching questions), which changes how attention flows across the whole stack."
-        },
-        "scenario": "When grading, do you finish one student's whole paper before touching the next, or do you grade question one for everyone first?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "Fatigue & Autopilot"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Trace information foraging path"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Fatigue & Autopilot",
-        "researcher_branch": "Trace information foraging path"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Fatigue & Autopilot",
-          "target_concept": "Driving home on autopilot",
-          "structural_mapping": {
-            "inputs": "Starting a repetitive task (grading reports vs. driving a familiar route)",
-            "logic": "Repetition triggers habitual execution over active attention",
-            "outputs": "Task completion with reduced detail awareness (format over content vs. missing scenery)"
-          },
-          "explanation": "The researcher's reading order map records which sections are visited, but like driving home on autopilot, the expert may follow the same route without actively processing the scenery due to fatigue."
-        },
-        "scenario": "When you reach that tenth report, do you still read each section deeply, or do you find yourself visiting the same spots without really processing the content?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "Fatigue & Autopilot"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Rubric Integration Point",
-        "Pinpoint rubric consultation timing"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "Internal Validation",
+        "Define confidence thresholds"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Fatigue & Autopilot",
-        "researcher_branch": "Pinpoint rubric consultation timing"
+        "expert_branch": "Rare Population vs. Doublet Filtering",
+        "researcher_branch": "Define confidence thresholds"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "The Holistic Skim",
-          "target_concept": "Checking a recipe but cooking from memory",
+          "source_concept": "Resolution Parameter Tuning",
+          "target_concept": "Focusing a camera by eye",
           "structural_mapping": {
-            "inputs": "Intention to follow guidelines (Rubric/Recipe)",
-            "logic": "Fatigue causes bypass of detailed criteria (Autopilot)",
-            "outputs": "Superficial compliance instead of deep adherence (Format/Habit)"
+            "inputs": "Ambiguous data clusters",
+            "logic": "Adjust until it looks biologically real",
+            "outputs": "Validated cell populations"
           },
-          "explanation": "The researcher assumes opening the rubric ensures criteria usage, like opening a recipe ensures following steps. But like skimming a report when tired, you might open the recipe but cook from memory anyway; the tool is accessed, but fatigue triggers autopilot, invalidating the timing metric."
+          "explanation": "The researcher asks for a confidence percentage to trigger validation, but the expert's process works like focusing a camera: you don't stop at a specific number, you adjust until the image snaps into clarity based on visual cues."
         },
-        "scenario": "When you're ten reports in and tired, do you ever open the rubric but find yourself ignoring the specific criteria and just grading on instinct?"
+        "scenario": "When you spot a tiny cluster, do you need to feel a certain level of confidence before checking the genes, or does the pattern itself tell you yes or no?"
       },
-      "weight": 3.0000000000000004
+      "weight": 5.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "Fatigue & Autopilot"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Clustering Dynamics & Stability",
+        "Rare Population vs. Doublet Filtering"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Comment Generation Strategy",
-        "Quantify reusable component usage"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Rule Flexibility",
+        "Map protocol deviations"
       ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_03",
-      "researcher_lca_id": "q_01__res_L2_02_00",
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Fatigue & Autopilot",
-        "researcher_branch": "Quantify reusable component usage"
+        "expert_branch": "Rare Population vs. Doublet Filtering",
+        "researcher_branch": "Map protocol deviations"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "The expert emphasizes that high reliance on standard responses often signals cognitive disengagement and grading fatigue.",
+        "validate_focus": "The expert is emphasizing the critical cognitive work required to distinguish rare cell populations from technical artifacts like doublets. This focus ensures that biological accuracy takes precedence over automated software scores.",
         "pivot": {
-          "limitation": "If the discussion remains only on the feeling of autopilot, the researcher misses the opportunity to measure the specific behavioral patterns driving that state.",
-          "research_goal": "The researcher seeks to quantify the usage of reusable components to establish a baseline for feedback construction efficiency.",
-          "compelling_reason": "While the expert's warning about quality is vital, the researcher needs this metric to distinguish between helpful efficiency and harmful disengagement within the system design.",
-          "coarse_scenario": "I understand that using pre-written comments can feel like going through the motions, but measuring exactly how often you rely on them versus typing new thoughts helps us determine if the system is supporting you or contributing to that fatigue."
+          "limitation": "Focusing only on the accuracy decision misses how this specific override fits into the broader documentation of workflow deviations from published standards.",
+          "research_goal": "The researcher is trying to understand where expert-specific practices diverge from established protocols to map the flexibility of the computational pipeline.",
+          "compelling_reason": "Capturing these protocol deviations is essential for reproducibility, as it reveals whether this accuracy check is a standardized hidden step or an ad-hoc intervention.",
+          "coarse_scenario": "I understand that you override the score for accuracy, but I need to document where this step differs from the standard protocol so we can see how much flexibility you build into the workflow."
         }
       },
-      "weight": 3.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Navigation & Pacing",
-        "Fatigue & Autopilot"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Finalization Protocol",
-        "Describe verification mechanisms"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Fatigue & Autopilot",
-        "researcher_branch": "Describe verification mechanisms"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Fatigue & Autopilot",
-          "target_concept": "Noticing you're driving on autopilot",
-          "structural_mapping": {
-            "inputs": "Repetitive task progression (10th report / Long highway stretch)",
-            "logic": "Awareness of focus drift triggers correction (Catching myself / Checking speed)",
-            "outputs": "Restored accuracy (Grading content again / Staying in lane)"
-          },
-          "explanation": "The researcher's 'verification mechanism' behaves like the target concept of noticing driving drift: it is not a scheduled stop, but an internal alarm that triggers correction the moment focus slips, matching the expert's 'catching myself' rather than a formal review step."
-        },
-        "scenario": "When you catch yourself drifting into autopilot, do you consider that moment of self-correction to be your verification step, even if you don't write it down?"
-      },
-      "weight": 5.0
+      "weight": 3.0000000000000004
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_01_00",
       "researcher_leaf_id": "q_01__res_leaf_00_00_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Rubric Friction"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Visualization Trust",
+        "UMAP Proximity Misleading"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Digital Toolchain & Workspace Configuration",
-        "Software Interoperability",
-        "Map application switching sequences"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Process Granularity & Transitions",
+        "Identify backtracking points"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Rubric Friction",
-        "researcher_branch": "Map application switching sequences"
+        "expert_branch": "UMAP Proximity Misleading",
+        "researcher_branch": "Identify backtracking points"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Rubric Friction",
-          "target_concept": "Stopping to check the recipe",
+          "source_concept": "UMAP Proximity Misleading",
+          "target_concept": "Checking your math steps",
           "structural_mapping": {
-            "inputs": "Student work and rubric criteria",
-            "logic": "Mismatch detected triggers uncertainty and a search for validation",
-            "outputs": "Delayed judgment or tool switch to find clarity"
+            "inputs": "Visual plot (UMAP) vs Final Answer",
+            "logic": "Suspect accuracy -> Check underlying data (Matrix) vs Suspect answer -> Check workings",
+            "outputs": "Verified cluster vs Confirmed result"
           },
-          "explanation": "The researcher records the 'app switch' as a regular step, but like a cook checking the recipe only when the dish tastes wrong, the expert switches tools only when judgment feels uncertain, marking a cognitive hurdle rather than a routine action."
+          "explanation": "The researcher labels checking the matrix as 'backtracking' (rewinding), but the analogy shows it functions like checking math workings—validating the current result against underlying logic without restarting the problem."
         },
-        "scenario": "When you switch between the PDF and the rubric sheet, is that a routine step, or does it happen specifically because the student's work doesn't fit the boxes?"
+        "scenario": "When you check the distance matrix to verify a cluster, do you feel like you're backtracking to raw data, or just validating the current view?"
       },
-      "weight": 6.0
+      "weight": 4.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Rubric Friction"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Visualization Trust",
+        "UMAP Proximity Misleading"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Identify batching granularity"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Effort-Insight Ratio",
+        "Pinpoint high-load low-value steps"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Rubric Friction",
-        "researcher_branch": "Identify batching granularity"
+        "expert_branch": "UMAP Proximity Misleading",
+        "researcher_branch": "Pinpoint high-load low-value steps"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "The expert is emphasizing the cognitive load encountered when student work does not align neatly with rubric categories, causing hesitation in judgment.",
+        "validate_focus": "The expert emphasizes the critical necessity of verifying UMAP proximities against high-dimensional distance matrices to avoid algorithmic artifacts. This verification ensures accuracy in cell state discovery despite visualization limitations.",
         "pivot": {
-          "limitation": "Staying only on this friction risks missing how the expert structurally adapts their workflow to manage these high-load moments.",
-          "research_goal": "The researcher is trying to understand the batching granularity, specifically whether the expert grades by student or by section across the class.",
-          "compelling_reason": "Connecting the friction to the batching strategy reveals whether the expert's workflow is static or dynamically adjusted to handle cognitive bottlenecks.",
-          "coarse_scenario": "I know navigating those rubric mismatches is where the real work happens, but understanding whether you switch students or sections during those stuck moments helps us see how you manage that load."
+          "limitation": "Focusing solely on the necessity of this verification might obscure opportunities to automate or streamline the process.",
+          "research_goal": "The researcher aims to distinguish between necessary scientific rigor and preventable workflow friction that consumes disproportionate cognitive load.",
+          "compelling_reason": "This understanding helps the researcher design tools that preserve the expert's accuracy while reducing unnecessary cognitive burden.",
+          "coarse_scenario": "I understand that checking the distance matrix is critical for accuracy. However, I'm trying to identify if we can reduce that cognitive load so you can focus more on interpretation rather than verification."
         }
       },
       "weight": 5.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Rubric Friction"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Visualization Trust",
+        "UMAP Proximity Misleading"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Rubric Integration Point",
-        "Pinpoint rubric consultation timing"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Articulate gut feelings"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Rubric Friction",
-        "researcher_branch": "Pinpoint rubric consultation timing"
+        "expert_branch": "UMAP Proximity Misleading",
+        "researcher_branch": "Articulate gut feelings"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Rubric Friction",
-          "target_concept": "Stopping at a confusing instruction",
+          "source_concept": "UMAP Proximity Misleading",
+          "target_concept": "Eye-balling size vs. using a ruler",
           "structural_mapping": {
-            "inputs": "Student work and rubric categories",
-            "logic": "Attempting to match evidence to fixed criteria",
-            "outputs": "Judgment hesitation and second-guessing"
+            "inputs": "Visual appearance (UMAP dots / Object perspective)",
+            "logic": "Proximity or size suggests relationship (Close dots / Big object)",
+            "outputs": "Verification tool required (Distance matrix / Physical ruler)"
           },
-          "explanation": "Just as stopping at a confusing instruction reveals a map error, the moment you open the rubric (timing) is where the fit error (friction) becomes visible, linking the timestamp to the judgment struggle."
+          "explanation": "Both concepts address the moment visual data becomes ambiguous. The researcher calls the resolution 'gut feeling,' but the analogy reveals the expert treats it like using a ruler—a concrete measurement, not an unquantifiable instinct."
         },
-        "scenario": "When you open the rubric while reading, do you ever freeze because the student's work doesn't fit the boxes, forcing you to second-guess the tool instead of just assigning a score?"
+        "scenario": "When the visualization squishes distant populations together, do you trust your instinct on their relationship, or do you immediately pull the distance matrix to verify what you see?"
       },
-      "weight": 4.0
+      "weight": 6.0
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Rubric Friction"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Visualization Trust",
+        "UMAP Proximity Misleading"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Finalization Protocol",
-        "Describe verification mechanisms"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Rule Flexibility",
+        "Map protocol deviations"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Rubric Friction",
-        "researcher_branch": "Describe verification mechanisms"
+        "expert_branch": "UMAP Proximity Misleading",
+        "researcher_branch": "Map protocol deviations"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "The expert emphasizes the internal cognitive friction and second-guessing that occurs when student work does not align neatly with rubric categories.",
+        "validate_focus": "The expert emphasizes the critical need to verify UMAP visualizations against high-dimensional data to avoid algorithmic artifacts. This focus on accuracy safeguards ensures that the expert's cell state discoveries are not based on misleading proximity.",
         "pivot": {
-          "limitation": "Focusing exclusively on this psychological experience may obscure the concrete procedural safeguards established to manage that uncertainty.",
-          "research_goal": "The researcher seeks to identify specific verification mechanisms, such as grade summation or adjustment protocols, that occur before final submission.",
-          "compelling_reason": "Understanding these procedural steps is essential to determine how institutional workflows support or constrain expert intuition during moments of rubric friction.",
-          "coarse_scenario": "I hear that the uncertainty is really challenging for you personally, and I want to understand how that uncertainty translates into the specific checks or review steps you take before locking in the grade."
+          "limitation": "Focusing solely on the expert's verification steps overlooks the informal heuristics and efficiency-driven shortcuts the expert employs elsewhere in the workflow.",
+          "research_goal": "The researcher aims to document specific instances where the expert's practical application diverges from published pipeline protocols to understand tacit knowledge.",
+          "compelling_reason": "Capturing these protocol deviations is essential for the researcher to build a complete model of computational decision-making, balancing the expert's rigor with the practical realities of workflow execution.",
+          "coarse_scenario": "I understand why verifying UMAP distances is crucial for accuracy, but I also need to capture where you might skip steps or take shortcuts compared to the standard protocol, because those deviations often reveal the most valuable tacit knowledge."
         }
       },
-      "weight": 3.0000000000000004
+      "weight": 5.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Navigating Computational Ambiguity",
+        "Visualization Trust",
+        "UMAP Proximity Misleading"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "The Discovery Event",
+        "Distinguish cluster vs. state"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "UMAP Proximity Misleading",
+        "researcher_branch": "Distinguish cluster vs. state"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "UMAP Proximity Misleading",
+          "target_concept": "Map proximity vs. actual driving time",
+          "structural_mapping": {
+            "inputs": "A simplified visual representation (UMAP plot / Road map)",
+            "logic": "Compression hides barriers or true distances (Dimensionality reduction / Geography)",
+            "outputs": "False assumption of connection or similarity (Related cells / Neighborly towns)"
+          },
+          "explanation": "Both you and the researcher are warning against trusting a simplified model over reality. Just as a map hides mountains between towns, UMAP hides high-dimensional distance, and clustering hides biological nuance. The researcher's 'state' check is the same safety step as your 'distance matrix' check."
+        },
+        "scenario": "Even when the high-dimensional distance matrix confirms the cluster is mathematically real, do you still hesitate to call it a biological state without functional markers?"
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Marker Gene Interpretation",
+        "Recognizing Program Coherence"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Detect algo-to-manual switch points"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
+      "conflict": {
+        "expert_branch": "Recognizing Program Coherence",
+        "researcher_branch": "Detect algo-to-manual switch points"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "cognitive_load",
+          "experience_based",
+          "discovery_moment",
+          "pathway_density",
+          "gene_family_clustering",
+          "expressionMagnitude",
+          "literature_precedence",
+          "noise_floor",
+          "tissue_specificity",
+          "annotation_confidence"
+        ],
+        "probes": [
+          {
+            "attribute": "cognitive_load",
+            "question": "When assessing coherence, is the decision primarily made via:",
+            "choices": [
+              "Instant intuition",
+              "Quick verification",
+              "Deep analysis"
+            ]
+          },
+          {
+            "attribute": "experience_based",
+            "question": "Does your confidence in the pattern stem from:",
+            "choices": [
+              "Similar past datasets",
+              "General biological knowledge",
+              "Specific algorithm output"
+            ]
+          },
+          {
+            "attribute": "discovery_moment",
+            "question": "Does the coherent 'story' typically emerge:",
+            "choices": [
+              "Before filtering",
+              "After top-N selection",
+              "During manual curation"
+            ]
+          },
+          {
+            "attribute": "pathway_density",
+            "question": "Is coherence considered stronger when:",
+            "choices": [
+              "10 genes map to 1 pathway",
+              "5 genes map to 3 pathways",
+              "20 genes map to random pathways"
+            ]
+          },
+          {
+            "attribute": "gene_family_clustering",
+            "question": "Do you prioritize seeing:",
+            "choices": [
+              "Shared gene families",
+              "Shared functional domains",
+              "Shared chromosomal location"
+            ]
+          },
+          {
+            "attribute": "expressionMagnitude",
+            "question": "Which factor overrides the other regarding validity:",
+            "choices": [
+              "High fold-change with weak pathway links",
+              "Moderate fold-change with strong pathway links"
+            ]
+          },
+          {
+            "attribute": "literature_precedence",
+            "question": "Is a novel gene combination considered:",
+            "choices": [
+              "More exciting",
+              "Less trustworthy",
+              "Equally valid compared to known pairs"
+            ]
+          },
+          {
+            "attribute": "noise_floor",
+            "question": "Is coherence most often invalidated by:",
+            "choices": [
+              "High background variance",
+              "Low absolute expression",
+              "Missing metadata"
+            ]
+          },
+          {
+            "attribute": "tissue_specificity",
+            "question": "If genes align pathway-wise but not tissue-wise, is the result classified as:",
+            "choices": [
+              "Junk",
+              "Suspicious",
+              "Acceptable"
+            ]
+          },
+          {
+            "attribute": "annotation_confidence",
+            "question": "Do you proceed with confidence if annotations are:",
+            "choices": [
+              "Curated only",
+              "Predicted only",
+              "Mixed sources"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the time allowed for review dropped from 10 minutes to 30 seconds, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If you encountered this gene pattern in a species you never studied before, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "experience_based"
+          },
+          {
+            "scenario": "If the coherent story only appeared after removing the top 5 outliers, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "discovery_moment"
+          },
+          {
+            "scenario": "If the pathway mapping dropped from 80% of genes to 20% of genes, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "pathway_density"
+          },
+          {
+            "scenario": "If the genes belonged to different families but the same signaling cascade, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "gene_family_clustering"
+          },
+          {
+            "scenario": "If the fold-change decreased from 10x to 2x while pathway alignment stayed perfect, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "expressionMagnitude"
+          },
+          {
+            "scenario": "If zero papers existed linking these genes, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "literature_precedence"
+          },
+          {
+            "scenario": "If the background noise level doubled but the signal remained constant, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "noise_floor"
+          },
+          {
+            "scenario": "If the genes matched the pathway but belonged to a different tissue type, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "tissue_specificity"
+          },
+          {
+            "scenario": "If 50% of the genes had 'predicted function' tags instead of 'experimental evidence', would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "annotation_confidence"
+          }
+        ]
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Marker Gene Interpretation",
+        "Recognizing Program Coherence"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "The Discovery Event",
+        "Characterize discovery modality"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_02",
+      "researcher_lca_id": "q_01__res_L1_02",
+      "conflict": {
+        "expert_branch": "Recognizing Program Coherence",
+        "researcher_branch": "Characterize discovery modality"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Recognizing Program Coherence",
+          "target_concept": "Checking if a story holds together",
+          "structural_mapping": {
+            "inputs": "List of marker genes",
+            "logic": "Do they pathway-align and tell a biological story",
+            "outputs": "Valid cell state discovery"
+          },
+          "explanation": "Just as validating a story depends on whether the details logically align rather than whether it was heard or read, the expert validates discovery via gene coherence rather than visual or numerical modality. This shows why the researcher's sensory categories miss the expert's core validation mechanism."
+        },
+        "scenario": "When you confirm a cell state, do you classify that moment by whether you looked at a plot or a table, or by whether the genes actually tell a coherent story?"
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Marker Gene Interpretation",
+        "Recognizing Program Coherence"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "Internal Validation",
+        "Define confidence thresholds"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_02_01",
+      "researcher_lca_id": "q_01__res_L2_02_01",
+      "conflict": {
+        "expert_branch": "Recognizing Program Coherence",
+        "researcher_branch": "Define confidence thresholds"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "cognitive_load",
+          "experience_based",
+          "discovery_moment",
+          "pathway_alignment",
+          "gene_familiarity",
+          "signal_noise_ratio",
+          "biological_plausibility",
+          "visual_pattern_recognition"
+        ],
+        "probes": [
+          {
+            "attribute": "cognitive_load",
+            "question": "When assessing coherence, is the primary barrier time pressure, data complexity, or mental fatigue?",
+            "choices": [
+              "Time pressure",
+              "Data complexity",
+              "Mental fatigue"
+            ]
+          },
+          {
+            "attribute": "experience_based",
+            "question": "Does your judgment rely more on similar past projects, textbook knowledge, or immediate data features?",
+            "choices": [
+              "Similar past projects",
+              "Textbook knowledge",
+              "Immediate data features"
+            ]
+          },
+          {
+            "attribute": "discovery_moment",
+            "question": "Does confidence arrive as a sudden insight, a gradual accumulation, or after peer verification?",
+            "choices": [
+              "Sudden insight",
+              "Gradual accumulation",
+              "After peer verification"
+            ]
+          },
+          {
+            "attribute": "pathway_alignment",
+            "question": "Is coherence defined by known pathway mapping, functional grouping, or co-expression clusters?",
+            "choices": [
+              "Known pathway mapping",
+              "Functional grouping",
+              "Co-expression clusters"
+            ]
+          },
+          {
+            "attribute": "gene_familiarity",
+            "question": "Does seeing known gene symbols increase confidence more than novel transcript IDs, housekeeping genes, or pseudogenes?",
+            "choices": [
+              "Known gene symbols",
+              "Novel transcript IDs",
+              "Housekeeping genes",
+              "Pseudogenes"
+            ]
+          },
+          {
+            "attribute": "signal_noise_ratio",
+            "question": "Which drives the 'junk' verdict: low fold-change, high variance, or background contamination?",
+            "choices": [
+              "Low fold-change",
+              "High variance",
+              "Background contamination"
+            ]
+          },
+          {
+            "attribute": "biological_plausibility",
+            "question": "Is the story rejected due to tissue mismatch, developmental stage conflict, or physiological impossibility?",
+            "choices": [
+              "Tissue mismatch",
+              "Developmental stage conflict",
+              "Physiological impossibility"
+            ]
+          },
+          {
+            "attribute": "visual_pattern_recognition",
+            "question": "Do you trust solid heatmap blocks, distinct clustering dendrograms, or uniform expression spreads?",
+            "choices": [
+              "Solid heatmap blocks",
+              "Distinct clustering dendrograms",
+              "Uniform expression spreads"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the list of top markers increased from 10 to 50 genes, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If you encountered this gene pattern in a completely novel organism with no prior literature, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "experience_based"
+          },
+          {
+            "scenario": "If the coherent story only emerged after removing the top 3 outliers, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "discovery_moment"
+          },
+          {
+            "scenario": "If 80% of markers mapped to a single KEGG pathway versus 80% mapping to unrelated GO terms, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "pathway_alignment"
+          },
+          {
+            "scenario": "If the top markers were all well-studied genes versus all newly annotated lncRNAs, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "gene_familiarity"
+          },
+          {
+            "scenario": "If the fold-change threshold dropped from 2.0 to 1.5 while p-value remained constant, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "signal_noise_ratio"
+          },
+          {
+            "scenario": "If the tissue source was swapped from brain to liver while keeping the gene signature identical, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "biological_plausibility"
+          },
+          {
+            "scenario": "If the heatmap visualization showed clear distinct blocks versus a salt-and-pepper noise pattern, would your judgment about 'Recognizing Program Coherence' change?",
+            "attribute": "visual_pattern_recognition"
+          }
+        ]
+      },
+      "weight": 4.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Marker Gene Interpretation",
+        "Distinguishing Gradients from States"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "The Discovery Event",
+        "Distinguish cluster vs. state"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_02",
+      "researcher_lca_id": "q_01__res_L1_02",
+      "conflict": {
+        "expert_branch": "Distinguishing Gradients from States",
+        "researcher_branch": "Distinguish cluster vs. state"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Distinguishing Gradients from States",
+          "target_concept": "Spotting a scene change vs. camera panning",
+          "structural_mapping": {
+            "inputs": "Video frames (cell snapshots)",
+            "logic": "Assess continuity of motion vs. abrupt cut (trajectory vs. cluster boundary)",
+            "outputs": "Continuous shot (gradient) vs. distinct category (state)"
+          },
+          "explanation": "Both concepts involve judging if a boundary is real. The analogy shows that while you check the frame's shape (cluster), the expert checks the motion between frames (gradient), revealing why your boundary might be an artifact of the pan."
+        },
+        "scenario": "When you see a tight cluster, do you ever worry it's just cells caught mid-movement rather than a distinct group?"
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Marker Gene Interpretation",
+        "Distinguishing Gradients from States"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Articulate gut feelings"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
+      "conflict": {
+        "expert_branch": "Distinguishing Gradients from States",
+        "researcher_branch": "Articulate gut feelings"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Distinguishing Gradients from States",
+          "target_concept": "Telling if a car is parking or just stopping at a light",
+          "structural_mapping": {
+            "inputs": "Gene expression patterns",
+            "logic": "Trajectory analysis over time",
+            "outputs": "State vs. Gradient classification"
+          },
+          "explanation": "The researcher seeks the 'hunch' (guessing the car is parking), while the expert's concept treats that hunch as a prompt to verify via trajectory (watching for wheels turning). The analogy clarifies that for the expert, the decision isn't the feeling, but the verified movement."
+        },
+        "scenario": "When the metrics are ambiguous, do you ever feel certain it's a trajectory before running the analysis, or does that certainty only come after?"
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Taxonomy Alignment",
+        "Annotation & Identity Mismatch"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Process Granularity & Transitions",
+        "Identify backtracking points"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Annotation & Identity Mismatch",
+        "researcher_branch": "Identify backtracking points"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert is currently emphasizing the cognitive work involved in resolving annotation mismatches, which aligns with the researcher's interest in workflow challenges. This focus highlights the interpretive challenges of determining biological novelty versus labeling inconsistencies.",
+        "pivot": {
+          "limitation": "If the conversation remains solely on interpretive cross-referencing, it misses the technical workflow stages where analysts revert to raw data files rather than processed objects.",
+          "research_goal": "The researcher is trying to understand specific pipeline milestones where backtracking occurs technically, such as returning to FASTQ files versus adjusted matrices.",
+          "compelling_reason": "Understanding technical backtracking is also important for the researcher's interview goal because it reveals tooling constraints that might force the interpretive delays the expert describes.",
+          "coarse_scenario": "That interpretive work is crucial, but I also need to understand if resolving those mismatches ever forces you to technically backtrack to raw data, since that reveals different tooling bottlenecks."
+        }
+      },
+      "weight": 6.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_01_00",
       "researcher_leaf_id": "q_01__res_leaf_00_00_01",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Standard Drift"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Taxonomy Alignment",
+        "Annotation & Identity Mismatch"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Digital Toolchain & Workspace Configuration",
-        "Software Interoperability",
-        "Assess multi-window dependency"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Process Granularity & Transitions",
+        "Measure iteration frequency"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Standard Drift",
-        "researcher_branch": "Assess multi-window dependency"
+        "expert_branch": "Annotation & Identity Mismatch",
+        "researcher_branch": "Measure iteration frequency"
       },
-      "relation_type": "ConceptualGap",
+      "relation_type": "ScopeGap",
       "assistance_payload": {
-        "analogy": {
-          "source_concept": "Standard Drift",
-          "target_concept": "Keeping a paint sample chip visible while matching colors",
-          "structural_mapping": {
-            "inputs": "Current student work and a past 'A' example",
-            "logic": "Visual comparison to prevent internal standard shift",
-            "outputs": "Consistent grade assignment"
+        "validate_focus": "The expert emphasizes the cognitive effort involved in resolving annotation mismatches to ensure biological validity. This verification process is fundamental to accurate cell state discovery.",
+        "pivot": {
+          "limitation": "Focusing solely on the annotation phase overlooks the technical iteration cycles that occur earlier in the workflow during preprocessing and clustering.",
+          "research_goal": "The researcher aims to quantify how frequently analysts cycle between technical steps before reaching the interpretation stage.",
+          "compelling_reason": "Understanding these early iteration frequencies is essential to map the full computational effort required to reach the point where annotation mismatches even become visible.",
+          "coarse_scenario": "While verifying those biological labels is crucial, I also need to understand how many times you tweaked the preprocessing before you even got to this annotation stage, because that tells us about the hidden computational cost."
+        }
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Taxonomy Alignment",
+        "Annotation & Identity Mismatch"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Workflow Temporalities & Milestones",
+        "Effort-Insight Ratio",
+        "Pinpoint high-load low-value steps"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Annotation & Identity Mismatch",
+        "researcher_branch": "Pinpoint high-load low-value steps"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert is emphasizing the critical nature of resolving annotation mismatches to ensure biological rigor and valid discovery. This process ensures that new cell states are not merely artifacts of terminology but represent genuine biological findings.",
+        "pivot": {
+          "limitation": "Focusing solely on the necessity of this step overlooks the potential burden it places on overall workflow efficiency. It misses the opportunity to identify if the cognitive load required is disproportionate to the outcome in certain contexts.",
+          "research_goal": "The researcher is trying to understand where high cognitive load yields low perceived discovery value to optimize workflow temporalities. They aim to pinpoint segments that might be streamlined without sacrificing scientific integrity.",
+          "compelling_reason": "Understanding efficiency helps distinguish between necessary rigorous validation and potential process bottlenecks that could be alleviated with better tooling. Both rigor and workflow sustainability are essential for scalable computational discovery.",
+          "coarse_scenario": "While you clearly prioritize this resolution for accuracy, I want to understand if there are moments where that cognitive load feels disproportionately heavy for you compared to the insight gained, so we can explore if better tooling might support that burden."
+        }
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Taxonomy Alignment",
+        "Annotation & Identity Mismatch"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Articulate gut feelings"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
+      "conflict": {
+        "expert_branch": "Annotation & Identity Mismatch",
+        "researcher_branch": "Articulate gut feelings"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "knowledge_retrieval",
+          "validation_step",
+          "discovery_moment",
+          "pattern_recognition_threshold",
+          "label_semantic_distance",
+          "dataset_confidence_level",
+          "anomaly_frequency",
+          "cognitive_dissonance_intensity"
+        ],
+        "probes": [
+          {
+            "attribute": "knowledge_retrieval",
+            "question": "When investigating a mismatch, where does your primary reference information originate?",
+            "choices": [
+              "Internal memory",
+              "External literature",
+              "Peer consultation",
+              "Previous project logs"
+            ]
           },
-          "explanation": "The researcher assumes the second window displays rules (rubric), but like a painter keeping a sample chip visible to prevent color drift, you use it for concrete calibration to maintain grading consistency over time."
-        },
-        "scenario": "When you split your screen to grade, is that second window mostly for checking rubric boxes, or do you keep a past 'A' paper open to calibrate your eye?"
+          {
+            "attribute": "validation_step",
+            "question": "Which method provides the highest confidence when confirming an identity mismatch?",
+            "choices": [
+              "Statistical significance",
+              "Visual inspection",
+              "External dataset match",
+              "Expert consensus"
+            ]
+          },
+          {
+            "attribute": "discovery_moment",
+            "question": "At what stage does the suspicion of a mismatch typically arise?",
+            "choices": [
+              "During initial scan",
+              "During deep dive",
+              "After reporting",
+              "During peer review"
+            ]
+          },
+          {
+            "attribute": "pattern_recognition_threshold",
+            "question": "What cluster size triggers your investigation into a potential mismatch?",
+            "choices": [
+              "Single outlier",
+              "Small cluster (5-10)",
+              "Large systematic shift",
+              "Any deviation"
+            ]
+          },
+          {
+            "attribute": "label_semantic_distance",
+            "question": "How semantically incorrect must a label be to warrant re-annotation?",
+            "choices": [
+              "Slightly off nuance",
+              "Completely opposite meaning",
+              "Missing critical context",
+              "Technically accurate but misleading"
+            ]
+          },
+          {
+            "attribute": "dataset_confidence_level",
+            "question": "Which factor most lowers your trust in the existing labels?",
+            "choices": [
+              "Source reputation",
+              "Data freshness",
+              "Collection methodology",
+              "Sample size"
+            ]
+          },
+          {
+            "attribute": "anomaly_frequency",
+            "question": "How does the recurrence of this mismatch affect your decision to investigate?",
+            "choices": [
+              "First time ever",
+              "Rare occurrence",
+              "Common recurrence",
+              "Increasing trend"
+            ]
+          },
+          {
+            "attribute": "cognitive_dissonance_intensity",
+            "question": "How would you describe the intuitive feeling that initiates verification?",
+            "choices": [
+              "Mild hesitation",
+              "Strong suspicion",
+              "Immediate rejection",
+              "Curious interest"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If access to external literature was blocked, would you rely more on internal memory for 'Annotation & Identity Mismatch'?",
+            "attribute": "knowledge_retrieval"
+          },
+          {
+            "scenario": "If statistical tools were unavailable, would visual inspection suffice for confirmation of 'Annotation & Identity Mismatch'?",
+            "attribute": "validation_step"
+          },
+          {
+            "scenario": "If the mismatch appeared only after final reporting, would you treat it as critical regarding 'Annotation & Identity Mismatch'?",
+            "attribute": "discovery_moment"
+          },
+          {
+            "scenario": "If the cluster size dropped from 50 points to 3 points, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "pattern_recognition_threshold"
+          },
+          {
+            "scenario": "If the label was 90% accurate instead of 50% accurate, would you ignore the mismatch in 'Annotation & Identity Mismatch'?",
+            "attribute": "label_semantic_distance"
+          },
+          {
+            "scenario": "If the dataset source changed from peer-reviewed to crowd-sourced, would your suspicion about 'Annotation & Identity Mismatch' increase?",
+            "attribute": "dataset_confidence_level"
+          },
+          {
+            "scenario": "If this mismatch happened daily instead of once a year, would you stop investigating 'Annotation & Identity Mismatch'?",
+            "attribute": "anomaly_frequency"
+          },
+          {
+            "scenario": "If the feeling of wrongness was mild hesitation instead of strong suspicion, would you skip validation for 'Annotation & Identity Mismatch'?",
+            "attribute": "cognitive_dissonance_intensity"
+          }
+        ]
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Taxonomy Alignment",
+        "Annotation & Identity Mismatch"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Rule Flexibility",
+        "Map protocol deviations"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
+      "conflict": {
+        "expert_branch": "Annotation & Identity Mismatch",
+        "researcher_branch": "Map protocol deviations"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert is emphasizing the critical need to resolve annotation mismatches through cross-referencing to ensure biological validity. This process ensures that new clusters are not simply mislabeled existing states.",
+        "pivot": {
+          "limitation": "Focusing solely on biological validity overlooks the structural differences between the expert's actual workflow and formal published pipelines.",
+          "research_goal": "The researcher is attempting to document where expert-specific heuristics deviate from standard protocols to capture tacit knowledge.",
+          "compelling_reason": "The expert's focus ensures scientific correctness, but the researcher's focus ensures the workflow itself can be understood and replicated beyond just the biological outcome.",
+          "coarse_scenario": "While I agree that verifying identity is essential for accuracy, I also need to understand where your specific steps diverge from the published protocols, because those deviations often hold the key to reproducing your success."
+        }
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_01_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Biological Meaning-Making",
+        "Taxonomy Alignment",
+        "Annotation & Identity Mismatch"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "Internal Validation",
+        "Define confidence thresholds"
+      ],
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_02_01",
+      "researcher_lca_id": "q_01__res_L2_02_01",
+      "conflict": {
+        "expert_branch": "Annotation & Identity Mismatch",
+        "researcher_branch": "Define confidence thresholds"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "knowledge_retrieval",
+          "validation_step",
+          "discovery_moment",
+          "source_diversity",
+          "semantic_distance",
+          "time_investment",
+          "evidence_weight",
+          "saturation_point"
+        ],
+        "probes": [
+          {
+            "attribute": "knowledge_retrieval",
+            "question": "When investigating a mismatch, where do you look first?",
+            "choices": [
+              "Internal documentation",
+              "External literature",
+              "Raw data logs"
+            ]
+          },
+          {
+            "attribute": "validation_step",
+            "question": "Which method carries the most weight during validation?",
+            "choices": [
+              "Statistical significance",
+              "Qualitative review",
+              "Cross-dataset comparison"
+            ]
+          },
+          {
+            "attribute": "discovery_moment",
+            "question": "When does the mismatch become apparent to you?",
+            "choices": [
+              "Immediately upon viewing",
+              "After data aggregation",
+              "Only after peer challenge"
+            ]
+          },
+          {
+            "attribute": "source_diversity",
+            "question": "How many independent sources confirm the mismatch?",
+            "choices": [
+              "One trusted source",
+              "Multiple independent sources",
+              "Specific authoritative dataset"
+            ]
+          },
+          {
+            "attribute": "semantic_distance",
+            "question": "What drives the classification of the mismatch?",
+            "choices": [
+              "Entirely new terminology",
+              "Conflicting definitions",
+              "Contextual usage differences"
+            ]
+          },
+          {
+            "attribute": "time_investment",
+            "question": "What limits your investigation time?",
+            "choices": [
+              "Fixed 30 minute limit",
+              "Fixed 2 hour limit",
+              "Pattern repetition"
+            ]
+          },
+          {
+            "attribute": "evidence_weight",
+            "question": "What quantity of evidence triggers action?",
+            "choices": [
+              "Three consistent examples",
+              "One contradictory opinion",
+              "Statistical outlier score"
+            ]
+          },
+          {
+            "attribute": "saturation_point",
+            "question": "What signals you to stop searching?",
+            "choices": [
+              "No new info found",
+              "Confidence feels high enough",
+              "Deadline approaches"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If primary search location changed from external literature to internal logs, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "knowledge_retrieval"
+          },
+          {
+            "scenario": "If statistical tools changed from available to unavailable, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "validation_step"
+          },
+          {
+            "scenario": "If the cluster appearance changed from unlabeled to instantly labeled, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "discovery_moment"
+          },
+          {
+            "scenario": "If available datasets changed from three to one, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "source_diversity"
+          },
+          {
+            "scenario": "If terminology difference changed from multiple words to one word, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "semantic_distance"
+          },
+          {
+            "scenario": "If available investigation time changed from 2 hours to 10 minutes, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "time_investment"
+          },
+          {
+            "scenario": "If evidence count changed from three weak examples to one strong counter-example, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "evidence_weight"
+          },
+          {
+            "scenario": "If information flow changed from stopping to continuing indefinitely, would your judgment about 'Annotation & Identity Mismatch' change?",
+            "attribute": "saturation_point"
+          }
+        ]
       },
       "weight": 3.0000000000000004
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "expert_leaf_id": "q_01__exp_leaf_02_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Standard Drift"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Validation & Confidence",
+        "Experimental Translation",
+        "Marker Panel Selection"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Rubric Integration Point",
-        "Pinpoint rubric consultation timing"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Detect algo-to-manual switch points"
       ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
       "conflict": {
-        "expert_branch": "Standard Drift",
-        "researcher_branch": "Pinpoint rubric consultation timing"
+        "expert_branch": "Marker Panel Selection",
+        "researcher_branch": "Detect algo-to-manual switch points"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Standard Drift",
-          "target_concept": "Comparing paint to a sample chip",
+          "source_concept": "Marker Panel Selection",
+          "target_concept": "Packing a limited suitcase",
           "structural_mapping": {
-            "inputs": "New wall section (Student work), Old paint chip (Past 'A' example), Color name label (Rubric)",
-            "logic": "Visual side-by-side matching (Exemplar calibration) vs. Reading text specifications (Rubric consultation)",
-            "outputs": "Confidence in color match (Grade consistency)"
+            "inputs": "50 valid genes vs. 50 suitable outfits",
+            "logic": "Select top 3 due to validation capacity vs. Select top 3 due to luggage space",
+            "outputs": "Validatable marker panel vs. Carry-on compliant bags"
           },
-          "explanation": "Just as asking when a painter reads the color name misses that they are matching a chip for accuracy, asking about rubric timing misses that you use a past 'A' for visual calibration; both aim for consistency, but the tool shifts from text to example."
+          "explanation": "Both models identify a switch to manual choice; this analogy clarifies that like packing for a weight limit, the expert's switch is driven by downstream capacity constraints rather than the upstream quality suspicion you anticipate."
         },
-        "scenario": "When you keep a past 'A' example open to prevent drifting, do you find the rubric timing matters less because the example becomes your primary standard instead?"
-      },
-      "weight": 2.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
-      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Standard Drift"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Finalization Protocol",
-        "Describe verification mechanisms"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Standard Drift",
-        "researcher_branch": "Describe verification mechanisms"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Contrast Bias",
-          "target_concept": "Keeping your balance while walking",
-          "structural_mapping": {
-            "inputs": "Uneven ground (varying student work quality)",
-            "logic": "Constant micro-adjustments (referencing past 'A' example)",
-            "outputs": "Staying upright (consistent grading standards)"
-          },
-          "explanation": "The researcher expects a final safety check (looking back after walking), but like Contrast Bias, the expert's verification is continuous (keeping balance), so corrections happen during the act rather than in a final review step."
-        },
-        "scenario": "When you keep that past 'A' example open, does that help you set the grade correctly the first time, or do you still need to review all grades again before submitting?"
+        "scenario": "When you switch from the algorithm to picking genes yourself, is that because the data looks suspicious, or simply because you can't physically validate all of them?"
       },
       "weight": 3.5
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "expert_leaf_id": "q_01__exp_leaf_02_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Contrast Bias"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Validation & Confidence",
+        "Experimental Translation",
+        "Marker Panel Selection"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Identify batching granularity"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "Internal Validation",
+        "Define confidence thresholds"
       ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_02",
+      "researcher_lca_id": "q_01__res_L1_02",
       "conflict": {
-        "expert_branch": "Contrast Bias",
-        "researcher_branch": "Identify batching granularity"
+        "expert_branch": "Marker Panel Selection",
+        "researcher_branch": "Define confidence thresholds"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Marker Panel Selection",
+          "target_concept": "Paying critical bills with limited cash",
+          "structural_mapping": {
+            "inputs": "50 candidate genes vs 50 due bills",
+            "logic": "Validation capacity limits selection vs Cash limits selection",
+            "outputs": "Hypothesis collapse risk vs Default risk"
+          },
+          "explanation": "The researcher assumes a confidence gate controls action. The target shows that necessity forces action despite uncertainty, but resource limits force triage, meaning you pick the vital few not because you're sure, but because you can't afford to test everything."
+        },
+        "scenario": "When you must narrow fifty genes down to three for validation, do you wait until you feel certain enough to proceed, or do you simply pick the cleanest ones because the budget forces your hand?"
+      },
+      "weight": 4.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_02_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Validation & Confidence",
+        "Experimental Translation",
+        "Marker Panel Selection"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Rule Flexibility",
+        "Map protocol deviations"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
+      "conflict": {
+        "expert_branch": "Marker Panel Selection",
+        "researcher_branch": "Map protocol deviations"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "The expert emphasizes a critical cognitive risk where grading sequence influences judgment accuracy through contrast effects. This psychological factor is vital for understanding grading reliability.",
+        "validate_focus": "The expert emphasizes the rigorous necessity of reducing gene panels due to validation constraints, prioritizing hypothesis survival over data volume.",
         "pivot": {
-          "limitation": "If the conversation remains solely on the expert's cognitive bias, the structural workflow decisions that trigger that bias remain undefined for the researcher.",
-          "research_goal": "The researcher is trying to understand the logistical unit of work, specifically whether the expert batches by student or by question across students.",
-          "compelling_reason": "Understanding the batching granularity is necessary for the researcher to map where the expert's contrast bias is most likely to occur within the workflow.",
-          "coarse_scenario": "That contrast effect is really important, and to see where it hits hardest, I need to understand if you grade all of Student A's work before moving to Student B, or if you grade all Introductions across the class at once."
+          "limitation": "If the conversation remains only on this constraint, the researcher misses the chance to record how these necessary adaptations differ from standard published protocols.",
+          "research_goal": "The researcher seeks to map protocol deviations to distinguish between optional expert shortcuts and necessary experimental adaptations.",
+          "compelling_reason": "Clarifying this distinction helps the researcher preserve the expert's rigor while documenting where standard pipelines require flexibility for success.",
+          "coarse_scenario": "I see that cutting down to three genes is essential for your validation, but could you walk me through where that step diverges from the published protocol so I can capture when that flexibility is actually required?"
         }
       },
       "weight": 4.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+      "expert_leaf_id": "q_01__exp_leaf_02_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Judgment & Calibration",
-        "Contrast Bias"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Validation & Confidence",
+        "Claiming Novelty",
+        "The 'Bet Your Reputation' Check"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Finalization Protocol",
-        "Describe verification mechanisms"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Tacit Knowledge & Heuristic Application",
+        "Intuition Triggers",
+        "Articulate gut feelings"
       ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_01",
+      "researcher_lca_id": "q_01__res_L1_01",
       "conflict": {
-        "expert_branch": "Contrast Bias",
-        "researcher_branch": "Describe verification mechanisms"
+        "expert_branch": "The 'Bet Your Reputation' Check",
+        "researcher_branch": "Articulate gut feelings"
       },
-      "relation_type": "ConceptualGap",
+      "relation_type": "TacitGap",
       "assistance_payload": {
-        "analogy": {
-          "source_concept": "Contrast Bias",
-          "target_concept": "Steering a car in strong wind",
-          "structural_mapping": {
-            "inputs": "Previous grade impact and current student work",
-            "logic": "Continuous mental adjustments to neutralize bias",
-            "outputs": "Fair grade assignment"
+        "attributes": [
+          "career_risk",
+          "cognitive_load",
+          "decision_point",
+          "peer_validation",
+          "methodological_stability",
+          "novelty_threshold",
+          "failure_visibility",
+          "resource_commitment"
+        ],
+        "probes": [
+          {
+            "attribute": "career_risk",
+            "question": "When weighing this check, is your primary concern potential promotion delays, loss of peer respect, or funding jeopardy?",
+            "choices": [
+              "Promotion delays",
+              "Loss of peer respect",
+              "Funding jeopardy"
+            ]
           },
-          "explanation": "The researcher expects verification to be a single destination check (like looking at a map once), but the expert's process behaves like steering in wind: accuracy comes from constant, invisible corrections rather than a single discrete step."
-        },
-        "scenario": "When you finish a stack, do you have a specific step to review grades, or is that checking happening continuously in your head while you read each one?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
-      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Diagnostic Intuition",
-        "Effort Proxies"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Finalization Protocol",
-        "Describe verification mechanisms"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Effort Proxies",
-        "researcher_branch": "Describe verification mechanisms"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Authenticity Checks",
-          "target_concept": "Tapping a watermelon to check ripeness",
-          "structural_mapping": {
-            "inputs": "Surface cues (formatting/style vs sound/skin texture)",
-            "logic": "Heuristic inference (shaky surface implies poor interior)",
-            "outputs": "Early decision on quality validity (triage vs purchase)"
+          {
+            "attribute": "cognitive_load",
+            "question": "Does the mental effort required stem from understanding the theory, managing the logistics, or anticipating critiques?",
+            "choices": [
+              "Understanding the theory",
+              "Managing the logistics",
+              "Anticipating critiques"
+            ]
           },
-          "explanation": "Both concepts act as quality filters. Like tapping a watermelon, the expert checks the surface first to predict the inside before investing time, whereas the researcher assumes the check happens at the end to count the total."
-        },
-        "scenario": "Before you even read the analysis, do you scan the references to gauge effort, or is your main verification step just summing the points at the very end?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Diagnostic Intuition",
-        "Authenticity Checks"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Information Foraging & Navigation Patterns",
-        "Document Traversal",
-        "Trace information foraging path"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Authenticity Checks",
-        "researcher_branch": "Trace information foraging path"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Effort Proxies",
-          "target_concept": "Smelling milk to check if it is sour",
-          "structural_mapping": {
-            "inputs": "Surface details like formatting and references",
-            "logic": "Surface flaws indicate deeper quality issues",
-            "outputs": "Decision to grade strictly or skip deep reading"
+          {
+            "attribute": "decision_point",
+            "question": "Is this check performed before funding approval, before lab setup, or before data collection?",
+            "choices": [
+              "Before funding approval",
+              "Before lab setup",
+              "Before data collection"
+            ]
           },
-          "explanation": "The researcher tracks where you look (foraging path), which is the physical trace of your quality check, similar to mapping the steps of someone smelling milk; the movement exists, but the goal is the sniff."
-        },
-        "scenario": "When you feel that sudden shift in writing style, do you jump to specific sections to confirm it, meaning your reading order follows the suspicion rather than the document structure?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Diagnostic Intuition",
-        "Authenticity Checks"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Finalization Protocol",
-        "Describe verification mechanisms"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Authenticity Checks",
-        "researcher_branch": "Describe verification mechanisms"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Effort Proxies",
-          "target_concept": "Sniff test for spoilage",
-          "structural_mapping": {
-            "inputs": "Sensory cue (smell or formatting/style)",
-            "logic": "Deviation from norm indicates underlying failure",
-            "outputs": "Reject or Accept content"
+          {
+            "attribute": "peer_validation",
+            "question": "Do you rely more on private mentor feedback, public pre-print reactions, or past conference precedents?",
+            "choices": [
+              "Private mentor feedback",
+              "Public pre-print reactions",
+              "Past conference precedents"
+            ]
           },
-          "explanation": "Both concepts involve a verification step before finalizing, but the expert's acts like a sniff test (qualitative integrity) similar to effort proxies, whereas the researcher's assumes a count (quantitative total). The target concept clarifies that the expert is checking content safety, not arithmetic accuracy."
-        },
-        "scenario": "When you mention verifying the work before submission, do you mean checking the math adds up, or do you mean sensing if the student actually wrote it?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_03_00",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_00",
-      "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Feedback Construction",
-        "Comment Synthesis"
-      ],
-      "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Feedback Artifact Construction",
-        "Comment Generation Strategy",
-        "Quantify reusable component usage"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_03",
-      "researcher_lca_id": "q_01__res_L2_02_00",
-      "conflict": {
-        "expert_branch": "Comment Synthesis",
-        "researcher_branch": "Quantify reusable component usage"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Comment Synthesis",
-          "target_concept": "Adjusting a recipe to taste",
-          "structural_mapping": {
-            "inputs": "Bank comments or raw notes",
-            "logic": "Tone calibration and organization",
-            "outputs": "Guiding feedback"
+          {
+            "attribute": "methodological_stability",
+            "question": "Is your confidence higher when using established protocols, modified standard tools, or entirely new instrumentation?",
+            "choices": [
+              "Established protocols",
+              "Modified standard tools",
+              "Entirely new instrumentation"
+            ]
           },
-          "explanation": "The researcher measures effort by ingredient origin (bank vs. typed), but like a chef, the expert knows the workload lies in adjusting the seasoning (tone) to fit the diner (student), regardless of who chopped the vegetables."
-        },
-        "scenario": "When you reuse a past comment, do you still spend significant mental energy adapting it so it doesn't sound too harsh for that specific student?"
+          {
+            "attribute": "novelty_threshold",
+            "question": "Does the risk feel higher when the concept is slightly incremental, moderately disruptive, or paradigm-shifting?",
+            "choices": [
+              "Slightly incremental",
+              "Moderately disruptive",
+              "Paradigm-shifting"
+            ]
+          },
+          {
+            "attribute": "failure_visibility",
+            "question": "Are you more concerned about failure being noticed by close collaborators, your immediate department, or the broader field?",
+            "choices": [
+              "Close collaborators",
+              "Immediate department",
+              "Broader field"
+            ]
+          },
+          {
+            "attribute": "resource_commitment",
+            "question": "Does the threshold change more based on weeks of labor, budget expenditure, or equipment availability?",
+            "choices": [
+              "Weeks of labor",
+              "Budget expenditure",
+              "Equipment availability"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the potential negative outcome shifted from a minor paper rejection to a retraction notice, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "career_risk"
+          },
+          {
+            "scenario": "If the preparation time required increased from 10 hours to 50 hours per week, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If the check occurred after preliminary data was collected rather than before hypothesis formation, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "decision_point"
+          },
+          {
+            "scenario": "If the number of senior colleagues endorsing the idea dropped from three to zero, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "peer_validation"
+          },
+          {
+            "scenario": "If the core technique changed from a standard assay to a custom-built apparatus, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "methodological_stability"
+          },
+          {
+            "scenario": "If the idea's similarity to existing literature shifted from 80% overlap to 20% overlap, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "novelty_threshold"
+          },
+          {
+            "scenario": "If the presentation venue changed from an internal lab meeting to a keynote plenary, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "failure_visibility"
+          },
+          {
+            "scenario": "If the required budget increased from $5,000 to $500,000, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "resource_commitment"
+          }
+        ]
       },
       "weight": 2.5
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_03_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "expert_leaf_id": "q_01__exp_leaf_02_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_01_00",
       "aligned_path_expert": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Expert Grading Workflow",
-        "Feedback Construction",
-        "Comment Synthesis"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Validation & Confidence",
+        "Claiming Novelty",
+        "The 'Bet Your Reputation' Check"
       ],
       "aligned_path_researcher": [
-        "Exploring challenges, cognitive load, and expert intuition in grading project-based assignments .",
-        "Digital Toolchain & Workspace Configuration",
-        "Software Interoperability",
-        "Map application switching sequences"
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "Internal Validation",
+        "Define confidence thresholds"
       ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
+      "lca_layer": "L2",
+      "expert_lca_id": "q_01__exp_L2_02_01",
+      "researcher_lca_id": "q_01__res_L2_02_01",
       "conflict": {
-        "expert_branch": "Comment Synthesis",
-        "researcher_branch": "Map application switching sequences"
+        "expert_branch": "The 'Bet Your Reputation' Check",
+        "researcher_branch": "Define confidence thresholds"
       },
-      "relation_type": "ScopeGap",
+      "relation_type": "TacitGap",
       "assistance_payload": {
-        "validate_focus": "The expert emphasizes that organizing scattered notes into constructive feedback is the core challenge of the grading workflow. This cognitive effort is central to their experience.",
-        "pivot": {
-          "limitation": "Focusing solely on the cognitive organization misses how the mechanical act of switching applications might be fragmenting that thought process.",
-          "research_goal": "The researcher is trying to understand the specific sequence of software interactions to identify where manual data transfer occurs.",
-          "compelling_reason": "While the cognitive load is primary, the toolchain structure often dictates where that load is highest, making the mechanical mapping essential for holistic improvement.",
-          "coarse_scenario": "I agree that synthesizing the comments is the real work, but if we map out exactly which tools you switch between to do that, we might find where the software is adding unnecessary friction to that thinking process."
-        }
+        "attributes": [
+          "career_risk",
+          "cognitive_load",
+          "decision_point",
+          "peer_scrutiny",
+          "methodological_familiarity",
+          "recovery_cost",
+          "visibility_scope",
+          "intuition_strength"
+        ],
+        "probes": [
+          {
+            "attribute": "career_risk",
+            "question": "When weighing the 'Bet Your Reputation' check, is the primary driver potential promotion loss, stalled funding, or damaged peer relationships?",
+            "choices": [
+              "Potential promotion loss",
+              "Stalled funding",
+              "Damaged peer relationships"
+            ]
+          },
+          {
+            "attribute": "cognitive_load",
+            "question": "Does the mental effort required to defend this work feel like a minor distraction, a manageable burden, or an exhaustive drain?",
+            "choices": [
+              "Minor distraction",
+              "Manageable burden",
+              "Exhaustive drain"
+            ]
+          },
+          {
+            "attribute": "decision_point",
+            "question": "Is this decision made immediately before the experiment, during the proposal phase, or only after initial pilot data?",
+            "choices": [
+              "Immediately before the experiment",
+              "During the proposal phase",
+              "Only after initial pilot data"
+            ]
+          },
+          {
+            "attribute": "peer_scrutiny",
+            "question": "Are you more concerned about scrutiny from direct competitors, general conference attendees, or journal reviewers?",
+            "choices": [
+              "Direct competitors",
+              "General conference attendees",
+              "Journal reviewers"
+            ]
+          },
+          {
+            "attribute": "methodological_familiarity",
+            "question": "Does your confidence stem from using established protocols, adapting known methods, or inventing entirely new techniques?",
+            "choices": [
+              "Using established protocols",
+              "Adapting known methods",
+              "Inventing entirely new techniques"
+            ]
+          },
+          {
+            "attribute": "recovery_cost",
+            "question": "If the result is negative, is the setback a minor delay, a required redesign, or a project termination?",
+            "choices": [
+              "Minor delay",
+              "Required redesign",
+              "Project termination"
+            ]
+          },
+          {
+            "attribute": "visibility_scope",
+            "question": "Does the risk feel higher if presented to a specialized workshop, a major international conference, or a public press release?",
+            "choices": [
+              "Specialized workshop",
+              "Major international conference",
+              "Public press release"
+            ]
+          },
+          {
+            "attribute": "intuition_strength",
+            "question": "Is your gut feeling based on a sudden insight, a gradual accumulation of evidence, or a pattern recognition from past failures?",
+            "choices": [
+              "Sudden insight",
+              "Gradual accumulation of evidence",
+              "Pattern recognition from past failures"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the potential consequence changed from a minor note in your record to a retraction notice, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "career_risk"
+          },
+          {
+            "scenario": "If the mental effort required to explain the method changed from 5 minutes to 5 hours, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If the timing of the commitment changed from after pilot data to before any data collection, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "decision_point"
+          },
+          {
+            "scenario": "If the audience changed from supportive collaborators to aggressive competitors, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "peer_scrutiny"
+          },
+          {
+            "scenario": "If the tool reliability changed from a standard industry instrument to a custom-built prototype, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "methodological_familiarity"
+          },
+          {
+            "scenario": "If the time needed to fix a failure changed from one week to one year, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "recovery_cost"
+          },
+          {
+            "scenario": "If the presentation venue changed from an internal lab meeting to a keynote address, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "visibility_scope"
+          },
+          {
+            "scenario": "If the feeling of certainty changed from a vague hunch to a vivid conviction, would your judgment about 'The 'Bet Your Reputation' Check' change?",
+            "attribute": "intuition_strength"
+          }
+        ]
       },
-      "weight": 4.0
+      "weight": 1.5000000000000002
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_02_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+      "aligned_path_expert": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Validation & Confidence",
+        "Claiming Novelty",
+        "The 'Bet Your Reputation' Check"
+      ],
+      "aligned_path_researcher": [
+        "Exploring workflows, cognitive decision-making, and tooling challenges in computational cell state discovery",
+        "Phenomenology of Discovery",
+        "The Discovery Event",
+        "Distinguish cluster vs. state"
+      ],
+      "lca_layer": "L1",
+      "expert_lca_id": "q_01__exp_L1_02",
+      "researcher_lca_id": "q_01__res_L1_02",
+      "conflict": {
+        "expert_branch": "The 'Bet Your Reputation' Check",
+        "researcher_branch": "Distinguish cluster vs. state"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "The 'Bet Your Reputation' Check",
+          "target_concept": "Judging if an excuse will hold up",
+          "structural_mapping": {
+            "inputs": "A claim you might make (novel cluster / personal excuse)",
+            "logic": "Assessing audience skepticism rather than factual accuracy (peer review / listener belief)",
+            "outputs": "Decision to speak or stay silent (present finding / use excuse)"
+          },
+          "explanation": "Just as you judge an excuse by whether it sounds believable rather than if it is strictly true, you treat a cell state as valid based on peer acceptance rather than biological definition, highlighting why the researcher's ontological boundary is secondary to your social risk calculation."
+        },
+        "scenario": "When you find a new cluster, do you define it as a state based on biological markers, or based on whether you think colleagues will tear it apart at a conference?"
+      },
+      "weight": 3.5
     }
   ],
   "metadata": {
-    "created_at": "2026-03-22T05:58:42.834701",
+    "created_at": "2026-03-24T09:29:36.759285",
     "llm_provider": "openai",
     "question_id": "q_01",
-    "question_text": "What’s your common grading workflow for these assignments?",
-    "expert_leaves": 10,
+    "question_text": "Could you walk me through your typical workflow for discovering a new cell state, from receiving the raw data to the final confirmation? Within this pipeline, which specific step feels like the \"actua",
+    "expert_leaves": 8,
     "researcher_leaves": 9,
-    "link_count": 22,
+    "link_count": 32,
     "alignment_stats": {
-      "leaf_alignments": 22,
-      "concept_alignments": 8,
-      "misaligned_leaves": 22
+      "leaf_alignments": 32,
+      "concept_alignments": 10,
+      "misaligned_leaves": 32
     },
     "construction_method": "math-based",
     "depends_on": []

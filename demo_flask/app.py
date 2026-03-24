@@ -35,17 +35,38 @@ app.config["SESSION_USE_SIGNER"] = True
 os.makedirs(app.config["SESSION_FILE_DIR"], exist_ok=True)
 Session(app)
 
+TRANSCRIPT_PATH = os.path.join(app.root_path, "interview_transcript.json")
+
+
+def save_transcript(messages: List[Dict[str, Any]]) -> None:
+    """Persist the latest conversation transcript for later review."""
+    payload = {
+        "saved_at": datetime.now().isoformat(timespec="seconds"),
+        "message_count": len(messages),
+        "messages": messages,
+    }
+    tmp_path = TRANSCRIPT_PATH + ".tmp"
+    try:
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+        os.replace(tmp_path, TRANSCRIPT_PATH)
+    except Exception as exc:
+        print(f"[Transcript] Failed to save transcript: {exc}")
+
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Prof. Smith.
-Professional Role: Senior University Faculty / Course Lead.
-Work Experience: Extensive experience in evaluating and grading project-based assignments, such as complex project reports and term papers.
-Current Situation: Currently at the end of the semester, facing a massive volume of lengthy project reports; operating under high cognitive and emotional load.
-Expertise & Skills:
-(1) Highly proficient in using standardized Rubrics for routine evaluations.
-(2) Possesses a mature "grading intuition," capable of quickly gauging work quality through subtle objective cues.
-(3) Experienced in supervising and training junior Teaching Assistants (TAs) on grading standards.
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Computational Biologist / Bioinformatician
+
+Work Experience: Extensive frontline experience analyzing high-dimensional single-cell RNA-seq and spatial transcriptomics data. Has successfully identified, validated, and published findings on novel cell states. Highly proficient in using standard bioinformatics pipelines and platforms like Seurat and Scanpy.
+
+Expertise:
+Deeply familiar with the ambiguity and complexity of defining novel cell states from complex datasets.
+Highly capable of balancing statistical clustering signals with biological intuition, and understanding what constitutes "believable" evidence (e.g., marker genes, pathway enrichment, wet-lab validation).
+
+Core Challenges & Pain Points:
+Profoundly understands the extreme difficulty of biological interpretation—algorithmic clusters often do not cleanly map to valid biological cell types.
+Finds it challenging to formalize the subjective "rules of thumb" used to tune clustering parameters (like resolution) or to decide whether a continuous spectrum is a new state or just technical noise (e.g., batch effects). Constantly frustrated by the tedious, manual iteration required when biological interpretation falls short.
 """
 
 
@@ -1135,6 +1156,7 @@ def index():
     if request.args.get("reset") == "1":
         clear_dsag_state()
         session.clear()
+        save_transcript([])
         return redirect(url_for("index"))
 
     messages = get_messages()
@@ -1188,6 +1210,7 @@ def index():
                     else:
                         ensure_manual_mismap(target)
                 session["messages"] = messages
+                save_transcript(messages)
             return redirect(url_for("index"))
 
         # Handle chat messages
@@ -1273,6 +1296,7 @@ def index():
             messages.append(msg)
 
         session["messages"] = messages
+        save_transcript(messages)
         return redirect(url_for("index"))
 
     # Check if DSAG is ready for template rendering
