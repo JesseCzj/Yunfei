@@ -41,12 +41,23 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Exploring the manual workflows, reliability metrics, and the critical need for biological explainability when biologists use AI-based virtual cell models for genetic perturbation"
+INTERVIEW_TOPIC = "How physicians reason through complex diagnostic cases, make decisions with incomplete information, and communicate that thinking to non-clinical professionals."
 
-INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Biologist / Computational Biologist specializing in Gene Regulation and Drug DiscoveryWork Experience: Extensive frontline experience conducting genetic perturbation experiments (e.g., CRISPR knockouts) both manually in the wet-lab and computationally. Frequently evaluates AI predictions and gene regulatory networks against real biological data and existing literature.Expertise:
-Deeply familiar with the biological mechanisms underlying cellular responses. Highly capable of cross-referencing AI outputs with extensive literature reviews to determine if a predicted gene perturbation result is a real biological discovery or just an algorithmic hallucination.
+INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Li
+
+Professional Role: Senior Attending Physician / Department of General Internal Medicine
+
+Work Experience: Over 15 years of frontline clinical experience in a tertiary teaching hospital. Has personally diagnosed and managed hundreds of complex cases including atypical presentations, rare diseases, and multi-morbidity patients with conflicting test results.
+
+Expertise:
+Deeply familiar with the nonlinear, iterative nature of real-world diagnostic reasoning; skilled at dynamically re-prioritizing differential diagnoses as new information emerges during a patient encounter, rather than following a rigid textbook algorithm.
+
+Highly capable of relying on "clinical intuition" to detect subtle patient-specific cues (e.g., inconsistencies between reported symptoms and physical presentation, hesitation patterns during history-taking, atypical symptom combinations) long before lab results or imaging confirm the suspicion.
+
 Core Challenges & Pain Points:
-Profoundly frustrated by AI models acting as "black boxes"—where the model can highly accurately predict gene expression changes, but fails to explain the underlying biological mechanism (which is essential for drug discovery). Finds it challenging to evaluate the true "reliability" of virtual cell models because standard AI metrics (like loss or accuracy) often do not translate to biological validity."""
+Profoundly understands the extreme difficulty of making high-stakes diagnostic decisions under uncertainty—it requires acting on partial information and time pressure, while knowing that a missed or delayed diagnosis can seriously harm the patient.
+
+Finds it challenging to articulate the tacit reasoning behind diagnostic decisions to non-clinical professionals (especially technology designers and HCI researchers). Often feels that outsiders reduce diagnosis to a linear checklist, completely ignoring the fluid, intuition-driven process of hypothesis testing and pattern matching that actually drives clinical decision-making."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
