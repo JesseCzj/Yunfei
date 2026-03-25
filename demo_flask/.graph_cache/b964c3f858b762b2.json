@@ -1,27 +1,1909 @@
 {
-  "created_at": "2026-03-25T12:06:43.219601",
-  "question_graph_count": 4,
+  "graph": {
+    "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+    "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
+    "expert_bg": "A senior clinician and clinical educator who has delivered and evaluated hundreds of oral case presentations, and relies on deeply internalized judgment to organize, prioritize, and adapt case narratives for different clinical audiences.",
+    "expert_tree": {
+      "tower": "expert",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "description": "Interview topic: Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__exp_L1_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L1_00": {
+          "id": "q_01__exp_L1_00",
+          "tower": "expert",
+          "layer": "L1",
+          "label": "Expert Clinical Presenter",
+          "description": "Senior clinician perspective on organizing, prioritizing, and adapting case narratives for different clinical audiences.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__exp_L2_00_00",
+            "q_01__exp_L2_00_01",
+            "q_01__exp_L2_00_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L2_00_00": {
+          "id": "q_01__exp_L2_00_00",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Cognitive Synthesis & Story Building",
+          "description": "How raw patient data is mentally processed into a coherent clinical narrative before delivery.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_00_00",
+            "q_01__exp_leaf_00_00_01",
+            "q_01__exp_leaf_00_00_02",
+            "q_01__exp_leaf_00_00_03"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_00_00": {
+          "id": "q_01__exp_leaf_00_00_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Scanning for the Clinical Story",
+          "description": "Skimming the chart for red flags and the diagnostic puzzle rather than reading front-to-back.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Data Triage",
+            "Finding the Hook",
+            "Non-linear Chart Review"
+          ]
+        },
+        "q_01__exp_leaf_00_00_01": {
+          "id": "q_01__exp_leaf_00_00_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Instinctive Outlier Detection",
+          "description": "Recognizing values that don't fit the patient's baseline without needing to check references.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [
+            "Preparation",
+            "Clinical Judgment",
+            "Mental Model"
+          ],
+          "aliases": [
+            "Spotting the Anomaly",
+            "Pattern Recognition"
+          ]
+        },
+        "q_01__exp_leaf_00_00_02": {
+          "id": "q_01__exp_leaf_00_00_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Crafting the Summary One-Liner",
+          "description": "Condensing the patient's identity and main problem into a single opening sentence.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "The Hook",
+            "Patient Summary",
+            "Opening Statement"
+          ]
+        },
+        "q_01__exp_leaf_00_00_03": {
+          "id": "q_01__exp_leaf_00_00_03",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Prioritizing by Acuity & Educational Value",
+          "description": "Ordering problems by life-threat level, but also by what the audience needs to learn.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Problem List Ordering",
+            "Triage by Audience Need"
+          ]
+        },
+        "q_01__exp_L2_00_01": {
+          "id": "q_01__exp_L2_00_01",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Audience & Context Calibration",
+          "description": "Adjusting content and delivery based on who is listening and the constraints of the clinical setting.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_01_00",
+            "q_01__exp_leaf_00_01_01",
+            "q_01__exp_leaf_00_01_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_01_00": {
+          "id": "q_01__exp_leaf_00_01_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Tailoring to Role & Expertise",
+          "description": "Shifting focus from reasoning/differential for trainees to management decisions for seniors.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Reading the Room",
+            "Audience Calibration",
+            "Role-Based Content"
+          ]
+        },
+        "q_01__exp_leaf_00_01_01": {
+          "id": "q_01__exp_leaf_00_01_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Simplifying for Multidisciplinary Teams",
+          "description": "Adjusting jargon and context when nurses or pharmacists are present to ensure alignment.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Cross-Specialty Communication",
+            "Jargon Reduction"
+          ]
+        },
+        "q_01__exp_leaf_00_01_02": {
+          "id": "q_01__exp_leaf_00_01_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Adapting to Venue & Time Constraints",
+          "description": "Balancing brevity for workflow rounds against depth for teaching conferences.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Cutting for Time",
+            "Rounds vs Conference",
+            "Setting Constraints"
+          ]
+        },
+        "q_01__exp_L2_00_02": {
+          "id": "q_01__exp_L2_00_02",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Delivery & Defense Mechanisms",
+          "description": "Managing the live interaction, handling uncertainty, and defending clinical decisions during Q&A.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_02_00",
+            "q_01__exp_leaf_00_02_01",
+            "q_01__exp_leaf_00_02_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_02_00": {
+          "id": "q_01__exp_leaf_00_02_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Navigating Uncertainty & Honesty",
+          "description": "Admitting gaps in knowledge while offering a reasoned hypothesis instead of guessing.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Managing the Unknown",
+            "Intellectual Honesty"
+          ]
+        },
+        "q_01__exp_leaf_00_02_01": {
+          "id": "q_01__exp_leaf_00_02_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Defending Without Arguing",
+          "description": "Standing firm on the plan without becoming defensive when challenged by seniors.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Handling Pushback",
+            "Professional Defense"
+          ]
+        },
+        "q_01__exp_leaf_00_02_02": {
+          "id": "q_01__exp_leaf_00_02_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Real-Time Narrative Adjustment",
+          "description": "Shifting emphasis or depth mid-presentation based on audience engagement cues.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "Live Delivery",
+            "Audience Awareness",
+            "Interaction"
+          ],
+          "aliases": [
+            "Reading the Room Live",
+            "Flow Adjustment",
+            "Dynamic Adaptation"
+          ]
+        }
+      }
+    },
+    "researcher_tree": {
+      "tower": "researcher",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "description": "Interview topic: Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__res_L1_00",
+            "q_01__res_L1_01",
+            "q_01__res_L1_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L1_00": {
+          "id": "q_01__res_L1_00",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Cognitive Workflow & Information Foraging",
+          "description": "Examining the internal mental processes and strategies used to extract, filter, and organize patient data before speaking.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_00_00",
+            "q_01__res_L2_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_00_00": {
+          "id": "q_01__res_L2_00_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Data Triage & Filtering",
+          "description": "Understanding how experts decide what information is signal versus noise during chart review.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_00_00",
+            "q_01__res_leaf_00_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_00_00": {
+          "id": "q_01__res_leaf_00_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Identify heuristics for data relevance",
+          "description": "Determine the specific rules or intuition experts use to filter chart data into 'relevant' versus 'irrelevant' buckets before presentation.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Information Foraging",
+            "Decision Heuristics"
+          ]
+        },
+        "q_01__res_leaf_00_00_01": {
+          "id": "q_01__res_leaf_00_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Resolve conflicting data points",
+          "description": "Explore how contradictory information in the patient record is reconciled during the review phase to ensure narrative consistency.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Sensemaking",
+            "Data Conflict Resolution"
+          ]
+        },
+        "q_01__res_L2_00_01": {
+          "id": "q_01__res_L2_00_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Narrative Synthesis",
+          "description": "Investigating how raw data is transformed into a coherent linear story structure.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_01_00",
+            "q_01__res_leaf_00_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_01_00": {
+          "id": "q_01__res_leaf_00_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Map non-linear to linear conversion",
+          "description": "Document the steps taken to convert non-linear chart entries into a linear chronological story for the audience.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Temporal Mapping",
+            "Narrative Structure"
+          ]
+        },
+        "q_01__res_leaf_00_01_01": {
+          "id": "q_01__res_leaf_00_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Prioritize assessment over history",
+          "description": "Understand how the 'assessment and plan' section is weighted against the 'history' during the preparation phase.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Information Hierarchy",
+            "Content Weighting"
+          ]
+        },
+        "q_01__res_L1_01": {
+          "id": "q_01__res_L1_01",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Audience Modeling & Contextual Framing",
+          "description": "Exploring how the presenter adapts the content and structure based on the listener and the physical environment.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_01_00",
+            "q_01__res_L2_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_01_00": {
+          "id": "q_01__res_L2_01_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Listener Profiling",
+          "description": "Analyzing how the presenter mentalizes the audience to tailor communication.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_00_00",
+            "q_01__res_leaf_01_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_00_00": {
+          "id": "q_01__res_leaf_01_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Estimate audience baseline knowledge",
+          "description": "Investigate how the presenter estimates the audience's prior knowledge to adjust medical terminology and depth.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "User Modeling",
+            "Knowledge Gap Analysis"
+          ]
+        },
+        "q_01__res_leaf_01_00_01": {
+          "id": "q_01__res_leaf_01_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Customize content by specialty",
+          "description": "Identify what specific clinical details are added or omitted based on the listener's specific role or specialty.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Content Personalization",
+            "Audience Segmentation"
+          ]
+        },
+        "q_01__res_L2_01_01": {
+          "id": "q_01__res_L2_01_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Environmental Constraints",
+          "description": "Understanding how physical and temporal constraints shape the preparation strategy.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_01_00",
+            "q_01__res_leaf_01_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_01_00": {
+          "id": "q_01__res_leaf_01_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Adapt prep to physical setting",
+          "description": "Analyze how the physical setting (e.g., hallway rounds vs. conference room) dictates the length and detail of preparation.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Contextual Design",
+            "Environmental Affordances"
+          ]
+        },
+        "q_01__res_leaf_01_01_01": {
+          "id": "q_01__res_leaf_01_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Plan for anticipated time limits",
+          "description": "Understand how anticipated time constraints shape the depth of the initial chart review and scripting.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Constraint-based Planning",
+            "Time Boxing"
+          ]
+        },
+        "q_01__res_L1_02": {
+          "id": "q_01__res_L1_02",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Temporal & Artifact Interaction",
+          "description": "Focusing on the timing of preparation phases and the use of external tools to support memory.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_02_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_02_00": {
+          "id": "q_01__res_L2_02_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Preparation Phasing & Externalization",
+          "description": "Examining the timeline of prep and the creation of supporting materials.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_00_00",
+            "q_01__res_leaf_02_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_00_00": {
+          "id": "q_01__res_leaf_02_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Offload memory via artifacts",
+          "description": "Identify what physical or digital notes are created during prep to reduce cognitive load during delivery.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "External Cognition",
+            "Memory Offloading"
+          ]
+        },
+        "q_01__res_leaf_02_00_01": {
+          "id": "q_01__res_leaf_02_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Define workflow transition points",
+          "description": "Determine the specific moment where information gathering stops and narrative rehearsal begins.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Workflow Transition",
+            "Task Switching"
+          ]
+        }
+      }
+    },
+    "links": [
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Scanning for the Clinical Story"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Resolve conflicting data points"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Scanning for the Clinical Story",
+          "researcher_branch": "Resolve conflicting data points"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Instinctive Outlier Detection",
+            "target_concept": "Finding a contradiction in a friend's story",
+            "structural_mapping": {
+              "inputs": "Data points vs. baseline expectations",
+              "logic": "Recognizing mismatch without external verification",
+              "outputs": "Identifying hidden truth rather than correcting error"
+            },
+            "explanation": "The researcher treats conflicting data as noise to be fixed for consistency, but the expert treats it as signal. Like finding a contradiction in a friend's story, the mismatch isn't an error to edit out; it is the clue that reveals the true situation."
+          },
+          "scenario": "When you find conflicting labs in a chart, do you smooth them out to make the narrative consistent, or do you keep the tension because that contradiction is actually the diagnosis?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Scanning for the Clinical Story"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Map non-linear to linear conversion"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Scanning for the Clinical Story",
+          "researcher_branch": "Map non-linear to linear conversion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Prioritizing by Acuity & Educational Value",
+            "target_concept": "Prioritizing emails by importance over arrival time",
+            "structural_mapping": {
+              "inputs": "Incoming chart data points",
+              "logic": "Filter by diagnostic value rather than timestamp",
+              "outputs": "Problem-oriented clinical story"
+            },
+            "explanation": "The researcher assumes you organize data by when it arrived (chronological), but like sorting emails by importance, you reorder data by diagnostic value, meaning the 'story' is structured by criticality, not chronology."
+          },
+          "scenario": "When you build your presentation, do you ever rearrange the timeline so the critical diagnosis comes first, even if that information appeared last in the patient's chart?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Scanning for the Clinical Story"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Prioritize assessment over history"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Scanning for the Clinical Story",
+          "researcher_branch": "Prioritize assessment over history"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Instinctive Outlier Detection",
+            "target_concept": "Spotting a typo while proofreading",
+            "structural_mapping": {
+              "inputs": "Full document or chart data",
+              "logic": "Scan for specific errors or red flags anywhere vs. reading sections linearly",
+              "outputs": "Corrected text or clinical story"
+            },
+            "explanation": "Both involve filtering for value. Like spotting typos, the expert scans for signals anywhere, revealing the researcher's 'section weighting' model mismatches the expert's signal-based navigation."
+          },
+          "scenario": "When you're prepping a complex case, do you find yourself weighing the history against the assessment, or do you just hunt for the red flags wherever they hide?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Instinctive Outlier Detection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Instinctive Outlier Detection",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Preparation",
+            "Clinical Judgment",
+            "Mental Model",
+            "Temporal Trends",
+            "Physiological Plausibility",
+            "Contextual Consistency",
+            "Data Velocity",
+            "Visual Pattern Recognition"
+          ],
+          "probes": [
+            {
+              "attribute": "Preparation",
+              "question": "Which information source do you consult first?",
+              "choices": [
+                "Historical Records",
+                "Current Vitals",
+                "Medication List",
+                "Nursing Notes"
+              ]
+            },
+            {
+              "attribute": "Clinical Judgment",
+              "question": "When data conflicts with observation, what takes precedence?",
+              "choices": [
+                "Trust the Number",
+                "Trust the Patient",
+                "Trust the Device",
+                "Trust the Protocol"
+              ]
+            },
+            {
+              "attribute": "Mental Model",
+              "question": "How do you mentally group patient data?",
+              "choices": [
+                "Organ System",
+                "Timeline",
+                "Problem List",
+                "Risk Level"
+              ]
+            },
+            {
+              "attribute": "Temporal Trends",
+              "question": "Which change pattern triggers immediate attention?",
+              "choices": [
+                "Sudden Spike",
+                "Slow Drift",
+                "Cyclic Pattern",
+                "Static Value"
+              ]
+            },
+            {
+              "attribute": "Physiological Plausibility",
+              "question": "What contradiction suggests a data error?",
+              "choices": [
+                "Vital Sign Mismatch",
+                "Lab Result Mismatch",
+                "Physical Exam Mismatch",
+                "History Mismatch"
+              ]
+            },
+            {
+              "attribute": "Contextual Consistency",
+              "question": "Whose report weighs most heavily?",
+              "choices": [
+                "Patient Report",
+                "Family Report",
+                "Chart History",
+                "Provider Handoff"
+              ]
+            },
+            {
+              "attribute": "Data Velocity",
+              "question": "What time window defines an urgent change?",
+              "choices": [
+                "Seconds",
+                "Minutes",
+                "Hours",
+                "Days"
+              ]
+            },
+            {
+              "attribute": "Visual Pattern Recognition",
+              "question": "What visual cue signals an outlier?",
+              "choices": [
+                "Color Alert",
+                "Trend Line Angle",
+                "Numeric Highlight",
+                "Icon Flag"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If access to Historical Records changed from 'available' to 'unavailable', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Preparation"
+            },
+            {
+              "scenario": "If the Patient appearance changed from 'stable' to 'distressed', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Clinical Judgment"
+            },
+            {
+              "scenario": "If the data organization changed from 'Organ System' to 'Timeline', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Mental Model"
+            },
+            {
+              "scenario": "If the trend pattern changed from 'Slow Drift' to 'Sudden Spike', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Temporal Trends"
+            },
+            {
+              "scenario": "If the Vital Sign Mismatch changed from 'present' to 'absent', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Physiological Plausibility"
+            },
+            {
+              "scenario": "If the Patient Report changed from 'consistent' to 'contradictory', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Contextual Consistency"
+            },
+            {
+              "scenario": "If the rate of change changed from 'Hours' to 'Seconds', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Data Velocity"
+            },
+            {
+              "scenario": "If the display format changed from 'Trend Line Angle' to 'Numeric Highlight', would your judgment about 'Instinctive Outlier Detection' change?",
+              "attribute": "Visual Pattern Recognition"
+            }
+          ]
+        },
+        "weight": 2.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Instinctive Outlier Detection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Resolve conflicting data points"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Instinctive Outlier Detection",
+          "researcher_branch": "Resolve conflicting data points"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scanning for the Clinical Story",
+            "target_concept": "Spotting a typo in your own name",
+            "structural_mapping": {
+              "inputs": "Visual patient data stream vs. Written text of a familiar name",
+              "logic": "Match against internalized baseline vs. Match against memory of correct spelling",
+              "outputs": "Instant anomaly flag vs. Instant error recognition"
+            },
+            "explanation": "This analogy clarifies that the expert describes the automatic alert (seeing the typo), while the researcher's concept describes the subsequent investigation to determine the correct value, distinguishing immediate detection from deliberate resolution."
+          },
+          "scenario": "When a number instantly feels wrong to you, is that gut feeling separate from the moment you decide which record to trust, or do you experience them as one step?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Crafting the Summary One-Liner"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Crafting the Summary One-Liner",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scanning for the Clinical Story",
+            "target_concept": "Writing a newspaper headline",
+            "structural_mapping": {
+              "inputs": "Full patient chart / Entire news article",
+              "logic": "Synthesize main story angle / Distill core message",
+              "outputs": "Summary one-liner / Newspaper headline"
+            },
+            "explanation": "Both processes reduce large inputs into a single output, but like writing a headline, the expert's logic prioritizes narrative cohesion over simple data exclusion, showing relevance depends on the story angle."
+          },
+          "scenario": "When you craft that opening sentence, do you start by crossing out normal lab values, or do you find the patient's story first and only keep data that drives that narrative?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Crafting the Summary One-Liner"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Estimate audience baseline knowledge"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_00",
+        "conflict": {
+          "expert_branch": "Crafting the Summary One-Liner",
+          "researcher_branch": "Estimate audience baseline knowledge"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Patient Identity Specificity",
+            "Problem Acuity",
+            "Audience Specialty Match",
+            "Terminology Density",
+            "Contextual Urgency",
+            "Diagnostic Certainty",
+            "Actionability Focus",
+            "Social Determinant Weight"
+          ],
+          "probes": [
+            {
+              "attribute": "Patient Identity Specificity",
+              "question": "When defining the patient, which identifier takes precedence:",
+              "choices": [
+                "Age/Gender",
+                "Occupation/Role",
+                "Medical History"
+              ]
+            },
+            {
+              "attribute": "Problem Acuity",
+              "question": "Is the problem description driven primarily by:",
+              "choices": [
+                "Time sensitivity",
+                "Symptom severity",
+                "Organ system involved"
+              ]
+            },
+            {
+              "attribute": "Audience Specialty Match",
+              "question": "Do you adjust detail based primarily on:",
+              "choices": [
+                "Their specific specialty",
+                "Their seniority level",
+                "Your relationship with them"
+              ]
+            },
+            {
+              "attribute": "Terminology Density",
+              "question": "Do you choose words based primarily on:",
+              "choices": [
+                "Precision of diagnosis",
+                "Speed of comprehension",
+                "Avoiding ambiguity"
+              ]
+            },
+            {
+              "attribute": "Contextual Urgency",
+              "question": "Does the setting dictate prioritizing:",
+              "choices": [
+                "Brevity above all",
+                "Completeness above all",
+                "Actionability above all"
+              ]
+            },
+            {
+              "attribute": "Diagnostic Certainty",
+              "question": "Do you state the problem as:",
+              "choices": [
+                "A confirmed diagnosis",
+                "A symptom cluster",
+                "A working hypothesis"
+              ]
+            },
+            {
+              "attribute": "Actionability Focus",
+              "question": "Is the one-liner aimed primarily at:",
+              "choices": [
+                "Informing status",
+                "Requesting help",
+                "Documenting care"
+              ]
+            },
+            {
+              "attribute": "Social Determinant Weight",
+              "question": "Do you include social factors when:",
+              "choices": [
+                "They block discharge",
+                "They caused admission",
+                "Never in the one-liner"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If the patient changes from '55M' to 'CEO', would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Patient Identity Specificity"
+            },
+            {
+              "scenario": "If the problem shifts from 'chest pain' to 'stable angina', would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Problem Acuity"
+            },
+            {
+              "scenario": "If the listener changes from a Cardiologist to a General Internist, would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Audience Specialty Match"
+            },
+            {
+              "scenario": "If you replace 'MI' with 'Heart Attack', would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Terminology Density"
+            },
+            {
+              "scenario": "If the handoff occurs at 3 AM vs. during rounds, would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Contextual Urgency"
+            },
+            {
+              "scenario": "If the diagnosis goes from 'confirmed PE' to 'possible PE', would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Diagnostic Certainty"
+            },
+            {
+              "scenario": "If the goal changes from 'sign-out' to 'consult request', would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Actionability Focus"
+            },
+            {
+              "scenario": "If the patient is homeless vs. housed, would your judgment about 'Crafting the Summary One-Liner' change?",
+              "attribute": "Social Determinant Weight"
+            }
+          ]
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Crafting the Summary One-Liner"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Environmental Constraints",
+          "Adapt prep to physical setting"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Crafting the Summary One-Liner",
+          "researcher_branch": "Adapt prep to physical setting"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that crafting the summary one-liner requires condensing the patient's identity and main problem into a single, consistent opening sentence. This focus ensures the clinical narrative remains accurate regardless of external variables.",
+          "pivot": {
+            "limitation": "Staying only on the expert's concern misses how the researcher's focus on physical settings dictates preparation length and detail.",
+            "research_goal": "The researcher is trying to understand how environmental constraints shape the preparation strategy alongside the expert's narrative goals.",
+            "compelling_reason": "While the expert's consistency is vital, the researcher's concern matters because it reveals how the expert adapts delivery to fit real-world constraints.",
+            "coarse_scenario": "You've highlighted how critical the one-liner's accuracy is, but could you walk me through how you might change that preparation if you were speaking in a noisy hallway versus a quiet conference room?"
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Crafting the Summary One-Liner"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Temporal & Artifact Interaction",
+          "Preparation Phasing & Externalization",
+          "Define workflow transition points"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Crafting the Summary One-Liner",
+          "researcher_branch": "Define workflow transition points"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scanning for the Clinical Story",
+            "target_concept": "Editing a headline while writing",
+            "structural_mapping": {
+              "inputs": "Patient chart data",
+              "logic": "Simultaneous synthesis and collection",
+              "outputs": "Diagnostic focus"
+            },
+            "explanation": "The researcher expects a clear stop between gathering and summarizing, but like editing a headline while writing, the expert refines the summary continuously as new information arrives rather than waiting until the end."
+          },
+          "scenario": "As you scan the chart for the clinical story, do you finish gathering all data before fixing your one-liner, or does the sentence evolve while you read?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Prioritizing by Acuity & Educational Value"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Prioritizing by Acuity & Educational Value",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Crafting the Summary One-Liner",
+            "target_concept": "Writing a headline for a news story",
+            "structural_mapping": {
+              "inputs": "All event facts map to all patient chart data",
+              "logic": "Selecting for impact maps to prioritizing by acuity",
+              "outputs": "Headline maps to the prioritized problem list"
+            },
+            "explanation": "Both involve selecting information for an audience, like choosing words for a headline. However, the researcher focuses on individual words (data), while you focus on the headline story (problems), meaning data is only relevant if it supports the story."
+          },
+          "scenario": "When you decide which lab values to mention, is it because the number is abnormal, or because it supports the main diagnosis you want the team to focus on first?"
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Prioritizing by Acuity & Educational Value"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Map non-linear to linear conversion"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Prioritizing by Acuity & Educational Value",
+          "researcher_branch": "Map non-linear to linear conversion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scanning for the Clinical Story",
+            "target_concept": "Sorting emails by urgency instead of received time",
+            "structural_mapping": {
+              "inputs": "Scattered data points (chart notes or inbox messages)",
+              "logic": "Filtering for critical importance first rather than sequence",
+              "outputs": "Ordered action list (presentation flow or reply priority)"
+            },
+            "explanation": "Both processes organize scattered inputs into a sequence, but like sorting urgent emails over received time, the expert prioritizes danger over occurrence, showing why a linear timeline fails to capture clinical priority."
+          },
+          "scenario": "When a stable patient suddenly crashes, do you start your presentation with the crash instead of walking the team through the timeline leading up to it?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Cognitive Synthesis & Story Building",
+          "Prioritizing by Acuity & Educational Value"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Prioritize assessment over history"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Prioritizing by Acuity & Educational Value",
+          "researcher_branch": "Prioritize assessment over history"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical nature of ordering specific problems within the assessment based on life-threat and learning opportunities. This ensures the audience grasps the most vital clinical decisions first.",
+          "pivot": {
+            "limitation": "Focusing solely on problem-level ordering overlooks how the presenter decides to allocate preparation time between the history section and the assessment section overall.",
+            "research_goal": "The researcher is trying to understand the macro-structural weighting during the preparation phase, specifically why the assessment might be prioritized over the history in terms of cognitive load.",
+            "compelling_reason": "Both levels of prioritization are important; understanding the section-level weighting reveals how experts decide what information is essential enough to include before they even begin ordering specific problems.",
+            "coarse_scenario": "That triage of specific problems is vital, and I'm also curious about the bigger picture of how you decide to weight the assessment section against the history section during your prep."
+          }
+        },
+        "weight": 4.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Tailoring to Role & Expertise"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Tailoring to Role & Expertise",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Tailoring to Role & Expertise",
+            "target_concept": "Giving directions based on transport mode",
+            "structural_mapping": {
+              "inputs": "Map data (Patient chart data)",
+              "logic": "Filter by traveler's vehicle (Filter by audience role)",
+              "outputs": "Turn-by-turn instructions (Presentation narrative)"
+            },
+            "explanation": "Your search for fixed data rules assumes all listeners travel the same road. Like giving directions, the expert knows a route is only 'relevant' if it matches the listener's vehicle. This shows data relevance shifts with the audience, not the chart."
+          },
+          "scenario": "When you're filtering a chart before rounds, do you decide what data matters based on the values themselves, or does who you're talking to change what counts as relevant?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Tailoring to Role & Expertise"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Prioritize assessment over history"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Tailoring to Role & Expertise",
+          "researcher_branch": "Prioritize assessment over history"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that successful presentations depend on dynamically shifting focus based on the listener's role and expertise level.",
+          "pivot": {
+            "limitation": "Focusing solely on audience adaptation misses the foundational cognitive workflow the researcher seeks to map during the preparation phase.",
+            "research_goal": "The researcher is trying to understand how the expert initially weights the assessment against the history before contextual adjustments occur.",
+            "compelling_reason": "While the expert's contextual strategy is vital, identifying the baseline structural priority helps clarify the magnitude of adjustment required for different audiences.",
+            "coarse_scenario": "You've highlighted how crucial audience calibration is, but could you share how you initially decide the weight of the assessment versus the history before you know who you'll be presenting to?"
+          }
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Tailoring to Role & Expertise"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Estimate audience baseline knowledge"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_00",
+        "conflict": {
+          "expert_branch": "Tailoring to Role & Expertise",
+          "researcher_branch": "Estimate audience baseline knowledge"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Tailoring to Role & Expertise",
+            "target_concept": "Briefing a boss vs. training a rookie",
+            "structural_mapping": {
+              "inputs": "Audience Role (Senior vs. Trainee)",
+              "logic": "Determine Clinical Goal (Decision vs. Reasoning)",
+              "outputs": "Presentation Content (Management vs. Differential)"
+            },
+            "explanation": "Both adjust communication, but the researcher focuses on terminology depth like speaking slower for clarity, while the expert shifts the clinical goal like asking a boss for a decision versus teaching a rookie the process."
+          },
+          "scenario": "When you present to a senior attending versus a junior intern, do you shift from asking for management decisions to walking through diagnostic reasoning, rather than just changing your vocabulary?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Simplifying for Multidisciplinary Teams"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Simplifying for Multidisciplinary Teams",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Tailoring to Role & Expertise",
+            "target_concept": "Giving directions to a driver versus a pedestrian",
+            "structural_mapping": {
+              "inputs": "Full map data (all streets and paths)",
+              "logic": "Filter routes based on traveler capability (wheels vs. feet)",
+              "outputs": "Specific route instructions"
+            },
+            "explanation": "The researcher seeks fixed rules for 'relevant' streets, but the analogy shows streets are only relevant based on the traveler's mode, implying the researcher's 'relevance heuristics' are actually the expert's dynamic audience-adaptation rules rather than intrinsic clinical facts."
+          },
+          "scenario": "When you round with a pharmacist versus a resident, does the data you label 'irrelevant' stay the same, or does what counts as essential change based on who needs to act on it?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Simplifying for Multidisciplinary Teams"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Customize content by specialty"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_00",
+        "conflict": {
+          "expert_branch": "Simplifying for Multidisciplinary Teams",
+          "researcher_branch": "Customize content by specialty"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Tailoring to Role & Expertise",
+            "target_concept": "Giving directions to a local versus a tourist",
+            "structural_mapping": {
+              "inputs": "Listener's familiarity with the area",
+              "logic": "Adjusting references (street names vs. landmarks) without changing the route",
+              "outputs": "Successful arrival via the same path"
+            },
+            "explanation": "Both concepts involve adapting information for the listener. The analogy clarifies that the expert translates terms (like using landmarks instead of street names) without changing the route, whereas the researcher expects the route itself (clinical details) to change."
+          },
+          "scenario": "When presenting to a pharmacist, do you actually remove the pathophysiology details from your story, or do you keep all the facts but just swap out the complex medical terminology?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Adapting to Venue & Time Constraints"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Prioritize assessment over history"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Adapting to Venue & Time Constraints",
+          "researcher_branch": "Prioritize assessment over history"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert prioritizes how venue and time constraints dynamically dictate the structure of oral presentations. This contextual flexibility is essential for navigating different clinical workflows.",
+          "pivot": {
+            "limitation": "Focusing solely on external constraints overlooks the internal cognitive prioritization that occurs during the preparation phase before context is applied.",
+            "research_goal": "The researcher aims to understand the inherent weighting of the assessment and plan section against the history section during initial synthesis.",
+            "compelling_reason": "Identifying this baseline prioritization reveals core clinical reasoning habits that exist independently of specific workflow demands.",
+            "coarse_scenario": "I see how the venue dictates the final length, but could you walk me through how you decide the initial weight of the assessment versus the history during your private prep before those constraints hit?"
+          }
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Adapting to Venue & Time Constraints"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Estimate audience baseline knowledge"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_00",
+        "conflict": {
+          "expert_branch": "Adapting to Venue & Time Constraints",
+          "researcher_branch": "Estimate audience baseline knowledge"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Tailoring to Role & Expertise",
+            "target_concept": "Talking differently to a child than to a boss",
+            "structural_mapping": {
+              "inputs": "The listener's category (Child/Boss vs. Trainee/Senior)",
+              "logic": "Automatic depth adjustment based on category, not individual testing",
+              "outputs": "Simplified vs. Complex communication"
+            },
+            "explanation": "Just as you simplify for a child without testing their vocabulary, you treat the venue as a proxy for knowledge, meaning the researcher's 'estimation' happens implicitly through your recognition of the setting."
+          },
+          "scenario": "In morning rounds versus grand rounds, do you stop to assess their knowledge level, or does the setting automatically dictate how deep you go?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Audience & Context Calibration",
+          "Adapting to Venue & Time Constraints"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Customize content by specialty"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_00",
+        "conflict": {
+          "expert_branch": "Adapting to Venue & Time Constraints",
+          "researcher_branch": "Customize content by specialty"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Adapting to Venue & Time Constraints",
+            "target_concept": "Telling a story at a bus stop versus around a campfire",
+            "structural_mapping": {
+              "inputs": "Setting urgency and available time",
+              "logic": "Compress details for speed vs. expand for engagement",
+              "outputs": "Brief summary vs. detailed narrative"
+            },
+            "explanation": "Both concepts involve adapting content to fit the situation. The researcher thinks you adapt based on who listens (specialty), but you adapt based on where you are (venue). Like shortening a story at a bus stop regardless of the listener, you prioritize brevity on rounds due to workflow constraints."
+          },
+          "scenario": "When you present the same case at quick rounds versus a teaching conference, do you cut details because of the clock, or because the specialists listening need different information?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Navigating Uncertainty & Honesty"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Navigating Uncertainty & Honesty",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Navigating Uncertainty & Honesty",
+            "target_concept": "Giving directions when unsure",
+            "structural_mapping": {
+              "inputs": "Incomplete route knowledge versus incomplete chart data",
+              "logic": "Include uncertain turns with warnings instead of skipping them versus include knowledge gaps with hypotheses instead of hiding them",
+              "outputs": "Safe arrival despite gaps versus trustworthy presentation despite uncertainty"
+            },
+            "explanation": "Just like giving directions when unsure requires mentioning a guessed turn so the driver watches for it, the expert treats uncertainty as relevant data to include with a hypothesis, whereas the researcher's heuristic might filter it out as irrelevant noise."
+          },
+          "scenario": "When you spot a gap in the chart, do you treat that uncertainty as relevant data to share with a hypothesis, or do you filter it out until you have confirmed facts?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Navigating Uncertainty & Honesty"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Resolve conflicting data points"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Navigating Uncertainty & Honesty",
+          "researcher_branch": "Resolve conflicting data points"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Navigating Uncertainty & Honesty",
+            "target_concept": "Admitting you're lost instead of guessing directions",
+            "structural_mapping": {
+              "inputs": "Unclear path or missing signpost versus conflicting lab values or gaps in patient history",
+              "logic": "Choosing to state uncertainty explicitly versus forcing a connection to maintain forward momentum",
+              "outputs": "Safety and trust preserved versus risk of error or false narrative consistency"
+            },
+            "explanation": "Through the lens of admitting you're lost, the researcher's drive to 'resolve' data looks like guessing a direction to keep the map clean, whereas the expert's honesty looks like stopping to ensure safety, showing they prioritize different outcomes within the same situation."
+          },
+          "scenario": "When your data conflicts, do you ever choose to highlight that uncertainty to your attending instead of smoothing it over for a cleaner story?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Defending Without Arguing"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Identify heuristics for data relevance"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Defending Without Arguing",
+          "researcher_branch": "Identify heuristics for data relevance"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Defending Without Arguing",
+            "target_concept": "Choosing which receipts to show during an audit",
+            "structural_mapping": {
+              "inputs": "All available patient chart data",
+              "logic": "Filtering for what supports the plan without inviting challenge",
+              "outputs": "A defended clinical presentation"
+            },
+            "explanation": "Just as an employee defines 'relevant receipts' as those that won't trigger an audit flag rather than every true expense, you define 'relevant data' as what protects your plan from challenge. This shows your relevance heuristic is strategic, not just clinical."
+          },
+          "scenario": "When you filter chart data, do you ever omit true findings simply because highlighting them might invite a challenge you'd rather avoid defending?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Defending Without Arguing"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Data Triage & Filtering",
+          "Resolve conflicting data points"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Defending Without Arguing",
+          "researcher_branch": "Resolve conflicting data points"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Defending Without Arguing",
+            "target_concept": "Standing by a decision when questioned",
+            "structural_mapping": {
+              "inputs": "Challenge from senior",
+              "logic": "Maintain confidence without aggression",
+              "outputs": "Professional acceptance"
+            },
+            "explanation": "Both aim for a consistent narrative, but the researcher expects you to resolve data conflicts beforehand like editing a draft, while you focus on standing by a decision when questioned."
+          },
+          "scenario": "When you spot conflicting lab results, do you reconcile them before presenting, or do you prepare to stand firm if a senior challenges your interpretation during the rounds?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Defending Without Arguing"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Estimate audience baseline knowledge"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Defending Without Arguing",
+          "researcher_branch": "Estimate audience baseline knowledge"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Defending Without Arguing",
+            "target_concept": "Holding your ground without starting a fight",
+            "structural_mapping": {
+              "inputs": "Senior's challenge or questioning tone",
+              "logic": "Assess threat level while maintaining your position",
+              "outputs": "Plan accepted without relationship damage"
+            },
+            "explanation": "The researcher views estimating the audience as tuning for understanding. This analogy shows the expert views it as tuning for safety: like holding ground with a boss, you assess the listener to defend your plan without conflict, not just to simplify words."
+          },
+          "scenario": "When you gauge what the senior knows, are you adjusting your words for their clarity, or adjusting your stance to defend your plan without conflict?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Real-Time Narrative Adjustment"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Cognitive Workflow & Information Foraging",
+          "Narrative Synthesis",
+          "Prioritize assessment over history"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Real-Time Narrative Adjustment",
+          "researcher_branch": "Prioritize assessment over history"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the importance of shifting emphasis mid-presentation based on audience cues. This dynamic skill ensures the delivery remains responsive to the clinical training setting.",
+          "pivot": {
+            "limitation": "Focusing solely on the expert's dynamic delivery behaviors overlooks the static rules established earlier.",
+            "research_goal": "The researcher aims to understand how the assessment section is weighted against the history during the preparation phase.",
+            "compelling_reason": "While the expert's delivery skills are vital, the researcher needs to know how preparation constraints enable or limit those real-time adjustments.",
+            "coarse_scenario": "I recognize how critical those real-time adjustments are for engagement. However, I also need to understand how you prioritize the assessment over history during prep, since that initial weighting determines what you have available to adjust later."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Real-Time Narrative Adjustment"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Estimate audience baseline knowledge"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Real-Time Narrative Adjustment",
+          "researcher_branch": "Estimate audience baseline knowledge"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Live Delivery",
+            "Audience Awareness",
+            "Interaction",
+            "Visual Feedback Signals",
+            "Verbal Interruption Frequency",
+            "Content Density Modulation",
+            "Time Pressure Sensitivity",
+            "Non-Verbal Restlessness Cues"
+          ],
+          "probes": [
+            {
+              "attribute": "Live Delivery",
+              "question": "What primarily signals a need to adjust narrative depth during the talk?",
+              "choices": [
+                "My speaking pace",
+                "Audience silence",
+                "Slide transition timing"
+              ]
+            },
+            {
+              "attribute": "Audience Awareness",
+              "question": "Which visual cue weighs heavier in your assessment of understanding?",
+              "choices": [
+                "Facial expressions",
+                "Body posture",
+                "Note-taking activity"
+              ]
+            },
+            {
+              "attribute": "Interaction",
+              "question": "How do you handle mid-flow questions to maintain narrative control?",
+              "choices": [
+                "Answer immediately",
+                "Defer to end",
+                "Delegate to audience"
+              ]
+            },
+            {
+              "attribute": "Visual Feedback Signals",
+              "question": "Which specific signal forces an immediate pivot in your content?",
+              "choices": [
+                "Sustained eye contact",
+                "Widespread note-taking",
+                "Blank stares"
+              ]
+            },
+            {
+              "attribute": "Verbal Interruption Frequency",
+              "question": "How many interruptions trigger a reduction in technical depth?",
+              "choices": [
+                "A single question",
+                "Three or more",
+                "Only repeated confusion"
+              ]
+            },
+            {
+              "attribute": "Content Density Modulation",
+              "question": "What do you sacrifice first when audience attention drops?",
+              "choices": [
+                "Technical details",
+                "Entire examples",
+                "Historical context"
+              ]
+            },
+            {
+              "attribute": "Time Pressure Sensitivity",
+              "question": "What gets cut when time runs short during the session?",
+              "choices": [
+                "Foundational context",
+                "Advanced applications",
+                "Q&A time"
+              ]
+            },
+            {
+              "attribute": "Non-Verbal Restlessness Cues",
+              "question": "Which restlessness cue is most critical for triggering an adjustment?",
+              "choices": [
+                "Checking watches",
+                "Crossing arms",
+                "Fidgeting with phones"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If your speaking pace changed from moderate to rapid, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Live Delivery"
+            },
+            {
+              "scenario": "If the audience composition changed from mixed-expertise to homogenous, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Audience Awareness"
+            },
+            {
+              "scenario": "If the Q&A format changed from open-mic to submitted cards, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Interaction"
+            },
+            {
+              "scenario": "If the audience visibility changed from full-face to profile-only, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Visual Feedback Signals"
+            },
+            {
+              "scenario": "If the interruption rate changed from frequent to nonexistent, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Verbal Interruption Frequency"
+            },
+            {
+              "scenario": "If the slide complexity changed from text-heavy to visual-only, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Content Density Modulation"
+            },
+            {
+              "scenario": "If the allotted time changed from 30 minutes to 60 minutes, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Time Pressure Sensitivity"
+            },
+            {
+              "scenario": "If the seating comfort changed from rigid chairs to soft sofas, would your judgment about 'Real-Time Narrative Adjustment' change?",
+              "attribute": "Non-Verbal Restlessness Cues"
+            }
+          ]
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Expert Clinical Presenter",
+          "Delivery & Defense Mechanisms",
+          "Real-Time Narrative Adjustment"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+          "Audience Modeling & Contextual Framing",
+          "Listener Profiling",
+          "Customize content by specialty"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Real-Time Narrative Adjustment",
+          "researcher_branch": "Customize content by specialty"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Real-Time Narrative Adjustment",
+            "target_concept": "Adjusting walking pace to stay beside a friend",
+            "structural_mapping": {
+              "inputs": "Friend's immediate speed changes",
+              "logic": "Speed up or slow down instantly",
+              "outputs": "Staying together"
+            },
+            "explanation": "Both concepts aim to adapt content, but like adjusting walking pace based on movement rather than shoe type, the expert adjusts based on engagement cues rather than specialty labels."
+          },
+          "scenario": "When you see a specialist's eyes glaze over, do you stick to the details their role expects, or do you immediately shift gears?"
+        },
+        "weight": 3.5
+      }
+    ],
+    "metadata": {
+      "created_at": "2026-03-25T12:04:06.046061",
+      "llm_provider": "openai",
+      "question_id": "q_01",
+      "question_text": "Could you describe your typical process when preparing an oral case presentation, from first reviewing the patient's chart to actually delivering it? How does the intended audience or setting shape wh",
+      "expert_leaves": 10,
+      "researcher_leaves": 10,
+      "link_count": 28,
+      "alignment_stats": {
+        "leaf_alignments": 28,
+        "concept_alignments": 8,
+        "misaligned_leaves": 28
+      },
+      "construction_method": "math-based",
+      "depends_on": []
+    }
+  },
   "question_graphs": [
     {
       "question_id": "q_01",
       "question_text": "Could you describe your typical process when preparing an oral case presentation, from first reviewing the patient's chart to actually delivering it? How does the intended audience or setting shape what you prepare?",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-25T12:04:06.046061",
-        "llm_provider": "openai",
-        "question_id": "q_01",
-        "question_text": "Could you describe your typical process when preparing an oral case presentation, from first reviewing the patient's chart to actually delivering it? How does the intended audience or setting shape wh",
-        "expert_leaves": 10,
-        "researcher_leaves": 10,
-        "link_count": 28,
-        "alignment_stats": {
-          "leaf_alignments": 28,
-          "concept_alignments": 8,
-          "misaligned_leaves": 28
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
         "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
@@ -1922,32 +3804,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_02",
       "question_text": "What are the most common difficulties you run into when presenting a complex case? How do you handle it when you need to adapt on the fly, for example when the attending asks an unexpected question or challenges your reasoning mid-presentation?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-25T12:04:29.944623",
-        "llm_provider": "openai",
-        "question_id": "q_02",
-        "question_text": "What are the most common difficulties you run into when presenting a complex case? How do you handle it when you need to adapt on the fly, for example when the attending asks an unexpected question or",
-        "expert_leaves": 8,
-        "researcher_leaves": 9,
-        "link_count": 40,
-        "alignment_stats": {
-          "leaf_alignments": 40,
-          "concept_alignments": 7,
-          "misaligned_leaves": 40
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
         "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
@@ -4548,32 +6410,14 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     },
     {
       "question_id": "q_03",
       "question_text": "When you listen to a trainee's case presentation, what tells you in the first minute or two whether it's going to be strong or weak? What are the cues you pick up on?",
-      "depends_on": [
-        "q_02"
-      ],
-      "metadata": {
-        "created_at": "2026-03-25T12:06:43.155824",
-        "llm_provider": "openai",
-        "question_id": "q_03",
-        "question_text": "When you listen to a trainee's case presentation, what tells you in the first minute or two whether it's going to be strong or weak? What are the cues you pick up on?",
-        "expert_leaves": 8,
-        "researcher_leaves": 9,
-        "link_count": 34,
-        "alignment_stats": {
-          "leaf_alignments": 34,
-          "concept_alignments": 6,
-          "misaligned_leaves": 34
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_02"
-        ]
-      },
       "graph": {
         "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
         "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
@@ -6654,32 +8498,14 @@
             "q_02"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_02"
+      ]
     },
     {
       "question_id": "q_04",
       "question_text": "If you had to explain to a junior trainee what actually makes someone good at case presentations, not just the format but the real skill underneath, how would you describe it?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-25T12:04:06.046530",
-        "llm_provider": "openai",
-        "question_id": "q_04",
-        "question_text": "If you had to explain to a junior trainee what actually makes someone good at case presentations, not just the format but the real skill underneath, how would you describe it?",
-        "expert_leaves": 9,
-        "researcher_leaves": 8,
-        "link_count": 48,
-        "alignment_stats": {
-          "leaf_alignments": 48,
-          "concept_alignments": 8,
-          "misaligned_leaves": 48
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
         "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
@@ -11378,7 +13204,52 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     }
-  ]
+  ],
+  "cache_key": "b964c3f858b762b2",
+  "status": "ready",
+  "error": "",
+  "transcript_summary": {
+    "main_bullets": [
+      {
+        "id": "mb_01",
+        "label": "Could you describe your typical process when preparing",
+        "keywords": [],
+        "source_question": "1. Could you describe your typical process when preparing an oral case presentation, from first reviewing the patient's chart to actually delivering it? How does the intended audience or setting shape what you prepare?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_02",
+        "label": "What are the most common difficulties you run",
+        "keywords": [],
+        "source_question": "2. What are the most common difficulties you run into when presenting a complex case? How do you handle it when you need to adapt on the fly, for example when the attending asks an unexpected question or challenges your reasoning mid-presentation?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_03",
+        "label": "When you listen to a trainee's case presentation,",
+        "keywords": [],
+        "source_question": "3. When you listen to a trainee's case presentation, what tells you in the first minute or two whether it's going to be strong or weak? What are the cues you pick up on?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_04",
+        "label": "If you had to explain to a junior",
+        "keywords": [],
+        "source_question": "4. If you had to explain to a junior trainee what actually makes someone good at case presentations, not just the format but the real skill underneath, how would you describe it?",
+        "sub_bullets": []
+      }
+    ],
+    "last_updated_turn": 0
+  },
+  "_meta": {
+    "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+    "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
+    "expert_bg": "A senior clinician and clinical educator who has delivered and evaluated hundreds of oral case presentations, and relies on deeply internalized judgment to organize, prioritize, and adapt case narratives for different clinical audiences.",
+    "saved_at": "2026-03-25T12:06:43.249664"
+  }
 }

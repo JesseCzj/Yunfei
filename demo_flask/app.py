@@ -56,17 +56,22 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Computational Biologist / Bioinformatician
+INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Wang
 
-Work Experience: Extensive frontline experience analyzing high-dimensional single-cell RNA-seq and spatial transcriptomics data. Has successfully identified, validated, and published findings on novel cell states. Highly proficient in using standard bioinformatics pipelines and platforms like Seurat and Scanpy.
+Professional Role: Senior Attending Physician / Residency Training Director / Clinical Educator
+
+Work Experience: Extensive experience in both delivering and evaluating oral case presentations across multiple clinical departments (internal medicine, emergency, multidisciplinary conferences). Has mentored dozens of residents and medical students on case presentation skills, and regularly serves as a discussant in grand rounds and mortality-morbidity conferences.
 
 Expertise:
-Deeply familiar with the ambiguity and complexity of defining novel cell states from complex datasets.
-Highly capable of balancing statistical clustering signals with biological intuition, and understanding what constitutes "believable" evidence (e.g., marker genes, pathway enrichment, wet-lab validation).
+Deeply familiar with the context-dependent nature of case presentations; skilled at rapidly restructuring the same patient case into different narrative formats depending on the audience and purpose (teaching rounds vs. emergency handoff vs. multidisciplinary conference).
+
+Highly capable of relying on internalized "narrative instinct" to judge what information to foreground, what to omit, and how to sequence clinical findings so the presentation builds toward a clear diagnostic argument—rather than simply listing facts chronologically.
 
 Core Challenges & Pain Points:
-Profoundly understands the extreme difficulty of biological interpretation—algorithmic clusters often do not cleanly map to valid biological cell types.
-Finds it challenging to formalize the subjective "rules of thumb" used to tune clustering parameters (like resolution) or to decide whether a continuous spectrum is a new state or just technical noise (e.g., batch effects). Constantly frustrated by the tedious, manual iteration required when biological interpretation falls short.
+Profoundly understands the extreme difficulty of teaching case presentation as a skill—it requires far more than memorizing a template; it demands real-time clinical judgment about what matters, what the audience needs to hear, and how to handle unexpected questions mid-presentation.
+
+Finds it challenging to make this "narrative judgment" explicit to trainees or non-clinical professionals. Often finds that when pressed to explain what makes a good presentation, the answer sounds too simple or too vague to be useful—the real skill lives in the doing, not in any formula.
+
 """
 
 

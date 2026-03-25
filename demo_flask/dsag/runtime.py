@@ -1701,7 +1701,7 @@ Return ONLY valid JSON with top-level key "payload".""")
     def _build_no_mismatch_interpretation(self) -> Dict[str, Any]:
         """Return the product fallback state for turns with no actionable mismatch."""
         return {
-            "status": "No mismatch requiring system intervention has been found yet.",
+            "status": "No other mismatch requiring system intervention has been found yet.",
             "candidates": [],
         }
 
