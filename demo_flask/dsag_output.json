@@ -1,7 +1,7 @@
 {
-  "topic": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-  "researcher_bg": "An HCI researcher focused on medical education technology who seeks to understand presentation workflows and skill acquisition in structured terms but has no clinical training background.",
-  "expert_bg": "A senior clinician and clinical educator who has delivered and evaluated hundreds of oral case presentations, and relies on deeply internalized judgment to organize, prioritize, and adapt case narratives for different clinical audiences.",
+  "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+  "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
+  "expert_bg": "A seasoned clinical neuropsychologist or geriatrician with extensive experience in conducting baseline cognitive assessments (like MoCA or MMSE) , currently navigating the challenges of unstructured daily task observation and unpacking clinical intuition for early neurocognitive diagnosis.",
   "expert_tree": {
     "tower": "expert",
     "root_id": "q_01__shared_root",
@@ -10,8 +10,8 @@
         "id": "q_01__shared_root",
         "tower": "shared",
         "layer": "root",
-        "label": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "description": "Interview topic: Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+        "label": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "description": "Interview topic: Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "parent_id": null,
         "children_ids": [
           "q_01__exp_L1_00"
@@ -23,8 +23,8 @@
         "id": "q_01__exp_L1_00",
         "tower": "expert",
         "layer": "L1",
-        "label": "Expert Clinical Presenter",
-        "description": "Senior clinician perspective on organizing, prioritizing, and adapting case narratives for different clinical audiences.",
+        "label": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "description": "Interview topic: Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__exp_L2_00_00",
@@ -38,14 +38,13 @@
         "id": "q_01__exp_L2_00_00",
         "tower": "expert",
         "layer": "L2",
-        "label": "Cognitive Synthesis & Story Building",
-        "description": "How raw patient data is mentally processed into a coherent clinical narrative before delivery.",
+        "label": "Administration Dynamics & Patient Engagement",
+        "description": "The real-world challenges of physically administering the test and managing the patient's state during the workflow.",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_00_00",
           "q_01__exp_leaf_00_00_01",
-          "q_01__exp_leaf_00_00_02",
-          "q_01__exp_leaf_00_00_03"
+          "q_01__exp_leaf_00_00_02"
         ],
         "attributes": [],
         "aliases": []
@@ -54,75 +53,61 @@
         "id": "q_01__exp_leaf_00_00_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Scanning for the Clinical Story",
-        "description": "Skimming the chart for red flags and the diagnostic puzzle rather than reading front-to-back.",
+        "label": "Rapport-building as diagnostic baseline",
+        "description": "I start with a quick rapport-building chat about their day; if they can't recall recent changes in mood or memory during the chat, the test hasn't even started and I already have my first clue.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Data Triage",
-          "Finding the Hook",
-          "Non-linear Chart Review"
+          "pre-test chat",
+          "informal baseline",
+          "rapport building"
         ]
       },
       "q_01__exp_leaf_00_00_01": {
         "id": "q_01__exp_leaf_00_00_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Instinctive Outlier Detection",
-        "description": "Recognizing values that don't fit the patient's baseline without needing to check references.",
+        "label": "Adjusting pace based on frustration cues",
+        "description": "If I see them starting to sweat or get quiet during the serial 7s, I know I need to pivot or soften my tone, otherwise they'll just shut down and I'll lose them for the rest of the test.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [
-          "Preparation",
-          "Clinical Judgment",
-          "Mental Model"
+          "patient_state",
+          "adaptation",
+          "engagement"
         ],
         "aliases": [
-          "Spotting the Anomaly",
-          "Pattern Recognition"
+          "managing anxiety",
+          "pacing",
+          "emotional regulation"
         ]
       },
       "q_01__exp_leaf_00_00_02": {
         "id": "q_01__exp_leaf_00_00_02",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Crafting the Summary One-Liner",
-        "description": "Condensing the patient's identity and main problem into a single opening sentence.",
+        "label": "Ensuring quiet environment for focus",
+        "description": "I try to go through the MoCA or MMSE in a quiet room, making sure they're not distracted, because if the phone rings or someone walks in, I can't tell if it's distraction or deficit.",
         "parent_id": "q_01__exp_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "The Hook",
-          "Patient Summary",
-          "Opening Statement"
-        ]
-      },
-      "q_01__exp_leaf_00_00_03": {
-        "id": "q_01__exp_leaf_00_00_03",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Prioritizing by Acuity & Educational Value",
-        "description": "Ordering problems by life-threat level, but also by what the audience needs to learn.",
-        "parent_id": "q_01__exp_L2_00_00",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Problem List Ordering",
-          "Triage by Audience Need"
+          "room distractions",
+          "environmental control",
+          "focus barriers"
         ]
       },
       "q_01__exp_L2_00_01": {
         "id": "q_01__exp_L2_00_01",
         "tower": "expert",
         "layer": "L2",
-        "label": "Audience & Context Calibration",
-        "description": "Adjusting content and delivery based on who is listening and the constraints of the clinical setting.",
+        "label": "Clinical Interpretation & Validity",
+        "description": "The mental work of deciding whether the score actually reflects brain health or something else.",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_01_00",
-          "q_01__exp_leaf_00_01_01",
-          "q_01__exp_leaf_00_01_02"
+          "q_01__exp_leaf_00_01_01"
         ],
         "attributes": [],
         "aliases": []
@@ -131,57 +116,51 @@
         "id": "q_01__exp_leaf_00_01_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Tailoring to Role & Expertise",
-        "description": "Shifting focus from reasoning/differential for trainees to management decisions for seniors.",
+        "label": "Behavioral process and \"in-between\" moments",
+        "description": "It's not just about the score—it's about the process. I'll note things like how long they take to answer, if they hesitate, or even what they do when they're just sitting there thinking.",
         "parent_id": "q_01__exp_L2_00_01",
         "children_ids": [],
-        "attributes": [],
+        "attributes": [
+          "observation",
+          "intuition",
+          "diagnostic_signal"
+        ],
         "aliases": [
-          "Reading the Room",
-          "Audience Calibration",
-          "Role-Based Content"
+          "process over score",
+          "hesitation",
+          "non-verbal cues",
+          "in-between moments"
         ]
       },
       "q_01__exp_leaf_00_01_01": {
         "id": "q_01__exp_leaf_00_01_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Simplifying for Multidisciplinary Teams",
-        "description": "Adjusting jargon and context when nurses or pharmacists are present to ensure alignment.",
+        "label": "Probing beyond the standardized script",
+        "description": "The MoCA and MMSE are tools, but they're not the whole picture. I don't just stick to the script; real clues come when I start probing beyond it or when they're not expecting it.",
         "parent_id": "q_01__exp_L2_00_01",
         "children_ids": [],
-        "attributes": [],
+        "attributes": [
+          "flexibility",
+          "intuition",
+          "protocol_deviation"
+        ],
         "aliases": [
-          "Cross-Specialty Communication",
-          "Jargon Reduction"
-        ]
-      },
-      "q_01__exp_leaf_00_01_02": {
-        "id": "q_01__exp_leaf_00_01_02",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Adapting to Venue & Time Constraints",
-        "description": "Balancing brevity for workflow rounds against depth for teaching conferences.",
-        "parent_id": "q_01__exp_L2_00_01",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Cutting for Time",
-          "Rounds vs Conference",
-          "Setting Constraints"
+          "off-script probing",
+          "flexible administration",
+          "clinical intuition"
         ]
       },
       "q_01__exp_L2_00_02": {
         "id": "q_01__exp_L2_00_02",
         "tower": "expert",
         "layer": "L2",
-        "label": "Delivery & Defense Mechanisms",
-        "description": "Managing the live interaction, handling uncertainty, and defending clinical decisions during Q&A.",
+        "label": "Contextual & Longitudinal Factors",
+        "description": "Factors outside the immediate test score that influence diagnostic confidence.",
         "parent_id": "q_01__exp_L1_00",
         "children_ids": [
           "q_01__exp_leaf_00_02_00",
-          "q_01__exp_leaf_00_02_01",
-          "q_01__exp_leaf_00_02_02"
+          "q_01__exp_leaf_00_02_01"
         ],
         "attributes": [],
         "aliases": []
@@ -190,47 +169,38 @@
         "id": "q_01__exp_leaf_00_02_00",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Navigating Uncertainty & Honesty",
-        "description": "Admitting gaps in knowledge while offering a reasoned hypothesis instead of guessing.",
+        "label": "Score vs. Real-World Function",
+        "description": "They might score a 26 which looks 'normal', but if their daughter says they got lost driving home or they can't manage meds, I trust the real-life function over the score.",
         "parent_id": "q_01__exp_L2_00_02",
         "children_ids": [],
-        "attributes": [],
+        "attributes": [
+          "validity",
+          "collateral",
+          "discrepancy"
+        ],
         "aliases": [
-          "Managing the Unknown",
-          "Intellectual Honesty"
+          "functional discrepancy",
+          "collateral history",
+          "ecological validity"
         ]
       },
       "q_01__exp_leaf_00_02_01": {
         "id": "q_01__exp_leaf_00_02_01",
         "tower": "expert",
         "layer": "leaf",
-        "label": "Defending Without Arguing",
-        "description": "Standing firm on the plan without becoming defensive when challenged by seniors.",
-        "parent_id": "q_01__exp_L2_00_02",
-        "children_ids": [],
-        "attributes": [],
-        "aliases": [
-          "Handling Pushback",
-          "Professional Defense"
-        ]
-      },
-      "q_01__exp_leaf_00_02_02": {
-        "id": "q_01__exp_leaf_00_02_02",
-        "tower": "expert",
-        "layer": "leaf",
-        "label": "Real-Time Narrative Adjustment",
-        "description": "Shifting emphasis or depth mid-presentation based on audience engagement cues.",
+        "label": "Longitudinal Knowledge of Patient",
+        "description": "And honestly, a lot of it is just knowing the person over time; patterns and inconsistencies show up when you've seen them before, not just on paper.",
         "parent_id": "q_01__exp_L2_00_02",
         "children_ids": [],
         "attributes": [
-          "Live Delivery",
-          "Audience Awareness",
-          "Interaction"
+          "history",
+          "relationship",
+          "context"
         ],
         "aliases": [
-          "Reading the Room Live",
-          "Flow Adjustment",
-          "Dynamic Adaptation"
+          "knowing the patient",
+          "historical context",
+          "longitudinal view"
         ]
       }
     }
@@ -243,8 +213,8 @@
         "id": "q_01__shared_root",
         "tower": "shared",
         "layer": "root",
-        "label": "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "description": "Interview topic: Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
+        "label": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "description": "Interview topic: Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "parent_id": null,
         "children_ids": [
           "q_01__res_L1_00",
@@ -258,8 +228,8 @@
         "id": "q_01__res_L1_00",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Cognitive Workflow & Information Foraging",
-        "description": "Examining the internal mental processes and strategies used to extract, filter, and organize patient data before speaking.",
+        "label": "Operational Workflow & Task Sequence",
+        "description": "Examining the step-by-step procedural logic and interaction flow during the administration of standardized cognitive tests.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_00_00",
@@ -272,8 +242,8 @@
         "id": "q_01__res_L2_00_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Data Triage & Filtering",
-        "description": "Understanding how experts decide what information is signal versus noise during chart review.",
+        "label": "Administration Protocol Logic",
+        "description": "Understanding the sequential rules and branching logic inherent in the test workflow.",
         "parent_id": "q_01__res_L1_00",
         "children_ids": [
           "q_01__res_leaf_00_00_00",
@@ -286,36 +256,36 @@
         "id": "q_01__res_leaf_00_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Identify heuristics for data relevance",
-        "description": "Determine the specific rules or intuition experts use to filter chart data into 'relevant' versus 'irrelevant' buckets before presentation.",
+        "label": "Fixed vs. adaptive sequencing of sub-tests",
+        "description": "Identify whether the order of assessment components (e.g., orientation before recall) is rigidly fixed or dynamically adjusted based on patient performance.",
         "parent_id": "q_01__res_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Information Foraging",
-          "Decision Heuristics"
+          "Interaction Flow",
+          "Adaptive Interface"
         ]
       },
       "q_01__res_leaf_00_00_01": {
         "id": "q_01__res_leaf_00_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Resolve conflicting data points",
-        "description": "Explore how contradictory information in the patient record is reconciled during the review phase to ensure narrative consistency.",
+        "label": "Criteria for transitioning between test sections",
+        "description": "Determine the specific triggers or completion markers that signal the clinician to move from one cognitive domain task to the next.",
         "parent_id": "q_01__res_L2_00_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Sensemaking",
-          "Data Conflict Resolution"
+          "State Transition",
+          "Task Completion Criteria"
         ]
       },
       "q_01__res_L2_00_01": {
         "id": "q_01__res_L2_00_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Narrative Synthesis",
-        "description": "Investigating how raw data is transformed into a coherent linear story structure.",
+        "label": "Instructional Interaction",
+        "description": "Analyzing how test instructions are delivered and managed between clinician and patient.",
         "parent_id": "q_01__res_L1_00",
         "children_ids": [
           "q_01__res_leaf_00_01_00",
@@ -328,36 +298,36 @@
         "id": "q_01__res_leaf_00_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Map non-linear to linear conversion",
-        "description": "Document the steps taken to convert non-linear chart entries into a linear chronological story for the audience.",
+        "label": "Standardization of verbal prompts",
+        "description": "Explore the degree of script fidelity required versus the allowance for spontaneous clarification during formal scoring.",
         "parent_id": "q_01__res_L2_00_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Temporal Mapping",
-          "Narrative Structure"
+          "Consistency",
+          "Verbal Interface"
         ]
       },
       "q_01__res_leaf_00_01_01": {
         "id": "q_01__res_leaf_00_01_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Prioritize assessment over history",
-        "description": "Understand how the 'assessment and plan' section is weighted against the 'history' during the preparation phase.",
+        "label": "Protocol for instruction repetition",
+        "description": "Uncover the rules governing how many times or in what manner instructions can be repeated without invalidating the test score.",
         "parent_id": "q_01__res_L2_00_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Information Hierarchy",
-          "Content Weighting"
+          "Error Handling",
+          "Feedback Loop"
         ]
       },
       "q_01__res_L1_01": {
         "id": "q_01__res_L1_01",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Audience Modeling & Contextual Framing",
-        "description": "Exploring how the presenter adapts the content and structure based on the listener and the physical environment.",
+        "label": "Artifact Interaction & Data Capture",
+        "description": "Investigating the physical and digital tools used during assessment and how data is recorded from them.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_01_00",
@@ -370,8 +340,8 @@
         "id": "q_01__res_L2_01_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Listener Profiling",
-        "description": "Analyzing how the presenter mentalizes the audience to tailor communication.",
+        "label": "Physical-Digital Tooling",
+        "description": "Mapping the tangible artifacts and sensory materials required to execute the assessment.",
         "parent_id": "q_01__res_L1_01",
         "children_ids": [
           "q_01__res_leaf_01_00_00",
@@ -384,36 +354,36 @@
         "id": "q_01__res_leaf_01_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Estimate audience baseline knowledge",
-        "description": "Investigate how the presenter estimates the audience's prior knowledge to adjust medical terminology and depth.",
+        "label": "Artifacts for visuospatial tasks",
+        "description": "Catalog the specific physical tools (e.g., pen types, paper grids, clock faces) used for drawing-based sub-tests and their affordances.",
         "parent_id": "q_01__res_L2_01_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "User Modeling",
-          "Knowledge Gap Analysis"
+          "Tangible Interface",
+          "Affordances"
         ]
       },
       "q_01__res_leaf_01_00_01": {
         "id": "q_01__res_leaf_01_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Customize content by specialty",
-        "description": "Identify what specific clinical details are added or omitted based on the listener's specific role or specialty.",
+        "label": "Visibility constraints of stimuli",
+        "description": "Assess how test materials (cards, screens) are presented to accommodate varying levels of visual acuity during the task.",
         "parent_id": "q_01__res_L2_01_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Content Personalization",
-          "Audience Segmentation"
+          "Visual Accessibility",
+          "Stimulus Presentation"
         ]
       },
       "q_01__res_L2_01_01": {
         "id": "q_01__res_L2_01_01",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Environmental Constraints",
-        "description": "Understanding how physical and temporal constraints shape the preparation strategy.",
+        "label": "Scoring & Documentation Workflow",
+        "description": "Understanding the timing and method of converting patient performance into recorded clinical data.",
         "parent_id": "q_01__res_L1_01",
         "children_ids": [
           "q_01__res_leaf_01_01_00",
@@ -426,36 +396,36 @@
         "id": "q_01__res_leaf_01_01_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Adapt prep to physical setting",
-        "description": "Analyze how the physical setting (e.g., hallway rounds vs. conference room) dictates the length and detail of preparation.",
+        "label": "Timing of score recording",
+        "description": "Determine if scoring occurs concurrently with patient interaction or retrospectively after the session concludes.",
         "parent_id": "q_01__res_L2_01_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Contextual Design",
-          "Environmental Affordances"
+          "Data Entry Latency",
+          "Multitasking Load"
         ]
       },
       "q_01__res_leaf_01_01_01": {
         "id": "q_01__res_leaf_01_01_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Plan for anticipated time limits",
-        "description": "Understand how anticipated time constraints shape the depth of the initial chart review and scripting.",
+        "label": "Data transfer method to EHR",
+        "description": "Identify the mechanism for moving raw test scores into the Electronic Health Record (manual entry, scanning, digital sync).",
         "parent_id": "q_01__res_L2_01_01",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Constraint-based Planning",
-          "Time Boxing"
+          "Interoperability",
+          "Data Pipeline"
         ]
       },
       "q_01__res_L1_02": {
         "id": "q_01__res_L1_02",
         "tower": "researcher",
         "layer": "L1",
-        "label": "Temporal & Artifact Interaction",
-        "description": "Focusing on the timing of preparation phases and the use of external tools to support memory.",
+        "label": "Environmental Configuration & Accessibility",
+        "description": "Exploring the physical setting and accommodations made to ensure valid test conditions.",
         "parent_id": "q_01__shared_root",
         "children_ids": [
           "q_01__res_L2_02_00"
@@ -467,8 +437,8 @@
         "id": "q_01__res_L2_02_00",
         "tower": "researcher",
         "layer": "L2",
-        "label": "Preparation Phasing & Externalization",
-        "description": "Examining the timeline of prep and the creation of supporting materials.",
+        "label": "Spatial & Sensory Configuration",
+        "description": "Examining how the physical room and patient capabilities are managed to support the assessment workflow.",
         "parent_id": "q_01__res_L1_02",
         "children_ids": [
           "q_01__res_leaf_02_00_00",
@@ -481,28 +451,28 @@
         "id": "q_01__res_leaf_02_00_00",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Offload memory via artifacts",
-        "description": "Identify what physical or digital notes are created during prep to reduce cognitive load during delivery.",
+        "label": "Seating arrangement relative to test materials",
+        "description": "Document the geometric setup between clinician, patient, and test artifacts to ensure optimal visibility and interaction.",
         "parent_id": "q_01__res_L2_02_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "External Cognition",
-          "Memory Offloading"
+          "Spatial Layout",
+          "Proxemics"
         ]
       },
       "q_01__res_leaf_02_00_01": {
         "id": "q_01__res_leaf_02_00_01",
         "tower": "researcher",
         "layer": "leaf",
-        "label": "Define workflow transition points",
-        "description": "Determine the specific moment where information gathering stops and narrative rehearsal begins.",
+        "label": "Protocol for integrating assistive devices",
+        "description": "Clarify the workflow steps for verifying and utilizing patient aids (glasses, hearing aids) before starting the scored portion.",
         "parent_id": "q_01__res_L2_02_00",
         "children_ids": [],
         "attributes": [],
         "aliases": [
-          "Workflow Transition",
-          "Task Switching"
+          "Accessibility Scaffolding",
+          "Device Integration"
         ]
       }
     }
@@ -510,1390 +480,1481 @@
   "links": [
     {
       "expert_leaf_id": "q_01__exp_leaf_00_00_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Scanning for the Clinical Story"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Resolve conflicting data points"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Scanning for the Clinical Story",
-        "researcher_branch": "Resolve conflicting data points"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Instinctive Outlier Detection",
-          "target_concept": "Finding a contradiction in a friend's story",
-          "structural_mapping": {
-            "inputs": "Data points vs. baseline expectations",
-            "logic": "Recognizing mismatch without external verification",
-            "outputs": "Identifying hidden truth rather than correcting error"
-          },
-          "explanation": "The researcher treats conflicting data as noise to be fixed for consistency, but the expert treats it as signal. Like finding a contradiction in a friend's story, the mismatch isn't an error to edit out; it is the clue that reveals the true situation."
-        },
-        "scenario": "When you find conflicting labs in a chart, do you smooth them out to make the narrative consistent, or do you keep the tension because that contradiction is actually the diagnosis?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Scanning for the Clinical Story"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Map non-linear to linear conversion"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_00_01",
-      "conflict": {
-        "expert_branch": "Scanning for the Clinical Story",
-        "researcher_branch": "Map non-linear to linear conversion"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Prioritizing by Acuity & Educational Value",
-          "target_concept": "Prioritizing emails by importance over arrival time",
-          "structural_mapping": {
-            "inputs": "Incoming chart data points",
-            "logic": "Filter by diagnostic value rather than timestamp",
-            "outputs": "Problem-oriented clinical story"
-          },
-          "explanation": "The researcher assumes you organize data by when it arrived (chronological), but like sorting emails by importance, you reorder data by diagnostic value, meaning the 'story' is structured by criticality, not chronology."
-        },
-        "scenario": "When you build your presentation, do you ever rearrange the timeline so the critical diagnosis comes first, even if that information appeared last in the patient's chart?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Scanning for the Clinical Story"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Prioritize assessment over history"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_00_01",
-      "conflict": {
-        "expert_branch": "Scanning for the Clinical Story",
-        "researcher_branch": "Prioritize assessment over history"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Instinctive Outlier Detection",
-          "target_concept": "Spotting a typo while proofreading",
-          "structural_mapping": {
-            "inputs": "Full document or chart data",
-            "logic": "Scan for specific errors or red flags anywhere vs. reading sections linearly",
-            "outputs": "Corrected text or clinical story"
-          },
-          "explanation": "Both involve filtering for value. Like spotting typos, the expert scans for signals anywhere, revealing the researcher's 'section weighting' model mismatches the expert's signal-based navigation."
-        },
-        "scenario": "When you're prepping a complex case, do you find yourself weighing the history against the assessment, or do you just hunt for the red flags wherever they hide?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
       "researcher_leaf_id": "q_01__res_leaf_00_00_00",
       "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Instinctive Outlier Detection"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Rapport-building as diagnostic baseline"
       ],
       "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Fixed vs. adaptive sequencing of sub-tests"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Instinctive Outlier Detection",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "TacitGap",
-      "assistance_payload": {
-        "attributes": [
-          "Preparation",
-          "Clinical Judgment",
-          "Mental Model",
-          "Temporal Trends",
-          "Physiological Plausibility",
-          "Contextual Consistency",
-          "Data Velocity",
-          "Visual Pattern Recognition"
-        ],
-        "probes": [
-          {
-            "attribute": "Preparation",
-            "question": "Which information source do you consult first?",
-            "choices": [
-              "Historical Records",
-              "Current Vitals",
-              "Medication List",
-              "Nursing Notes"
-            ]
-          },
-          {
-            "attribute": "Clinical Judgment",
-            "question": "When data conflicts with observation, what takes precedence?",
-            "choices": [
-              "Trust the Number",
-              "Trust the Patient",
-              "Trust the Device",
-              "Trust the Protocol"
-            ]
-          },
-          {
-            "attribute": "Mental Model",
-            "question": "How do you mentally group patient data?",
-            "choices": [
-              "Organ System",
-              "Timeline",
-              "Problem List",
-              "Risk Level"
-            ]
-          },
-          {
-            "attribute": "Temporal Trends",
-            "question": "Which change pattern triggers immediate attention?",
-            "choices": [
-              "Sudden Spike",
-              "Slow Drift",
-              "Cyclic Pattern",
-              "Static Value"
-            ]
-          },
-          {
-            "attribute": "Physiological Plausibility",
-            "question": "What contradiction suggests a data error?",
-            "choices": [
-              "Vital Sign Mismatch",
-              "Lab Result Mismatch",
-              "Physical Exam Mismatch",
-              "History Mismatch"
-            ]
-          },
-          {
-            "attribute": "Contextual Consistency",
-            "question": "Whose report weighs most heavily?",
-            "choices": [
-              "Patient Report",
-              "Family Report",
-              "Chart History",
-              "Provider Handoff"
-            ]
-          },
-          {
-            "attribute": "Data Velocity",
-            "question": "What time window defines an urgent change?",
-            "choices": [
-              "Seconds",
-              "Minutes",
-              "Hours",
-              "Days"
-            ]
-          },
-          {
-            "attribute": "Visual Pattern Recognition",
-            "question": "What visual cue signals an outlier?",
-            "choices": [
-              "Color Alert",
-              "Trend Line Angle",
-              "Numeric Highlight",
-              "Icon Flag"
-            ]
-          }
-        ],
-        "hypothetical_scenarios": [
-          {
-            "scenario": "If access to Historical Records changed from 'available' to 'unavailable', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Preparation"
-          },
-          {
-            "scenario": "If the Patient appearance changed from 'stable' to 'distressed', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Clinical Judgment"
-          },
-          {
-            "scenario": "If the data organization changed from 'Organ System' to 'Timeline', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Mental Model"
-          },
-          {
-            "scenario": "If the trend pattern changed from 'Slow Drift' to 'Sudden Spike', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Temporal Trends"
-          },
-          {
-            "scenario": "If the Vital Sign Mismatch changed from 'present' to 'absent', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Physiological Plausibility"
-          },
-          {
-            "scenario": "If the Patient Report changed from 'consistent' to 'contradictory', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Contextual Consistency"
-          },
-          {
-            "scenario": "If the rate of change changed from 'Hours' to 'Seconds', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Data Velocity"
-          },
-          {
-            "scenario": "If the display format changed from 'Trend Line Angle' to 'Numeric Highlight', would your judgment about 'Instinctive Outlier Detection' change?",
-            "attribute": "Visual Pattern Recognition"
-          }
-        ]
-      },
-      "weight": 2.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Instinctive Outlier Detection"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Resolve conflicting data points"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Instinctive Outlier Detection",
-        "researcher_branch": "Resolve conflicting data points"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Scanning for the Clinical Story",
-          "target_concept": "Spotting a typo in your own name",
-          "structural_mapping": {
-            "inputs": "Visual patient data stream vs. Written text of a familiar name",
-            "logic": "Match against internalized baseline vs. Match against memory of correct spelling",
-            "outputs": "Instant anomaly flag vs. Instant error recognition"
-          },
-          "explanation": "This analogy clarifies that the expert describes the automatic alert (seeing the typo), while the researcher's concept describes the subsequent investigation to determine the correct value, distinguishing immediate detection from deliberate resolution."
-        },
-        "scenario": "When a number instantly feels wrong to you, is that gut feeling separate from the moment you decide which record to trust, or do you experience them as one step?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Crafting the Summary One-Liner"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Crafting the Summary One-Liner",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Scanning for the Clinical Story",
-          "target_concept": "Writing a newspaper headline",
-          "structural_mapping": {
-            "inputs": "Full patient chart / Entire news article",
-            "logic": "Synthesize main story angle / Distill core message",
-            "outputs": "Summary one-liner / Newspaper headline"
-          },
-          "explanation": "Both processes reduce large inputs into a single output, but like writing a headline, the expert's logic prioritizes narrative cohesion over simple data exclusion, showing relevance depends on the story angle."
-        },
-        "scenario": "When you craft that opening sentence, do you start by crossing out normal lab values, or do you find the patient's story first and only keep data that drives that narrative?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Crafting the Summary One-Liner"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Estimate audience baseline knowledge"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Crafting the Summary One-Liner",
-        "researcher_branch": "Estimate audience baseline knowledge"
-      },
-      "relation_type": "TacitGap",
-      "assistance_payload": {
-        "attributes": [
-          "Patient Identity Specificity",
-          "Problem Acuity",
-          "Audience Specialty Match",
-          "Terminology Density",
-          "Contextual Urgency",
-          "Diagnostic Certainty",
-          "Actionability Focus",
-          "Social Determinant Weight"
-        ],
-        "probes": [
-          {
-            "attribute": "Patient Identity Specificity",
-            "question": "When defining the patient, which identifier takes precedence:",
-            "choices": [
-              "Age/Gender",
-              "Occupation/Role",
-              "Medical History"
-            ]
-          },
-          {
-            "attribute": "Problem Acuity",
-            "question": "Is the problem description driven primarily by:",
-            "choices": [
-              "Time sensitivity",
-              "Symptom severity",
-              "Organ system involved"
-            ]
-          },
-          {
-            "attribute": "Audience Specialty Match",
-            "question": "Do you adjust detail based primarily on:",
-            "choices": [
-              "Their specific specialty",
-              "Their seniority level",
-              "Your relationship with them"
-            ]
-          },
-          {
-            "attribute": "Terminology Density",
-            "question": "Do you choose words based primarily on:",
-            "choices": [
-              "Precision of diagnosis",
-              "Speed of comprehension",
-              "Avoiding ambiguity"
-            ]
-          },
-          {
-            "attribute": "Contextual Urgency",
-            "question": "Does the setting dictate prioritizing:",
-            "choices": [
-              "Brevity above all",
-              "Completeness above all",
-              "Actionability above all"
-            ]
-          },
-          {
-            "attribute": "Diagnostic Certainty",
-            "question": "Do you state the problem as:",
-            "choices": [
-              "A confirmed diagnosis",
-              "A symptom cluster",
-              "A working hypothesis"
-            ]
-          },
-          {
-            "attribute": "Actionability Focus",
-            "question": "Is the one-liner aimed primarily at:",
-            "choices": [
-              "Informing status",
-              "Requesting help",
-              "Documenting care"
-            ]
-          },
-          {
-            "attribute": "Social Determinant Weight",
-            "question": "Do you include social factors when:",
-            "choices": [
-              "They block discharge",
-              "They caused admission",
-              "Never in the one-liner"
-            ]
-          }
-        ],
-        "hypothetical_scenarios": [
-          {
-            "scenario": "If the patient changes from '55M' to 'CEO', would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Patient Identity Specificity"
-          },
-          {
-            "scenario": "If the problem shifts from 'chest pain' to 'stable angina', would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Problem Acuity"
-          },
-          {
-            "scenario": "If the listener changes from a Cardiologist to a General Internist, would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Audience Specialty Match"
-          },
-          {
-            "scenario": "If you replace 'MI' with 'Heart Attack', would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Terminology Density"
-          },
-          {
-            "scenario": "If the handoff occurs at 3 AM vs. during rounds, would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Contextual Urgency"
-          },
-          {
-            "scenario": "If the diagnosis goes from 'confirmed PE' to 'possible PE', would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Diagnostic Certainty"
-          },
-          {
-            "scenario": "If the goal changes from 'sign-out' to 'consult request', would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Actionability Focus"
-          },
-          {
-            "scenario": "If the patient is homeless vs. housed, would your judgment about 'Crafting the Summary One-Liner' change?",
-            "attribute": "Social Determinant Weight"
-          }
-        ]
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Crafting the Summary One-Liner"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Environmental Constraints",
-        "Adapt prep to physical setting"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Crafting the Summary One-Liner",
-        "researcher_branch": "Adapt prep to physical setting"
+        "expert_branch": "Rapport-building as diagnostic baseline",
+        "researcher_branch": "Fixed vs. adaptive sequencing of sub-tests"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "The expert emphasizes that crafting the summary one-liner requires condensing the patient's identity and main problem into a single, consistent opening sentence. This focus ensures the clinical narrative remains accurate regardless of external variables.",
+        "validate_focus": "The expert emphasizes that diagnostic insight begins during pre-test rapport building rather than the formal assessment. This perspective highlights how patient engagement prior to testing serves as a crucial baseline for clinical intuition.",
         "pivot": {
-          "limitation": "Staying only on the expert's concern misses how the researcher's focus on physical settings dictates preparation length and detail.",
-          "research_goal": "The researcher is trying to understand how environmental constraints shape the preparation strategy alongside the expert's narrative goals.",
-          "compelling_reason": "While the expert's consistency is vital, the researcher's concern matters because it reveals how the expert adapts delivery to fit real-world constraints.",
-          "coarse_scenario": "You've highlighted how critical the one-liner's accuracy is, but could you walk me through how you might change that preparation if you were speaking in a noisy hallway versus a quiet conference room?"
+          "limitation": "Focusing solely on the rapport phase leaves the structural logic of the formal assessment protocol unexamined. Without understanding the test sequencing, it remains unclear how the tool itself accommodates clinical flexibility.",
+          "research_goal": "The researcher is trying to understand whether the official administration protocol dictates a rigid order of sub-tests or allows dynamic adjustment based on patient performance.",
+          "compelling_reason": "Both the pre-test observation and the formal test structure are necessary to understand the full workflow. Knowing the sequencing rules helps determine if the tool supports the clinical intuition established during rapport.",
+          "coarse_scenario": "While I see how much diagnostic value you get from that initial chat, I also need to understand how the formal test structure itself supports or constrains those observations once you move past the rapport building."
         }
       },
       "weight": 6.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
-      "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
       "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Crafting the Summary One-Liner"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Rapport-building as diagnostic baseline"
       ],
       "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Temporal & Artifact Interaction",
-        "Preparation Phasing & Externalization",
-        "Define workflow transition points"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Criteria for transitioning between test sections"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Crafting the Summary One-Liner",
-        "researcher_branch": "Define workflow transition points"
+        "expert_branch": "Rapport-building as diagnostic baseline",
+        "researcher_branch": "Criteria for transitioning between test sections"
       },
-      "relation_type": "ConceptualGap",
+      "relation_type": "ScopeGap",
       "assistance_payload": {
-        "analogy": {
-          "source_concept": "Scanning for the Clinical Story",
-          "target_concept": "Editing a headline while writing",
-          "structural_mapping": {
-            "inputs": "Patient chart data",
-            "logic": "Simultaneous synthesis and collection",
-            "outputs": "Diagnostic focus"
-          },
-          "explanation": "The researcher expects a clear stop between gathering and summarizing, but like editing a headline while writing, the expert refines the summary continuously as new information arrives rather than waiting until the end."
-        },
-        "scenario": "As you scan the chart for the clinical story, do you finish gathering all data before fixing your one-liner, or does the sentence evolve while you read?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Prioritizing by Acuity & Educational Value"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Prioritizing by Acuity & Educational Value",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Crafting the Summary One-Liner",
-          "target_concept": "Writing a headline for a news story",
-          "structural_mapping": {
-            "inputs": "All event facts map to all patient chart data",
-            "logic": "Selecting for impact maps to prioritizing by acuity",
-            "outputs": "Headline maps to the prioritized problem list"
-          },
-          "explanation": "Both involve selecting information for an audience, like choosing words for a headline. However, the researcher focuses on individual words (data), while you focus on the headline story (problems), meaning data is only relevant if it supports the story."
-        },
-        "scenario": "When you decide which lab values to mention, is it because the number is abnormal, or because it supports the main diagnosis you want the team to focus on first?"
-      },
-      "weight": 5.5
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Prioritizing by Acuity & Educational Value"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Map non-linear to linear conversion"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_00_01",
-      "conflict": {
-        "expert_branch": "Prioritizing by Acuity & Educational Value",
-        "researcher_branch": "Map non-linear to linear conversion"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Scanning for the Clinical Story",
-          "target_concept": "Sorting emails by urgency instead of received time",
-          "structural_mapping": {
-            "inputs": "Scattered data points (chart notes or inbox messages)",
-            "logic": "Filtering for critical importance first rather than sequence",
-            "outputs": "Ordered action list (presentation flow or reply priority)"
-          },
-          "explanation": "Both processes organize scattered inputs into a sequence, but like sorting urgent emails over received time, the expert prioritizes danger over occurrence, showing why a linear timeline fails to capture clinical priority."
-        },
-        "scenario": "When a stable patient suddenly crashes, do you start your presentation with the crash instead of walking the team through the timeline leading up to it?"
+        "validate_focus": "The expert emphasizes that rapport-building acts as a critical diagnostic baseline before formal testing begins. This perspective prioritizes the observational data gathered during the initial social interaction.",
+        "pivot": {
+          "limitation": "If the conversation remains only on the pre-test interaction, the structured logic governing the formal assessment sections remains undefined. The researcher would miss the specific operational triggers used during the core testing phase.",
+          "research_goal": "The researcher is attempting to map the specific criteria for transitioning between test sections within the operational workflow. This focus targets the explicit decision points inside the formal protocol.",
+          "compelling_reason": "While the expert's observational baseline is vital, the researcher also needs to document the explicit workflow logic to ensure the operational protocol is fully understood.",
+          "coarse_scenario": "That initial chat gives you a crucial baseline, but I also need to understand what specific markers tell you to move between the formal test sections so we can map the whole workflow."
+        }
       },
       "weight": 6.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_00_03",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
       "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Cognitive Synthesis & Story Building",
-        "Prioritizing by Acuity & Educational Value"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Rapport-building as diagnostic baseline"
       ],
       "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Prioritize assessment over history"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Standardization of verbal prompts"
       ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_00_01",
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Prioritizing by Acuity & Educational Value",
-        "researcher_branch": "Prioritize assessment over history"
+        "expert_branch": "Rapport-building as diagnostic baseline",
+        "researcher_branch": "Standardization of verbal prompts"
       },
       "relation_type": "ScopeGap",
       "assistance_payload": {
-        "validate_focus": "The expert emphasizes the critical nature of ordering specific problems within the assessment based on life-threat and learning opportunities. This ensures the audience grasps the most vital clinical decisions first.",
+        "validate_focus": "The expert emphasizes that informal rapport-building serves as a critical diagnostic baseline before formal testing begins. This intuitive approach allows for early detection of memory or mood issues during natural conversation.",
         "pivot": {
-          "limitation": "Focusing solely on problem-level ordering overlooks how the presenter decides to allocate preparation time between the history section and the assessment section overall.",
-          "research_goal": "The researcher is trying to understand the macro-structural weighting during the preparation phase, specifically why the assessment might be prioritized over the history in terms of cognitive load.",
-          "compelling_reason": "Both levels of prioritization are important; understanding the section-level weighting reveals how experts decide what information is essential enough to include before they even begin ordering specific problems.",
-          "coarse_scenario": "That triage of specific problems is vital, and I'm also curious about the bigger picture of how you decide to weight the assessment section against the history section during your prep."
+          "limitation": "Focusing solely on the unscripted rapport phase overlooks how standardized prompts during the formal assessment ensure consistency and reliability in scoring across different patients.",
+          "research_goal": "The researcher is investigating the balance between script fidelity and necessary spontaneous clarification during the scored portion of the interaction.",
+          "compelling_reason": "While the rapport phase provides initial clues, understanding prompt standardization is essential to determine if diagnostic accuracy is maintained when moving from intuitive observation to formal measurement.",
+          "coarse_scenario": "I agree that the initial chat gives you vital clues. However, I also need to understand how you handle standardization during the scored portion to see how those intuitive baselines translate into formal results."
+        }
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Rapport-building as diagnostic baseline"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Artifact Interaction & Data Capture",
+        "Scoring & Documentation Workflow",
+        "Timing of score recording"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Rapport-building as diagnostic baseline",
+        "researcher_branch": "Timing of score recording"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "Recall Latency",
+          "Detail Specificity",
+          "Emotional Congruence",
+          "Prompting Dependency",
+          "Temporal Range",
+          "Narrative Consistency",
+          "Non-Verbal Alignment",
+          "Self-Monitoring Awareness"
+        ],
+        "probes": [
+          {
+            "attribute": "Recall Latency",
+            "question": "When assessing their response speed about recent events, what pause duration triggers concern?",
+            "choices": [
+              "Under 2 seconds",
+              "2 to 5 seconds",
+              "Over 5 seconds"
+            ]
+          },
+          {
+            "attribute": "Detail Specificity",
+            "question": "Regarding the details they provide about their day, which level of precision do you expect?",
+            "choices": [
+              "General sequence only",
+              "Exact timestamps",
+              "Specific names involved"
+            ]
+          },
+          {
+            "attribute": "Emotional Congruence",
+            "question": "When they describe a neutral event, which mismatch raises more concern?",
+            "choices": [
+              "Mismatched smile",
+              "Flat tone",
+              "Excessive energy"
+            ]
+          },
+          {
+            "attribute": "Prompting Dependency",
+            "question": "If you need to ask a follow-up question to get an answer, how do you categorize this?",
+            "choices": [
+              "One prompt is normal",
+              "Multiple prompts indicate issues",
+              "Any prompt is a failure"
+            ]
+          },
+          {
+            "attribute": "Temporal Range",
+            "question": "For the 'recent changes' they recall, which timeframe carries the most diagnostic weight?",
+            "choices": [
+              "This morning",
+              "Yesterday",
+              "Last week"
+            ]
+          },
+          {
+            "attribute": "Narrative Consistency",
+            "question": "When checking their story, which contradiction type is most critical?",
+            "choices": [
+              "Contradictions in times",
+              "Contradictions in locations",
+              "Contradictions in people"
+            ]
+          },
+          {
+            "attribute": "Non-Verbal Alignment",
+            "question": "During the chat, which non-verbal cue weighs most heavily?",
+            "choices": [
+              "Avoiding eye contact",
+              "Fidgeting",
+              "Slumped posture"
+            ]
+          },
+          {
+            "attribute": "Self-Monitoring Awareness",
+            "question": "If they forget something, which reaction indicates higher risk?",
+            "choices": [
+              "Apologizing",
+              "Laughing it off",
+              "Seeming unaware"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the patient's pause before answering increased from 2 seconds to 10 seconds, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Recall Latency"
+          },
+          {
+            "scenario": "If the patient's description changed from 'I had breakfast' to 'I had eggs at 8 AM', would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Detail Specificity"
+          },
+          {
+            "scenario": "If the patient's facial expression changed from smiling to flat while describing a happy event, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Emotional Congruence"
+          },
+          {
+            "scenario": "If the number of follow-up questions required changed from zero to three, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Prompting Dependency"
+          },
+          {
+            "scenario": "If the recall period shifted from events this morning to events last month, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Temporal Range"
+          },
+          {
+            "scenario": "If the patient's story changed from having one contradiction to having three contradictions, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Narrative Consistency"
+          },
+          {
+            "scenario": "If the patient's eye contact changed from constant to avoided during key questions, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Non-Verbal Alignment"
+          },
+          {
+            "scenario": "If the patient's reaction to forgetting changed from apologizing to showing no recognition of the error, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+            "attribute": "Self-Monitoring Awareness"
+          }
+        ]
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Adjusting pace based on frustration cues"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Fixed vs. adaptive sequencing of sub-tests"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Adjusting pace based on frustration cues",
+        "researcher_branch": "Fixed vs. adaptive sequencing of sub-tests"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes the critical importance of micro-level interpersonal adjustments, such as modifying tone and pace during specific tasks, to prevent patient shutdown.",
+        "pivot": {
+          "limitation": "Remaining focused only on delivery style leaves unclear whether the assessment protocol itself allows for structural changes, such as altering the sequence of sub-tests based on performance.",
+          "research_goal": "The researcher is trying to understand if the workflow permits macro-level adaptations in the order of assessment components rather than just stylistic modifications within a fixed sequence.",
+          "compelling_reason": "Distinguishing between delivery flexibility and structural flexibility is essential for determining whether the screening process is standardized or dynamically reconfigured across different clinicians.",
+          "coarse_scenario": "I see how adjusting your tone keeps them engaged, but I also need to know if you ever change the actual order of the tests based on how they perform."
+        }
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Adjusting pace based on frustration cues"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Protocol for instruction repetition"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Adjusting pace based on frustration cues",
+        "researcher_branch": "Protocol for instruction repetition"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "patient_state",
+          "adaptation",
+          "engagement",
+          "physiological_signals",
+          "verbal_response_latency",
+          "examiner_tone_modulation",
+          "error_pattern_frequency",
+          "rapport_preservation"
+        ],
+        "probes": [
+          {
+            "attribute": "patient_state",
+            "question": "Is your adjustment triggered more by visible anxiety, cognitive fatigue, or emotional withdrawal?",
+            "choices": [
+              "Visible anxiety",
+              "Cognitive fatigue",
+              "Emotional withdrawal"
+            ]
+          },
+          {
+            "attribute": "adaptation",
+            "question": "When pivoting, do you prioritize changing the task difficulty, altering your delivery speed, or modifying the instruction complexity?",
+            "choices": [
+              "Changing task difficulty",
+              "Altering delivery speed",
+              "Modifying instruction complexity"
+            ]
+          },
+          {
+            "attribute": "engagement",
+            "question": "Which signal indicates critical disengagement: silence lasting over 10 seconds, repeated refusal to answer, or visible physical tension?",
+            "choices": [
+              "Silence over 10 seconds",
+              "Repeated refusal",
+              "Visible physical tension"
+            ]
+          },
+          {
+            "attribute": "physiological_signals",
+            "question": "Which physical cue warrants immediate intervention: forehead sweating, hand trembling, or changes in breathing rate?",
+            "choices": [
+              "Forehead sweating",
+              "Hand trembling",
+              "Changes in breathing rate"
+            ]
+          },
+          {
+            "attribute": "verbal_response_latency",
+            "question": "At what pause duration do you consider intervening: 5 seconds, 10 seconds, or 15 seconds?",
+            "choices": [
+              "5 seconds",
+              "10 seconds",
+              "15 seconds"
+            ]
+          },
+          {
+            "attribute": "examiner_tone_modulation",
+            "question": "Do you soften your tone primarily to reduce pressure, clarify expectations, or rebuild confidence?",
+            "choices": [
+              "Reduce pressure",
+              "Clarify expectations",
+              "Rebuild confidence"
+            ]
+          },
+          {
+            "attribute": "error_pattern_frequency",
+            "question": "Does your decision to pivot depend on two consecutive errors, three consecutive errors, or a specific type of error?",
+            "choices": [
+              "Two consecutive errors",
+              "Three consecutive errors",
+              "Specific type of error"
+            ]
+          },
+          {
+            "attribute": "rapport_preservation",
+            "question": "Is the primary goal of adjusting pace to ensure test validity, maintain patient cooperation, or prevent emotional distress?",
+            "choices": [
+              "Ensure test validity",
+              "Maintain patient cooperation",
+              "Prevent emotional distress"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If patient_state changed from 'anxious but responsive' to 'calm but non-responsive', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "patient_state"
+          },
+          {
+            "scenario": "If adaptation changed from 'softening tone' to 'skipping the task entirely', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "adaptation"
+          },
+          {
+            "scenario": "If engagement changed from 'verbal hesitation' to 'complete silence', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "engagement"
+          },
+          {
+            "scenario": "If physiological_signals changed from 'visible sweating' to 'no visible physical changes', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "physiological_signals"
+          },
+          {
+            "scenario": "If verbal_response_latency changed from '3 seconds' to '12 seconds', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "verbal_response_latency"
+          },
+          {
+            "scenario": "If examiner_tone_modulation changed from 'neutral' to 'encouraging', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "examiner_tone_modulation"
+          },
+          {
+            "scenario": "If error_pattern_frequency changed from '1 error in 5 attempts' to '3 errors in 5 attempts', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "error_pattern_frequency"
+          },
+          {
+            "scenario": "If rapport_preservation changed from 'low risk of shutdown' to 'high risk of shutdown', would your judgment about 'Adjusting pace based on frustration cues' change?",
+            "attribute": "rapport_preservation"
+          }
+        ]
+      },
+      "weight": 6.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Adjusting pace based on frustration cues"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Criteria for transitioning between test sections"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Adjusting pace based on frustration cues",
+        "researcher_branch": "Criteria for transitioning between test sections"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes the importance of monitoring patient frustration cues to prevent disengagement during testing.",
+        "pivot": {
+          "limitation": "Focusing only on pacing adjustments misses the structural logic used to determine when a task is sufficiently complete to proceed.",
+          "research_goal": "The researcher aims to identify the specific completion markers that trigger transitions between cognitive domain tasks.",
+          "compelling_reason": "Both retention strategies and transition criteria are needed to fully map the operational workflow and ensure the system supports both engagement and protocol adherence.",
+          "coarse_scenario": "While keeping them engaged is crucial, I also need to understand what specific markers tell you a section is complete so we can accurately map the overall workflow."
+        }
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+      "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Ensuring quiet environment for focus"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Environmental Configuration & Accessibility",
+        "Spatial & Sensory Configuration",
+        "Seating arrangement relative to test materials"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Ensuring quiet environment for focus",
+        "researcher_branch": "Seating arrangement relative to test materials"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes the critical need for a quiet environment to distinguish between actual cognitive deficits and external distractions during screening.",
+        "pivot": {
+          "limitation": "Focusing solely on the expert's concern about noise misses how the physical geometry between the clinician, patient, and test materials affects interaction flow.",
+          "research_goal": "The researcher aims to document the spatial configuration to understand how seating arrangements influence the ergonomic delivery of the test.",
+          "compelling_reason": "While the expert's focus prevents validity ambiguity, the researcher's concern also matters for the interview goal because it reveals how physical setup impacts the patient's ability to engage with test artifacts.",
+          "coarse_scenario": "I completely agree that minimizing distractions is vital for accurate scoring, but could you also describe how you position yourself relative to the test materials to ensure the patient can see them clearly?"
+        }
+      },
+      "weight": 3.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Administration Dynamics & Patient Engagement",
+        "Ensuring quiet environment for focus"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Protocol for instruction repetition"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Ensuring quiet environment for focus",
+        "researcher_branch": "Protocol for instruction repetition"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert emphasizes the critical role of environmental controls, such as a quiet room, in preventing external distractions from mimicking cognitive deficits.",
+        "pivot": {
+          "limitation": "Focusing solely on environmental preconditions misses the procedural safeguards needed when distractions occur or when clarity is still required.",
+          "research_goal": "The researcher is trying to understand the specific protocols governing instruction repetition to ensure test validity is maintained.",
+          "compelling_reason": "While environment prevents many issues, understanding repetition limits ensures accuracy when environmental controls are insufficient or when patient confusion persists.",
+          "coarse_scenario": "I agree that minimizing distractions is foundational, but could you walk me through what happens when a patient still doesn't understand an instruction despite the quiet environment?"
         }
       },
       "weight": 4.5
     },
     {
       "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Tailoring to Role & Expertise"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Tailoring to Role & Expertise",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Tailoring to Role & Expertise",
-          "target_concept": "Giving directions based on transport mode",
-          "structural_mapping": {
-            "inputs": "Map data (Patient chart data)",
-            "logic": "Filter by traveler's vehicle (Filter by audience role)",
-            "outputs": "Turn-by-turn instructions (Presentation narrative)"
-          },
-          "explanation": "Your search for fixed data rules assumes all listeners travel the same road. Like giving directions, the expert knows a route is only 'relevant' if it matches the listener's vehicle. This shows data relevance shifts with the audience, not the chart."
-        },
-        "scenario": "When you're filtering a chart before rounds, do you decide what data matters based on the values themselves, or does who you're talking to change what counts as relevant?"
-      },
-      "weight": 5.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Tailoring to Role & Expertise"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Prioritize assessment over history"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_00_01",
-      "conflict": {
-        "expert_branch": "Tailoring to Role & Expertise",
-        "researcher_branch": "Prioritize assessment over history"
-      },
-      "relation_type": "ScopeGap",
-      "assistance_payload": {
-        "validate_focus": "The expert emphasizes that successful presentations depend on dynamically shifting focus based on the listener's role and expertise level.",
-        "pivot": {
-          "limitation": "Focusing solely on audience adaptation misses the foundational cognitive workflow the researcher seeks to map during the preparation phase.",
-          "research_goal": "The researcher is trying to understand how the expert initially weights the assessment against the history before contextual adjustments occur.",
-          "compelling_reason": "While the expert's contextual strategy is vital, identifying the baseline structural priority helps clarify the magnitude of adjustment required for different audiences.",
-          "coarse_scenario": "You've highlighted how crucial audience calibration is, but could you share how you initially decide the weight of the assessment versus the history before you know who you'll be presenting to?"
-        }
-      },
-      "weight": 3.0000000000000004
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Tailoring to Role & Expertise"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Estimate audience baseline knowledge"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Tailoring to Role & Expertise",
-        "researcher_branch": "Estimate audience baseline knowledge"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Tailoring to Role & Expertise",
-          "target_concept": "Briefing a boss vs. training a rookie",
-          "structural_mapping": {
-            "inputs": "Audience Role (Senior vs. Trainee)",
-            "logic": "Determine Clinical Goal (Decision vs. Reasoning)",
-            "outputs": "Presentation Content (Management vs. Differential)"
-          },
-          "explanation": "Both adjust communication, but the researcher focuses on terminology depth like speaking slower for clarity, while the expert shifts the clinical goal like asking a boss for a decision versus teaching a rookie the process."
-        },
-        "scenario": "When you present to a senior attending versus a junior intern, do you shift from asking for management decisions to walking through diagnostic reasoning, rather than just changing your vocabulary?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Simplifying for Multidisciplinary Teams"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Simplifying for Multidisciplinary Teams",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Tailoring to Role & Expertise",
-          "target_concept": "Giving directions to a driver versus a pedestrian",
-          "structural_mapping": {
-            "inputs": "Full map data (all streets and paths)",
-            "logic": "Filter routes based on traveler capability (wheels vs. feet)",
-            "outputs": "Specific route instructions"
-          },
-          "explanation": "The researcher seeks fixed rules for 'relevant' streets, but the analogy shows streets are only relevant based on the traveler's mode, implying the researcher's 'relevance heuristics' are actually the expert's dynamic audience-adaptation rules rather than intrinsic clinical facts."
-        },
-        "scenario": "When you round with a pharmacist versus a resident, does the data you label 'irrelevant' stay the same, or does what counts as essential change based on who needs to act on it?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Simplifying for Multidisciplinary Teams"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Customize content by specialty"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Simplifying for Multidisciplinary Teams",
-        "researcher_branch": "Customize content by specialty"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Tailoring to Role & Expertise",
-          "target_concept": "Giving directions to a local versus a tourist",
-          "structural_mapping": {
-            "inputs": "Listener's familiarity with the area",
-            "logic": "Adjusting references (street names vs. landmarks) without changing the route",
-            "outputs": "Successful arrival via the same path"
-          },
-          "explanation": "Both concepts involve adapting information for the listener. The analogy clarifies that the expert translates terms (like using landmarks instead of street names) without changing the route, whereas the researcher expects the route itself (clinical details) to change."
-        },
-        "scenario": "When presenting to a pharmacist, do you actually remove the pathophysiology details from your story, or do you keep all the facts but just swap out the complex medical terminology?"
-      },
-      "weight": 3.0000000000000004
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Adapting to Venue & Time Constraints"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Prioritize assessment over history"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_00",
-      "researcher_lca_id": "q_01__res_L2_00_01",
-      "conflict": {
-        "expert_branch": "Adapting to Venue & Time Constraints",
-        "researcher_branch": "Prioritize assessment over history"
-      },
-      "relation_type": "ScopeGap",
-      "assistance_payload": {
-        "validate_focus": "The expert prioritizes how venue and time constraints dynamically dictate the structure of oral presentations. This contextual flexibility is essential for navigating different clinical workflows.",
-        "pivot": {
-          "limitation": "Focusing solely on external constraints overlooks the internal cognitive prioritization that occurs during the preparation phase before context is applied.",
-          "research_goal": "The researcher aims to understand the inherent weighting of the assessment and plan section against the history section during initial synthesis.",
-          "compelling_reason": "Identifying this baseline prioritization reveals core clinical reasoning habits that exist independently of specific workflow demands.",
-          "coarse_scenario": "I see how the venue dictates the final length, but could you walk me through how you decide the initial weight of the assessment versus the history during your private prep before those constraints hit?"
-        }
-      },
-      "weight": 3.0000000000000004
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Adapting to Venue & Time Constraints"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Estimate audience baseline knowledge"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Adapting to Venue & Time Constraints",
-        "researcher_branch": "Estimate audience baseline knowledge"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Tailoring to Role & Expertise",
-          "target_concept": "Talking differently to a child than to a boss",
-          "structural_mapping": {
-            "inputs": "The listener's category (Child/Boss vs. Trainee/Senior)",
-            "logic": "Automatic depth adjustment based on category, not individual testing",
-            "outputs": "Simplified vs. Complex communication"
-          },
-          "explanation": "Just as you simplify for a child without testing their vocabulary, you treat the venue as a proxy for knowledge, meaning the researcher's 'estimation' happens implicitly through your recognition of the setting."
-        },
-        "scenario": "In morning rounds versus grand rounds, do you stop to assess their knowledge level, or does the setting automatically dictate how deep you go?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_01_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Audience & Context Calibration",
-        "Adapting to Venue & Time Constraints"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Customize content by specialty"
-      ],
-      "lca_layer": "L2",
-      "expert_lca_id": "q_01__exp_L2_00_01",
-      "researcher_lca_id": "q_01__res_L2_01_00",
-      "conflict": {
-        "expert_branch": "Adapting to Venue & Time Constraints",
-        "researcher_branch": "Customize content by specialty"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Adapting to Venue & Time Constraints",
-          "target_concept": "Telling a story at a bus stop versus around a campfire",
-          "structural_mapping": {
-            "inputs": "Setting urgency and available time",
-            "logic": "Compress details for speed vs. expand for engagement",
-            "outputs": "Brief summary vs. detailed narrative"
-          },
-          "explanation": "Both concepts involve adapting content to fit the situation. The researcher thinks you adapt based on who listens (specialty), but you adapt based on where you are (venue). Like shortening a story at a bus stop regardless of the listener, you prioritize brevity on rounds due to workflow constraints."
-        },
-        "scenario": "When you present the same case at quick rounds versus a teaching conference, do you cut details because of the clock, or because the specialists listening need different information?"
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Navigating Uncertainty & Honesty"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Navigating Uncertainty & Honesty",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Navigating Uncertainty & Honesty",
-          "target_concept": "Giving directions when unsure",
-          "structural_mapping": {
-            "inputs": "Incomplete route knowledge versus incomplete chart data",
-            "logic": "Include uncertain turns with warnings instead of skipping them versus include knowledge gaps with hypotheses instead of hiding them",
-            "outputs": "Safe arrival despite gaps versus trustworthy presentation despite uncertainty"
-          },
-          "explanation": "Just like giving directions when unsure requires mentioning a guessed turn so the driver watches for it, the expert treats uncertainty as relevant data to include with a hypothesis, whereas the researcher's heuristic might filter it out as irrelevant noise."
-        },
-        "scenario": "When you spot a gap in the chart, do you treat that uncertainty as relevant data to share with a hypothesis, or do you filter it out until you have confirmed facts?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
       "researcher_leaf_id": "q_01__res_leaf_00_00_01",
       "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Navigating Uncertainty & Honesty"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Clinical Interpretation & Validity",
+        "Behavioral process and \"in-between\" moments"
       ],
       "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Resolve conflicting data points"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Criteria for transitioning between test sections"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Navigating Uncertainty & Honesty",
-        "researcher_branch": "Resolve conflicting data points"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Navigating Uncertainty & Honesty",
-          "target_concept": "Admitting you're lost instead of guessing directions",
-          "structural_mapping": {
-            "inputs": "Unclear path or missing signpost versus conflicting lab values or gaps in patient history",
-            "logic": "Choosing to state uncertainty explicitly versus forcing a connection to maintain forward momentum",
-            "outputs": "Safety and trust preserved versus risk of error or false narrative consistency"
-          },
-          "explanation": "Through the lens of admitting you're lost, the researcher's drive to 'resolve' data looks like guessing a direction to keep the map clean, whereas the expert's honesty looks like stopping to ensure safety, showing they prioritize different outcomes within the same situation."
-        },
-        "scenario": "When your data conflicts, do you ever choose to highlight that uncertainty to your attending instead of smoothing it over for a cleaner story?"
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Defending Without Arguing"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Identify heuristics for data relevance"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Defending Without Arguing",
-        "researcher_branch": "Identify heuristics for data relevance"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Defending Without Arguing",
-          "target_concept": "Choosing which receipts to show during an audit",
-          "structural_mapping": {
-            "inputs": "All available patient chart data",
-            "logic": "Filtering for what supports the plan without inviting challenge",
-            "outputs": "A defended clinical presentation"
-          },
-          "explanation": "Just as an employee defines 'relevant receipts' as those that won't trigger an audit flag rather than every true expense, you define 'relevant data' as what protects your plan from challenge. This shows your relevance heuristic is strategic, not just clinical."
-        },
-        "scenario": "When you filter chart data, do you ever omit true findings simply because highlighting them might invite a challenge you'd rather avoid defending?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Defending Without Arguing"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Data Triage & Filtering",
-        "Resolve conflicting data points"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Defending Without Arguing",
-        "researcher_branch": "Resolve conflicting data points"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Defending Without Arguing",
-          "target_concept": "Standing by a decision when questioned",
-          "structural_mapping": {
-            "inputs": "Challenge from senior",
-            "logic": "Maintain confidence without aggression",
-            "outputs": "Professional acceptance"
-          },
-          "explanation": "Both aim for a consistent narrative, but the researcher expects you to resolve data conflicts beforehand like editing a draft, while you focus on standing by a decision when questioned."
-        },
-        "scenario": "When you spot conflicting lab results, do you reconcile them before presenting, or do you prepare to stand firm if a senior challenges your interpretation during the rounds?"
-      },
-      "weight": 7.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Defending Without Arguing"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Estimate audience baseline knowledge"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Defending Without Arguing",
-        "researcher_branch": "Estimate audience baseline knowledge"
-      },
-      "relation_type": "ConceptualGap",
-      "assistance_payload": {
-        "analogy": {
-          "source_concept": "Defending Without Arguing",
-          "target_concept": "Holding your ground without starting a fight",
-          "structural_mapping": {
-            "inputs": "Senior's challenge or questioning tone",
-            "logic": "Assess threat level while maintaining your position",
-            "outputs": "Plan accepted without relationship damage"
-          },
-          "explanation": "The researcher views estimating the audience as tuning for understanding. This analogy shows the expert views it as tuning for safety: like holding ground with a boss, you assess the listener to defend your plan without conflict, not just to simplify words."
-        },
-        "scenario": "When you gauge what the senior knows, are you adjusting your words for their clarity, or adjusting your stance to defend your plan without conflict?"
-      },
-      "weight": 6.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_02",
-      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Real-Time Narrative Adjustment"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Cognitive Workflow & Information Foraging",
-        "Narrative Synthesis",
-        "Prioritize assessment over history"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Real-Time Narrative Adjustment",
-        "researcher_branch": "Prioritize assessment over history"
-      },
-      "relation_type": "ScopeGap",
-      "assistance_payload": {
-        "validate_focus": "The expert emphasizes the importance of shifting emphasis mid-presentation based on audience cues. This dynamic skill ensures the delivery remains responsive to the clinical training setting.",
-        "pivot": {
-          "limitation": "Focusing solely on the expert's dynamic delivery behaviors overlooks the static rules established earlier.",
-          "research_goal": "The researcher aims to understand how the assessment section is weighted against the history during the preparation phase.",
-          "compelling_reason": "While the expert's delivery skills are vital, the researcher needs to know how preparation constraints enable or limit those real-time adjustments.",
-          "coarse_scenario": "I recognize how critical those real-time adjustments are for engagement. However, I also need to understand how you prioritize the assessment over history during prep, since that initial weighting determines what you have available to adjust later."
-        }
-      },
-      "weight": 4.0
-    },
-    {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_00",
-      "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Real-Time Narrative Adjustment"
-      ],
-      "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Estimate audience baseline knowledge"
-      ],
-      "lca_layer": "root",
-      "expert_lca_id": "q_01__shared_root",
-      "researcher_lca_id": "q_01__shared_root",
-      "conflict": {
-        "expert_branch": "Real-Time Narrative Adjustment",
-        "researcher_branch": "Estimate audience baseline knowledge"
+        "expert_branch": "Behavioral process and \"in-between\" moments",
+        "researcher_branch": "Criteria for transitioning between test sections"
       },
       "relation_type": "TacitGap",
       "assistance_payload": {
         "attributes": [
-          "Live Delivery",
-          "Audience Awareness",
-          "Interaction",
-          "Visual Feedback Signals",
-          "Verbal Interruption Frequency",
-          "Content Density Modulation",
-          "Time Pressure Sensitivity",
-          "Non-Verbal Restlessness Cues"
+          "observation",
+          "intuition",
+          "diagnostic_signal",
+          "patient_fatigue",
+          "frustration_tolerance",
+          "effort_consistency",
+          "non_verbal_cues",
+          "error_pattern_quality",
+          "rapport_flow",
+          "self_correction_rate"
         ],
         "probes": [
           {
-            "attribute": "Live Delivery",
-            "question": "What primarily signals a need to adjust narrative depth during the talk?",
+            "attribute": "observation",
+            "question": "When monitoring the patient, is your primary focus on eye contact stability, response latency, or physical stillness?",
             "choices": [
-              "My speaking pace",
-              "Audience silence",
-              "Slide transition timing"
+              "Eye contact stability",
+              "Response latency",
+              "Physical stillness"
             ]
           },
           {
-            "attribute": "Audience Awareness",
-            "question": "Which visual cue weighs heavier in your assessment of understanding?",
+            "attribute": "intuition",
+            "question": "Does the urge to transition come from a sense of diminishing returns, a structured protocol rule, or perceived patient distress?",
             "choices": [
-              "Facial expressions",
-              "Body posture",
-              "Note-taking activity"
+              "Sense of diminishing returns",
+              "Structured protocol rule",
+              "Perceived patient distress"
             ]
           },
           {
-            "attribute": "Interaction",
-            "question": "How do you handle mid-flow questions to maintain narrative control?",
+            "attribute": "diagnostic_signal",
+            "question": "Are you waiting for a specific failure count, a pattern of inconsistent answers, or a total lack of engagement?",
             "choices": [
-              "Answer immediately",
-              "Defer to end",
-              "Delegate to audience"
+              "Specific failure count",
+              "Pattern of inconsistent answers",
+              "Total lack of engagement"
             ]
           },
           {
-            "attribute": "Visual Feedback Signals",
-            "question": "Which specific signal forces an immediate pivot in your content?",
+            "attribute": "patient_fatigue",
+            "question": "Is the transition triggered by visible yawning, slowed response times, or verbal complaints of tiredness?",
             "choices": [
-              "Sustained eye contact",
-              "Widespread note-taking",
-              "Blank stares"
+              "Visible yawning",
+              "Slowed response times",
+              "Verbal complaints of tiredness"
             ]
           },
           {
-            "attribute": "Verbal Interruption Frequency",
-            "question": "How many interruptions trigger a reduction in technical depth?",
+            "attribute": "frustration_tolerance",
+            "question": "Do you stop when the patient sighs heavily, begins guessing randomly, or expresses verbal irritation?",
             "choices": [
-              "A single question",
-              "Three or more",
-              "Only repeated confusion"
+              "Sighs heavily",
+              "Begins guessing randomly",
+              "Expresses verbal irritation"
             ]
           },
           {
-            "attribute": "Content Density Modulation",
-            "question": "What do you sacrifice first when audience attention drops?",
+            "attribute": "effort_consistency",
+            "question": "Is the decision based on sporadic high effort, steady moderate effort, or declining effort over the last three items?",
             "choices": [
-              "Technical details",
-              "Entire examples",
-              "Historical context"
+              "Sporadic high effort",
+              "Steady moderate effort",
+              "Declining effort over the last three items"
             ]
           },
           {
-            "attribute": "Time Pressure Sensitivity",
-            "question": "What gets cut when time runs short during the session?",
+            "attribute": "non_verbal_cues",
+            "question": "Which signal weighs heavier: avoiding eye contact, fidgeting with hands, or crossing arms defensively?",
             "choices": [
-              "Foundational context",
-              "Advanced applications",
-              "Q&A time"
+              "Avoiding eye contact",
+              "Fidgeting with hands",
+              "Crossing arms defensively"
             ]
           },
           {
-            "attribute": "Non-Verbal Restlessness Cues",
-            "question": "Which restlessness cue is most critical for triggering an adjustment?",
+            "attribute": "error_pattern_quality",
+            "question": "Are you more concerned with careless mistakes, conceptual misunderstandings, or memory lapses?",
             "choices": [
-              "Checking watches",
-              "Crossing arms",
-              "Fidgeting with phones"
+              "Careless mistakes",
+              "Conceptual misunderstandings",
+              "Memory lapses"
+            ]
+          },
+          {
+            "attribute": "rapport_flow",
+            "question": "Does the transition depend on the conversation feeling natural, forced, or strained?",
+            "choices": [
+              "Natural",
+              "Forced",
+              "Strained"
+            ]
+          },
+          {
+            "attribute": "self_correction_rate",
+            "question": "Do you move on when they never self-correct, occasionally self-correct, or frequently self-correct errors?",
+            "choices": [
+              "Never self-correct",
+              "Occasionally self-correct",
+              "Frequently self-correct errors"
             ]
           }
         ],
         "hypothetical_scenarios": [
           {
-            "scenario": "If your speaking pace changed from moderate to rapid, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Live Delivery"
+            "scenario": "If visual attention changed from steady to wandering, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "observation"
           },
           {
-            "scenario": "If the audience composition changed from mixed-expertise to homogenous, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Audience Awareness"
+            "scenario": "If your gut feeling changed from confident to uncertain, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "intuition"
           },
           {
-            "scenario": "If the Q&A format changed from open-mic to submitted cards, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Interaction"
+            "scenario": "If the failure threshold changed from 3 errors to 5 errors, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "diagnostic_signal"
           },
           {
-            "scenario": "If the audience visibility changed from full-face to profile-only, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Visual Feedback Signals"
+            "scenario": "If session duration changed from 30 minutes to 60 minutes, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "patient_fatigue"
           },
           {
-            "scenario": "If the interruption rate changed from frequent to nonexistent, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Verbal Interruption Frequency"
+            "scenario": "If patient sighing changed from never to after every question, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "frustration_tolerance"
           },
           {
-            "scenario": "If the slide complexity changed from text-heavy to visual-only, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Content Density Modulation"
+            "scenario": "If effort level changed from steady to declining, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "effort_consistency"
           },
           {
-            "scenario": "If the allotted time changed from 30 minutes to 60 minutes, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Time Pressure Sensitivity"
+            "scenario": "If hand fidgeting changed from constant to absent, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "non_verbal_cues"
           },
           {
-            "scenario": "If the seating comfort changed from rigid chairs to soft sofas, would your judgment about 'Real-Time Narrative Adjustment' change?",
-            "attribute": "Non-Verbal Restlessness Cues"
+            "scenario": "If error type changed from careless slips to conceptual errors, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "error_pattern_quality"
+          },
+          {
+            "scenario": "If conversation tone changed from natural to strained, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "rapport_flow"
+          },
+          {
+            "scenario": "If self-correction frequency changed from frequent to never, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "self_correction_rate"
           }
         ]
       },
-      "weight": 3.0000000000000004
+      "weight": 4.0
     },
     {
-      "expert_leaf_id": "q_01__exp_leaf_00_02_02",
-      "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
       "aligned_path_expert": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Expert Clinical Presenter",
-        "Delivery & Defense Mechanisms",
-        "Real-Time Narrative Adjustment"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Clinical Interpretation & Validity",
+        "Behavioral process and \"in-between\" moments"
       ],
       "aligned_path_researcher": [
-        "Exploring the preparation process, presentation strategies, and expert judgment involved in delivering oral case presentations in clinical training settings.",
-        "Audience Modeling & Contextual Framing",
-        "Listener Profiling",
-        "Customize content by specialty"
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Standardization of verbal prompts"
       ],
       "lca_layer": "root",
       "expert_lca_id": "q_01__shared_root",
       "researcher_lca_id": "q_01__shared_root",
       "conflict": {
-        "expert_branch": "Real-Time Narrative Adjustment",
-        "researcher_branch": "Customize content by specialty"
+        "expert_branch": "Behavioral process and \"in-between\" moments",
+        "researcher_branch": "Standardization of verbal prompts"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "observation",
+          "intuition",
+          "diagnostic_signal",
+          "response_latency",
+          "non_verbal_cues",
+          "script_deviation_threshold",
+          "patient_anxiety_level",
+          "cognitive_load_indicator"
+        ],
+        "probes": [
+          {
+            "attribute": "observation",
+            "question": "When observing a pause, which physical cue do you prioritize?",
+            "choices": [
+              "eye movement",
+              "body posture",
+              "vocal tension"
+            ]
+          },
+          {
+            "attribute": "intuition",
+            "question": "What triggers your decision to intervene?",
+            "choices": [
+              "a subconscious gut feeling",
+              "a recognized behavioral pattern",
+              "an explicit protocol breach"
+            ]
+          },
+          {
+            "attribute": "diagnostic_signal",
+            "question": "Does the silence primarily signal which state?",
+            "choices": [
+              "cognitive processing",
+              "emotional distress",
+              "lack of knowledge"
+            ]
+          },
+          {
+            "attribute": "response_latency",
+            "question": "Which duration threshold triggers concern?",
+            "choices": [
+              "under 3 seconds",
+              "between 5-10 seconds",
+              "over 15 seconds"
+            ]
+          },
+          {
+            "attribute": "non_verbal_cues",
+            "question": "Which non-verbal behavior most influences your scoring adjustment?",
+            "choices": [
+              "hand gestures",
+              "facial expression",
+              "seat shifting"
+            ]
+          },
+          {
+            "attribute": "script_deviation_threshold",
+            "question": "When do you break script?",
+            "choices": [
+              "upon visible frustration",
+              "after repeated failure",
+              "when asked directly"
+            ]
+          },
+          {
+            "attribute": "patient_anxiety_level",
+            "question": "How does visible anxiety alter your approach?",
+            "choices": [
+              "increase support",
+              "maintain strict neutrality",
+              "pause the assessment"
+            ]
+          },
+          {
+            "attribute": "cognitive_load_indicator",
+            "question": "What indicates excessive load?",
+            "choices": [
+              "verbal stalling",
+              "physical agitation",
+              "self-correction attempts"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If the room lighting changed from bright to dim, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "observation"
+          },
+          {
+            "scenario": "If the patient's background changed from familiar to unfamiliar, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "intuition"
+          },
+          {
+            "scenario": "If the question type changed from factual to abstract, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "diagnostic_signal"
+          },
+          {
+            "scenario": "If the wait time changed from 5 seconds to 30 seconds, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "response_latency"
+          },
+          {
+            "scenario": "If the body language changed from still to fidgeting, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "non_verbal_cues"
+          },
+          {
+            "scenario": "If the protocol rule changed from flexible to rigid, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "script_deviation_threshold"
+          },
+          {
+            "scenario": "If the patient demeanor changed from calm to shaking, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "patient_anxiety_level"
+          },
+          {
+            "scenario": "If the task complexity changed from low to high, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "cognitive_load_indicator"
+          }
+        ]
+      },
+      "weight": 5.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Clinical Interpretation & Validity",
+        "Behavioral process and \"in-between\" moments"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Artifact Interaction & Data Capture",
+        "Scoring & Documentation Workflow",
+        "Timing of score recording"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Behavioral process and \"in-between\" moments",
+        "researcher_branch": "Timing of score recording"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "observation",
+          "intuition",
+          "diagnostic_signal",
+          "temporal_granularity",
+          "cognitive_load",
+          "verification_threshold",
+          "retention_latency",
+          "pattern_sequence"
+        ],
+        "probes": [
+          {
+            "attribute": "observation",
+            "question": "Is your primary focus during 'in-between' moments on visual cues, auditory cues, or a combination of both?",
+            "choices": [
+              "Visual cues only",
+              "Auditory cues only",
+              "Combination of both"
+            ]
+          },
+          {
+            "attribute": "intuition",
+            "question": "Does your intuitive sense regarding the patient's state arise immediately upon contact, after a few minutes, or only after a specific trigger?",
+            "choices": [
+              "Immediately upon contact",
+              "After a few minutes",
+              "Only after a specific trigger"
+            ]
+          },
+          {
+            "attribute": "diagnostic_signal",
+            "question": "Is a behavioral signal considered valid based on a single instance, repeated occurrences, or the intensity of the reaction?",
+            "choices": [
+              "Single instance",
+              "Repeated occurrences",
+              "Intensity of the reaction"
+            ]
+          },
+          {
+            "attribute": "temporal_granularity",
+            "question": "Do you track behavioral changes second-by-second, in blocks of minutes, or as a general session vibe?",
+            "choices": [
+              "Second-by-second",
+              "In blocks of minutes",
+              "As a general session vibe"
+            ]
+          },
+          {
+            "attribute": "cognitive_load",
+            "question": "Do you prioritize observing behavior while speaking, while listening, or during silent pauses?",
+            "choices": [
+              "While speaking",
+              "While listening",
+              "During silent pauses"
+            ]
+          },
+          {
+            "attribute": "verification_threshold",
+            "question": "Do you note a behavior when you are 50% sure, 80% sure, or only when completely certain?",
+            "choices": [
+              "When 50% sure",
+              "When 80% sure",
+              "Only when completely certain"
+            ]
+          },
+          {
+            "attribute": "retention_latency",
+            "question": "Can you hold a behavioral note in mind for less than 30 seconds, 1-5 minutes, or until the session ends?",
+            "choices": [
+              "Less than 30 seconds",
+              "1-5 minutes",
+              "Until the session ends"
+            ]
+          },
+          {
+            "attribute": "pattern_sequence",
+            "question": "Is the behavior significant because it stands alone, because it repeats, or because it breaks a previous pattern?",
+            "choices": [
+              "Because it stands alone",
+              "Because it repeats",
+              "Because it breaks a previous pattern"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If lighting conditions reduced visual clarity by 50%, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "observation"
+          },
+          {
+            "scenario": "If you were forced to wait 5 minutes before acknowledging your gut feeling, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "intuition"
+          },
+          {
+            "scenario": "If a specific behavioral cue occurred only once instead of three times, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "diagnostic_signal"
+          },
+          {
+            "scenario": "If you were required to log observations every 10 seconds instead of every 2 minutes, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "temporal_granularity"
+          },
+          {
+            "scenario": "If you had to perform a complex calculation while observing the patient, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "cognitive_load"
+          },
+          {
+            "scenario": "If the protocol required you to record cues at 50% confidence instead of 90%, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "verification_threshold"
+          },
+          {
+            "scenario": "If you were interrupted for 10 minutes before you could record a noted behavior, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "retention_latency"
+          },
+          {
+            "scenario": "If the patient exhibited the behavior in a random order rather than a consistent sequence, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+            "attribute": "pattern_sequence"
+          }
+        ]
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Clinical Interpretation & Validity",
+        "Probing beyond the standardized script"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Standardization of verbal prompts"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Probing beyond the standardized script",
+        "researcher_branch": "Standardization of verbal prompts"
       },
       "relation_type": "ConceptualGap",
       "assistance_payload": {
         "analogy": {
-          "source_concept": "Real-Time Narrative Adjustment",
-          "target_concept": "Adjusting walking pace to stay beside a friend",
+          "source_concept": "Behavioral process and \"in-between\" moments",
+          "target_concept": "Noticing when someone hesitates before answering",
           "structural_mapping": {
-            "inputs": "Friend's immediate speed changes",
-            "logic": "Speed up or slow down instantly",
-            "outputs": "Staying together"
+            "inputs": "Standard question or prompt",
+            "logic": "Observing the pause or deviation rather than just the answer",
+            "outputs": "Deeper insight into capability rather than a binary score"
           },
-          "explanation": "Both concepts aim to adapt content, but like adjusting walking pace based on movement rather than shoe type, the expert adjusts based on engagement cues rather than specialty labels."
+          "explanation": "The researcher's allowance for clarification and your in-between moments both involve breaking the script; like noticing hesitation, this deviation is where the real data lives, not in the standard score."
         },
-        "scenario": "When you see a specialist's eyes glaze over, do you stick to the details their role expects, or do you immediately shift gears?"
+        "scenario": "When a patient stalls on a test item, do you ever break the script not to clarify the instruction, but to test where their confusion actually lies?"
       },
-      "weight": 3.5
+      "weight": 2.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Clinical Interpretation & Validity",
+        "Probing beyond the standardized script"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Criteria for transitioning between test sections"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Probing beyond the standardized script",
+        "researcher_branch": "Criteria for transitioning between test sections"
+      },
+      "relation_type": "TacitGap",
+      "assistance_payload": {
+        "attributes": [
+          "flexibility",
+          "intuition",
+          "protocol_deviation",
+          "patient_affect",
+          "response_latency",
+          "rapport_level",
+          "diagnostic_confidence",
+          "conversational_flow",
+          "anomaly_detection",
+          "patient_fatigue"
+        ],
+        "probes": [
+          {
+            "attribute": "flexibility",
+            "question": "When exercising flexibility, is the boundary defined primarily by: A) Time limits, B) Patient comfort, or C) Diagnostic yield?",
+            "choices": [
+              "Time limits",
+              "Patient comfort",
+              "Diagnostic yield"
+            ]
+          },
+          {
+            "attribute": "intuition",
+            "question": "When relying on intuition, is the signal stronger when: A) The patient hesitates, B) The patient over-explains, or C) The patient avoids eye contact?",
+            "choices": [
+              "The patient hesitates",
+              "The patient over-explains",
+              "The patient avoids eye contact"
+            ]
+          },
+          {
+            "attribute": "protocol_deviation",
+            "question": "When considering protocol_deviation, is the justification primarily: A) Clarifying a wrong answer, B) Testing a specific hypothesis, or C) Reducing patient anxiety?",
+            "choices": [
+              "Clarifying a wrong answer",
+              "Testing a specific hypothesis",
+              "Reducing patient anxiety"
+            ]
+          },
+          {
+            "attribute": "patient_affect",
+            "question": "When observing patient_affect, which cue triggers deeper probing: A) Sudden tearfulness, B) Flat monotone, or C) Irritable snapping?",
+            "choices": [
+              "Sudden tearfulness",
+              "Flat monotone",
+              "Irritable snapping"
+            ]
+          },
+          {
+            "attribute": "response_latency",
+            "question": "When measuring response_latency, does a pause indicate a need to probe if it lasts: A) 1-2 seconds, B) 5-10 seconds, or C) Indefinitely?",
+            "choices": [
+              "1-2 seconds",
+              "5-10 seconds",
+              "Indefinitely"
+            ]
+          },
+          {
+            "attribute": "rapport_level",
+            "question": "When assessing rapport_level, do you probe deeper when the relationship feels: A) Collaborative, B) Neutral, or C) Adversarial?",
+            "choices": [
+              "Collaborative",
+              "Neutral",
+              "Adversarial"
+            ]
+          },
+          {
+            "attribute": "diagnostic_confidence",
+            "question": "When gauging diagnostic_confidence, do you deviate from the script to: A) Confirm a suspicion, B) Rule out a false positive, or C) Explore an outlier?",
+            "choices": [
+              "Confirm a suspicion",
+              "Rule out a false positive",
+              "Explore an outlier"
+            ]
+          },
+          {
+            "attribute": "conversational_flow",
+            "question": "When monitoring conversational_flow, do you interrupt the script during: A) A natural lull, B) A topic transition, or C) An emotional peak?",
+            "choices": [
+              "A natural lull",
+              "A topic transition",
+              "An emotional peak"
+            ]
+          },
+          {
+            "attribute": "anomaly_detection",
+            "question": "When performing anomaly_detection, which inconsistency matters most: A) Memory vs. Logic, B) Past vs. Present accounts, or C) Verbal vs. Non-verbal signals?",
+            "choices": [
+              "Memory vs. Logic",
+              "Past vs. Present accounts",
+              "Verbal vs. Non-verbal signals"
+            ]
+          },
+          {
+            "attribute": "patient_fatigue",
+            "question": "When accounting for patient_fatigue, do you limit probing when signs appear: A) At the start, B) Mid-session, or C) Near the end?",
+            "choices": [
+              "At the start",
+              "Mid-session",
+              "Near the end"
+            ]
+          }
+        ],
+        "hypothetical_scenarios": [
+          {
+            "scenario": "If time limits changed from 15 mins to 30 mins, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "flexibility"
+          },
+          {
+            "scenario": "If the gut feeling changed from vague unease to specific suspicion, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "intuition"
+          },
+          {
+            "scenario": "If the deviation changed from rephrasing a question to adding a new task, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "protocol_deviation"
+          },
+          {
+            "scenario": "If patient_affect changed from neutral to visibly anxious, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "patient_affect"
+          },
+          {
+            "scenario": "If response_latency changed from 2 seconds to 10 seconds, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "response_latency"
+          },
+          {
+            "scenario": "If rapport_level changed from established trust to first-time meeting, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "rapport_level"
+          },
+          {
+            "scenario": "If diagnostic_confidence changed from 50% certainty to 90% certainty, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "diagnostic_confidence"
+          },
+          {
+            "scenario": "If conversational_flow changed from smooth dialogue to fragmented speech, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "conversational_flow"
+          },
+          {
+            "scenario": "If anomaly_detection changed from minor inconsistency to major contradiction, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "anomaly_detection"
+          },
+          {
+            "scenario": "If patient_fatigue changed from alert to visibly exhausted, would your judgment about 'Probing beyond the standardized script' change?",
+            "attribute": "patient_fatigue"
+          }
+        ]
+      },
+      "weight": 4.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Score vs. Real-World Function"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Standardization of verbal prompts"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Score vs. Real-World Function",
+        "researcher_branch": "Standardization of verbal prompts"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Score vs. Real-World Function",
+          "target_concept": "Trusting food texture over timer",
+          "structural_mapping": {
+            "inputs": "Timer setting vs. Visual check of food",
+            "logic": "Follow strict instructions vs. Adjust based on actual state",
+            "outputs": "Remove from heat vs. Decision to cook longer"
+          },
+          "explanation": "The researcher treats the test like a precise timer, believing exact settings guarantee results. You treat it like cooking, knowing you must check the texture because the timer alone doesn't tell you if the meal is actually ready."
+        },
+        "scenario": "When a patient scores normal but gets lost driving, do you find yourself caring less about exactly how you asked the questions and more about that real-world mistake?"
+      },
+      "weight": 6.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Score vs. Real-World Function"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Protocol for instruction repetition"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Score vs. Real-World Function",
+        "researcher_branch": "Protocol for instruction repetition"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Longitudinal Knowledge of Patient",
+          "target_concept": "Recipe timer vs. tasting the food",
+          "structural_mapping": {
+            "inputs": "Timer settings (Protocol) vs. Food texture and smell (Real-world cues)",
+            "logic": "Strict adherence to time (Score integrity) vs. Judgment of doneness (Functional truth)",
+            "outputs": "Technically correct cook time (Valid score) vs. Edible meal (Accurate diagnosis)"
+          },
+          "explanation": "The researcher's protocol acts like the timer, ensuring standardization, but the expert trusts the 'taste' of real-world function, knowing a perfect timer setting doesn't guarantee the meal is actually cooked."
+        },
+        "scenario": "When you hear a family say a patient got lost, do you find yourself valuing that story more than strictly following the rule on repeating instructions?"
+      },
+      "weight": 5.5
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+      "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Score vs. Real-World Function"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Artifact Interaction & Data Capture",
+        "Scoring & Documentation Workflow",
+        "Data transfer method to EHR"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Score vs. Real-World Function",
+        "researcher_branch": "Data transfer method to EHR"
+      },
+      "relation_type": "ScopeGap",
+      "assistance_payload": {
+        "validate_focus": "The expert prioritizes clinical intuition and real-world functional evidence over standardized test scores when evaluating patients.",
+        "pivot": {
+          "limitation": "Staying only on clinical judgment overlooks the administrative workflow required to archive the test data itself.",
+          "research_goal": "The researcher aims to identify the specific mechanism used to move raw test scores into the Electronic Health Record.",
+          "compelling_reason": "Clarifying the data transfer method is necessary because inefficient documentation workflows can create bottlenecks that interfere with the clinical observation the expert values.",
+          "coarse_scenario": "I completely agree that the real-world function is what ultimately drives your diagnosis, but could we briefly walk through how you get that score into the system? I'm trying to understand if the paperwork itself takes time away from observing those functional cues."
+        }
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Longitudinal Knowledge of Patient"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Fixed vs. adaptive sequencing of sub-tests"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Longitudinal Knowledge of Patient",
+        "researcher_branch": "Fixed vs. adaptive sequencing of sub-tests"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Score vs. Real-World Function",
+          "target_concept": "Knowing a coworker's reliability vs. judging one late email",
+          "structural_mapping": {
+            "inputs": "Immediate performance data vs. Long-term behavior history",
+            "logic": "React to current signal vs. Contextualize with baseline",
+            "outputs": "Protocol-driven adjustment vs. Intuition-driven adjustment"
+          },
+          "explanation": "Both concepts decide what data drives action. The researcher's concept reacts to the 'late email' (current test score), while the expert's concept reacts to the 'coworker's reliability' (patient history), showing why the expert overrides the protocol."
+        },
+        "scenario": "When a patient performs poorly today, do you change the test order based on that immediate result, or based on how you know they usually function over time?"
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Longitudinal Knowledge of Patient"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Administration Protocol Logic",
+        "Criteria for transitioning between test sections"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Longitudinal Knowledge of Patient",
+        "researcher_branch": "Criteria for transitioning between test sections"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Longitudinal Knowledge of Patient",
+          "target_concept": "Knowing when soup is done by tasting it vs. watching the timer",
+          "structural_mapping": {
+            "inputs": "Years of patient history vs. Cookbook instructions",
+            "logic": "Recognizing patterns over time vs. Waiting for specific time marker",
+            "outputs": "Decision to proceed based on certainty vs. Decision to proceed based on rule"
+          },
+          "explanation": "Both concepts decide when to move to the next step, but like tasting soup versus watching a timer, the expert relies on accumulated context to judge readiness while the researcher relies on fixed completion markers."
+        },
+        "scenario": "When you already know a patient's baseline from years of visits, do you ever feel the strict transition rules force you to keep testing even when you're already sure?"
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Longitudinal Knowledge of Patient"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Standardization of verbal prompts"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Longitudinal Knowledge of Patient",
+        "researcher_branch": "Standardization of verbal prompts"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Score vs. Real-World Function",
+          "target_concept": "Knowing a friend's baseline mood",
+          "structural_mapping": {
+            "inputs": "Single test score or behavior",
+            "logic": "Compare against longitudinal history",
+            "outputs": "Trust clinical intuition over score"
+          },
+          "explanation": "The expert interprets data through history like knowing a friend's baseline, where context clarifies ambiguity; the researcher's standardization removes this history, treating every interaction as new, which feels like ignoring context."
+        },
+        "scenario": "When you know a patient's baseline well enough to spot inconsistencies, do you feel the strict script prevents you from clarifying what the score misses?"
+      },
+      "weight": 7.0
+    },
+    {
+      "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+      "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+      "aligned_path_expert": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Contextual & Longitudinal Factors",
+        "Longitudinal Knowledge of Patient"
+      ],
+      "aligned_path_researcher": [
+        "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+        "Operational Workflow & Task Sequence",
+        "Instructional Interaction",
+        "Protocol for instruction repetition"
+      ],
+      "lca_layer": "root",
+      "expert_lca_id": "q_01__shared_root",
+      "researcher_lca_id": "q_01__shared_root",
+      "conflict": {
+        "expert_branch": "Longitudinal Knowledge of Patient",
+        "researcher_branch": "Protocol for instruction repetition"
+      },
+      "relation_type": "ConceptualGap",
+      "assistance_payload": {
+        "analogy": {
+          "source_concept": "Score vs. Real-World Function",
+          "target_concept": "Trusting a regular customer's word over store policy",
+          "structural_mapping": {
+            "inputs": "Test score vs. family report maps to receipt vs. customer history",
+            "logic": "Trusting real-life function maps to trusting loyal customer word",
+            "outputs": "Accurate diagnosis maps to approved return"
+          },
+          "explanation": "Both concepts decide validity like a store handles returns: the researcher's protocol insists on the receipt (strict rules), while the expert's longitudinal knowledge trusts the customer history (relationship), showing why rigid repetition limits miss the clinical truth."
+        },
+        "scenario": "When you see a familiar patient struggle, do you ever bend the repetition rules because you know their baseline better than the test protocol does?"
+      },
+      "weight": 7.0
     }
   ],
   "metadata": {
-    "created_at": "2026-03-25T12:04:06.046061",
+    "created_at": "2026-03-26T11:56:23.796018",
     "llm_provider": "openai",
     "question_id": "q_01",
-    "question_text": "Could you describe your typical process when preparing an oral case presentation, from first reviewing the patient's chart to actually delivering it? How does the intended audience or setting shape wh",
-    "expert_leaves": 10,
+    "question_text": "What’s your common clinical workflow for conducting baseline cognitive assessments (like MoCA or MMSE) with elderly patients?",
+    "expert_leaves": 7,
     "researcher_leaves": 10,
-    "link_count": 28,
+    "link_count": 21,
     "alignment_stats": {
-      "leaf_alignments": 28,
-      "concept_alignments": 8,
-      "misaligned_leaves": 28
+      "leaf_alignments": 21,
+      "concept_alignments": 6,
+      "misaligned_leaves": 21
     },
     "construction_method": "math-based",
     "depends_on": []

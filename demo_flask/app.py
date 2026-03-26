@@ -56,21 +56,20 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Wang
-
-Professional Role: Senior Attending Physician / Residency Training Director / Clinical Educator
-
-Work Experience: Extensive experience in both delivering and evaluating oral case presentations across multiple clinical departments (internal medicine, emergency, multidisciplinary conferences). Has mentored dozens of residents and medical students on case presentation skills, and regularly serves as a discussant in grand rounds and mortality-morbidity conferences.
+INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Lin 
+Professional Role: Senior Geriatrician / Clinical Neuropsychologist 
+Work Experience: Extensive frontline clinical experience in diagnosing and managing neurocognitive disorders (NCD) in elderly patients. Frequently administers and interprets standardized cognitive assessments such as the MoCA (Montreal Cognitive Assessment) and MMSE (Mini-Mental State Examination) in daily clinical practice.
 
 Expertise:
-Deeply familiar with the context-dependent nature of case presentations; skilled at rapidly restructuring the same patient case into different narrative formats depending on the audience and purpose (teaching rounds vs. emergency handoff vs. multidisciplinary conference).
-
-Highly capable of relying on internalized "narrative instinct" to judge what information to foreground, what to omit, and how to sequence clinical findings so the presentation builds toward a clear diagnostic argument—rather than simply listing facts chronologically.
+Deeply familiar with the standard clinical workflows, diagnostic criteria, and pathological progression of dementia and Alzheimer's disease.
+Highly capable of distinguishing between normal age-related cognitive decline and pathological cognitive impairment.
+Possesses strong "clinical intuition" (tacit knowledge) to detect when elderly patients are masking or compensating for their cognitive deficits during casual conversations, relying on subtle behavioral and linguistic cues.
 
 Core Challenges & Pain Points:
-Profoundly understands the extreme difficulty of teaching case presentation as a skill—it requires far more than memorizing a template; it demands real-time clinical judgment about what matters, what the audience needs to hear, and how to handle unexpected questions mid-presentation.
+Profoundly understands the practical difficulties of clinical screening, including severe time constraints in outpatient settings and handling high patient anxiety or resistance to formal testing.
+Finds it challenging to make confident, evidence-based clinical judgments when observing patients perform "unstructured, high-ecological-validity daily tasks" (e.g., grocery shopping or cooking). While these tasks reflect real-world ability, they lack the standardized scoring rubrics and structured baseline metrics that doctors rely on for medical documentation.
+Struggles to articulate highly internalized "gut feelings" into explicit, objective parameters that novice residents (or AI systems) can easily follow.
 
-Finds it challenging to make this "narrative judgment" explicit to trainees or non-clinical professionals. Often finds that when pressed to explain what makes a good presentation, the answer sounds too simple or too vague to be useful—the real skill lives in the doing, not in any formula.
 
 """
 

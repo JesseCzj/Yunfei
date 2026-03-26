@@ -1,27 +1,1970 @@
 {
-  "created_at": "2026-03-26T12:00:44.322751",
-  "question_graph_count": 4,
+  "graph": {
+    "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+    "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
+    "expert_bg": "A seasoned clinical neuropsychologist or geriatrician with extensive experience in conducting baseline cognitive assessments (like MoCA or MMSE) , currently navigating the challenges of unstructured daily task observation and unpacking clinical intuition for early neurocognitive diagnosis.",
+    "expert_tree": {
+      "tower": "expert",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "description": "Interview topic: Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__exp_L1_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L1_00": {
+          "id": "q_01__exp_L1_00",
+          "tower": "expert",
+          "layer": "L1",
+          "label": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "description": "Interview topic: Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__exp_L2_00_00",
+            "q_01__exp_L2_00_01",
+            "q_01__exp_L2_00_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L2_00_00": {
+          "id": "q_01__exp_L2_00_00",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Administration Dynamics & Patient Engagement",
+          "description": "The real-world challenges of physically administering the test and managing the patient's state during the workflow.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_00_00",
+            "q_01__exp_leaf_00_00_01",
+            "q_01__exp_leaf_00_00_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_00_00": {
+          "id": "q_01__exp_leaf_00_00_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Rapport-building as diagnostic baseline",
+          "description": "I start with a quick rapport-building chat about their day; if they can't recall recent changes in mood or memory during the chat, the test hasn't even started and I already have my first clue.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "pre-test chat",
+            "informal baseline",
+            "rapport building"
+          ]
+        },
+        "q_01__exp_leaf_00_00_01": {
+          "id": "q_01__exp_leaf_00_00_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Adjusting pace based on frustration cues",
+          "description": "If I see them starting to sweat or get quiet during the serial 7s, I know I need to pivot or soften my tone, otherwise they'll just shut down and I'll lose them for the rest of the test.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [
+            "patient_state",
+            "adaptation",
+            "engagement"
+          ],
+          "aliases": [
+            "managing anxiety",
+            "pacing",
+            "emotional regulation"
+          ]
+        },
+        "q_01__exp_leaf_00_00_02": {
+          "id": "q_01__exp_leaf_00_00_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Ensuring quiet environment for focus",
+          "description": "I try to go through the MoCA or MMSE in a quiet room, making sure they're not distracted, because if the phone rings or someone walks in, I can't tell if it's distraction or deficit.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "room distractions",
+            "environmental control",
+            "focus barriers"
+          ]
+        },
+        "q_01__exp_L2_00_01": {
+          "id": "q_01__exp_L2_00_01",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Clinical Interpretation & Validity",
+          "description": "The mental work of deciding whether the score actually reflects brain health or something else.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_01_00",
+            "q_01__exp_leaf_00_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_01_00": {
+          "id": "q_01__exp_leaf_00_01_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Behavioral process and \"in-between\" moments",
+          "description": "It's not just about the score—it's about the process. I'll note things like how long they take to answer, if they hesitate, or even what they do when they're just sitting there thinking.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [
+            "observation",
+            "intuition",
+            "diagnostic_signal"
+          ],
+          "aliases": [
+            "process over score",
+            "hesitation",
+            "non-verbal cues",
+            "in-between moments"
+          ]
+        },
+        "q_01__exp_leaf_00_01_01": {
+          "id": "q_01__exp_leaf_00_01_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Probing beyond the standardized script",
+          "description": "The MoCA and MMSE are tools, but they're not the whole picture. I don't just stick to the script; real clues come when I start probing beyond it or when they're not expecting it.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [
+            "flexibility",
+            "intuition",
+            "protocol_deviation"
+          ],
+          "aliases": [
+            "off-script probing",
+            "flexible administration",
+            "clinical intuition"
+          ]
+        },
+        "q_01__exp_L2_00_02": {
+          "id": "q_01__exp_L2_00_02",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Contextual & Longitudinal Factors",
+          "description": "Factors outside the immediate test score that influence diagnostic confidence.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_02_00",
+            "q_01__exp_leaf_00_02_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_02_00": {
+          "id": "q_01__exp_leaf_00_02_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Score vs. Real-World Function",
+          "description": "They might score a 26 which looks 'normal', but if their daughter says they got lost driving home or they can't manage meds, I trust the real-life function over the score.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "validity",
+            "collateral",
+            "discrepancy"
+          ],
+          "aliases": [
+            "functional discrepancy",
+            "collateral history",
+            "ecological validity"
+          ]
+        },
+        "q_01__exp_leaf_00_02_01": {
+          "id": "q_01__exp_leaf_00_02_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Longitudinal Knowledge of Patient",
+          "description": "And honestly, a lot of it is just knowing the person over time; patterns and inconsistencies show up when you've seen them before, not just on paper.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "history",
+            "relationship",
+            "context"
+          ],
+          "aliases": [
+            "knowing the patient",
+            "historical context",
+            "longitudinal view"
+          ]
+        }
+      }
+    },
+    "researcher_tree": {
+      "tower": "researcher",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "description": "Interview topic: Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__res_L1_00",
+            "q_01__res_L1_01",
+            "q_01__res_L1_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L1_00": {
+          "id": "q_01__res_L1_00",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Operational Workflow & Task Sequence",
+          "description": "Examining the step-by-step procedural logic and interaction flow during the administration of standardized cognitive tests.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_00_00",
+            "q_01__res_L2_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_00_00": {
+          "id": "q_01__res_L2_00_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Administration Protocol Logic",
+          "description": "Understanding the sequential rules and branching logic inherent in the test workflow.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_00_00",
+            "q_01__res_leaf_00_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_00_00": {
+          "id": "q_01__res_leaf_00_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Fixed vs. adaptive sequencing of sub-tests",
+          "description": "Identify whether the order of assessment components (e.g., orientation before recall) is rigidly fixed or dynamically adjusted based on patient performance.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Interaction Flow",
+            "Adaptive Interface"
+          ]
+        },
+        "q_01__res_leaf_00_00_01": {
+          "id": "q_01__res_leaf_00_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Criteria for transitioning between test sections",
+          "description": "Determine the specific triggers or completion markers that signal the clinician to move from one cognitive domain task to the next.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "State Transition",
+            "Task Completion Criteria"
+          ]
+        },
+        "q_01__res_L2_00_01": {
+          "id": "q_01__res_L2_00_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Instructional Interaction",
+          "description": "Analyzing how test instructions are delivered and managed between clinician and patient.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_01_00",
+            "q_01__res_leaf_00_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_01_00": {
+          "id": "q_01__res_leaf_00_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Standardization of verbal prompts",
+          "description": "Explore the degree of script fidelity required versus the allowance for spontaneous clarification during formal scoring.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Consistency",
+            "Verbal Interface"
+          ]
+        },
+        "q_01__res_leaf_00_01_01": {
+          "id": "q_01__res_leaf_00_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Protocol for instruction repetition",
+          "description": "Uncover the rules governing how many times or in what manner instructions can be repeated without invalidating the test score.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Error Handling",
+            "Feedback Loop"
+          ]
+        },
+        "q_01__res_L1_01": {
+          "id": "q_01__res_L1_01",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Artifact Interaction & Data Capture",
+          "description": "Investigating the physical and digital tools used during assessment and how data is recorded from them.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_01_00",
+            "q_01__res_L2_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_01_00": {
+          "id": "q_01__res_L2_01_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Physical-Digital Tooling",
+          "description": "Mapping the tangible artifacts and sensory materials required to execute the assessment.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_00_00",
+            "q_01__res_leaf_01_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_00_00": {
+          "id": "q_01__res_leaf_01_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Artifacts for visuospatial tasks",
+          "description": "Catalog the specific physical tools (e.g., pen types, paper grids, clock faces) used for drawing-based sub-tests and their affordances.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Tangible Interface",
+            "Affordances"
+          ]
+        },
+        "q_01__res_leaf_01_00_01": {
+          "id": "q_01__res_leaf_01_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Visibility constraints of stimuli",
+          "description": "Assess how test materials (cards, screens) are presented to accommodate varying levels of visual acuity during the task.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Visual Accessibility",
+            "Stimulus Presentation"
+          ]
+        },
+        "q_01__res_L2_01_01": {
+          "id": "q_01__res_L2_01_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Scoring & Documentation Workflow",
+          "description": "Understanding the timing and method of converting patient performance into recorded clinical data.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_01_00",
+            "q_01__res_leaf_01_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_01_00": {
+          "id": "q_01__res_leaf_01_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Timing of score recording",
+          "description": "Determine if scoring occurs concurrently with patient interaction or retrospectively after the session concludes.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Data Entry Latency",
+            "Multitasking Load"
+          ]
+        },
+        "q_01__res_leaf_01_01_01": {
+          "id": "q_01__res_leaf_01_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Data transfer method to EHR",
+          "description": "Identify the mechanism for moving raw test scores into the Electronic Health Record (manual entry, scanning, digital sync).",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Interoperability",
+            "Data Pipeline"
+          ]
+        },
+        "q_01__res_L1_02": {
+          "id": "q_01__res_L1_02",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Environmental Configuration & Accessibility",
+          "description": "Exploring the physical setting and accommodations made to ensure valid test conditions.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_02_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_02_00": {
+          "id": "q_01__res_L2_02_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Spatial & Sensory Configuration",
+          "description": "Examining how the physical room and patient capabilities are managed to support the assessment workflow.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_00_00",
+            "q_01__res_leaf_02_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_00_00": {
+          "id": "q_01__res_leaf_02_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Seating arrangement relative to test materials",
+          "description": "Document the geometric setup between clinician, patient, and test artifacts to ensure optimal visibility and interaction.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Spatial Layout",
+            "Proxemics"
+          ]
+        },
+        "q_01__res_leaf_02_00_01": {
+          "id": "q_01__res_leaf_02_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Protocol for integrating assistive devices",
+          "description": "Clarify the workflow steps for verifying and utilizing patient aids (glasses, hearing aids) before starting the scored portion.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Accessibility Scaffolding",
+            "Device Integration"
+          ]
+        }
+      }
+    },
+    "links": [
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Rapport-building as diagnostic baseline"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Fixed vs. adaptive sequencing of sub-tests"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Rapport-building as diagnostic baseline",
+          "researcher_branch": "Fixed vs. adaptive sequencing of sub-tests"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that diagnostic insight begins during pre-test rapport building rather than the formal assessment. This perspective highlights how patient engagement prior to testing serves as a crucial baseline for clinical intuition.",
+          "pivot": {
+            "limitation": "Focusing solely on the rapport phase leaves the structural logic of the formal assessment protocol unexamined. Without understanding the test sequencing, it remains unclear how the tool itself accommodates clinical flexibility.",
+            "research_goal": "The researcher is trying to understand whether the official administration protocol dictates a rigid order of sub-tests or allows dynamic adjustment based on patient performance.",
+            "compelling_reason": "Both the pre-test observation and the formal test structure are necessary to understand the full workflow. Knowing the sequencing rules helps determine if the tool supports the clinical intuition established during rapport.",
+            "coarse_scenario": "While I see how much diagnostic value you get from that initial chat, I also need to understand how the formal test structure itself supports or constrains those observations once you move past the rapport building."
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Rapport-building as diagnostic baseline"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Criteria for transitioning between test sections"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Rapport-building as diagnostic baseline",
+          "researcher_branch": "Criteria for transitioning between test sections"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that rapport-building acts as a critical diagnostic baseline before formal testing begins. This perspective prioritizes the observational data gathered during the initial social interaction.",
+          "pivot": {
+            "limitation": "If the conversation remains only on the pre-test interaction, the structured logic governing the formal assessment sections remains undefined. The researcher would miss the specific operational triggers used during the core testing phase.",
+            "research_goal": "The researcher is attempting to map the specific criteria for transitioning between test sections within the operational workflow. This focus targets the explicit decision points inside the formal protocol.",
+            "compelling_reason": "While the expert's observational baseline is vital, the researcher also needs to document the explicit workflow logic to ensure the operational protocol is fully understood.",
+            "coarse_scenario": "That initial chat gives you a crucial baseline, but I also need to understand what specific markers tell you to move between the formal test sections so we can map the whole workflow."
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Rapport-building as diagnostic baseline"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Standardization of verbal prompts"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Rapport-building as diagnostic baseline",
+          "researcher_branch": "Standardization of verbal prompts"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that informal rapport-building serves as a critical diagnostic baseline before formal testing begins. This intuitive approach allows for early detection of memory or mood issues during natural conversation.",
+          "pivot": {
+            "limitation": "Focusing solely on the unscripted rapport phase overlooks how standardized prompts during the formal assessment ensure consistency and reliability in scoring across different patients.",
+            "research_goal": "The researcher is investigating the balance between script fidelity and necessary spontaneous clarification during the scored portion of the interaction.",
+            "compelling_reason": "While the rapport phase provides initial clues, understanding prompt standardization is essential to determine if diagnostic accuracy is maintained when moving from intuitive observation to formal measurement.",
+            "coarse_scenario": "I agree that the initial chat gives you vital clues. However, I also need to understand how you handle standardization during the scored portion to see how those intuitive baselines translate into formal results."
+          }
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Rapport-building as diagnostic baseline"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Artifact Interaction & Data Capture",
+          "Scoring & Documentation Workflow",
+          "Timing of score recording"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Rapport-building as diagnostic baseline",
+          "researcher_branch": "Timing of score recording"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Recall Latency",
+            "Detail Specificity",
+            "Emotional Congruence",
+            "Prompting Dependency",
+            "Temporal Range",
+            "Narrative Consistency",
+            "Non-Verbal Alignment",
+            "Self-Monitoring Awareness"
+          ],
+          "probes": [
+            {
+              "attribute": "Recall Latency",
+              "question": "When assessing their response speed about recent events, what pause duration triggers concern?",
+              "choices": [
+                "Under 2 seconds",
+                "2 to 5 seconds",
+                "Over 5 seconds"
+              ]
+            },
+            {
+              "attribute": "Detail Specificity",
+              "question": "Regarding the details they provide about their day, which level of precision do you expect?",
+              "choices": [
+                "General sequence only",
+                "Exact timestamps",
+                "Specific names involved"
+              ]
+            },
+            {
+              "attribute": "Emotional Congruence",
+              "question": "When they describe a neutral event, which mismatch raises more concern?",
+              "choices": [
+                "Mismatched smile",
+                "Flat tone",
+                "Excessive energy"
+              ]
+            },
+            {
+              "attribute": "Prompting Dependency",
+              "question": "If you need to ask a follow-up question to get an answer, how do you categorize this?",
+              "choices": [
+                "One prompt is normal",
+                "Multiple prompts indicate issues",
+                "Any prompt is a failure"
+              ]
+            },
+            {
+              "attribute": "Temporal Range",
+              "question": "For the 'recent changes' they recall, which timeframe carries the most diagnostic weight?",
+              "choices": [
+                "This morning",
+                "Yesterday",
+                "Last week"
+              ]
+            },
+            {
+              "attribute": "Narrative Consistency",
+              "question": "When checking their story, which contradiction type is most critical?",
+              "choices": [
+                "Contradictions in times",
+                "Contradictions in locations",
+                "Contradictions in people"
+              ]
+            },
+            {
+              "attribute": "Non-Verbal Alignment",
+              "question": "During the chat, which non-verbal cue weighs most heavily?",
+              "choices": [
+                "Avoiding eye contact",
+                "Fidgeting",
+                "Slumped posture"
+              ]
+            },
+            {
+              "attribute": "Self-Monitoring Awareness",
+              "question": "If they forget something, which reaction indicates higher risk?",
+              "choices": [
+                "Apologizing",
+                "Laughing it off",
+                "Seeming unaware"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If the patient's pause before answering increased from 2 seconds to 10 seconds, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Recall Latency"
+            },
+            {
+              "scenario": "If the patient's description changed from 'I had breakfast' to 'I had eggs at 8 AM', would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Detail Specificity"
+            },
+            {
+              "scenario": "If the patient's facial expression changed from smiling to flat while describing a happy event, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Emotional Congruence"
+            },
+            {
+              "scenario": "If the number of follow-up questions required changed from zero to three, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Prompting Dependency"
+            },
+            {
+              "scenario": "If the recall period shifted from events this morning to events last month, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Temporal Range"
+            },
+            {
+              "scenario": "If the patient's story changed from having one contradiction to having three contradictions, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Narrative Consistency"
+            },
+            {
+              "scenario": "If the patient's eye contact changed from constant to avoided during key questions, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Non-Verbal Alignment"
+            },
+            {
+              "scenario": "If the patient's reaction to forgetting changed from apologizing to showing no recognition of the error, would your judgment about 'Rapport-building as diagnostic baseline' change?",
+              "attribute": "Self-Monitoring Awareness"
+            }
+          ]
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Adjusting pace based on frustration cues"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Fixed vs. adaptive sequencing of sub-tests"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Adjusting pace based on frustration cues",
+          "researcher_branch": "Fixed vs. adaptive sequencing of sub-tests"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical importance of micro-level interpersonal adjustments, such as modifying tone and pace during specific tasks, to prevent patient shutdown.",
+          "pivot": {
+            "limitation": "Remaining focused only on delivery style leaves unclear whether the assessment protocol itself allows for structural changes, such as altering the sequence of sub-tests based on performance.",
+            "research_goal": "The researcher is trying to understand if the workflow permits macro-level adaptations in the order of assessment components rather than just stylistic modifications within a fixed sequence.",
+            "compelling_reason": "Distinguishing between delivery flexibility and structural flexibility is essential for determining whether the screening process is standardized or dynamically reconfigured across different clinicians.",
+            "coarse_scenario": "I see how adjusting your tone keeps them engaged, but I also need to know if you ever change the actual order of the tests based on how they perform."
+          }
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Adjusting pace based on frustration cues"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Protocol for instruction repetition"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Adjusting pace based on frustration cues",
+          "researcher_branch": "Protocol for instruction repetition"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "patient_state",
+            "adaptation",
+            "engagement",
+            "physiological_signals",
+            "verbal_response_latency",
+            "examiner_tone_modulation",
+            "error_pattern_frequency",
+            "rapport_preservation"
+          ],
+          "probes": [
+            {
+              "attribute": "patient_state",
+              "question": "Is your adjustment triggered more by visible anxiety, cognitive fatigue, or emotional withdrawal?",
+              "choices": [
+                "Visible anxiety",
+                "Cognitive fatigue",
+                "Emotional withdrawal"
+              ]
+            },
+            {
+              "attribute": "adaptation",
+              "question": "When pivoting, do you prioritize changing the task difficulty, altering your delivery speed, or modifying the instruction complexity?",
+              "choices": [
+                "Changing task difficulty",
+                "Altering delivery speed",
+                "Modifying instruction complexity"
+              ]
+            },
+            {
+              "attribute": "engagement",
+              "question": "Which signal indicates critical disengagement: silence lasting over 10 seconds, repeated refusal to answer, or visible physical tension?",
+              "choices": [
+                "Silence over 10 seconds",
+                "Repeated refusal",
+                "Visible physical tension"
+              ]
+            },
+            {
+              "attribute": "physiological_signals",
+              "question": "Which physical cue warrants immediate intervention: forehead sweating, hand trembling, or changes in breathing rate?",
+              "choices": [
+                "Forehead sweating",
+                "Hand trembling",
+                "Changes in breathing rate"
+              ]
+            },
+            {
+              "attribute": "verbal_response_latency",
+              "question": "At what pause duration do you consider intervening: 5 seconds, 10 seconds, or 15 seconds?",
+              "choices": [
+                "5 seconds",
+                "10 seconds",
+                "15 seconds"
+              ]
+            },
+            {
+              "attribute": "examiner_tone_modulation",
+              "question": "Do you soften your tone primarily to reduce pressure, clarify expectations, or rebuild confidence?",
+              "choices": [
+                "Reduce pressure",
+                "Clarify expectations",
+                "Rebuild confidence"
+              ]
+            },
+            {
+              "attribute": "error_pattern_frequency",
+              "question": "Does your decision to pivot depend on two consecutive errors, three consecutive errors, or a specific type of error?",
+              "choices": [
+                "Two consecutive errors",
+                "Three consecutive errors",
+                "Specific type of error"
+              ]
+            },
+            {
+              "attribute": "rapport_preservation",
+              "question": "Is the primary goal of adjusting pace to ensure test validity, maintain patient cooperation, or prevent emotional distress?",
+              "choices": [
+                "Ensure test validity",
+                "Maintain patient cooperation",
+                "Prevent emotional distress"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If patient_state changed from 'anxious but responsive' to 'calm but non-responsive', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "patient_state"
+            },
+            {
+              "scenario": "If adaptation changed from 'softening tone' to 'skipping the task entirely', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "adaptation"
+            },
+            {
+              "scenario": "If engagement changed from 'verbal hesitation' to 'complete silence', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "engagement"
+            },
+            {
+              "scenario": "If physiological_signals changed from 'visible sweating' to 'no visible physical changes', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "physiological_signals"
+            },
+            {
+              "scenario": "If verbal_response_latency changed from '3 seconds' to '12 seconds', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "verbal_response_latency"
+            },
+            {
+              "scenario": "If examiner_tone_modulation changed from 'neutral' to 'encouraging', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "examiner_tone_modulation"
+            },
+            {
+              "scenario": "If error_pattern_frequency changed from '1 error in 5 attempts' to '3 errors in 5 attempts', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "error_pattern_frequency"
+            },
+            {
+              "scenario": "If rapport_preservation changed from 'low risk of shutdown' to 'high risk of shutdown', would your judgment about 'Adjusting pace based on frustration cues' change?",
+              "attribute": "rapport_preservation"
+            }
+          ]
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Adjusting pace based on frustration cues"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Criteria for transitioning between test sections"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Adjusting pace based on frustration cues",
+          "researcher_branch": "Criteria for transitioning between test sections"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the importance of monitoring patient frustration cues to prevent disengagement during testing.",
+          "pivot": {
+            "limitation": "Focusing only on pacing adjustments misses the structural logic used to determine when a task is sufficiently complete to proceed.",
+            "research_goal": "The researcher aims to identify the specific completion markers that trigger transitions between cognitive domain tasks.",
+            "compelling_reason": "Both retention strategies and transition criteria are needed to fully map the operational workflow and ensure the system supports both engagement and protocol adherence.",
+            "coarse_scenario": "While keeping them engaged is crucial, I also need to understand what specific markers tell you a section is complete so we can accurately map the overall workflow."
+          }
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Ensuring quiet environment for focus"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Environmental Configuration & Accessibility",
+          "Spatial & Sensory Configuration",
+          "Seating arrangement relative to test materials"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Ensuring quiet environment for focus",
+          "researcher_branch": "Seating arrangement relative to test materials"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical need for a quiet environment to distinguish between actual cognitive deficits and external distractions during screening.",
+          "pivot": {
+            "limitation": "Focusing solely on the expert's concern about noise misses how the physical geometry between the clinician, patient, and test materials affects interaction flow.",
+            "research_goal": "The researcher aims to document the spatial configuration to understand how seating arrangements influence the ergonomic delivery of the test.",
+            "compelling_reason": "While the expert's focus prevents validity ambiguity, the researcher's concern also matters for the interview goal because it reveals how physical setup impacts the patient's ability to engage with test artifacts.",
+            "coarse_scenario": "I completely agree that minimizing distractions is vital for accurate scoring, but could you also describe how you position yourself relative to the test materials to ensure the patient can see them clearly?"
+          }
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Administration Dynamics & Patient Engagement",
+          "Ensuring quiet environment for focus"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Protocol for instruction repetition"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Ensuring quiet environment for focus",
+          "researcher_branch": "Protocol for instruction repetition"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical role of environmental controls, such as a quiet room, in preventing external distractions from mimicking cognitive deficits.",
+          "pivot": {
+            "limitation": "Focusing solely on environmental preconditions misses the procedural safeguards needed when distractions occur or when clarity is still required.",
+            "research_goal": "The researcher is trying to understand the specific protocols governing instruction repetition to ensure test validity is maintained.",
+            "compelling_reason": "While environment prevents many issues, understanding repetition limits ensures accuracy when environmental controls are insufficient or when patient confusion persists.",
+            "coarse_scenario": "I agree that minimizing distractions is foundational, but could you walk me through what happens when a patient still doesn't understand an instruction despite the quiet environment?"
+          }
+        },
+        "weight": 4.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Clinical Interpretation & Validity",
+          "Behavioral process and \"in-between\" moments"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Criteria for transitioning between test sections"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Behavioral process and \"in-between\" moments",
+          "researcher_branch": "Criteria for transitioning between test sections"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "observation",
+            "intuition",
+            "diagnostic_signal",
+            "patient_fatigue",
+            "frustration_tolerance",
+            "effort_consistency",
+            "non_verbal_cues",
+            "error_pattern_quality",
+            "rapport_flow",
+            "self_correction_rate"
+          ],
+          "probes": [
+            {
+              "attribute": "observation",
+              "question": "When monitoring the patient, is your primary focus on eye contact stability, response latency, or physical stillness?",
+              "choices": [
+                "Eye contact stability",
+                "Response latency",
+                "Physical stillness"
+              ]
+            },
+            {
+              "attribute": "intuition",
+              "question": "Does the urge to transition come from a sense of diminishing returns, a structured protocol rule, or perceived patient distress?",
+              "choices": [
+                "Sense of diminishing returns",
+                "Structured protocol rule",
+                "Perceived patient distress"
+              ]
+            },
+            {
+              "attribute": "diagnostic_signal",
+              "question": "Are you waiting for a specific failure count, a pattern of inconsistent answers, or a total lack of engagement?",
+              "choices": [
+                "Specific failure count",
+                "Pattern of inconsistent answers",
+                "Total lack of engagement"
+              ]
+            },
+            {
+              "attribute": "patient_fatigue",
+              "question": "Is the transition triggered by visible yawning, slowed response times, or verbal complaints of tiredness?",
+              "choices": [
+                "Visible yawning",
+                "Slowed response times",
+                "Verbal complaints of tiredness"
+              ]
+            },
+            {
+              "attribute": "frustration_tolerance",
+              "question": "Do you stop when the patient sighs heavily, begins guessing randomly, or expresses verbal irritation?",
+              "choices": [
+                "Sighs heavily",
+                "Begins guessing randomly",
+                "Expresses verbal irritation"
+              ]
+            },
+            {
+              "attribute": "effort_consistency",
+              "question": "Is the decision based on sporadic high effort, steady moderate effort, or declining effort over the last three items?",
+              "choices": [
+                "Sporadic high effort",
+                "Steady moderate effort",
+                "Declining effort over the last three items"
+              ]
+            },
+            {
+              "attribute": "non_verbal_cues",
+              "question": "Which signal weighs heavier: avoiding eye contact, fidgeting with hands, or crossing arms defensively?",
+              "choices": [
+                "Avoiding eye contact",
+                "Fidgeting with hands",
+                "Crossing arms defensively"
+              ]
+            },
+            {
+              "attribute": "error_pattern_quality",
+              "question": "Are you more concerned with careless mistakes, conceptual misunderstandings, or memory lapses?",
+              "choices": [
+                "Careless mistakes",
+                "Conceptual misunderstandings",
+                "Memory lapses"
+              ]
+            },
+            {
+              "attribute": "rapport_flow",
+              "question": "Does the transition depend on the conversation feeling natural, forced, or strained?",
+              "choices": [
+                "Natural",
+                "Forced",
+                "Strained"
+              ]
+            },
+            {
+              "attribute": "self_correction_rate",
+              "question": "Do you move on when they never self-correct, occasionally self-correct, or frequently self-correct errors?",
+              "choices": [
+                "Never self-correct",
+                "Occasionally self-correct",
+                "Frequently self-correct errors"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If visual attention changed from steady to wandering, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "observation"
+            },
+            {
+              "scenario": "If your gut feeling changed from confident to uncertain, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "intuition"
+            },
+            {
+              "scenario": "If the failure threshold changed from 3 errors to 5 errors, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "diagnostic_signal"
+            },
+            {
+              "scenario": "If session duration changed from 30 minutes to 60 minutes, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "patient_fatigue"
+            },
+            {
+              "scenario": "If patient sighing changed from never to after every question, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "frustration_tolerance"
+            },
+            {
+              "scenario": "If effort level changed from steady to declining, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "effort_consistency"
+            },
+            {
+              "scenario": "If hand fidgeting changed from constant to absent, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "non_verbal_cues"
+            },
+            {
+              "scenario": "If error type changed from careless slips to conceptual errors, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "error_pattern_quality"
+            },
+            {
+              "scenario": "If conversation tone changed from natural to strained, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "rapport_flow"
+            },
+            {
+              "scenario": "If self-correction frequency changed from frequent to never, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "self_correction_rate"
+            }
+          ]
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Clinical Interpretation & Validity",
+          "Behavioral process and \"in-between\" moments"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Standardization of verbal prompts"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Behavioral process and \"in-between\" moments",
+          "researcher_branch": "Standardization of verbal prompts"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "observation",
+            "intuition",
+            "diagnostic_signal",
+            "response_latency",
+            "non_verbal_cues",
+            "script_deviation_threshold",
+            "patient_anxiety_level",
+            "cognitive_load_indicator"
+          ],
+          "probes": [
+            {
+              "attribute": "observation",
+              "question": "When observing a pause, which physical cue do you prioritize?",
+              "choices": [
+                "eye movement",
+                "body posture",
+                "vocal tension"
+              ]
+            },
+            {
+              "attribute": "intuition",
+              "question": "What triggers your decision to intervene?",
+              "choices": [
+                "a subconscious gut feeling",
+                "a recognized behavioral pattern",
+                "an explicit protocol breach"
+              ]
+            },
+            {
+              "attribute": "diagnostic_signal",
+              "question": "Does the silence primarily signal which state?",
+              "choices": [
+                "cognitive processing",
+                "emotional distress",
+                "lack of knowledge"
+              ]
+            },
+            {
+              "attribute": "response_latency",
+              "question": "Which duration threshold triggers concern?",
+              "choices": [
+                "under 3 seconds",
+                "between 5-10 seconds",
+                "over 15 seconds"
+              ]
+            },
+            {
+              "attribute": "non_verbal_cues",
+              "question": "Which non-verbal behavior most influences your scoring adjustment?",
+              "choices": [
+                "hand gestures",
+                "facial expression",
+                "seat shifting"
+              ]
+            },
+            {
+              "attribute": "script_deviation_threshold",
+              "question": "When do you break script?",
+              "choices": [
+                "upon visible frustration",
+                "after repeated failure",
+                "when asked directly"
+              ]
+            },
+            {
+              "attribute": "patient_anxiety_level",
+              "question": "How does visible anxiety alter your approach?",
+              "choices": [
+                "increase support",
+                "maintain strict neutrality",
+                "pause the assessment"
+              ]
+            },
+            {
+              "attribute": "cognitive_load_indicator",
+              "question": "What indicates excessive load?",
+              "choices": [
+                "verbal stalling",
+                "physical agitation",
+                "self-correction attempts"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If the room lighting changed from bright to dim, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "observation"
+            },
+            {
+              "scenario": "If the patient's background changed from familiar to unfamiliar, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "intuition"
+            },
+            {
+              "scenario": "If the question type changed from factual to abstract, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "diagnostic_signal"
+            },
+            {
+              "scenario": "If the wait time changed from 5 seconds to 30 seconds, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "response_latency"
+            },
+            {
+              "scenario": "If the body language changed from still to fidgeting, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "non_verbal_cues"
+            },
+            {
+              "scenario": "If the protocol rule changed from flexible to rigid, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "script_deviation_threshold"
+            },
+            {
+              "scenario": "If the patient demeanor changed from calm to shaking, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "patient_anxiety_level"
+            },
+            {
+              "scenario": "If the task complexity changed from low to high, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "cognitive_load_indicator"
+            }
+          ]
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Clinical Interpretation & Validity",
+          "Behavioral process and \"in-between\" moments"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Artifact Interaction & Data Capture",
+          "Scoring & Documentation Workflow",
+          "Timing of score recording"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Behavioral process and \"in-between\" moments",
+          "researcher_branch": "Timing of score recording"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "observation",
+            "intuition",
+            "diagnostic_signal",
+            "temporal_granularity",
+            "cognitive_load",
+            "verification_threshold",
+            "retention_latency",
+            "pattern_sequence"
+          ],
+          "probes": [
+            {
+              "attribute": "observation",
+              "question": "Is your primary focus during 'in-between' moments on visual cues, auditory cues, or a combination of both?",
+              "choices": [
+                "Visual cues only",
+                "Auditory cues only",
+                "Combination of both"
+              ]
+            },
+            {
+              "attribute": "intuition",
+              "question": "Does your intuitive sense regarding the patient's state arise immediately upon contact, after a few minutes, or only after a specific trigger?",
+              "choices": [
+                "Immediately upon contact",
+                "After a few minutes",
+                "Only after a specific trigger"
+              ]
+            },
+            {
+              "attribute": "diagnostic_signal",
+              "question": "Is a behavioral signal considered valid based on a single instance, repeated occurrences, or the intensity of the reaction?",
+              "choices": [
+                "Single instance",
+                "Repeated occurrences",
+                "Intensity of the reaction"
+              ]
+            },
+            {
+              "attribute": "temporal_granularity",
+              "question": "Do you track behavioral changes second-by-second, in blocks of minutes, or as a general session vibe?",
+              "choices": [
+                "Second-by-second",
+                "In blocks of minutes",
+                "As a general session vibe"
+              ]
+            },
+            {
+              "attribute": "cognitive_load",
+              "question": "Do you prioritize observing behavior while speaking, while listening, or during silent pauses?",
+              "choices": [
+                "While speaking",
+                "While listening",
+                "During silent pauses"
+              ]
+            },
+            {
+              "attribute": "verification_threshold",
+              "question": "Do you note a behavior when you are 50% sure, 80% sure, or only when completely certain?",
+              "choices": [
+                "When 50% sure",
+                "When 80% sure",
+                "Only when completely certain"
+              ]
+            },
+            {
+              "attribute": "retention_latency",
+              "question": "Can you hold a behavioral note in mind for less than 30 seconds, 1-5 minutes, or until the session ends?",
+              "choices": [
+                "Less than 30 seconds",
+                "1-5 minutes",
+                "Until the session ends"
+              ]
+            },
+            {
+              "attribute": "pattern_sequence",
+              "question": "Is the behavior significant because it stands alone, because it repeats, or because it breaks a previous pattern?",
+              "choices": [
+                "Because it stands alone",
+                "Because it repeats",
+                "Because it breaks a previous pattern"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If lighting conditions reduced visual clarity by 50%, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "observation"
+            },
+            {
+              "scenario": "If you were forced to wait 5 minutes before acknowledging your gut feeling, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "intuition"
+            },
+            {
+              "scenario": "If a specific behavioral cue occurred only once instead of three times, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "diagnostic_signal"
+            },
+            {
+              "scenario": "If you were required to log observations every 10 seconds instead of every 2 minutes, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "temporal_granularity"
+            },
+            {
+              "scenario": "If you had to perform a complex calculation while observing the patient, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "cognitive_load"
+            },
+            {
+              "scenario": "If the protocol required you to record cues at 50% confidence instead of 90%, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "verification_threshold"
+            },
+            {
+              "scenario": "If you were interrupted for 10 minutes before you could record a noted behavior, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "retention_latency"
+            },
+            {
+              "scenario": "If the patient exhibited the behavior in a random order rather than a consistent sequence, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
+              "attribute": "pattern_sequence"
+            }
+          ]
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Clinical Interpretation & Validity",
+          "Probing beyond the standardized script"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Standardization of verbal prompts"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Probing beyond the standardized script",
+          "researcher_branch": "Standardization of verbal prompts"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Behavioral process and \"in-between\" moments",
+            "target_concept": "Noticing when someone hesitates before answering",
+            "structural_mapping": {
+              "inputs": "Standard question or prompt",
+              "logic": "Observing the pause or deviation rather than just the answer",
+              "outputs": "Deeper insight into capability rather than a binary score"
+            },
+            "explanation": "The researcher's allowance for clarification and your in-between moments both involve breaking the script; like noticing hesitation, this deviation is where the real data lives, not in the standard score."
+          },
+          "scenario": "When a patient stalls on a test item, do you ever break the script not to clarify the instruction, but to test where their confusion actually lies?"
+        },
+        "weight": 2.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Clinical Interpretation & Validity",
+          "Probing beyond the standardized script"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Criteria for transitioning between test sections"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Probing beyond the standardized script",
+          "researcher_branch": "Criteria for transitioning between test sections"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "flexibility",
+            "intuition",
+            "protocol_deviation",
+            "patient_affect",
+            "response_latency",
+            "rapport_level",
+            "diagnostic_confidence",
+            "conversational_flow",
+            "anomaly_detection",
+            "patient_fatigue"
+          ],
+          "probes": [
+            {
+              "attribute": "flexibility",
+              "question": "When exercising flexibility, is the boundary defined primarily by: A) Time limits, B) Patient comfort, or C) Diagnostic yield?",
+              "choices": [
+                "Time limits",
+                "Patient comfort",
+                "Diagnostic yield"
+              ]
+            },
+            {
+              "attribute": "intuition",
+              "question": "When relying on intuition, is the signal stronger when: A) The patient hesitates, B) The patient over-explains, or C) The patient avoids eye contact?",
+              "choices": [
+                "The patient hesitates",
+                "The patient over-explains",
+                "The patient avoids eye contact"
+              ]
+            },
+            {
+              "attribute": "protocol_deviation",
+              "question": "When considering protocol_deviation, is the justification primarily: A) Clarifying a wrong answer, B) Testing a specific hypothesis, or C) Reducing patient anxiety?",
+              "choices": [
+                "Clarifying a wrong answer",
+                "Testing a specific hypothesis",
+                "Reducing patient anxiety"
+              ]
+            },
+            {
+              "attribute": "patient_affect",
+              "question": "When observing patient_affect, which cue triggers deeper probing: A) Sudden tearfulness, B) Flat monotone, or C) Irritable snapping?",
+              "choices": [
+                "Sudden tearfulness",
+                "Flat monotone",
+                "Irritable snapping"
+              ]
+            },
+            {
+              "attribute": "response_latency",
+              "question": "When measuring response_latency, does a pause indicate a need to probe if it lasts: A) 1-2 seconds, B) 5-10 seconds, or C) Indefinitely?",
+              "choices": [
+                "1-2 seconds",
+                "5-10 seconds",
+                "Indefinitely"
+              ]
+            },
+            {
+              "attribute": "rapport_level",
+              "question": "When assessing rapport_level, do you probe deeper when the relationship feels: A) Collaborative, B) Neutral, or C) Adversarial?",
+              "choices": [
+                "Collaborative",
+                "Neutral",
+                "Adversarial"
+              ]
+            },
+            {
+              "attribute": "diagnostic_confidence",
+              "question": "When gauging diagnostic_confidence, do you deviate from the script to: A) Confirm a suspicion, B) Rule out a false positive, or C) Explore an outlier?",
+              "choices": [
+                "Confirm a suspicion",
+                "Rule out a false positive",
+                "Explore an outlier"
+              ]
+            },
+            {
+              "attribute": "conversational_flow",
+              "question": "When monitoring conversational_flow, do you interrupt the script during: A) A natural lull, B) A topic transition, or C) An emotional peak?",
+              "choices": [
+                "A natural lull",
+                "A topic transition",
+                "An emotional peak"
+              ]
+            },
+            {
+              "attribute": "anomaly_detection",
+              "question": "When performing anomaly_detection, which inconsistency matters most: A) Memory vs. Logic, B) Past vs. Present accounts, or C) Verbal vs. Non-verbal signals?",
+              "choices": [
+                "Memory vs. Logic",
+                "Past vs. Present accounts",
+                "Verbal vs. Non-verbal signals"
+              ]
+            },
+            {
+              "attribute": "patient_fatigue",
+              "question": "When accounting for patient_fatigue, do you limit probing when signs appear: A) At the start, B) Mid-session, or C) Near the end?",
+              "choices": [
+                "At the start",
+                "Mid-session",
+                "Near the end"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If time limits changed from 15 mins to 30 mins, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "flexibility"
+            },
+            {
+              "scenario": "If the gut feeling changed from vague unease to specific suspicion, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "intuition"
+            },
+            {
+              "scenario": "If the deviation changed from rephrasing a question to adding a new task, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "protocol_deviation"
+            },
+            {
+              "scenario": "If patient_affect changed from neutral to visibly anxious, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "patient_affect"
+            },
+            {
+              "scenario": "If response_latency changed from 2 seconds to 10 seconds, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "response_latency"
+            },
+            {
+              "scenario": "If rapport_level changed from established trust to first-time meeting, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "rapport_level"
+            },
+            {
+              "scenario": "If diagnostic_confidence changed from 50% certainty to 90% certainty, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "diagnostic_confidence"
+            },
+            {
+              "scenario": "If conversational_flow changed from smooth dialogue to fragmented speech, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "conversational_flow"
+            },
+            {
+              "scenario": "If anomaly_detection changed from minor inconsistency to major contradiction, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "anomaly_detection"
+            },
+            {
+              "scenario": "If patient_fatigue changed from alert to visibly exhausted, would your judgment about 'Probing beyond the standardized script' change?",
+              "attribute": "patient_fatigue"
+            }
+          ]
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Score vs. Real-World Function"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Standardization of verbal prompts"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Score vs. Real-World Function",
+          "researcher_branch": "Standardization of verbal prompts"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Score vs. Real-World Function",
+            "target_concept": "Trusting food texture over timer",
+            "structural_mapping": {
+              "inputs": "Timer setting vs. Visual check of food",
+              "logic": "Follow strict instructions vs. Adjust based on actual state",
+              "outputs": "Remove from heat vs. Decision to cook longer"
+            },
+            "explanation": "The researcher treats the test like a precise timer, believing exact settings guarantee results. You treat it like cooking, knowing you must check the texture because the timer alone doesn't tell you if the meal is actually ready."
+          },
+          "scenario": "When a patient scores normal but gets lost driving, do you find yourself caring less about exactly how you asked the questions and more about that real-world mistake?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Score vs. Real-World Function"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Protocol for instruction repetition"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Score vs. Real-World Function",
+          "researcher_branch": "Protocol for instruction repetition"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Longitudinal Knowledge of Patient",
+            "target_concept": "Recipe timer vs. tasting the food",
+            "structural_mapping": {
+              "inputs": "Timer settings (Protocol) vs. Food texture and smell (Real-world cues)",
+              "logic": "Strict adherence to time (Score integrity) vs. Judgment of doneness (Functional truth)",
+              "outputs": "Technically correct cook time (Valid score) vs. Edible meal (Accurate diagnosis)"
+            },
+            "explanation": "The researcher's protocol acts like the timer, ensuring standardization, but the expert trusts the 'taste' of real-world function, knowing a perfect timer setting doesn't guarantee the meal is actually cooked."
+          },
+          "scenario": "When you hear a family say a patient got lost, do you find yourself valuing that story more than strictly following the rule on repeating instructions?"
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Score vs. Real-World Function"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Artifact Interaction & Data Capture",
+          "Scoring & Documentation Workflow",
+          "Data transfer method to EHR"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Score vs. Real-World Function",
+          "researcher_branch": "Data transfer method to EHR"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert prioritizes clinical intuition and real-world functional evidence over standardized test scores when evaluating patients.",
+          "pivot": {
+            "limitation": "Staying only on clinical judgment overlooks the administrative workflow required to archive the test data itself.",
+            "research_goal": "The researcher aims to identify the specific mechanism used to move raw test scores into the Electronic Health Record.",
+            "compelling_reason": "Clarifying the data transfer method is necessary because inefficient documentation workflows can create bottlenecks that interfere with the clinical observation the expert values.",
+            "coarse_scenario": "I completely agree that the real-world function is what ultimately drives your diagnosis, but could we briefly walk through how you get that score into the system? I'm trying to understand if the paperwork itself takes time away from observing those functional cues."
+          }
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Longitudinal Knowledge of Patient"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Fixed vs. adaptive sequencing of sub-tests"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Longitudinal Knowledge of Patient",
+          "researcher_branch": "Fixed vs. adaptive sequencing of sub-tests"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Score vs. Real-World Function",
+            "target_concept": "Knowing a coworker's reliability vs. judging one late email",
+            "structural_mapping": {
+              "inputs": "Immediate performance data vs. Long-term behavior history",
+              "logic": "React to current signal vs. Contextualize with baseline",
+              "outputs": "Protocol-driven adjustment vs. Intuition-driven adjustment"
+            },
+            "explanation": "Both concepts decide what data drives action. The researcher's concept reacts to the 'late email' (current test score), while the expert's concept reacts to the 'coworker's reliability' (patient history), showing why the expert overrides the protocol."
+          },
+          "scenario": "When a patient performs poorly today, do you change the test order based on that immediate result, or based on how you know they usually function over time?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Longitudinal Knowledge of Patient"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Administration Protocol Logic",
+          "Criteria for transitioning between test sections"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Longitudinal Knowledge of Patient",
+          "researcher_branch": "Criteria for transitioning between test sections"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Longitudinal Knowledge of Patient",
+            "target_concept": "Knowing when soup is done by tasting it vs. watching the timer",
+            "structural_mapping": {
+              "inputs": "Years of patient history vs. Cookbook instructions",
+              "logic": "Recognizing patterns over time vs. Waiting for specific time marker",
+              "outputs": "Decision to proceed based on certainty vs. Decision to proceed based on rule"
+            },
+            "explanation": "Both concepts decide when to move to the next step, but like tasting soup versus watching a timer, the expert relies on accumulated context to judge readiness while the researcher relies on fixed completion markers."
+          },
+          "scenario": "When you already know a patient's baseline from years of visits, do you ever feel the strict transition rules force you to keep testing even when you're already sure?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Longitudinal Knowledge of Patient"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Standardization of verbal prompts"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Longitudinal Knowledge of Patient",
+          "researcher_branch": "Standardization of verbal prompts"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Score vs. Real-World Function",
+            "target_concept": "Knowing a friend's baseline mood",
+            "structural_mapping": {
+              "inputs": "Single test score or behavior",
+              "logic": "Compare against longitudinal history",
+              "outputs": "Trust clinical intuition over score"
+            },
+            "explanation": "The expert interprets data through history like knowing a friend's baseline, where context clarifies ambiguity; the researcher's standardization removes this history, treating every interaction as new, which feels like ignoring context."
+          },
+          "scenario": "When you know a patient's baseline well enough to spot inconsistencies, do you feel the strict script prevents you from clarifying what the score misses?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Contextual & Longitudinal Factors",
+          "Longitudinal Knowledge of Patient"
+        ],
+        "aligned_path_researcher": [
+          "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+          "Operational Workflow & Task Sequence",
+          "Instructional Interaction",
+          "Protocol for instruction repetition"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Longitudinal Knowledge of Patient",
+          "researcher_branch": "Protocol for instruction repetition"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Score vs. Real-World Function",
+            "target_concept": "Trusting a regular customer's word over store policy",
+            "structural_mapping": {
+              "inputs": "Test score vs. family report maps to receipt vs. customer history",
+              "logic": "Trusting real-life function maps to trusting loyal customer word",
+              "outputs": "Accurate diagnosis maps to approved return"
+            },
+            "explanation": "Both concepts decide validity like a store handles returns: the researcher's protocol insists on the receipt (strict rules), while the expert's longitudinal knowledge trusts the customer history (relationship), showing why rigid repetition limits miss the clinical truth."
+          },
+          "scenario": "When you see a familiar patient struggle, do you ever bend the repetition rules because you know their baseline better than the test protocol does?"
+        },
+        "weight": 7.0
+      }
+    ],
+    "metadata": {
+      "created_at": "2026-03-26T11:56:23.796018",
+      "llm_provider": "openai",
+      "question_id": "q_01",
+      "question_text": "What’s your common clinical workflow for conducting baseline cognitive assessments (like MoCA or MMSE) with elderly patients?",
+      "expert_leaves": 7,
+      "researcher_leaves": 10,
+      "link_count": 21,
+      "alignment_stats": {
+        "leaf_alignments": 21,
+        "concept_alignments": 6,
+        "misaligned_leaves": 21
+      },
+      "construction_method": "math-based",
+      "depends_on": []
+    }
+  },
   "question_graphs": [
     {
       "question_id": "q_01",
       "question_text": "What’s your common clinical workflow for conducting baseline cognitive assessments (like MoCA or MMSE) with elderly patients?",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-26T11:56:23.796018",
-        "llm_provider": "openai",
-        "question_id": "q_01",
-        "question_text": "What’s your common clinical workflow for conducting baseline cognitive assessments (like MoCA or MMSE) with elderly patients?",
-        "expert_leaves": 7,
-        "researcher_leaves": 10,
-        "link_count": 21,
-        "alignment_stats": {
-          "leaf_alignments": 21,
-          "concept_alignments": 6,
-          "misaligned_leaves": 21
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
@@ -1983,28 +3926,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_02",
       "question_text": "What are the main challenges you face when screening patients for early-stage cognitive decline? (e.g., high patient anxiety/resistance? time constraints in clinical settings? distinguishing normal aging from pathological decline?)",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-26T11:56:23.796230",
-        "llm_provider": "openai",
-        "question_id": "q_02",
-        "question_text": "What are the main challenges you face when screening patients for early-stage cognitive decline? (e.g., high patient anxiety/resistance? time constraints in clinical settings? distinguishing normal ag",
-        "expert_leaves": 7,
-        "researcher_leaves": 9,
-        "link_count": 26,
-        "alignment_stats": {
-          "leaf_alignments": 26,
-          "concept_alignments": 5,
-          "misaligned_leaves": 26
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
@@ -4142,34 +6069,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_03",
       "question_text": "When observing a patient's ability to handle high-ecological-validity daily tasks (e.g., grocery shopping or following a soup recipe) instead of standardized paper tests, what is your general mindset? Which specific phase of observing these unstructured daily tasks causes you the most difficulty in making a confident clinical judgment?",
-      "depends_on": [
-        "q_01",
-        "q_02"
-      ],
-      "metadata": {
-        "created_at": "2026-03-26T11:58:19.061715",
-        "llm_provider": "openai",
-        "question_id": "q_03",
-        "question_text": "When observing a patient's ability to handle high-ecological-validity daily tasks (e.g., grocery shopping or following a soup recipe) instead of standardized paper tests, what is your general mindset?",
-        "expert_leaves": 8,
-        "researcher_leaves": 9,
-        "link_count": 37,
-        "alignment_stats": {
-          "leaf_alignments": 37,
-          "concept_alignments": 7,
-          "misaligned_leaves": 37
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01",
-          "q_02"
-        ]
-      },
       "graph": {
         "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
@@ -6550,32 +8455,15 @@
             "q_02"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01",
+        "q_02"
+      ]
     },
     {
       "question_id": "q_04",
       "question_text": "Many experienced geriatricians rely on 'clinical intuition' to quickly gauge whether a patient is masking their cognitive decline during a casual conversation, even before formal testing begins. If you had to explain this to a junior resident, what 2 to 3 objective behavioral or linguistic cues actually underlie this 'gut feeling'?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-26T12:00:44.245481",
-        "llm_provider": "openai",
-        "question_id": "q_04",
-        "question_text": "Many experienced geriatricians rely on 'clinical intuition' to quickly gauge whether a patient is masking their cognitive decline during a casual conversation, even before formal testing begins. If yo",
-        "expert_leaves": 10,
-        "researcher_leaves": 10,
-        "link_count": 53,
-        "alignment_stats": {
-          "leaf_alignments": 53,
-          "concept_alignments": 9,
-          "misaligned_leaves": 53
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
         "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
@@ -10333,7 +12221,52 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     }
-  ]
+  ],
+  "cache_key": "20b1c9e07136b22d",
+  "status": "ready",
+  "error": "",
+  "transcript_summary": {
+    "main_bullets": [
+      {
+        "id": "mb_01",
+        "label": "What’s your common clinical workflow for conducting baseline",
+        "keywords": [],
+        "source_question": "1. What’s your common clinical workflow for conducting baseline cognitive assessments (like MoCA or MMSE) with elderly patients?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_02",
+        "label": "What are the main challenges you face when",
+        "keywords": [],
+        "source_question": "2. What are the main challenges you face when screening patients for early-stage cognitive decline? (e.g., high patient anxiety/resistance? time constraints in clinical settings? distinguishing normal aging from pathological decline?)",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_03",
+        "label": "When observing a patient's ability to handle high-ecological-validity",
+        "keywords": [],
+        "source_question": "3. When observing a patient's ability to handle high-ecological-validity daily tasks (e.g., grocery shopping or following a soup recipe) instead of standardized paper tests, what is your general mindset? Which specific phase of observing these unstructured daily tasks causes you the most difficulty in making a confident clinical judgment?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_04",
+        "label": "Many experienced geriatricians rely on 'clinical intuition' to",
+        "keywords": [],
+        "source_question": "4. Many experienced geriatricians rely on 'clinical intuition' to quickly gauge whether a patient is masking their cognitive decline during a casual conversation, even before formal testing begins. If you had to explain this to a junior resident, what 2 to 3 objective behavioral or linguistic cues actually underlie this 'gut feeling'?",
+        "sub_bullets": []
+      }
+    ],
+    "last_updated_turn": 0
+  },
+  "_meta": {
+    "topic": "Uncovering Clinical Intuition and Bottlenecks in Early Neurocognitive Disorder (NCD) Screening",
+    "researcher_bg": "An HCI researcher specializing in Healthcare and Accessibility, focused on designing high-ecological-validity digital tasks (e.g., virtual grocery shopping) to augment early-stage cognitive decline screening.",
+    "expert_bg": "A seasoned clinical neuropsychologist or geriatrician with extensive experience in conducting baseline cognitive assessments (like MoCA or MMSE) , currently navigating the challenges of unstructured daily task observation and unpacking clinical intuition for early neurocognitive diagnosis.",
+    "saved_at": "2026-03-26T12:00:44.349552"
+  }
 }
