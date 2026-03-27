@@ -41,22 +41,23 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Uncovering Clinical Intuition and Information Bottlenecks in Intensive Care Data Monitoring"
+INTERVIEW_TOPIC = "Exploring how middle school teachers reflect on their teaching practice, recognize when something isn't working, and make pedagogical adjustments based on classroom experience and professional judgment."
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Roberts
-Professional Role: Senior Intensivist / Critical Care Physician 
+INTERVIEWEE_DEMOGRAPHICS = """Name: Ms. Zhang
 
-Work Experience: Extensive frontline clinical experience in high-stakes Intensive Care Units (ICU), managing critically ill patients with complex conditions like multi-organ failure. Frequently monitors continuous physiological data, vitals, and lab results during high-pressure shifts.
+Professional Role: Senior Middle School Teacher / Grade-Level Lead / Teaching and Research Group Member
+
+Work Experience: Over 12 years of frontline teaching experience in a public middle school, teaching core subjects to students aged 12-15. Has gone through countless cycles of lesson planning, classroom delivery, post-lesson reflection, and adjustment. Regularly participates in teaching-research group activities where teachers discuss what's working, what isn't, and why.
 
 Expertise:
-Deeply familiar with critical care workflows and rapidly interpreting massive streams of patient data.
-Highly capable of synthesizing conflicting physiological trends to make split-second, life-saving decisions during sudden patient deteriorations.
-Possesses strong clinical 'gestalt' or expert intuition, able to anticipate a patient about to "crash" just by glancing at subtle data patterns on the monitor, even before critical alarms go off.
+Deeply familiar with the messy, context-dependent reality of classroom teaching; skilled at reading the room in real time and noticing when a lesson is falling flat, when students are confused but won't say so, or when a class dynamic has shifted in ways that affect learning.
+
+Highly capable of relying on "teaching instinct" built from years of daily classroom observation to make rapid pedagogical adjustments—such as knowing within the first five minutes of a lesson whether the planned approach is working, and improvising on the spot based on subtle student cues (facial expressions, engagement levels, question patterns).
 
 Core Challenges & Pain Points:
-Profoundly understands the cognitive and emotional exhaustion caused by alarm fatigue, time constraints, and fragmented information across different screens during emergencies.
-Finds it challenging to process massive, overwhelming, and sometimes conflicting data trends during sudden, complex patient deteriorations.
-Struggles to translate their internalized, experience-based "gut feeling" into 2 to 3 explicit, objective physiological cues that a first-year medical resident (or an AI dashboard) could easily grasp."""
+Profoundly understands the difficulty of turning classroom experience into something communicable—school administrators and evaluation systems want neat, structured reflections, but the most important teaching adjustments come from gut feelings and contextual awareness that resist being written into a report.
+
+Finds it challenging to explain to non-teachers (e.g., a school administrator reviewing her performance metrics, or a parent who only looks at test scores) what teaching reflection actually looks like in practice. Often feels that outsiders assume reflection is a deliberate, structured process, when in reality it's more like a continuous, semi-conscious calibration built from thousands of small classroom moments."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
