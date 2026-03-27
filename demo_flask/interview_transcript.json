@@ -1,517 +1,95 @@
 {
-  "saved_at": "2026-03-26T20:06:04",
-  "message_count": 8,
+  "saved_at": "2026-03-27T19:27:36",
+  "message_count": 2,
   "messages": [
     {
       "role": "researcher",
-      "content": "What’s your common clinical workflow for conducting baseline cognitive assessments (like MoCA or MMSE) with elderly patients",
+      "content": "introduce yourself",
       "source": "text",
       "turn_index": 1
     },
     {
       "role": "expert",
-      "content": "Honestly, it’s pretty rushed—15 minutes if I’m lucky. I’ll start with the MoCA because it’s more sensitive for early changes, but half the time the patient’s anxious or trying too hard to “perform,” so I’m watching their hands fumble with the clock-drawing or how they stall on the verbal fluency part more than the actual score. If they’re resistant or fatigued, I might just do a quick MMSE instead, even though I know it’s blunter. The real red flags often come *before* the test—like when they can’t recall why they’re here despite being told twice—but that stuff never makes it into the structured form.",
+      "content": "I’m Mrs. Chen—I’ve been managing community elderly care teams for over a decade, mostly splitting my time between home visit programs and our local senior center. My days are basically triaging crises, shuffling staff where they’re needed most, and trying to keep families from falling apart while making sure nobody on my team burns out completely. I don’t just coordinate care—I’m often the one patching together solutions when the system fails, which happens more than you’d think.",
       "source": "ai_interviewee",
       "turn_index": 1,
       "dsag_analysis": {
         "located": {
           "expert": {
-            "best_leaf_id": "q_01__exp_leaf_00_01_00",
+            "best_leaf_id": "q_01__exp_leaf_00_00_00",
             "confidence": 0.85,
             "top_results": [
               {
-                "node_id": "q_01__exp_leaf_00_01_00",
-                "label": "Behavioral process and \"in-between\" moments",
-                "description": "It's not just about the score—it's about the process. I'll note things like how long they take to answer, if they hesitate, or even what they do when they're just sitting there thinking.",
+                "node_id": "q_01__exp_leaf_00_00_00",
+                "label": "Communication Intake Overload",
+                "description": "Starting the day drowning in emails and voicemails from caregivers, spending the first hour just triaging who needs what before actual work begins.",
                 "score": 0.85,
                 "snapped": false,
                 "snap_reason": ""
               },
               {
-                "node_id": "q_01__exp_leaf_00_00_00",
-                "label": "Rapport-building as diagnostic baseline",
-                "description": "I start with a quick rapport-building chat about their day; if they can't recall recent changes in mood or memory during the chat, the test hasn't even started and I already have my first clue.",
-                "score": 0.75,
+                "node_id": "q_01__exp_leaf_00_00_01",
+                "label": "Dynamic Scheduling & Routing",
+                "description": "Mapping out visits and routes, then scrambling to reassign everything when a caregiver calls in sick or traffic hits a specific bottleneck.",
+                "score": 0.82,
                 "snapped": false,
                 "snap_reason": ""
               },
               {
                 "node_id": "q_01__exp_leaf_00_01_01",
-                "label": "Probing beyond the standardized script",
-                "description": "The MoCA and MMSE are tools, but they're not the whole picture. I don't just stick to the script; real clues come when I start probing beyond it or when they're not expecting it.",
-                "score": 0.7,
-                "snapped": true,
-                "snap_reason": "Low confidence match (score=0.70)"
+                "label": "Inter-Party Mediation",
+                "description": "Being the middleman between what the caregiver reports, what the family expects, and what the center allows, smoothing over friction before it becomes a complaint.",
+                "score": 0.78,
+                "snapped": false,
+                "snap_reason": ""
               }
             ]
           },
           "researcher": {
             "best_leaf_id": "q_01__res_leaf_00_00_00",
-            "confidence": 0.7,
+            "confidence": 0.0,
             "top_results": [
               {
                 "node_id": "q_01__res_leaf_00_00_00",
-                "label": "Fixed vs. adaptive sequencing of sub-tests",
-                "description": "Identify whether the order of assessment components (e.g., orientation before recall) is rigidly fixed or dynamically adjusted based on patient performance.",
-                "score": 0.7,
+                "label": "Quantify care vs. admin ratio",
+                "description": "Determine the percentage of shift time dedicated to direct client interaction versus preparatory routines and closing documentation.",
+                "score": 0.0,
                 "snapped": true,
-                "snap_reason": "Low confidence match (score=0.70)"
+                "snap_reason": "Very low confidence (score=0.00), may not be accurate"
               },
               {
                 "node_id": "q_01__res_leaf_00_00_01",
-                "label": "Criteria for transitioning between test sections",
-                "description": "Determine the specific triggers or completion markers that signal the clinician to move from one cognitive domain task to the next.",
-                "score": 0.7,
+                "label": "Identify peak density windows",
+                "description": "Map specific clock hours where task density significantly exceeds the shift average to locate high-pressure intervals.",
+                "score": 0.0,
                 "snapped": true,
-                "snap_reason": "Low confidence match (score=0.70)"
+                "snap_reason": "Very low confidence (score=0.00), may not be accurate"
               },
               {
-                "node_id": "q_01__res_leaf_02_00_00",
-                "label": "Seating arrangement relative to test materials",
-                "description": "Document the geometric setup between clinician, patient, and test artifacts to ensure optimal visibility and interaction.",
-                "score": 0.6,
+                "node_id": "q_01__res_leaf_00_01_00",
+                "label": "Measure transit time proportion",
+                "description": "Calculate the proportion of total shift duration consumed by travel between home visit locations.",
+                "score": 0.0,
                 "snapped": true,
-                "snap_reason": "Low confidence match (score=0.60)"
+                "snap_reason": "Very low confidence (score=0.00), may not be accurate"
               }
             ]
           }
         },
-        "confidence_warning": "",
-        "uncertain_interpretation": {},
-        "divergence": {
-          "lca_layer": "root",
-          "expert_branch": "Anxious or fatigued behavior",
-          "researcher_branch": "Transitioning between test sections",
-          "explanation": "Major perspective difference: Expert focuses on 'Behavioral process and \"in-between\" moments' while you focus on 'Criteria for transitioning between test sections'. You need high-level bridging."
-        },
-        "assistance": {
-          "relation_type": "TacitGap",
-          "payload": {
-            "attributes": [
-              "intuition",
-              "diagnostic_signal"
-            ],
-            "probes": [
-              {
-                "attribute": "intuition",
-                "question": "Does the urge to transition come from a sense of diminishing returns, a structured protocol rule, or perceived patient distress?",
-                "choices": [
-                  "Sense of diminishing returns",
-                  "Structured protocol rule",
-                  "Perceived patient distress"
-                ]
-              },
-              {
-                "attribute": "diagnostic_signal",
-                "question": "Are you waiting for a specific failure count, a pattern of inconsistent answers, or a total lack of engagement?",
-                "choices": [
-                  "Specific failure count",
-                  "Pattern of inconsistent answers",
-                  "Total lack of engagement"
-                ]
-              }
-            ],
-            "hypothetical_scenarios": [
-              {
-                "scenario": "If your gut feeling changed from confident to uncertain, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
-                "attribute": "intuition"
-              },
-              {
-                "scenario": "If the failure threshold changed from 3 errors to 5 errors, would your judgment about 'Behavioral process and \"in-between\" moments' change?",
-                "attribute": "diagnostic_signal"
-              }
-            ],
-            "extracted_attributes": [
-              "observation",
-              "effort_consistency",
-              "non_verbal_cues"
-            ],
-            "mentioned_attributes": [
-              "observation",
-              "effort_consistency",
-              "non_verbal_cues"
-            ],
-            "extracted_quotes": [
-              "watching their hands fumble",
-              "stall on the verbal fluency part",
-              "never makes it into the structured form"
-            ]
-          }
-        },
-        "selected_link": {
-          "expert_leaf_id": "q_01__exp_leaf_00_01_00",
-          "researcher_leaf_id": "q_01__res_leaf_00_00_01",
-          "relation_type": "TacitGap",
-          "weight": 4.0
+        "confidence_warning": "Researcher match confidence 0.00 is below threshold 0.40; showing the no-mismatch fallback.",
+        "uncertain_interpretation": {
+          "status": "No other mismatch requiring system intervention has been found yet.",
+          "candidates": []
         }
       },
       "jargon_terms": [
         {
-          "term": "MoCA",
-          "desc": "Montreal Cognitive Assessment—a brief test used to detect mild cognitive impairment, especially in early stages of conditions like dementia."
+          "term": "triaging crises",
+          "desc": "Prioritizing and responding to urgent problems or emergencies as they arise, often under pressure."
         },
         {
-          "term": "MMSE",
-          "desc": "Mini-Mental State Examination—a commonly used short test to screen for cognitive impairment, though less sensitive than MoCA for early changes."
-        },
-        {
-          "term": "clock-drawing",
-          "desc": "A task where the patient draws a clock showing a specific time; it helps assess visuospatial skills and executive function, often revealing subtle cognitive issues."
-        },
-        {
-          "term": "verbal fluency",
-          "desc": "A test where the patient names as many words as possible from a category (like animals) in one minute; it evaluates language and executive functioning."
-        }
-      ]
-    },
-    {
-      "role": "researcher",
-      "content": "What are the main challenges you face when screening patients for early-stage cognitive decline? (e.g., high patient anxiety/resistance? time constraints in clinical settings? distinguishing normal aging from pathological decline?)",
-      "source": "text",
-      "turn_index": 2
-    },
-    {
-      "role": "expert",
-      "content": "Honestly, the biggest headache is time—15 minutes isn’t enough to really *see* someone, especially when they’re anxious or putting on a show. I’ve had patients ace the MoCA but can’t manage their meds at home, and others who stumble on the test but are totally functional. The real red flags often come from how they talk around questions, not the answers themselves—like repeating phrases or getting stuck mid-sentence—but that’s nearly impossible to code into a score. And good luck explaining that gut sense to a resident who’s just checking boxes.",
-      "source": "ai_interviewee",
-      "turn_index": 2,
-      "dsag_analysis": {
-        "located": {
-          "expert": {
-            "best_leaf_id": "q_02__exp_leaf_00_00_01",
-            "confidence": 0.9,
-            "top_results": [
-              {
-                "node_id": "q_02__exp_leaf_00_00_01",
-                "label": "Test Scores vs. Clinical Reality",
-                "description": "Standard screens give a number but miss the nuance of real-world function or conversation. You know they're struggling, but the MoCA says 26/30. Day-to-day performance varies too much for a snapshot.",
-                "score": 0.9,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_02__exp_leaf_00_01_00",
-                "label": "White Coat Anxiety Masking Ability",
-                "description": "They get so nervous testing makes them fail. You have to sense when it's panic vs. deficit, otherwise you over-diagnose.",
-                "score": 0.85,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_02__exp_leaf_00_00_00",
-                "label": "The Benign Forgetfulness Trap",
-                "description": "It's tough to tell if forgetting keys is just normal aging or the start of something worse. Scores often look identical, but the patient's insight feels different.",
-                "score": 0.75,
-                "snapped": false,
-                "snap_reason": ""
-              }
-            ]
-          },
-          "researcher": {
-            "best_leaf_id": "q_02__res_leaf_00_00_00",
-            "confidence": 0.85,
-            "top_results": [
-              {
-                "node_id": "q_02__res_leaf_00_00_00",
-                "label": "Anxiety vs. Ability Manifestation",
-                "description": "Determine how test anxiety specifically manifests in performance metrics compared to actual cognitive ability to inform affective computing interventions.",
-                "score": 0.85,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_02__res_leaf_02_00_01",
-                "label": "Borderline Score Uncertainty",
-                "description": "Locate where clinicians feel most uncertain when interpreting borderline scores on current assessments to target decision support.",
-                "score": 0.8,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_02__res_leaf_01_00_00",
-                "label": "Time Pressure Accuracy Trade-offs",
-                "description": "Pinpoint specific moments in the screening process where time pressures most compromise diagnostic accuracy.",
-                "score": 0.75,
-                "snapped": false,
-                "snap_reason": ""
-              }
-            ]
-          }
-        },
-        "confidence_warning": "",
-        "uncertain_interpretation": {},
-        "divergence": {
-          "lca_layer": "L2",
-          "expert_branch": "Test Scores vs. Real Behavior",
-          "researcher_branch": "Anxiety vs. True Ability",
-          "explanation": "Specific difference at detail level. Expert: 'Test Scores vs. Clinical Reality', You: 'Anxiety vs. Ability Manifestation'. You can use concrete examples to bridge."
-        },
-        "assistance": {
-          "relation_type": "ConceptualGap",
-          "payload": {
-            "analogy": {
-              "source_concept": "gut sense",
-              "target_concept": "hearing a conversation from the next room",
-              "structural_mapping": {
-                "inputs": "Patient's actual cognitive function",
-                "logic": "Information passes through a barrier that removes context",
-                "outputs": "Diagnostic score or report"
-              },
-              "explanation": "Like trying to understand a conversation through a wall, the test scores don’t capture the full picture—especially when patients are anxious or masking their true state, which you’ve described as ‘putting on a show.’",
-              "source_evidence": {
-                "quote": "gut sense",
-                "start_char": 501,
-                "end_char": 510
-              }
-            },
-            "scenario": "When you said patients 'ace the MoCA but can’t manage their meds at home,' does that pattern hold even when they’re not anxious or trying too hard?"
-          }
-        },
-        "selected_link": {
-          "expert_leaf_id": "q_02__exp_leaf_00_00_01",
-          "researcher_leaf_id": "q_02__res_leaf_00_00_00",
-          "relation_type": "ConceptualGap",
-          "weight": 4.0
-        }
-      },
-      "jargon_terms": [
-        {
-          "term": "MoCA",
-          "desc": "Montreal Cognitive Assessment—a common short test used by clinicians to screen for mild cognitive impairment"
-        },
-        {
-          "term": "clinical intuition",
-          "desc": "A clinician’s experienced-based judgment or 'gut feeling' about a patient’s condition, often drawn from subtle behavioral cues that aren’t captured by formal tests"
-        },
-        {
-          "term": "red flags",
-          "desc": "Warning signs that suggest something might be wrong—here, behaviors that hint at early cognitive decline even if test scores look normal"
-        }
-      ]
-    },
-    {
-      "role": "researcher",
-      "content": "When observing a patient's ability to handle high-ecological-validity daily tasks (e.g., grocery shopping or following a soup recipe) instead of standardized paper tests, what is your general mindset? Which specific phase of observing these unstructured daily tasks causes you the most difficulty in making a confident clinical judgment?",
-      "source": "text",
-      "turn_index": 3
-    },
-    {
-      "role": "expert",
-      "content": "I’ll be honest—I *prefer* watching someone do real-world tasks because that’s where the truth shows up. But the problem is, there’s no rubric for “how lost someone looks in a grocery aisle” or “how many times they reread a recipe step.” The hardest part is the middle phase—when they’re actively doing the task but not failing outright. Like, they’re moving, talking, trying… but you see these micro-hesitations, wrong substitutions, or they skip steps without realizing. It *feels* off, but I can’t chart it cleanly, and if a resident or an AI asked me *why* I’m concerned, I’d struggle to put it into words that hold up in a note.",
-      "source": "ai_interviewee",
-      "turn_index": 3,
-      "dsag_analysis": {
-        "located": {
-          "expert": {
-            "best_leaf_id": "q_03__exp_leaf_01_00_00",
-            "confidence": 0.85,
-            "top_results": [
-              {
-                "node_id": "q_03__exp_leaf_01_00_00",
-                "label": "Execution Pauses & Flow Hesitation",
-                "description": "It's that split second between chopping the onion and finding the pan, OR the hesitation while chopping. If they just stand there holding the knife or move with uncertain slowness, the engine has stalled or is struggling. That pause or flow-hesitation is where the executive function dies.",
-                "score": 0.85,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_03__exp_leaf_01_00_01",
-                "label": "Error Monitoring & Insight",
-                "description": "They put salt in twice. Do they catch it? If they taste it and shrug, that's one thing. If they don't even notice the shaker is empty, that's insight loss. Watching them catch their own mistakes is gold, especially since they might not realize it felt hard.",
-                "score": 0.8,
-                "snapped": false,
-                "snap_reason": ""
-              }
-            ]
-          },
-          "researcher": {
-            "best_leaf_id": "q_03__res_leaf_01_00_01",
-            "confidence": 0.85,
-            "top_results": [
-              {
-                "node_id": "q_03__res_leaf_01_00_01",
-                "label": "Ambiguity in task initiation phases",
-                "description": "Investigate if the setup phase (understanding instructions) causes more diagnostic uncertainty than the active performance phase.",
-                "score": 0.85,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_03__res_leaf_01_00_00",
-                "label": "Identify the confidence tipping point",
-                "description": "Determine the specific moment in the task flow where a clinician shifts from 'monitoring' to 'suspecting pathology'.",
-                "score": 0.8,
-                "snapped": false,
-                "snap_reason": ""
-              }
-            ]
-          }
-        },
-        "confidence_warning": "",
-        "uncertain_interpretation": {},
-        "divergence": {
-          "lca_layer": "L2",
-          "expert_branch": "Micro-hesitations in task execution",
-          "researcher_branch": "Ambiguity in task initiation",
-          "explanation": "Specific difference at detail level. Expert: 'Execution Pauses & Flow Hesitation', You: 'Ambiguity in task initiation phases'. You can use concrete examples to bridge."
-        },
-        "assistance": {
-          "relation_type": "ScopeGap",
-          "payload": {
-            "validate_focus": "The expert emphasizes that execution pauses and flow hesitation are critical behavioral markers where executive function often stalls during active tasks. This focus highlights tangible moments of struggle that are vital for identifying neurocognitive issues.",
-            "pivot": {
-              "limitation": "Focusing solely on execution behaviors risks overlooking whether diagnostic uncertainty originates earlier during the instruction or setup phase. This limitation prevents a complete understanding of where the cognitive load becomes unmanageable.",
-              "research_goal": "The researcher is trying to understand if phase-specific judgment difficulty varies between task initiation and active performance. The goal is to compare diagnostic confidence across these distinct temporal dynamics.",
-              "compelling_reason": "While execution markers are important, distinguishing initiation ambiguity from performance hesitation helps isolate the specific source of clinical bottleneck. Both phases provide necessary context for accurate screening.",
-              "coarse_scenario": "While those execution pauses are definitely critical, I also need to understand if the uncertainty starts even earlier when you're first interpreting the instructions. Distinguishing that helps us see if the bottleneck is in the setup or the action.",
-              "condensed_explanation": "The expert is focusing on the moment-to-moment execution of tasks, particularly the subtle hesitations and micro-errors that reveal cognitive strain. The researcher, however, is trying to understand whether the difficulty in making a confident judgment occurs earlier, during the setup or interpretation of the task. Both perspectives matter, but they are diverging because the expert is emphasizing observable behavior, while the researcher is probing for the root of the uncertainty."
-            }
-          }
-        },
-        "selected_link": {
-          "expert_leaf_id": "q_03__exp_leaf_01_00_00",
-          "researcher_leaf_id": "q_03__res_leaf_01_00_01",
-          "relation_type": "ScopeGap",
-          "weight": 4.0
-        }
-      },
-      "jargon_terms": [
-        {
-          "term": "high-ecological-validity daily tasks",
-          "desc": "Real-life activities that closely reflect how people actually behave in everyday situations, like shopping or cooking, used to assess cognitive function in a natural context."
-        },
-        {
-          "term": "micro-hesitations",
-          "desc": "Very brief pauses or delays in action or speech that may signal uncertainty or cognitive difficulty, often subtle and hard to measure."
-        },
-        {
-          "term": "clinical judgment",
-          "desc": "A healthcare professional’s expert decision about a patient’s condition, based on observation, experience, and available evidence."
-        }
-      ]
-    },
-    {
-      "role": "researcher",
-      "content": "Many experienced geriatricians rely on 'clinical intuition' to quickly gauge whether a patient is masking their cognitive decline during a casual conversation, even before formal testing begins. If you had to explain this to a junior resident, what 2 to 3 objective behavioral or linguistic cues actually underlie this 'gut feeling'?",
-      "source": "text",
-      "turn_index": 4
-    },
-    {
-      "role": "expert",
-      "content": "I’d tell them to watch for *repetition without awareness*—like when a patient says the same phrase two or three times in a short conversation and doesn’t realize it. Also, *overcompensation*: they’ll give way too much detail unprompted, like explaining how they bought milk “at the store near the post office, not the other one, because that one had a sale last Tuesday,” when you just asked what they had for breakfast. And third, *hesitation masked as politeness*—pausing mid-sentence, then saying “Oh, you know…” or “What’s the word…” but brushing it off like it’s nothing. That’s usually where the real slippage is hiding.",
-      "source": "ai_interviewee",
-      "turn_index": 4,
-      "dsag_analysis": {
-        "located": {
-          "expert": {
-            "best_leaf_id": "q_04__exp_leaf_00_00_03",
-            "confidence": 0.9,
-            "top_results": [
-              {
-                "node_id": "q_04__exp_leaf_00_00_03",
-                "label": "Verbal Perseveration",
-                "description": "They start repeating the same story or phrase multiple times in a short conversation. It's not just forgetting they said it; it's a loop that doesn't move forward.",
-                "score": 0.9,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_04__exp_leaf_00_00_00",
-                "label": "Empty Fluency",
-                "description": "They talk a mile a minute and sound perfectly coherent, but if you ask what they had for breakfast, they say 'oh, the usual' instead of 'eggs'—high word count, zero data.",
-                "score": 0.75,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_04__exp_leaf_00_01_00",
-                "label": "Social Scaffolding",
-                "description": "You ask them what year it is or what they did last weekend, and their eyes dart to their wife before they answer—they're outsourcing the verification.",
-                "score": 0.6,
-                "snapped": true,
-                "snap_reason": "Low confidence match (score=0.60)"
-              }
-            ]
-          },
-          "researcher": {
-            "best_leaf_id": "q_04__res_leaf_00_00_00",
-            "confidence": 0.9,
-            "top_results": [
-              {
-                "node_id": "q_04__res_leaf_00_00_00",
-                "label": "Quantifiable proxies for conversational deflection",
-                "description": "Identify specific interaction logs (e.g., topic shifts, question reversals) that serve as digital proxies for a clinician's feeling that a patient is 'dodging' a question.",
-                "score": 0.9,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_04__res_leaf_01_01_00",
-                "label": "Non-verbal leakage during unstructured recall",
-                "description": "Identify micro-expressions, fidgeting, or gaze aversion that occur specifically when memory is queried indirectly during casual chat.",
-                "score": 0.85,
-                "snapped": false,
-                "snap_reason": ""
-              },
-              {
-                "node_id": "q_04__res_leaf_01_00_01",
-                "label": "Reliance on social scripts to bypass cognitive load",
-                "description": "Detect increased use of clichés, stock phrases, or humor when conversation depth increases to avoid complex sentence construction.",
-                "score": 0.75,
-                "snapped": false,
-                "snap_reason": ""
-              }
-            ]
-          }
-        },
-        "confidence_warning": "",
-        "uncertain_interpretation": {},
-        "divergence": {
-          "lca_layer": "L2",
-          "expert_branch": "Repetition Without Awareness",
-          "researcher_branch": "Hesitation Masked as Politeness",
-          "explanation": "Specific difference at detail level. Expert: 'Verbal Perseveration', You: 'Reliance on social scripts to bypass cognitive load'. You can use concrete examples to bridge."
-        },
-        "assistance": {
-          "relation_type": "ConceptualGap",
-          "payload": {
-            "analogy": {
-              "source_concept": "repetition without awareness",
-              "target_concept": "Stuck on a loop, not choosing to repeat",
-              "structural_mapping": {
-                "inputs": "Pressure to move forward in conversation",
-                "logic": "Cognitive mechanism stuck vs. Strategic choice to stay safe",
-                "outputs": "Same words repeated without progress"
-              },
-              "explanation": "When the expert talks about 'repetition without awareness,' they’re describing something like a song that gets stuck on a record—where the same phrase plays over and over, not because the person is trying to avoid complexity, but because their brain is literally stuck on that track.",
-              "source_evidence": {
-                "quote": "repetition without awareness",
-                "start_char": 28,
-                "end_char": 56
-              }
-            },
-            "scenario": "When you said patients ‘repeat phrases’ without realizing it, does that happen even when they’re trying hard to be helpful or seem normal?"
-          }
-        },
-        "selected_link": {
-          "expert_leaf_id": "q_04__exp_leaf_00_00_03",
-          "researcher_leaf_id": "q_04__res_leaf_01_00_01",
-          "relation_type": "ConceptualGap",
-          "weight": 4.0
-        }
-      },
-      "jargon_terms": [
-        {
-          "term": "repetition without awareness",
-          "desc": "When a person repeats the same words or phrases during a conversation without realizing they’ve already said them, which can signal memory or attention issues."
-        },
-        {
-          "term": "overcompensation",
-          "desc": "Providing excessive, unnecessary details in response to a simple question, often as an unconscious attempt to cover up difficulty with memory or thinking."
-        },
-        {
-          "term": "hesitation masked as politeness",
-          "desc": "Pausing or struggling to find words during speech, then downplaying it with phrases like 'you know' or 'what’s the word,' which may hide underlying cognitive difficulties."
+          "term": "burns out",
+          "desc": "Experiencing physical, emotional, or mental exhaustion caused by prolonged stress or overwork."
         }
       ]
     }

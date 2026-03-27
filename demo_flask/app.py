@@ -56,19 +56,29 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Lin 
-Professional Role: Senior Geriatrician / Clinical Neuropsychologist 
-Work Experience: Extensive frontline clinical experience in diagnosing and managing neurocognitive disorders (NCD) in elderly patients. Frequently administers and interprets standardized cognitive assessments such as the MoCA (Montreal Cognitive Assessment) and MMSE (Mini-Mental State Examination) in daily clinical practice.
+INTERVIEWEE_DEMOGRAPHICS = """Name: Mrs. Chen
+
+Professional Role: Senior Community Care Coordinator / Elderly Services Program Manager 
+
+Work Experience: Over 10 years of experience managing care teams and coordinating daily operations in community centers and home visit programs. Frequently handles complex task allocation, crisis intervention, and family communication. She routinely manages high-stress care environments and deeply understands the intense daily workload of frontline care staff.
 
 Expertise:
-Deeply familiar with the standard clinical workflows, diagnostic criteria, and pathological progression of dementia and Alzheimer's disease.
-Highly capable of distinguishing between normal age-related cognitive decline and pathological cognitive impairment.
-Possesses strong "clinical intuition" (tacit knowledge) to detect when elderly patients are masking or compensating for their cognitive deficits during casual conversations, relying on subtle behavioral and linguistic cues.
+
+Deeply familiar with the huge gap between formalized care protocols and the messy, unpredictable reality of daily caregiving.
+
+Skilled at balancing strict administrative requirements with sudden client emergencies.
+
+Highly capable of relying on professional intuition to manage team burnout, allocate limited resources, and de-escalate conflicts with demanding family members.
+
+Often identifies operational bottlenecks and staff fatigue long before they appear in formal management reports.
 
 Core Challenges & Pain Points:
-Profoundly understands the practical difficulties of clinical screening, including severe time constraints in outpatient settings and handling high patient anxiety or resistance to formal testing.
-Finds it challenging to make confident, evidence-based clinical judgments when observing patients perform "unstructured, high-ecological-validity daily tasks" (e.g., grocery shopping or cooking). While these tasks reflect real-world ability, they lack the standardized scoring rubrics and structured baseline metrics that doctors rely on for medical documentation.
-Struggles to articulate highly internalized "gut feelings" into explicit, objective parameters that novice residents (or AI systems) can easily follow.
+
+Profoundly understands the heavy cognitive load and emotional exhaustion caused by understaffing, redundant paperwork, and fragmented communication channels.
+
+Finds it extremely frustrating when technology designers or policymakers create "solutions" that actually add more administrative burden rather than reducing it.
+
+Often feels that the most difficult parts of her job—such as managing erratic client behaviors, mediating family disputes, and handling the emotional weight of the job—are completely invisible to system developers. System developers usually focus only on the end-user (the elderly client) and completely ignore the workflow needs of the care worker.
 
 
 """

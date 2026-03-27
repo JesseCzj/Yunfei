@@ -1,27 +1,2086 @@
 {
-  "created_at": "2026-03-27T11:22:10.392787",
-  "question_graph_count": 4,
+  "graph": {
+    "topic": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+    "researcher_bg": "An HCI researcher specializing in workplace technologies and caregiving systems. The researcher aims to understand the daily operational burdens and workflow inefficiencies of elderly care professionals but lacks firsthand experience in frontline care management.",
+    "expert_bg": "A senior community care coordinator who manages complex caregiver workflows and daily operations at a community center. The expert possesses deep firsthand knowledge of the administrative burdens, emotional labor, and logistical challenges that care professionals face daily.",
+    "expert_tree": {
+      "tower": "expert",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "description": "Interview topic: Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__exp_L1_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L1_00": {
+          "id": "q_01__exp_L1_00",
+          "tower": "expert",
+          "layer": "L1",
+          "label": "Senior Community Care Coordinator",
+          "description": "The administrative and emotional reality of managing caregiver workflows, family expectations, and operational continuity in home and community care.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__exp_L2_00_00",
+            "q_01__exp_L2_00_01",
+            "q_01__exp_L2_00_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L2_00_00": {
+          "id": "q_01__exp_L2_00_00",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Operational Workflow & Admin Burden",
+          "description": "The structural and administrative friction that consumes actual care time, often invisible to outsiders.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_00_00",
+            "q_01__exp_leaf_00_00_01",
+            "q_01__exp_leaf_00_00_02",
+            "q_01__exp_leaf_00_00_03",
+            "q_01__exp_leaf_00_00_04"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_00_00": {
+          "id": "q_01__exp_leaf_00_00_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Communication Intake Overload",
+          "description": "Starting the day drowning in emails and voicemails from caregivers, spending the first hour just triaging who needs what before actual work begins.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Inbox zero impossible",
+            "Message triage",
+            "Morning email dump"
+          ]
+        },
+        "q_01__exp_leaf_00_00_01": {
+          "id": "q_01__exp_leaf_00_00_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Dynamic Scheduling & Routing",
+          "description": "Mapping out visits and routes, then scrambling to reassign everything when a caregiver calls in sick or traffic hits a specific bottleneck.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [
+            "logistical",
+            "high_pressure",
+            "problem_solving"
+          ],
+          "aliases": [
+            "Shift juggling",
+            "Route mapping",
+            "Coverage gaps",
+            "Last-minute reorganization"
+          ]
+        },
+        "q_01__exp_leaf_00_00_02": {
+          "id": "q_01__exp_leaf_00_00_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Reactive Documentation Lag",
+          "description": "The paperwork always trails the actual care; spending the end of the day chasing staff to upload logs so you aren't non-compliant tomorrow.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Report chasing",
+            "Compliance catch-up",
+            "Documentation trailing"
+          ]
+        },
+        "q_01__exp_leaf_00_00_03": {
+          "id": "q_01__exp_leaf_00_00_03",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Care Plan Compliance",
+          "description": "Pausing care because a family member hasn't signed the updated plan yet, forcing you to nag them legally before the visit can start.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Signature chasing",
+            "Authorization delays",
+            "Legal blockers"
+          ]
+        },
+        "q_01__exp_leaf_00_00_04": {
+          "id": "q_01__exp_leaf_00_00_04",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Resource & Supply Oversight",
+          "description": "Worrying that the caregiver left with the wrong gauze size or missed a supply pack, forcing a mid-visit pharmacy run you have to authorize.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Supply stockouts",
+            "Kit checks",
+            "Equipment gaps"
+          ]
+        },
+        "q_01__exp_L2_00_01": {
+          "id": "q_01__exp_L2_00_01",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Client & Family Relational Dynamics",
+          "description": "The emotional labor and interpersonal negotiations required to deliver care effectively.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_01_00",
+            "q_01__exp_leaf_00_01_01",
+            "q_01__exp_leaf_00_01_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_01_00": {
+          "id": "q_01__exp_leaf_00_01_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Family Expectation Management",
+          "description": "Families asking for small favors outside the care plan that add up, or calling constantly for updates that interrupt your coordination flow.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [
+            "emotional_labor",
+            "boundary_setting",
+            "communication"
+          ],
+          "aliases": [
+            "Scope creep",
+            "'Just one more thing'",
+            "Boundary testing"
+          ]
+        },
+        "q_01__exp_leaf_00_01_01": {
+          "id": "q_01__exp_leaf_00_01_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Inter-Party Mediation",
+          "description": "Being the middleman between what the caregiver reports, what the family expects, and what the center allows, smoothing over friction before it becomes a complaint.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [
+            "relational",
+            "negotiation",
+            "conflict_resolution"
+          ],
+          "aliases": [
+            "Buffering conflicts",
+            "Translation layer",
+            "Staff-family liaison"
+          ]
+        },
+        "q_01__exp_leaf_00_01_02": {
+          "id": "q_01__exp_leaf_00_01_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Detecting Caregiver & Family Strain",
+          "description": "Hearing the tone in a daughter's voice or a caregiver's report change over weeks, signaling overwhelm before they actually admit it.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [
+            "emotional_labor",
+            "observational",
+            "preventative"
+          ],
+          "aliases": [
+            "Burnout signals",
+            "Tone detection",
+            "Early warning signs"
+          ]
+        },
+        "q_01__exp_L2_00_02": {
+          "id": "q_01__exp_L2_00_02",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Tacit Coordination & Continuity",
+          "description": "The unwritten workflows and observational skills that keep care safe when formal systems fail.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_02_00",
+            "q_01__exp_leaf_00_02_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_02_00": {
+          "id": "q_01__exp_leaf_00_02_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Informal Knowledge Reliance",
+          "description": "Trusting the handwritten note on the fridge more than the electronic log because it holds the real rules like 'don't knock too loud'.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "tacit_knowledge",
+            "risk_mitigation",
+            "workaround"
+          ],
+          "aliases": [
+            "Sticky note system",
+            "Unofficial handover",
+            "Shadow documentation"
+          ]
+        },
+        "q_01__exp_leaf_00_02_01": {
+          "id": "q_01__exp_leaf_00_02_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Blurred Professional Boundaries",
+          "description": "Not having a real start or end to the shift, just a steady rhythm of triaging emergencies where you're never truly off the clock.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "cognitive_load",
+            "burnout_risk",
+            "workflow_structure"
+          ],
+          "aliases": [
+            "Always on",
+            "Triage rhythm",
+            "No off switch"
+          ]
+        }
+      }
+    },
+    "researcher_tree": {
+      "tower": "researcher",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "description": "Interview topic: Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__res_L1_00",
+            "q_01__res_L1_01",
+            "q_01__res_L1_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L1_00": {
+          "id": "q_01__res_L1_00",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Temporal Task Architecture",
+          "description": "Analyzing the chronological structure of the workday to understand how time is allocated across different phases of care and logistics.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_00_00",
+            "q_01__res_L2_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_00_00": {
+          "id": "q_01__res_L2_00_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Shift Phase Distribution",
+          "description": "Investigating how the total shift duration is segmented into preparatory, active care, and administrative blocks.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_00_00",
+            "q_01__res_leaf_00_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_00_00": {
+          "id": "q_01__res_leaf_00_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Quantify care vs. admin ratio",
+          "description": "Determine the percentage of shift time dedicated to direct client interaction versus preparatory routines and closing documentation.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Task Analysis",
+            "Temporal Load"
+          ]
+        },
+        "q_01__res_leaf_00_00_01": {
+          "id": "q_01__res_leaf_00_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Identify peak density windows",
+          "description": "Map specific clock hours where task density significantly exceeds the shift average to locate high-pressure intervals.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Workload Visualization",
+            "Peak Detection"
+          ]
+        },
+        "q_01__res_L2_00_01": {
+          "id": "q_01__res_L2_00_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Physical Logistics Overhead",
+          "description": "Measuring the time cost associated with physical movement required to deliver care in different settings.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_01_00",
+            "q_01__res_leaf_00_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_01_00": {
+          "id": "q_01__res_leaf_00_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Measure transit time proportion",
+          "description": "Calculate the proportion of total shift duration consumed by travel between home visit locations.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Workflow Mapping",
+            "Overhead Cost"
+          ]
+        },
+        "q_01__res_leaf_00_01_01": {
+          "id": "q_01__res_leaf_00_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Map intra-site navigation duration",
+          "description": "Record the time spent navigating physical spaces within a community center before direct care delivery begins.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Spatial Interaction",
+            "Transition Cost"
+          ]
+        },
+        "q_01__res_L1_01": {
+          "id": "q_01__res_L1_01",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Cognitive Flow & Continuity",
+          "description": "Examining the stability of the worker's focus and the frequency of disruptions that fragment the workflow.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_01_00",
+            "q_01__res_L2_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_01_00": {
+          "id": "q_01__res_L2_01_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Interruption Frequency",
+          "description": "Tracking how often external stimuli cause involuntary suspensions of the primary task.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_00_00",
+            "q_01__res_leaf_01_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_00_00": {
+          "id": "q_01__res_leaf_01_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Count context switches per hour",
+          "description": "Track the frequency of task suspensions caused by external stimuli during direct care periods.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Context Switching",
+            "Attention Economy"
+          ]
+        },
+        "q_01__res_leaf_01_00_01": {
+          "id": "q_01__res_leaf_01_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Categorize interruption sources",
+          "description": "Classify interruptions by origin (e.g., technology, family, colleague) to identify dominant flow breakers.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Interruption Science",
+            "Taxonomy Design"
+          ]
+        },
+        "q_01__res_L2_01_01": {
+          "id": "q_01__res_L2_01_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Recovery Latency",
+          "description": "Estimating the time required to regain full cognitive focus after a workflow disruption occurs.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_01_00",
+            "q_01__res_leaf_01_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_01_00": {
+          "id": "q_01__res_leaf_01_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Estimate re-orientation time",
+          "description": "Assess the latency period required to re-orient to the primary task following an administrative interruption.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Cognitive Load",
+            "Resumption Lag"
+          ]
+        },
+        "q_01__res_leaf_01_01_01": {
+          "id": "q_01__res_leaf_01_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Identify flow state barriers",
+          "description": "Pinpoint specific workflow steps where maintaining continuous focus is most difficult due to process design.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Flow State",
+            "Friction Analysis"
+          ]
+        },
+        "q_01__res_L1_02": {
+          "id": "q_01__res_L1_02",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Artifact & Information Ecology",
+          "description": "Understanding when and how workers interact with tools, records, and communication channels throughout the day.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_02_00",
+            "q_01__res_L2_02_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_02_00": {
+          "id": "q_01__res_L2_02_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Documentation Timing",
+          "description": "Analyzing the temporal relationship between care delivery and data entry tasks.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_00_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_00_00": {
+          "id": "q_01__res_leaf_02_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Determine entry synchronicity",
+          "description": "Determine the ratio of documentation performed concurrently with care versus post-shift batching.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Interaction Cost",
+            "Multi-tasking"
+          ]
+        },
+        "q_01__res_L2_02_01": {
+          "id": "q_01__res_L2_02_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Handoff Protocols",
+          "description": "Mapping the standard procedures and tools used for transferring responsibility between shifts.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_01_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_01_00": {
+          "id": "q_01__res_leaf_02_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Chronometer transfer duration",
+          "description": "Measure the duration required to complete standard end-of-shift information transfer protocols.",
+          "parent_id": "q_01__res_L2_02_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Workflow Mapping",
+            "Communication Protocol"
+          ]
+        }
+      }
+    },
+    "links": [
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Communication Intake Overload"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Communication Intake Overload",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes how communication intake overload creates a critical bottleneck at the start of the shift. This qualitative barrier prevents actual care work from beginning efficiently.",
+          "pivot": {
+            "limitation": "Focusing solely on the intake bottleneck misses the broader distribution of time across the entire shift. It does not capture how much total time is lost to administrative tasks versus direct care throughout the day.",
+            "research_goal": "The researcher aims to quantify the ratio of direct client interaction to preparatory and documentation routines. This provides an aggregate view of operational efficiency beyond just the morning triage.",
+            "compelling_reason": "While the intake overload is a vital pain point, understanding the overall care vs. admin ratio helps identify if this bottleneck is an isolated incident or part of a systemic imbalance affecting total care delivery. Both perspectives are needed to fully map the workflow challenges.",
+            "coarse_scenario": "I hear you that drowning in emails first thing blocks everything else, and that's critical. But if we can also pin down how that morning scramble compares to your admin time throughout the rest of the shift, it helps us prove whether this is just a startup issue or a systemic staffing imbalance."
+          }
+        },
+        "weight": 2.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Communication Intake Overload"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Communication Intake Overload",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the significant burden of communication intake overload that occurs before actual care work begins. This pre-work triage is identified as a primary operational bottleneck affecting their daily workflow.",
+          "pivot": {
+            "limitation": "If the discussion stays only on the expert's current concern, data regarding task suspensions during direct care periods remains missed. This exclusion prevents a full view of where cognitive flow is broken throughout the entire shift.",
+            "research_goal": "The researcher is trying to understand the frequency of task suspensions caused by external stimuli during direct care periods. The aim is to count context switches per hour to measure cognitive flow continuity.",
+            "compelling_reason": "While the expert's admin burden is critical, understanding interruptions during care is also important for the interview goal of mapping overall operational bottlenecks. Both pre-work overload and in-care interruptions contribute to the total cognitive load on care workers.",
+            "coarse_scenario": "I hear that starting your day with email triage is a huge drain, and I want to make sure we capture that. At the same time, could we also look at how many times you get pulled away once you're actually with a patient, because those interruptions might be compounding that same fatigue?"
+          }
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Communication Intake Overload"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Communication Intake Overload",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Communication Intake Overload",
+            "target_concept": "Shoveling the driveway before driving",
+            "structural_mapping": {
+              "inputs": "Overnight accumulation (snow/messages)",
+              "logic": "Must remove barrier before movement starts (shovel/triage)",
+              "outputs": "Path clear to begin journey (start work)"
+            },
+            "explanation": "The researcher's concept treats messages as interruptions to ongoing work, but this target concept shows they behave like snow blocking a driveway; the work cannot start until the intake is cleared, distinguishing blocked entry from broken flow."
+          },
+          "scenario": "When you arrive in the morning, do those emails feel like interruptions to your workflow, or do they feel like a barrier you must clear before your actual work can even begin?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Communication Intake Overload"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Recovery Latency",
+          "Estimate re-orientation time"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Communication Intake Overload",
+          "researcher_branch": "Estimate re-orientation time"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dynamic Scheduling & Routing",
+            "target_concept": "Checking your mirrors before driving",
+            "structural_mapping": {
+              "inputs": "Incoming signals (traffic conditions or caregiver emails)",
+              "logic": "Pause to assess status and safety before proceeding",
+              "outputs": "Confirmed safe path or prioritized task list"
+            },
+            "explanation": "Both your intake overload and the researcher's re-orientation act like checking mirrors; you must pause to process information before moving safely, whether starting the car or changing lanes."
+          },
+          "scenario": "When you open your inbox at 8 AM, does that mental load feel different than when a phone rings while you are already deep in scheduling?"
+        },
+        "weight": 4.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Dynamic Scheduling & Routing"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Physical Logistics Overhead",
+          "Measure transit time proportion"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Scheduling & Routing",
+          "researcher_branch": "Measure transit time proportion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Communication Intake Overload",
+            "target_concept": "fixing broken plans",
+            "structural_mapping": {
+              "inputs": "Unexpected disruptions (traffic/sickness vs. emails/voicemails)",
+              "logic": "Reactive reorganization (reassigning routes vs. triaging messages)",
+              "outputs": "Operational stability (schedule fixed vs. inbox cleared)"
+            },
+            "explanation": "The researcher's concept measures the trigger (transit time) for what the expert experiences as 'fixing broken plans', similar to how email volume triggers 'Communication Intake Overload'. Both concepts rely on the same mechanism where an input variable dictates the reactive labor required to restore stability."
+          },
+          "scenario": "When traffic delays a caregiver, do you simply log the lost time, or does it force you to scramble and reassign the rest of the day's visits?"
+        },
+        "weight": 2.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Dynamic Scheduling & Routing"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Scheduling & Routing",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dynamic Scheduling & Routing",
+            "target_concept": "Re-assigning seats at a wedding after a no-show",
+            "structural_mapping": {
+              "inputs": "One guest cancels last minute (Caregiver calls in sick)",
+              "logic": "Check family dynamics, table limits, and relationships before moving others (Check route constraints, skills, and traffic before reassigning)",
+              "outputs": "New seating chart for the whole room (New schedule for the whole day)"
+            },
+            "explanation": "While the researcher's concept treats the absence as a single event to categorize, the expert's concept behaves like the wedding seating logic where one change forces a complex re-calculation of everyone else's position, not just a simple label."
+          },
+          "scenario": "When a caregiver calls in sick, do you treat it as a single interruption to categorize, or does it feel like tearing up the whole schedule and starting over?"
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Dynamic Scheduling & Routing"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Scheduling & Routing",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert is emphasizing the volatile, reactive nature of administrative work involved in dynamic scheduling and routing. This concern highlights the significant operational instability faced during daily workflows.",
+          "pivot": {
+            "limitation": "Focusing solely on the dynamic scrambling overlooks the foundational time allocation that dictates how much buffer exists for those disruptions.",
+            "research_goal": "The researcher is trying to understand the percentage of shift time dedicated to direct client interaction versus preparatory routines and closing documentation.",
+            "compelling_reason": "While the expert's focus on instability is vital, the researcher also needs to quantify the care versus admin ratio to determine if the burden is structural or situational.",
+            "coarse_scenario": "I completely agree that the scrambling is where the stress hits, but to understand why that scrambling is so impactful, I need to know how much of your shift is actually booked for care versus admin before the chaos starts."
+          }
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Reactive Documentation Lag"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Reactive Documentation Lag",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical operational risk of documentation lagging behind care delivery, which creates compliance vulnerabilities at the end of shifts. This concern regarding the timing and stress of administrative catch-up is valid and central to the researcher's understanding of daily workflow stability.",
+          "pivot": {
+            "limitation": "Focusing solely on the timing of documentation misses the underlying structural allocation of time that causes the backlog. Without understanding the total volume of admin versus care, it is difficult for the researcher to identify if the lag experienced by the expert is due to inefficiency or simply an unsustainable workload ratio.",
+            "research_goal": "The researcher aims to quantify the specific ratio of shift time dedicated to direct client interaction versus preparatory and closing documentation routines. This data helps the researcher establish a baseline for temporal task architecture across different care settings.",
+            "compelling_reason": "While the expert's focus on lag addresses immediate compliance risk, the researcher's focus on ratios provides the metric needed to justify staffing changes or tooling investments that could eliminate the lag entirely. Both perspectives are necessary for the interview goal to solve the root cause rather than just managing the symptom.",
+            "coarse_scenario": "I completely agree that chasing logs at the end of the day is a major compliance risk. However, to fix that lag, I need to understand what percentage of your shift is actually eaten up by admin versus direct care so we can see if the workload itself is the root cause."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Reactive Documentation Lag"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Reactive Documentation Lag",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Reactive Documentation Lag",
+            "target_concept": "Cleaning up the kitchen after dinner",
+            "structural_mapping": {
+              "inputs": "Care visits completed",
+              "logic": "Record details after all tasks are done",
+              "outputs": "Compliance logs submitted"
+            },
+            "explanation": "The researcher expects documentation to act like washing a spoon while cooking (context switch), but your concept behaves like cleaning the kitchen after dinner (lag), revealing why their count misses your actual burden."
+          },
+          "scenario": "When you finish a visit, do you log the notes right there in the car, or do you wait until you're back at the office to do all the paperwork at once?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Reactive Documentation Lag"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Reactive Documentation Lag",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Communication Intake Overload",
+            "target_concept": "Paying the entry fee before entering the park",
+            "structural_mapping": {
+              "inputs": "Emails and voicemails from caregivers",
+              "logic": "Triage and resolve before actual care work begins",
+              "outputs": "Clear state to start the day's work"
+            },
+            "explanation": "The researcher categorizes interruptions like being stopped on a ride, but your intake overload is like paying the entry fee before entering; this clarifies that your documentation lag is similarly a boundary cost (like an exit fee), not a ride stoppage."
+          },
+          "scenario": "When your staff are with a client, is the paperwork stopping them right then, or is it the pile they have to clear once they get back to the office?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Reactive Documentation Lag"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Recovery Latency",
+          "Estimate re-orientation time"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Reactive Documentation Lag",
+          "researcher_branch": "Estimate re-orientation time"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Resource & Supply Oversight",
+            "target_concept": "Finding your place again after being interrupted",
+            "structural_mapping": {
+              "inputs": "Ongoing care task combined with an unexpected administrative need",
+              "logic": "Pause primary task to resolve need, then attempt to resume primary task",
+              "outputs": "Time and mental effort lost regaining focus on the primary task"
+            },
+            "explanation": "The researcher's 're-orientation time' is simply the time spent 'finding your place again' (Target), which matches the delay you feel during 'Supply Oversight' interruptions (Source) when you must stop care to fix a supply issue, distinct from your batched documentation work."
+          },
+          "scenario": "When you have to run for supplies mid-visit, is that mental reset different from chasing paperwork at the end of the day?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Reactive Documentation Lag"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Artifact & Information Ecology",
+          "Handoff Protocols",
+          "Chronometer transfer duration"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Reactive Documentation Lag",
+          "researcher_branch": "Chronometer transfer duration"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Care Plan Compliance",
+            "target_concept": "Filing expense reports after a business trip",
+            "structural_mapping": {
+              "inputs": "Finished work (care visit or business trip)",
+              "logic": "Required paperwork to prove work was done for validation",
+              "outputs": "Compliance safety or getting paid"
+            },
+            "explanation": "The researcher's timer captures the same end-of-shift bottleneck as the expert's compliance lag, but like filing expenses, the pressure comes from audit requirements, not just passing information."
+          },
+          "scenario": "When your staff are rushing to clock out, are they mostly discussing patient needs for the next shift, or just trying to finish their charts so you don't get flagged tomorrow?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Care Plan Compliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Care Plan Compliance",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Communication Intake Overload",
+            "target_concept": "Searching for your keys before driving",
+            "structural_mapping": {
+              "inputs": "Incoming emails/voicemails or missing house keys",
+              "logic": "Triaging messages or searching pockets to enable the main task",
+              "outputs": "Ready to work or ready to drive"
+            },
+            "explanation": "Both create a forced pause in your momentum; like searching for keys delays driving, compliance checks delay care, showing the researcher's count misses disruptions that happen before the engine starts."
+          },
+          "scenario": "When you're stuck chasing a signature before a visit starts, do you feel that delay disrupts your flow even though the care clock hasn't started yet?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Care Plan Compliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Care Plan Compliance",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Care Plan Compliance",
+            "target_concept": "Waiting for a building permit",
+            "structural_mapping": {
+              "inputs": "Ready to perform core task (care/construction)",
+              "logic": "Mandatory external approval required before start",
+              "outputs": "Work paused until approval received"
+            },
+            "explanation": "Just as a builder waits for a permit rule rather than the clerk delivering it, your care stops for the compliance rule rather than the family. Categorizing by 'Family' blames the messenger, hiding the real process blocker."
+          },
+          "scenario": "When you're forced to nag a family for a signature before starting care, does it feel like they are interrupting you, or that the regulation is holding the work hostage?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_03",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Care Plan Compliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Artifact & Information Ecology",
+          "Documentation Timing",
+          "Determine entry synchronicity"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Care Plan Compliance",
+          "researcher_branch": "Determine entry synchronicity"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Communication Intake Overload",
+            "target_concept": "Waiting at security before boarding",
+            "structural_mapping": {
+              "inputs": "Emails and voicemails requiring triage",
+              "logic": "Must clear administrative checks before core work begins",
+              "outputs": "Delayed start of actual care tasks"
+            },
+            "explanation": "The researcher's model assumes care is active, asking when you document during or after, but like your intake overload, this compliance step acts as a security check where boarding is impossible until clearance is granted."
+          },
+          "scenario": "When a missing signature stops you from starting a visit, do you count that administrative wait as documentation during care, or does it happen before the clock even starts?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_04",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Resource & Supply Oversight"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Resource & Supply Oversight",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical risk of supply errors, such as wrong gauze sizes, which can disrupt care and require immediate authorization.",
+          "pivot": {
+            "limitation": "Focusing solely on specific supply incidents overlooks the cumulative time cost these disruptions impose on the overall shift structure.",
+            "research_goal": "The researcher seeks to measure the precise ratio of time dedicated to direct client interaction compared to preparatory and administrative tasks.",
+            "compelling_reason": "Quantifying this time allocation is necessary to validate whether operational burdens like supply oversight are reducing available care time.",
+            "coarse_scenario": "While ensuring supply accuracy is vital for you, capturing the time spent managing these disruptions versus direct care helps quantify the hidden administrative burden affecting your team."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_04",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Resource & Supply Oversight"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Physical Logistics Overhead",
+          "Measure transit time proportion"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Resource & Supply Oversight",
+          "researcher_branch": "Measure transit time proportion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dynamic Scheduling & Routing",
+            "target_concept": "Planned commute vs. emergency detour",
+            "structural_mapping": {
+              "inputs": "Visit schedule vs. Supply error",
+              "logic": "Follow route vs. Deviate to fix",
+              "outputs": "Estimated time vs. Actual delayed time"
+            },
+            "explanation": "Your time tracking covers the planned drive like your scheduled route, but like counting commute time while ignoring an emergency detour, it misses the unplanned travel caused by supply errors."
+          },
+          "scenario": "When you measure travel time between visits, do you include the extra trips you authorize when a caregiver forgets supplies and needs a pharmacy run?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_04",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Resource & Supply Oversight"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Resource & Supply Oversight",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dynamic Scheduling & Routing",
+            "target_concept": "Changing your driving route mid-trip due to a road closure",
+            "structural_mapping": {
+              "inputs": "Planned route or schedule",
+              "logic": "Discovery of an unexpected blockage during execution",
+              "outputs": "Immediate halt and mental switch to rerouting"
+            },
+            "explanation": "Your 'context switch' metric counts the mental halt, but like rerouting around a road closure, this switch is triggered by a plan failure, not an outside noise."
+          },
+          "scenario": "When a packing error forces you to authorize a pharmacy run, does that mental gear-shift feel distinct from a phone call, or is it just another interruption to your flow?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_04",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Resource & Supply Oversight"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Resource & Supply Oversight",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Resource & Supply Oversight",
+            "target_concept": "Running out of gas mid-route",
+            "structural_mapping": {
+              "inputs": "Planned supply pack vs. Patient needs | Planned fuel vs. Actual tank level",
+              "logic": "Care stops when supplies missing | Engine stops when empty",
+              "outputs": "Detour to pharmacy | Detour to gas station"
+            },
+            "explanation": "If you categorize running out of gas as a 'driver interruption,' you blame the person instead of the fueling plan. Similarly, categorizing supply misses as 'colleague interruptions' blames the caregiver instead of the inventory oversight process."
+          },
+          "scenario": "When you authorize a mid-visit pharmacy run because a supply pack was wrong, does logging that as a colleague interruption help you fix the packing process, or does it hide the root cause?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_04",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Operational Workflow & Admin Burden",
+          "Resource & Supply Oversight"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Recovery Latency",
+          "Identify flow state barriers"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Resource & Supply Oversight",
+          "researcher_branch": "Identify flow state barriers"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Supply Item Verification",
+            "Pack Completeness",
+            "Authorization Friction",
+            "Caregiver Tenure",
+            "Patient Care Complexity",
+            "Departure Time Pressure",
+            "Label Distinguishability",
+            "Confirmation Method"
+          ],
+          "probes": [
+            {
+              "attribute": "Supply Item Verification",
+              "question": "Is the risk of error higher when boxes are similar-shaped or when names are similar-sounding?",
+              "choices": [
+                "Similar-shaped boxes",
+                "Similar-sounding names",
+                "Both equally"
+              ]
+            },
+            {
+              "attribute": "Pack Completeness",
+              "question": "Which omission causes more worry: missing the primary dressing or missing the secondary tape?",
+              "choices": [
+                "Missing primary dressing",
+                "Missing secondary tape",
+                "Missing both"
+              ]
+            },
+            {
+              "attribute": "Authorization Friction",
+              "question": "Is the burden worse due to the time delay involved or the legal liability incurred?",
+              "choices": [
+                "Time delay",
+                "Legal liability",
+                "Administrative hassle"
+              ]
+            },
+            {
+              "attribute": "Caregiver Tenure",
+              "question": "Does your oversight intensity relax after 6 months, 1 year, or 3 years of employment?",
+              "choices": [
+                "6 months",
+                "1 year",
+                "3 years"
+              ]
+            },
+            {
+              "attribute": "Patient Care Complexity",
+              "question": "Is the worry triggered more by routine cleaning tasks or complex wound vac setups?",
+              "choices": [
+                "Routine cleaning tasks",
+                "Complex wound vac setups",
+                "Medication administration"
+              ]
+            },
+            {
+              "attribute": "Departure Time Pressure",
+              "question": "Does the risk of error increase during the first 15 minutes of a shift or the last 15 minutes?",
+              "choices": [
+                "First 15 minutes",
+                "Last 15 minutes",
+                "During handover"
+              ]
+            },
+            {
+              "attribute": "Label Distinguishability",
+              "question": "Are mistakes more common due to small font size on labels or low contrast colors on boxes?",
+              "choices": [
+                "Small font size",
+                "Low contrast colors",
+                "Placement of label"
+              ]
+            },
+            {
+              "attribute": "Confirmation Method",
+              "question": "Do you trust a digital photo upload, a physical signature, or a verbal phone call more?",
+              "choices": [
+                "Digital photo upload",
+                "Physical signature",
+                "Verbal phone call"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If Supply Item Verification changed from similar-shaped boxes to distinct shapes, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Supply Item Verification"
+            },
+            {
+              "scenario": "If Pack Completeness changed from separate items to pre-bundled kits, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Pack Completeness"
+            },
+            {
+              "scenario": "If Authorization Friction changed from manual approval to auto-approval for veterans, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Authorization Friction"
+            },
+            {
+              "scenario": "If Caregiver Tenure changed from 1 month to 5 years, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Caregiver Tenure"
+            },
+            {
+              "scenario": "If Patient Care Complexity changed from complex wound vacs to standard saline, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Patient Care Complexity"
+            },
+            {
+              "scenario": "If Departure Time Pressure changed from a 15-minute window to a 45-minute window, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Departure Time Pressure"
+            },
+            {
+              "scenario": "If Label Distinguishability changed from small font to color-coded boxes, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Label Distinguishability"
+            },
+            {
+              "scenario": "If Confirmation Method changed from physical signature to barcode scan, would your judgment about 'Resource & Supply Oversight' change?",
+              "attribute": "Confirmation Method"
+            }
+          ]
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Family Expectation Management"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family Expectation Management",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the operational friction caused by family requests that fall outside formal care plans. This concern highlights the legitimacy and scope challenges inherent in daily coordination work.",
+          "pivot": {
+            "limitation": "Focusing only on the nature of these interactions misses the quantitative impact on overall shift capacity.",
+            "research_goal": "The researcher seeks to measure the specific ratio of time spent on direct client care versus preparatory or unofficial tasks.",
+            "compelling_reason": "Quantifying this hidden labor validates the expert's experience with hard data that can drive structural changes.",
+            "coarse_scenario": "I understand those boundary issues are draining, but if we can clock exactly how many minutes those favors take, we can prove to management that you need more protected time."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Family Expectation Management"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family Expectation Management",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Inter-Party Mediation",
+            "target_concept": "Counting phone rings vs. judging the caller's mood",
+            "structural_mapping": {
+              "inputs": "Conflicting reports from caregiver, family, and center",
+              "logic": "Smoothing over friction before it becomes a complaint",
+              "outputs": "Prevented escalation and maintained trust"
+            },
+            "explanation": "Your count metric tracks interruptions like counting rings, but the expert's burden tracks friction like judging the mood; both notice the stop, but only the mood captures the energy cost."
+          },
+          "scenario": "When you're coordinating care, does one demanding family call feel heavier than ten routine checks, even if both stop your work equally?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Family Expectation Management"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family Expectation Management",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Inter-Party Mediation",
+            "target_concept": "Sorting mail by what's inside, not who sent it",
+            "structural_mapping": {
+              "inputs": "Conflicting requests from caregivers and families",
+              "logic": "Assessing validity and scope of the request",
+              "outputs": "Resolution strategy or boundary setting"
+            },
+            "explanation": "Just as sorting mail only by sender ignores whether it is a bill or junk, categorizing interruptions only by 'Family' ignores whether it is a valid update or a favor, which requires different management strategies."
+          },
+          "scenario": "When a family member calls, do you handle a care update differently than a personal favor, even though both might get logged simply as a 'Family Interruption'?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Family Expectation Management"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Recovery Latency",
+          "Identify flow state barriers"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family Expectation Management",
+          "researcher_branch": "Identify flow state barriers"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Family Expectation Management",
+            "target_concept": "Losing your train of thought",
+            "structural_mapping": {
+              "inputs": "Unexpected request or phone call",
+              "logic": "Stop current work, handle request, attempt to return",
+              "outputs": "Time and mental energy lost re-orienting to original work"
+            },
+            "explanation": "The researcher studies 'flow barriers' as system errors, but your family requests cause the exact same 'losing your train of thought' effect. Whether the interruption comes from a person or a process, the mental cost of switching gears and finding your spot again is identical."
+          },
+          "scenario": "When you're deep in care coordination, do constant family calls break your focus the same way a confusing form or clunky tool would?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Inter-Party Mediation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Inter-Party Mediation",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Family Expectation Management",
+            "target_concept": "Managing guest conflicts during a party",
+            "structural_mapping": {
+              "inputs": "Conflicting requests versus established rules",
+              "logic": "Negotiating compromises to maintain harmony",
+              "outputs": "Event continues without disruption"
+            },
+            "explanation": "Just as managing guest conflicts is essential work distinct from cooking or cleaning, your mediation is a third category; classifying it as either care or admin misrepresents the relational effort required to keep operations running."
+          },
+          "scenario": "When you spend thirty minutes calming a family member on the phone, do you log that time as direct client care or administrative paperwork, and does either label feel right?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Inter-Party Mediation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Inter-Party Mediation",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Detecting Caregiver & Family Strain",
+            "target_concept": "Checking your blind spot before changing lanes",
+            "structural_mapping": {
+              "inputs": "Subtle changes in environment (Tone of voice / Traffic behind)",
+              "logic": "Assessing hidden risk before it becomes critical (Detecting strain / Checking blind spot)",
+              "outputs": "Preventing future crisis (Overwhelm / Collision)"
+            },
+            "explanation": "Both concepts involve a brief shift of attention away from a primary task. Through the lens of checking a blind spot, the researcher's 'interruption' is revealed to be the expert's essential safety check that prevents future collisions."
+          },
+          "scenario": "When you pause your paperwork to take a family call, do you feel like you're losing your flow, or is that conversation actually the real work of preventing problems?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Inter-Party Mediation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Inter-Party Mediation",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Inter-Party Mediation",
+            "target_concept": "Hosting a dinner party",
+            "structural_mapping": {
+              "inputs": "Conflicting reports and expectations from caregiver, family, and center",
+              "logic": "Switching attention between parties to address concerns before they escalate",
+              "outputs": "Smoothed friction and prevented complaints"
+            },
+            "explanation": "The researcher counts switching attention as a loss of focus, but like a host moving between guests, switching attention is the only way to ensure everyone feels heard and prevent conflict."
+          },
+          "scenario": "When you are mediating between a family and caregiver, do you feel switching attention breaks your flow, or is that switching the actual work of keeping peace?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Detecting Caregiver & Family Strain"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Detecting Caregiver & Family Strain",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Inter-Party Mediation",
+            "target_concept": "Checking the rearview mirror",
+            "structural_mapping": {
+              "inputs": "Friction between caregiver, family, and center / Traffic behind the vehicle",
+              "logic": "Smooth over friction before complaint / Glance away from road to assess risk",
+              "outputs": "Continued care coordination without crisis / Safe driving without collision"
+            },
+            "explanation": "The researcher counts the glance away from the road as a break in driving focus, but the driver knows that glance is required to prevent crashes. Similarly, the expert's attention shift looks like a workflow interruption but is actually essential safety monitoring."
+          },
+          "scenario": "When you pause your paperwork to listen to a family member's tone change, does that feel like losing your flow, or like preventing a crisis down the line?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Detecting Caregiver & Family Strain"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Categorize interruption sources"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Detecting Caregiver & Family Strain",
+          "researcher_branch": "Categorize interruption sources"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Family Expectation Management",
+            "target_concept": "Reading the letter inside the envelope",
+            "structural_mapping": {
+              "inputs": "Incoming family contacts (calls/requests)",
+              "logic": "Assessing content and tone versus logging origin and frequency",
+              "outputs": "Insight into caregiver strain versus count of work breaks"
+            },
+            "explanation": "Both involve handling incoming family contacts, but like distinguishing between sorting mail by sender and reading the letter inside, the researcher counts the call as a break in work while the expert extracts the critical strain signal within."
+          },
+          "scenario": "When a daughter calls constantly for updates, do you treat those minutes as interrupted workflow, or is detecting her stress in that moment the actual work you are doing?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Detecting Caregiver & Family Strain"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Recovery Latency",
+          "Identify flow state barriers"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Detecting Caregiver & Family Strain",
+          "researcher_branch": "Identify flow state barriers"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {},
+        "weight": 6.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Client & Family Relational Dynamics",
+          "Detecting Caregiver & Family Strain"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Identify peak density windows"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Detecting Caregiver & Family Strain",
+          "researcher_branch": "Identify peak density windows"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Family Expectation Management",
+            "target_concept": "Hearing a floorboard creak worsen over months",
+            "structural_mapping": {
+              "inputs": "Small favors or subtle tonal shifts",
+              "logic": "Accumulation over weeks rather than instant volume",
+              "outputs": "Overwhelm or structural friction"
+            },
+            "explanation": "The researcher's concept attempts to measure pressure like the expert's, but like hearing a floorboard creak worsen over months, the expert's strain detection relies on longitudinal accumulation that hourly density counts cannot capture."
+          },
+          "scenario": "When you hear a family's tone shift over weeks, do you find that tracking only the busiest hours misses that slow buildup of strain?"
+        },
+        "weight": 7.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Informal Knowledge Reliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Informal Knowledge Reliance",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Informal Knowledge Reliance",
+            "target_concept": "Knowing which floorboards creak",
+            "structural_mapping": {
+              "inputs": "Walking the hall (Shift routine) and Creaky spots (Informal rules)",
+              "logic": "Adjusting step to stay quiet (Applying care rules)",
+              "outputs": "Quiet passage (Successful care)"
+            },
+            "explanation": "If you classified 'checking for creaks' as 'not walking,' you would miss that safety is the work. Similarly, classifying 'reading notes' as 'admin' misses that context is the care."
+          },
+          "scenario": "When you check the fridge note to know not to wake the client, do you count that moment as doing care, or as admin before the care starts?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Informal Knowledge Reliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Cognitive Flow & Continuity",
+          "Interruption Frequency",
+          "Count context switches per hour"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Informal Knowledge Reliance",
+          "researcher_branch": "Count context switches per hour"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Informal Knowledge Reliance",
+            "target_concept": "Checking a recipe step while cooking",
+            "structural_mapping": {
+              "inputs": "Ingredients and Care Plan",
+              "logic": "Verify instruction to avoid error",
+              "outputs": "Safe Meal and Care"
+            },
+            "explanation": "The researcher counts looking at the recipe as stopping the cooking, but you know it is actually part of making the meal correctly, just like checking the note ensures care fits the person."
+          },
+          "scenario": "If I counted every time you checked that note as a break in your work, would that match your experience, or does that check feel like part of the work itself?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Informal Knowledge Reliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Artifact & Information Ecology",
+          "Documentation Timing",
+          "Determine entry synchronicity"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Informal Knowledge Reliance",
+          "researcher_branch": "Determine entry synchronicity"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Blurred Professional Boundaries",
+            "target_concept": "Working off the clock",
+            "structural_mapping": {
+              "inputs": "Unofficial patient cues vs. Unrecorded tasks",
+              "logic": "Absorbing info before system start vs. Working before paid start",
+              "outputs": "Safe care delivery vs. Completed job"
+            },
+            "explanation": "The researcher tracks when you log data (clock in), but you rely on the note (work off the clock) to know what to do. Just as your shift blurs because you work before officially starting, your documentation starts when you read the note, not when you open the laptop."
+          },
+          "scenario": "When you read the fridge note to know how to approach the patient, do you feel you've already done your documentation, or does that only count when you type it into the log later?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Informal Knowledge Reliance"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Artifact & Information Ecology",
+          "Handoff Protocols",
+          "Chronometer transfer duration"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Informal Knowledge Reliance",
+          "researcher_branch": "Chronometer transfer duration"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Blurred Professional Boundaries",
+            "target_concept": "Timing the signature instead of the conversation",
+            "structural_mapping": {
+              "inputs": "Formal shift clock or electronic log versus actual work or knowledge transfer",
+              "logic": "Stopping measurement at the official marker while real work continues invisibly",
+              "outputs": "Official record shows completion while actual knowledge transfer remains unfinished"
+            },
+            "explanation": "Your boundary concept shows work continues past the clock; similarly, measuring only the formal handoff timer is like timing the signature instead of the conversation—it records the form, not the understanding."
+          },
+          "scenario": "When you leave for the day, does the real handoff finish when the computer log is saved, or when you leave the note on the fridge?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Blurred Professional Boundaries"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Quantify care vs. admin ratio"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Blurred Professional Boundaries",
+          "researcher_branch": "Quantify care vs. admin ratio"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Blurred Professional Boundaries",
+            "target_concept": "Measuring a leaking bucket",
+            "structural_mapping": {
+              "inputs": "Water (care tasks) and Bucket (official shift hours)",
+              "logic": "Measurement requires a fixed container, but the water flows out continuously",
+              "outputs": "Undefined total volume (ratio impossible) vs. Contained volume (ratio possible)"
+            },
+            "explanation": "The researcher's ratio requires a fixed 'bucket' (shift) to measure contents, but like a leaking bucket, your work flows beyond the edges continuously, making the total volume undefined and the ratio impossible to calculate accurately."
+          },
+          "scenario": "When you're triaging emergencies after hours, do you feel truly off the clock, or does the shift only end when the work stops regardless of the schedule?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Blurred Professional Boundaries"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Temporal Task Architecture",
+          "Shift Phase Distribution",
+          "Identify peak density windows"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Blurred Professional Boundaries",
+          "researcher_branch": "Identify peak density windows"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Informal Knowledge Reliance",
+            "target_concept": "Trusting real-time traffic over the GPS estimate",
+            "structural_mapping": {
+              "inputs": "Official log or route plan vs Actual conditions on the ground",
+              "logic": "Assuming structured intervals vs Responding to continuous flow",
+              "outputs": "Recorded peaks or ETA vs Constant vigilance or actual arrival"
+            },
+            "explanation": "Just as the handwritten note overrides the log because it holds the real rules, the expert's steady triage overrides the peak model because the work pressure never drops to create a distinct high-density window."
+          },
+          "scenario": "When you look at your week, do you see specific hours that are much busier than others, or does it feel like the emergency triage never actually lets up from start to finish?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Senior Community Care Coordinator",
+          "Tacit Coordination & Continuity",
+          "Blurred Professional Boundaries"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+          "Artifact & Information Ecology",
+          "Handoff Protocols",
+          "Chronometer transfer duration"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Blurred Professional Boundaries",
+          "researcher_branch": "Chronometer transfer duration"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Blurred Professional Boundaries",
+            "target_concept": "Trying to time when worry ends",
+            "structural_mapping": {
+              "inputs": "Shift clock-out signal",
+              "logic": "Attempting to disconnect mentally",
+              "outputs": "Continued invisible responsibility"
+            },
+            "explanation": "The researcher's timer assumes work stops at a specific moment like a machine, but like trying to time when worry ends, the care responsibility lingers invisibly after clock-out, making the measured duration incomplete."
+          },
+          "scenario": "When you clock out, do you find yourself still triaging emergencies in your head even though the official shift has ended?"
+        },
+        "weight": 7.0
+      }
+    ],
+    "metadata": {
+      "created_at": "2026-03-27T11:18:33.537298",
+      "llm_provider": "openai",
+      "question_id": "q_01",
+      "question_text": "Could you describe a typical workday for you as an elderly care professional? What specific workflows and tasks demand most of your time from the start of your shift to the end?",
+      "expert_leaves": 10,
+      "researcher_leaves": 10,
+      "link_count": 38,
+      "alignment_stats": {
+        "leaf_alignments": 38,
+        "concept_alignments": 7,
+        "misaligned_leaves": 38
+      },
+      "construction_method": "math-based",
+      "depends_on": []
+    }
+  },
   "question_graphs": [
     {
       "question_id": "q_01",
       "question_text": "Could you describe a typical workday for you as an elderly care professional? What specific workflows and tasks demand most of your time from the start of your shift to the end?",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-27T11:18:33.537298",
-        "llm_provider": "openai",
-        "question_id": "q_01",
-        "question_text": "Could you describe a typical workday for you as an elderly care professional? What specific workflows and tasks demand most of your time from the start of your shift to the end?",
-        "expert_leaves": 10,
-        "researcher_leaves": 10,
-        "link_count": 38,
-        "alignment_stats": {
-          "leaf_alignments": 38,
-          "concept_alignments": 7,
-          "misaligned_leaves": 38
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
         "researcher_bg": "An HCI researcher specializing in workplace technologies and caregiving systems. The researcher aims to understand the daily operational burdens and workflow inefficiencies of elderly care professionals but lacks firsthand experience in frontline care management.",
@@ -2099,32 +4158,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_02",
       "question_text": "When you manage the complex needs of elderly clients—such as medication adherence, physical safety, and family communication—what are your most frequent professional challenges? How do you currently handle these pain points, and what resources or tools would actually improve your daily efficiency?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-27T11:18:33.537562",
-        "llm_provider": "openai",
-        "question_id": "q_02",
-        "question_text": "When you manage the complex needs of elderly clients—such as medication adherence, physical safety, and family communication—what are your most frequent professional challenges? How do you currently h",
-        "expert_leaves": 11,
-        "researcher_leaves": 9,
-        "link_count": 30,
-        "alignment_stats": {
-          "leaf_alignments": 30,
-          "concept_alignments": 12,
-          "misaligned_leaves": 30
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
         "researcher_bg": "An HCI researcher specializing in workplace technologies and caregiving systems. The researcher aims to understand the daily operational burdens and workflow inefficiencies of elderly care professionals but lacks firsthand experience in frontline care management.",
@@ -4190,32 +6229,14 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     },
     {
       "question_id": "q_03",
       "question_text": "When you coordinate care or organize activities at the community center, what operational bottlenecks disrupt your workflow? Which specific parts of managing these group environments cause you the most cognitive or physical strain?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-27T11:18:33.537435",
-        "llm_provider": "openai",
-        "question_id": "q_03",
-        "question_text": "When you coordinate care or organize activities at the community center, what operational bottlenecks disrupt your workflow? Which specific parts of managing these group environments cause you the mos",
-        "expert_leaves": 8,
-        "researcher_leaves": 10,
-        "link_count": 25,
-        "alignment_stats": {
-          "leaf_alignments": 25,
-          "concept_alignments": 8,
-          "misaligned_leaves": 25
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
         "researcher_bg": "An HCI researcher specializing in workplace technologies and caregiving systems. The researcher aims to understand the daily operational burdens and workflow inefficiencies of elderly care professionals but lacks firsthand experience in frontline care management.",
@@ -5744,32 +7765,14 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     },
     {
       "question_id": "q_04",
       "question_text": "Based on your frontline experience, what is the most commonly misunderstood part of the elderly care workflow? What critical challenges in your daily job would system designers or people outside this profession almost certainly overlook?",
-      "depends_on": [
-        "q_02"
-      ],
-      "metadata": {
-        "created_at": "2026-03-27T11:22:10.334730",
-        "llm_provider": "openai",
-        "question_id": "q_04",
-        "question_text": "Based on your frontline experience, what is the most commonly misunderstood part of the elderly care workflow? What critical challenges in your daily job would system designers or people outside this ",
-        "expert_leaves": 12,
-        "researcher_leaves": 8,
-        "link_count": 42,
-        "alignment_stats": {
-          "leaf_alignments": 42,
-          "concept_alignments": 7,
-          "misaligned_leaves": 42
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_02"
-        ]
-      },
       "graph": {
         "topic": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
         "researcher_bg": "An HCI researcher specializing in workplace technologies and caregiving systems. The researcher aims to understand the daily operational burdens and workflow inefficiencies of elderly care professionals but lacks firsthand experience in frontline care management.",
@@ -8170,7 +10173,52 @@
             "q_02"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_02"
+      ]
     }
-  ]
+  ],
+  "cache_key": "b00cebf1f50d2ba9",
+  "status": "ready",
+  "error": "",
+  "transcript_summary": {
+    "main_bullets": [
+      {
+        "id": "mb_01",
+        "label": "Could you describe a typical workday for you",
+        "keywords": [],
+        "source_question": "1. Could you describe a typical workday for you as an elderly care professional? What specific workflows and tasks demand most of your time from the start of your shift to the end?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_02",
+        "label": "When you manage the complex needs of elderly",
+        "keywords": [],
+        "source_question": "2. When you manage the complex needs of elderly clients—such as medication adherence, physical safety, and family communication—what are your most frequent professional challenges? How do you currently handle these pain points, and what resources or tools would actually improve your daily efficiency?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_03",
+        "label": "When you coordinate care or organize activities at",
+        "keywords": [],
+        "source_question": "3. When you coordinate care or organize activities at the community center, what operational bottlenecks disrupt your workflow? Which specific parts of managing these group environments cause you the most cognitive or physical strain?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_04",
+        "label": "Based on your frontline experience, what is the",
+        "keywords": [],
+        "source_question": "4. Based on your frontline experience, what is the most commonly misunderstood part of the elderly care workflow? What critical challenges in your daily job would system designers or people outside this profession almost certainly overlook?",
+        "sub_bullets": []
+      }
+    ],
+    "last_updated_turn": 0
+  },
+  "_meta": {
+    "topic": "Understanding the daily workflows, operational bottlenecks, and core professional challenges of elderly care workers in home visit and community center settings.",
+    "researcher_bg": "An HCI researcher specializing in workplace technologies and caregiving systems. The researcher aims to understand the daily operational burdens and workflow inefficiencies of elderly care professionals but lacks firsthand experience in frontline care management.",
+    "expert_bg": "A senior community care coordinator who manages complex caregiver workflows and daily operations at a community center. The expert possesses deep firsthand knowledge of the administrative burdens, emotional labor, and logistical challenges that care professionals face daily.",
+    "saved_at": "2026-03-27T11:22:10.425536"
+  }
 }
