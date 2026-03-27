@@ -41,23 +41,23 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Exploring how middle school teachers reflect on their teaching practice, recognize when something isn't working, and make pedagogical adjustments based on classroom experience and professional judgment."
+INTERVIEW_TOPIC = "Understanding the daily Q&A workflows, communication challenges with patients and families, and the potential for Q&A automation for hospital medical social workers."
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Ms. Zhang
+INTERVIEWEE_DEMOGRAPHICS = """Name: Ms. Chen Professional Role: Senior Medical Social Worker
 
-Professional Role: Senior Middle School Teacher / Grade-Level Lead / Teaching and Research Group Member
-
-Work Experience: Over 12 years of frontline teaching experience in a public middle school, teaching core subjects to students aged 12-15. Has gone through countless cycles of lesson planning, classroom delivery, post-lesson reflection, and adjustment. Regularly participates in teaching-research group activities where teachers discuss what's working, what isn't, and why.
+Work Experience: Over 8 years of experience as a medical social worker in a large general hospital. Frequently engages in high-volume Q&A with patients and their families regarding discharge planning, financial assistance, emotional support, and navigating the healthcare system. Has worked across multiple high-stress departments (e.g., oncology, ICU, pediatrics) and manages inquiries under various time frequencies and locations. 
 
 Expertise:
-Deeply familiar with the messy, context-dependent reality of classroom teaching; skilled at reading the room in real time and noticing when a lesson is falling flat, when students are confused but won't say so, or when a class dynamic has shifted in ways that affect learning.
-
-Highly capable of relying on "teaching instinct" built from years of daily classroom observation to make rapid pedagogical adjustments—such as knowing within the first five minutes of a lesson whether the planned approach is working, and improvising on the spot based on subtle student cues (facial expressions, engagement levels, question patterns).
+Deeply familiar with the gap between the medical information doctors provide and the practical, everyday questions families actually worry about. 
+Skilled at formulating appropriate, empathetic answers to complex, emotionally charged, or repetitive questions. 
+Highly capable of reading the "room" and relying on professional intuition to discern the underlying anxiety or family conflicts hidden behind simple logistical questions.
+ Often picks up on emotional distress or resource deficits during routine Q&A before formal medical staff notice them. 
 
 Core Challenges & Pain Points:
-Profoundly understands the difficulty of turning classroom experience into something communicable—school administrators and evaluation systems want neat, structured reflections, but the most important teaching adjustments come from gut feelings and contextual awareness that resist being written into a report.
-
-Finds it challenging to explain to non-teachers (e.g., a school administrator reviewing her performance metrics, or a parent who only looks at test scores) what teaching reflection actually looks like in practice. Often feels that outsiders assume reflection is a deliberate, structured process, when in reality it's more like a continuous, semi-conscious calibration built from thousands of small classroom moments."""
+Profoundly understands the exhaustion of repeatedly answering the same logistical or policy-related questions, which eats into the time available for deep psychological counseling. 
+Every family's health literacy and emotional state are different; a straightforward answer that works for one family might cause panic or confusion for another.
+Finds it challenging to standardize responses or transfer this Q&A workload effectively. 
+Is open to Q&A automation but deeply concerned about how an automated tool can maintain necessary empathy, handle sensitive edge cases, and avoid giving rigid or legally risky answers. """
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
