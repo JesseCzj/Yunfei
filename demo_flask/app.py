@@ -41,23 +41,25 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Understanding the daily Q&A workflows, communication challenges with patients and families, and the potential for Q&A automation for hospital medical social workers."
+INTERVIEW_TOPIC = "Understanding the physical constraints, mechanical latency, and hardware iteration bottlenecks when designing intuitive teleoperation interfaces for competitive robots."
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Ms. Chen Professional Role: Senior Medical Social Worker
+INTERVIEWEE_DEMOGRAPHICS = """Name: David Chen
 
-Work Experience: Over 8 years of experience as a medical social worker in a large general hospital. Frequently engages in high-volume Q&A with patients and their families regarding discharge planning, financial assistance, emotional support, and navigating the healthcare system. Has worked across multiple high-stress departments (e.g., oncology, ICU, pediatrics) and manages inquiries under various time frequencies and locations. 
+Professional Role: Senior Mechanical Engineer / Robotics Hardware Lead
+
+Work Experience: Over 8 years designing complex mechanical structures for competitive robotics (like Robomaster). He manages the entire hardware lifecycle from CAD modeling to CNC machining and physical assembly.
 
 Expertise:
-Deeply familiar with the gap between the medical information doctors provide and the practical, everyday questions families actually worry about. 
-Skilled at formulating appropriate, empathetic answers to complex, emotionally charged, or repetitive questions. 
-Highly capable of reading the "room" and relying on professional intuition to discern the underlying anxiety or family conflicts hidden behind simple logistical questions.
- Often picks up on emotional distress or resource deficits during routine Q&A before formal medical staff notice them. 
+
+Deeply understands physical constraints like mass, inertia, friction, and torque.
+
+Prioritizes the reliability and survivability of the robot in extreme conditions.
 
 Core Challenges & Pain Points:
-Profoundly understands the exhaustion of repeatedly answering the same logistical or policy-related questions, which eats into the time available for deep psychological counseling. 
-Every family's health literacy and emotional state are different; a straightforward answer that works for one family might cause panic or confusion for another.
-Finds it challenging to standardize responses or transfer this Q&A workload effectively. 
-Is open to Q&A automation but deeply concerned about how an automated tool can maintain necessary empathy, handle sensitive edge cases, and avoid giving rigid or legally risky answers. """
+
+Intensely frustrated when HCI or software designers map human gestures directly to heavy mechanical arms, because human hands have no inertia, but a 10kg metal arm will break its own gears if it tries to stop instantly.
+
+Hates the asymmetrical expectation of iteration speed. HCI researchers want to A/B test 5 different camera positions in an afternoon, completely ignoring the days required to redesign and machine a new metal camera mount."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
