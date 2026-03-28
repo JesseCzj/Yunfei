@@ -1,27 +1,2203 @@
 {
-  "created_at": "2026-03-28T04:18:29.061040",
-  "question_graph_count": 4,
+  "graph": {
+    "topic": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+    "researcher_bg": "An HCI researcher focused on optimizing image classification accuracy and system efficiency, but lacking an understanding of the nuanced, multi-sensory realities of clinical skin examinations",
+    "expert_bg": "A clinical dermatologist who heavily relies on holistic visual intuition, tactile feedback, and patient history, often finding standard AI image-analyzers rigid and disconnected from real-world medical practice",
+    "expert_tree": {
+      "tower": "expert",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "description": "Interview topic: Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__exp_L1_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L1_00": {
+          "id": "q_01__exp_L1_00",
+          "tower": "expert",
+          "layer": "L1",
+          "label": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "description": "Interview topic: Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__exp_L2_00_00",
+            "q_01__exp_L2_00_01",
+            "q_01__exp_L2_00_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L2_00_00": {
+          "id": "q_01__exp_L2_00_00",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Tactile & Physical Reality",
+          "description": "The physical examination aspects that require hands-on interaction, including haptic feedback and anatomical context, which AI images completely lack.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_00_00",
+            "q_01__exp_leaf_00_00_01",
+            "q_01__exp_leaf_00_00_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_00_00": {
+          "id": "q_01__exp_leaf_00_00_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Palpating for Induration",
+          "description": "You have to press the lesion to feel if there's a hard lump underneath the pigment; a flat photo can't tell you if it's invading deeper tissue.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "checking for hardness",
+            "subsurface lumps"
+          ]
+        },
+        "q_01__exp_leaf_00_00_01": {
+          "id": "q_01__exp_leaf_00_00_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Tactile Surface & Inflammatory Signs",
+          "description": "Running a gloved finger over the spot to feel if it's rough, scaly, or ulcerated, and checking for warmth or tenderness which changes the diagnosis immediately.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "feeling the heat",
+            "tenderness check",
+            "texture assessment"
+          ]
+        },
+        "q_01__exp_leaf_00_00_02": {
+          "id": "q_01__exp_leaf_00_00_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Site-Specific Suspicion",
+          "description": "A spot on the palm or sole scares me way more than the same spot on the back; AI often treats all pixels equally regardless of location risk.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [
+            "context",
+            "risk",
+            "anatomy"
+          ],
+          "aliases": [
+            "anatomical risk",
+            "location bias"
+          ]
+        },
+        "q_01__exp_L2_00_01": {
+          "id": "q_01__exp_L2_00_01",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Temporal & Narrative Context",
+          "description": "Integrating the patient's story, history of the lesion over time, and risk profile, which a static image cannot capture.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_01_00",
+            "q_01__exp_leaf_00_01_01",
+            "q_01__exp_leaf_00_01_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_01_00": {
+          "id": "q_01__exp_leaf_00_01_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Velocity of Change",
+          "description": "I need to know if this grew over three weeks or ten years; a fast-growing nodule triggers a different alarm than a stable one.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "growth rate",
+            "timeline"
+          ]
+        },
+        "q_01__exp_leaf_00_01_01": {
+          "id": "q_01__exp_leaf_00_01_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Symptom History",
+          "description": "Asking if it itches, bleeds, or hurts spontaneously; melanomas often whisper before they shout, and pixels don't bleed.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "patient symptoms",
+            "sensory history"
+          ]
+        },
+        "q_01__exp_leaf_00_01_02": {
+          "id": "q_01__exp_leaf_00_01_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Family & Risk Profile",
+          "description": "Integrating family history, genetic risk, and overall health status which a photo cannot capture; a high-risk patient changes my threshold.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "genetic background",
+            "constitutional risk",
+            "patient history"
+          ]
+        },
+        "q_01__exp_L2_00_02": {
+          "id": "q_01__exp_L2_00_02",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Holistic Visual Field",
+          "description": "Visual assessments that rely on comparing the lesion to the patient's overall skin pattern, structure, and dynamic viewing conditions.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_02_00",
+            "q_01__exp_leaf_00_02_01",
+            "q_01__exp_leaf_00_02_02",
+            "q_01__exp_leaf_00_02_03"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_02_00": {
+          "id": "q_01__exp_leaf_00_02_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Phenotypic Pattern Matching",
+          "description": "Does this mole look like it belongs on this specific patient, or is it an outsider compared to their other nevi and overall skin pattern?",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "visual",
+            "comparison",
+            "pattern"
+          ],
+          "aliases": [
+            "ugly duckling",
+            "outlier detection",
+            "pattern recognition"
+          ]
+        },
+        "q_01__exp_leaf_00_02_01": {
+          "id": "q_01__exp_leaf_00_02_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Surrounding Tissue Context",
+          "description": "Looking at the skin around the spot to see if it's sun-cooked or inflamed; high background damage lowers my threshold to biopsy even benign-looking spots.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "visual",
+            "context",
+            "risk"
+          ],
+          "aliases": [
+            "field cancerization",
+            "background skin",
+            "tissue interaction"
+          ]
+        },
+        "q_01__exp_leaf_00_02_02": {
+          "id": "q_01__exp_leaf_00_02_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Dermoscopic Depth Perception",
+          "description": "I'm looking for specific structures that sit deep in the dermis; it's a gut feeling about architecture that a 2D crop flattens out.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "visual",
+            "depth",
+            "architecture"
+          ],
+          "aliases": [
+            "subsurface architecture",
+            "depth structures"
+          ]
+        },
+        "q_01__exp_leaf_00_02_03": {
+          "id": "q_01__exp_leaf_00_02_03",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Dynamic Visual Inspection",
+          "description": "Assessing color and structure under different lighting or angles, which a static standardized photo misses.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "lighting check",
+            "angle variation",
+            "dynamic view"
+          ]
+        }
+      }
+    },
+    "researcher_tree": {
+      "tower": "researcher",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "description": "Interview topic: Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__res_L1_00",
+            "q_01__res_L1_01",
+            "q_01__res_L1_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L1_00": {
+          "id": "q_01__res_L1_00",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Physical & Environmental Contextualization",
+          "description": "Investigating how the physical setup, lighting, and spatial relationship between clinician and patient influence the visual data gathered before any digital capture occurs.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_00_00",
+            "q_01__res_L2_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_00_00": {
+          "id": "q_01__res_L2_00_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Spatial Positioning & Ergonomics",
+          "description": "Understanding how body posture and viewing angles alter the visual appearance of the skin.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_00_00",
+            "q_01__res_leaf_00_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_00_00": {
+          "id": "q_01__res_leaf_00_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Impact of skin tension on visual morphology",
+          "description": "How does changing the patient's posture or stretching the skin alter the lesion's shape or color, and is this state captured in standard AI inputs?",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Spatial Mapping",
+            "Deformation Modeling"
+          ]
+        },
+        "q_01__res_leaf_00_00_01": {
+          "id": "q_01__res_leaf_00_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Clinician viewing frustum constraints",
+          "description": "What specific viewing angles or distances are required to detect surface texture that a fixed camera lens might miss?",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Viewing Frustum",
+            "Perspective Taking"
+          ]
+        },
+        "q_01__res_L2_00_01": {
+          "id": "q_01__res_L2_00_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Environmental Lighting Control",
+          "description": "Exploring how clinicians manipulate light sources to reveal subsurface features.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_01_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_01_00": {
+          "id": "q_01__res_leaf_00_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Dynamic illumination workflow",
+          "description": "What is the sequence of switching between ambient room light and focused diagnostic light during the initial scan?",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Illumination Control",
+            "Interactive Lighting"
+          ]
+        },
+        "q_01__res_L1_01": {
+          "id": "q_01__res_L1_01",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Visual Hierarchy & Scope",
+          "description": "Examining the sequence of visual attention from macro-level body context to micro-level lesion details.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_01_00",
+            "q_01__res_L2_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_01_00": {
+          "id": "q_01__res_L2_01_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Surrounding Context Comparison",
+          "description": "Understanding how the lesion is visually weighed against the patient's background skin.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_00_00",
+            "q_01__res_leaf_01_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_00_00": {
+          "id": "q_01__res_leaf_01_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Background skin normalization",
+          "description": "How do you visually compare the lesion against the patient's surrounding skin tone and texture to establish a baseline?",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Visual Context",
+            "Reference Matching"
+          ]
+        },
+        "q_01__res_leaf_01_00_01": {
+          "id": "q_01__res_leaf_01_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Boundary definition beyond the lesion",
+          "description": "What constitutes the critical visual boundary of interest that extends past the immediate edge of the suspicious spot?",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Region of Interest",
+            "Visual Boundary"
+          ]
+        },
+        "q_01__res_L2_01_01": {
+          "id": "q_01__res_L2_01_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Multiscale Navigation",
+          "description": "Analyzing the transition from naked-eye examination to magnified tool usage.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_01_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_01_00": {
+          "id": "q_01__res_leaf_01_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Macro-to-micro sequencing risks",
+          "description": "What contextual information is lost if the examination starts immediately at high magnification rather than a whole-body scan?",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Multiscale Navigation",
+            "Context Loss"
+          ]
+        },
+        "q_01__res_L1_02": {
+          "id": "q_01__res_L1_02",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Dynamic Interaction & Temporal Flow",
+          "description": "Identifying workflow steps involving active manipulation or time-based observation that static images cannot capture.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_02_00",
+            "q_01__res_L2_02_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_02_00": {
+          "id": "q_01__res_L2_02_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Instrumental Skin Manipulation",
+          "description": "Investigating physical actions taken specifically to change the visual properties of the skin for diagnosis.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_00_00",
+            "q_01__res_leaf_02_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_00_00": {
+          "id": "q_01__res_leaf_02_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Visual reveal through compression",
+          "description": "How do you use pressure or stretching specifically to visualize subsurface structures (e.g., blanching) that are invisible at rest?",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Haptic-Visual Coupling",
+            "Interactive Deformation"
+          ]
+        },
+        "q_01__res_leaf_02_00_01": {
+          "id": "q_01__res_leaf_02_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Surface pre-processing workflow",
+          "description": "What cleaning or preparation steps (e.g., removing oil, scales) are performed to ensure the visual signal is clear before diagnosis?",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Data Pre-processing",
+            "Surface Preparation"
+          ]
+        },
+        "q_01__res_L2_02_01": {
+          "id": "q_01__res_L2_02_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Temporal Observation",
+          "description": "Exploring the role of time-based visual changes during the exam.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_01_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_01_00": {
+          "id": "q_01__res_leaf_02_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Dynamic physiological response monitoring",
+          "description": "Do you observe the lesion over seconds or minutes for changes in blood flow or color that a static snapshot would miss?",
+          "parent_id": "q_01__res_L2_02_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Temporal Resolution",
+            "Dynamic Feedback"
+          ]
+        }
+      }
+    },
+    "links": [
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Palpating for Induration"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Instrumental Skin Manipulation",
+          "Visual reveal through compression"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Palpating for Induration",
+          "researcher_branch": "Visual reveal through compression"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Palpating for Induration",
+            "target_concept": "Squeezing fruit for ripeness",
+            "structural_mapping": {
+              "inputs": "Surface of object (skin lesion or fruit skin)",
+              "logic": "Apply physical pressure (compression or squeezing)",
+              "outputs": "Tactile feedback (hardness or softness) vs Visual feedback (color change)"
+            },
+            "explanation": "Just as squeezing fruit reveals ripeness through feel rather than color change, pressing a lesion reveals depth through touch; expecting a camera to see this hardness is like expecting to see ripeness without squeezing."
+          },
+          "scenario": "When you press a lesion to check for hardness underneath, is the critical signal something a camera could capture visually, or is it strictly information your fingers feel?"
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Palpating for Induration"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Impact of skin tension on visual morphology"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Palpating for Induration",
+          "researcher_branch": "Impact of skin tension on visual morphology"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Palpating for Induration",
+            "target_concept": "Squeezing fruit to feel for bruising",
+            "structural_mapping": {
+              "inputs": "Surface appearance (skin lesion color or fruit skin color)",
+              "logic": "Applying physical pressure to detect internal resistance or softness",
+              "outputs": "Judgment of hidden internal condition (tissue invasion or internal bruise)"
+            },
+            "explanation": "The researcher assumes stretching the skin captures enough data, like turning a fruit to see all angles visually. However, just as looking cannot reveal an internal bruise without squeezing, the expert knows pressing reveals depth invasion that photos miss regardless of visual tension."
+          },
+          "scenario": "When you stretch the skin to show the camera the shape change, do you worry it still misses the deep hardness you'd normally feel by pressing?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Palpating for Induration"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Clinician viewing frustum constraints"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Palpating for Induration",
+          "researcher_branch": "Clinician viewing frustum constraints"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Tactile Surface & Inflammatory Signs",
+            "target_concept": "Squeezing fruit to check ripeness",
+            "structural_mapping": {
+              "inputs": "Visual appearance (photo/angle) vs. Physical pressure (touch/squeeze)",
+              "logic": "Surface cues cannot confirm internal density or state",
+              "outputs": "Uncertain visual assessment vs. Confirmed physical diagnosis"
+            },
+            "explanation": "The researcher's focus on camera angles behaves like trying to judge fruit firmness by sight alone; it assumes visual optimization replaces physical contact, but like the expert's need to feel for warmth or hardness, the critical signal is invisible without touch."
+          },
+          "scenario": "When you're assessing a lesion, is there ever a case where the camera angle is perfect but you still can't tell if it's hard without pressing it?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Tactile Surface & Inflammatory Signs"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Impact of skin tension on visual morphology"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Tactile Surface & Inflammatory Signs",
+          "researcher_branch": "Impact of skin tension on visual morphology"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Palpating for Induration",
+            "target_concept": "Squeezing fruit to check ripeness",
+            "structural_mapping": {
+              "inputs": "Visual appearance of surface",
+              "logic": "Physical pressure reveals internal texture",
+              "outputs": "Diagnosis of underlying condition"
+            },
+            "explanation": "Both concepts involve physically manipulating the subject to reveal information invisible to passive observation. The analogy clarifies that while the researcher focuses on the visual change from manipulation, the expert relies on the tactile feedback, like squeezing fruit to feel ripeness rather than just looking at color."
+          },
+          "scenario": "When you manipulate the skin during exam, is that movement primarily to help the camera capture the shape, or to let your fingers feel texture and warmth the image loses?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Tactile Surface & Inflammatory Signs"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Clinician viewing frustum constraints"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Tactile Surface & Inflammatory Signs",
+          "researcher_branch": "Clinician viewing frustum constraints"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Palpating for Induration",
+            "target_concept": "Trying to judge weight by looking at a photo",
+            "structural_mapping": {
+              "inputs": "Lesion tissue",
+              "logic": "Palpating to feel hidden depth",
+              "outputs": "Diagnosis of invasion"
+            },
+            "explanation": "The researcher assumes optimizing camera angles captures texture, but like trying to see weight in a photo, the expert knows some signals require physical contact, not just clearer vision."
+          },
+          "scenario": "When you encounter a lesion that looks flat but feels hard underneath, do you find that adjusting the camera angle helps, or is pressing it the only way to know?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Tactile Surface & Inflammatory Signs"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Instrumental Skin Manipulation",
+          "Visual reveal through compression"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Tactile Surface & Inflammatory Signs",
+          "researcher_branch": "Visual reveal through compression"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Palpating for Induration",
+            "target_concept": "Squeezing a fruit for ripeness",
+            "structural_mapping": {
+              "inputs": "Physical pressure applied to the object",
+              "logic": "Pressure generates sensory feedback about internal state",
+              "outputs": "Judgment based on specific sensory channel (Touch vs. Vision)"
+            },
+            "explanation": "Both concepts use pressure to reveal hidden information, like squeezing a fruit. However, the researcher expects visual data (color change) while the expert needs tactile data (firmness), showing why AI images fail to capture the expert's diagnostic signal."
+          },
+          "scenario": "When you press down on a lesion, are you relying on your eyes to see blanching, or is your hand feeling for warmth and hardness that the image can't show?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Tactile Surface & Inflammatory Signs"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Temporal Observation",
+          "Dynamic physiological response monitoring"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Tactile Surface & Inflammatory Signs",
+          "researcher_branch": "Dynamic physiological response monitoring"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Palpating for Induration",
+            "target_concept": "Feeling a fever by touch",
+            "structural_mapping": {
+              "inputs": "Skin surface properties (visual appearance vs physical contact)",
+              "logic": "Inferring internal physiological state (depth/heat) from external sensory cue",
+              "outputs": "Diagnostic confidence (complete assessment vs missing hidden data)"
+            },
+            "explanation": "Both aim to detect hidden physiological states, but like distinguishing fever by sight versus touch, the researcher's visual method misses the thermal information the expert relies on for diagnosis."
+          },
+          "scenario": "When you assess a suspicious lesion, do you ever rely on the warmth or tenderness you feel with your glove, even if the camera sees no color change over time?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Site-Specific Suspicion"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Impact of skin tension on visual morphology"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Site-Specific Suspicion",
+          "researcher_branch": "Impact of skin tension on visual morphology"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Site-Specific Suspicion",
+            "target_concept": "Neighborhood crime rate vs. house paint clarity",
+            "structural_mapping": {
+              "inputs": "Visual surface details (paint/shape) and contextual location (neighborhood/body site)",
+              "logic": "Prioritizing contextual risk weighting over surface signal fidelity",
+              "outputs": "Safety or risk judgment (diagnosis)"
+            },
+            "explanation": "The researcher's focus on skin tension is like worrying about house paint clarity, while the expert's site-specific suspicion is like prioritizing the neighborhood crime rate; both assess safety, but the location dictates the baseline risk regardless of how perfectly the surface is captured."
+          },
+          "scenario": "When you see a suspicious spot on the palm versus the back, does the precise shape matter more than the fact that the location itself raises the alarm?"
+        },
+        "weight": 6.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Site-Specific Suspicion"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Background skin normalization"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Site-Specific Suspicion",
+          "researcher_branch": "Background skin normalization"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Site-Specific Suspicion",
+            "target_concept": "A scratch on a windshield vs. a scratch on the door",
+            "structural_mapping": {
+              "inputs": "Visual defect and its physical location on the object",
+              "logic": "Severity is determined by the location's critical function, not just the defect's appearance",
+              "outputs": "Decision to intervene urgently or monitor casually"
+            },
+            "explanation": "Both concepts involve judging a defect's severity. The researcher's tool compares the defect to nearby paint (local baseline), while the expert compares it to the part's critical function (global site risk), just like a windshield scratch demands immediate repair regardless of paint match."
+          },
+          "scenario": "When you see a dark spot on a patient's sole, do you worry more because of the spot itself, or because you know that specific location carries higher risk than their back?"
+        },
+        "weight": 4.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Tactile & Physical Reality",
+          "Site-Specific Suspicion"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Boundary definition beyond the lesion"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Site-Specific Suspicion",
+          "researcher_branch": "Boundary definition beyond the lesion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Site-Specific Suspicion",
+            "target_concept": "Checking a neighborhood's crime rate before inspecting a house's fence",
+            "structural_mapping": {
+              "inputs": "House features and location stats vs. Lesion pixels and body site",
+              "logic": "Location sets baseline safety risk before feature details are weighed",
+              "outputs": "Decision to enter or buy vs. Decision to biopsy or ignore"
+            },
+            "explanation": "Both assess context, but like checking a crime rate before a fence, the expert's anatomical site sets the baseline risk before the researcher's local boundary details matter."
+          },
+          "scenario": "When you see a suspicious spot on a palm, do you treat the whole hand as the risk zone rather than just the skin touching the spot?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Temporal & Narrative Context",
+          "Velocity of Change"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Temporal Observation",
+          "Dynamic physiological response monitoring"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Velocity of Change",
+          "researcher_branch": "Dynamic physiological response monitoring"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Velocity of Change",
+            "target_concept": "Knowing how long a cake has been in the oven",
+            "structural_mapping": {
+              "inputs": "Visual appearance of the lesion versus the historical timeline of its growth",
+              "logic": "Current appearance alone cannot confirm the duration or rate of development",
+              "outputs": "Decision to intervene based on risk level rather than just current state"
+            },
+            "explanation": "Both concepts involve monitoring change over time; however, like distinguishing a cake's current color from its total bake time, the researcher's live video captures immediate reaction while your diagnosis relies on historical growth rates."
+          },
+          "scenario": "When you assess a suspicious spot, does seeing blood flow in real-time tell you anything about how fast it grew over the last year?"
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Temporal & Narrative Context",
+          "Symptom History"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Temporal Observation",
+          "Dynamic physiological response monitoring"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Symptom History",
+          "researcher_branch": "Dynamic physiological response monitoring"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Symptom History",
+            "target_concept": "Checking a used car's accident history",
+            "structural_mapping": {
+              "inputs": "Patient reports of past bleeding or itching",
+              "logic": "Evaluating long-term risk trajectory based on past events",
+              "outputs": "Decision to biopsy or monitor"
+            },
+            "explanation": "Your real-time monitoring is like listening to a car's engine now, but the expert's symptom history is the accident report. Both assess safety, but the report reveals past damage that the engine sound cannot show, explaining why history outweighs live visuals."
+          },
+          "scenario": "When you ask if a spot bled last month, does watching it change color for thirty seconds give you that same story?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Temporal & Narrative Context",
+          "Symptom History"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Instrumental Skin Manipulation",
+          "Visual reveal through compression"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Symptom History",
+          "researcher_branch": "Visual reveal through compression"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Velocity of Change",
+            "target_concept": "Knowing if a stain on the carpet is fresh or old",
+            "structural_mapping": {
+              "inputs": "Visual appearance of the spot, Story of when it appeared",
+              "logic": "Visual state alone is ambiguous without knowing the timing of the change",
+              "outputs": "Decision on urgency or risk level"
+            },
+            "explanation": "Your compression test reveals current blood flow like inspecting a stain's color, but my diagnosis depends on the history like knowing if that stain appeared this morning or last year."
+          },
+          "scenario": "When a patient tells you a mole bled on its own last week, does pressing it today show you that same risk, or does that story live outside the image?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Temporal & Narrative Context",
+          "Family & Risk Profile"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Multiscale Navigation",
+          "Macro-to-micro sequencing risks"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family & Risk Profile",
+          "researcher_branch": "Macro-to-micro sequencing risks"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Family & Risk Profile",
+            "target_concept": "Judging a used car by paint depth alone",
+            "structural_mapping": {
+              "inputs": "Visual surface details (paint/lesion) and hidden history (accidents/family risk)",
+              "logic": "Surface clarity cannot override critical historical risk factors",
+              "outputs": "Incorrect safety assessment (valuation or diagnosis)"
+            },
+            "explanation": "The researcher's visual sequencing aims to provide context like inspecting car paint, but the expert's risk profile functions like an accident history. Both assess safety, but ignoring the history leads to dangerous errors regardless of how clear the paint looks."
+          },
+          "scenario": "When you see a worrying lesion, does scanning the whole body lower your alarm as much as knowing the patient's father died of melanoma?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Temporal & Narrative Context",
+          "Family & Risk Profile"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Background skin normalization"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family & Risk Profile",
+          "researcher_branch": "Background skin normalization"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Velocity of Change",
+            "target_concept": "Driving slower in the rain",
+            "structural_mapping": {
+              "inputs": "Visual road surface and weather forecast",
+              "logic": "Hidden risk factors lower the safety threshold regardless of visible conditions",
+              "outputs": "Decision to brake or biopsy early"
+            },
+            "explanation": "This shows that like 'Velocity of Change', 'Family Profile' relies on hidden context (weather) to set safety limits, whereas your visual normalization only checks the visible road surface."
+          },
+          "scenario": "If a spot looks harmless compared to the surrounding skin, but you know the patient has a high-risk family history, do you still lower your threshold to cut just because of that history?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Temporal & Narrative Context",
+          "Family & Risk Profile"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Temporal Observation",
+          "Dynamic physiological response monitoring"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Family & Risk Profile",
+          "researcher_branch": "Dynamic physiological response monitoring"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Velocity of Change",
+            "target_concept": "Checking a used car's accident history",
+            "structural_mapping": {
+              "inputs": "Past records (growth/family) vs. Current state (image/video)",
+              "logic": "Historical context alters risk threshold",
+              "outputs": "Decision to act (biopsy/buy) vs. wait"
+            },
+            "explanation": "Both concepts add time to a static image to reduce uncertainty, but like a test drive cannot reveal past accidents, the researcher's live video shows current function while your family history provides the critical background context that sets your risk threshold."
+          },
+          "scenario": "When you decide to biopsy, does knowing their family history shift your threshold more than watching how the skin blanches under pressure?"
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Phenotypic Pattern Matching"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Background skin normalization"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Phenotypic Pattern Matching",
+          "researcher_branch": "Background skin normalization"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Phenotypic Pattern Matching",
+            "target_concept": "Spotting a stranger at a family reunion",
+            "structural_mapping": {
+              "inputs": "Individual mole + Patient's full body of nevi",
+              "logic": "Compare individual against the collective family trait pattern",
+              "outputs": "Decision on whether the mole is an outsider (malignant)"
+            },
+            "explanation": "Both aim to spot outliers by comparing against a baseline; however, your 'family reunion' check uses the whole group's history to find impostors, while the AI's local normalization only checks if the mole matches its immediate neighbors."
+          },
+          "scenario": "When you spot a suspicious mole, do you compare it to the skin right next to it, or do you scan the patient's other spots to see if it fits their overall pattern?"
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Phenotypic Pattern Matching"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Boundary definition beyond the lesion"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Phenotypic Pattern Matching",
+          "researcher_branch": "Boundary definition beyond the lesion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Phenotypic Pattern Matching",
+            "target_concept": "Spotting an outsider in a crowd",
+            "structural_mapping": {
+              "inputs": "Individual subject and group members",
+              "logic": "Compare subject against whole group pattern versus immediate neighbors",
+              "outputs": "Judgment on belonging or threat"
+            },
+            "explanation": "Both concepts rely on context to judge safety, like spotting an outsider in a crowd; however, your boundary definition checks only immediate neighbors, while the expert's pattern matching checks the whole crowd, meaning your tool misses the global comparison needed to spot the outlier."
+          },
+          "scenario": "When you assess a suspicious mole, do you judge it by the skin touching it, or do you scan the whole body to see if it fits that patient's unique pattern of moles?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Surrounding Tissue Context"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Background skin normalization"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Surrounding Tissue Context",
+          "researcher_branch": "Background skin normalization"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Phenotypic Pattern Matching",
+            "target_concept": "Neighborhood risk assessment",
+            "structural_mapping": {
+              "inputs": "High-crime zone vs. Sun-damaged skin environment",
+              "logic": "Lower suspicion threshold due to environment vs. Lower biopsy threshold due to tissue damage",
+              "outputs": "Investigate normal-looking person vs. Biopsy benign-looking spot"
+            },
+            "explanation": "The expert treats surrounding skin like a high-crime zone that forces action regardless of appearance, whereas your normalization concept treats it as a neutral backdrop for comparison."
+          },
+          "scenario": "When you see a benign-looking spot on severely sun-damaged skin, does that surrounding tissue serve mainly as a color reference, or does the damage itself lower your threshold to cut?"
+        },
+        "weight": 2.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Surrounding Tissue Context"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Boundary definition beyond the lesion"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Surrounding Tissue Context",
+          "researcher_branch": "Boundary definition beyond the lesion"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Surrounding Tissue Context",
+            "target_concept": "Neighborhood safety assessment",
+            "structural_mapping": {
+              "inputs": "House appearance and street condition",
+              "logic": "Bad street condition raises suspicion of the house regardless of its look",
+              "outputs": "Decision to investigate the property"
+            },
+            "explanation": "The researcher's boundary defines the yard size, but the expert's context assesses neighborhood safety. Both look beyond the house, but only the safety check captures the environmental risk that drives the decision."
+          },
+          "scenario": "When you see a benign-looking spot on sun-damaged skin, do you biopsy because of the spot's edge, or because the surrounding damage makes the whole area risky?"
+        },
+        "weight": 1.9999999999999996
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dermoscopic Depth Perception"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Impact of skin tension on visual morphology"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dermoscopic Depth Perception",
+          "researcher_branch": "Impact of skin tension on visual morphology"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dynamic Visual Inspection",
+            "target_concept": "Turning a gemstone to find internal flaws",
+            "structural_mapping": {
+              "inputs": "Visual data + Physical manipulation (light/angle vs skin tension)",
+              "logic": "Adjust viewing conditions to reveal hidden truth",
+              "outputs": "Confirmation of internal structure vs Record of surface state"
+            },
+            "explanation": "Both concepts involve manipulating physical conditions to reveal truth; like turning a gem reveals internal flaws (expert's depth), accounting for skin tension (researcher) acknowledges surface changes, but one seeks fixed internal architecture while the other tracks variable surface distortion."
+          },
+          "scenario": "When you pull the skin tight to examine a spot, are you trying to see deeper into the tissue, or does that stretching itself change the shape you need to measure?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dermoscopic Depth Perception"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Clinician viewing frustum constraints"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dermoscopic Depth Perception",
+          "researcher_branch": "Clinician viewing frustum constraints"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dermoscopic Depth Perception",
+            "target_concept": "Judging water depth by eye",
+            "structural_mapping": {
+              "inputs": "Visual cues like refraction, clarity, and subsurface layers",
+              "logic": "Brain reconstructs volume beneath the surface rather than just surface geometry",
+              "outputs": "Sense of internal structure vs. flat surface data"
+            },
+            "explanation": "The researcher assumes better angles capture missing data (like walking around a statue), but the expert needs to see internal volume (like judging pool depth), which disappears in a flat image regardless of angle."
+          },
+          "scenario": "When you tilt the skin to catch the light, are you trying to resolve surface texture, or does that movement help you sense the depth of the structures underneath?"
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dermoscopic Depth Perception"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Instrumental Skin Manipulation",
+          "Visual reveal through compression"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dermoscopic Depth Perception",
+          "researcher_branch": "Visual reveal through compression"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "visual",
+            "depth",
+            "architecture",
+            "pressure_intensity",
+            "color_shift",
+            "focus_plane",
+            "vascular_visibility",
+            "lighting_mode",
+            "angle_of_incidence",
+            "texture_gradient"
+          ],
+          "probes": [
+            {
+              "attribute": "visual",
+              "question": "Which visual cue dominates your initial assessment: Color uniformity, Structural shape, or Border definition?",
+              "choices": [
+                "Color uniformity",
+                "Structural shape",
+                "Border definition"
+              ]
+            },
+            {
+              "attribute": "depth",
+              "question": "When estimating depth, which cue is primary: Shadowing effects, Layering transparency, or Occlusion of lower structures?",
+              "choices": [
+                "Shadowing effects",
+                "Layering transparency",
+                "Occlusion of lower structures"
+              ]
+            },
+            {
+              "attribute": "architecture",
+              "question": "Is architectural integrity defined by: Symmetry of patterns, Regularity of networks, or Chaos of distribution?",
+              "choices": [
+                "Symmetry of patterns",
+                "Regularity of networks",
+                "Chaos of distribution"
+              ]
+            },
+            {
+              "attribute": "pressure_intensity",
+              "question": "During compression, is the critical threshold: Light contact only, Moderate blanching, or Full vessel obliteration?",
+              "choices": [
+                "Light contact only",
+                "Moderate blanching",
+                "Full vessel obliteration"
+              ]
+            },
+            {
+              "attribute": "color_shift",
+              "question": "When structures disappear under pressure, is the key indicator: Red fading to white, Brown staying stable, or Gray becoming visible?",
+              "choices": [
+                "Red fading to white",
+                "Brown staying stable",
+                "Gray becoming visible"
+              ]
+            },
+            {
+              "attribute": "focus_plane",
+              "question": "Where does your eye naturally focus first: The surface scale, The mid-dermis pigment, or The deepest vascular layer?",
+              "choices": [
+                "The surface scale",
+                "The mid-dermis pigment",
+                "The deepest vascular layer"
+              ]
+            },
+            {
+              "attribute": "vascular_visibility",
+              "question": "Regarding blood vessels, are you looking for: Linear vessels, Dotted vessels, or Reticular vessels?",
+              "choices": [
+                "Linear vessels",
+                "Dotted vessels",
+                "Reticular vessels"
+              ]
+            },
+            {
+              "attribute": "lighting_mode",
+              "question": "Which lighting mode reveals subsurface depth better: Polarized light, Non-polarized light, or Mixed mode?",
+              "choices": [
+                "Polarized light",
+                "Non-polarized light",
+                "Mixed mode"
+              ]
+            },
+            {
+              "attribute": "angle_of_incidence",
+              "question": "Does tilting the device help more by: Reducing glare, Enhancing shadow relief, or Aligning with skin tension lines?",
+              "choices": [
+                "Reducing glare",
+                "Enhancing shadow relief",
+                "Aligning with skin tension lines"
+              ]
+            },
+            {
+              "attribute": "texture_gradient",
+              "question": "When assessing edges, do you prioritize: Sharp demarcation, Fuzzy transition, or Gradual fading?",
+              "choices": [
+                "Sharp demarcation",
+                "Fuzzy transition",
+                "Gradual fading"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If image resolution changed from 1080p to 480p, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "visual"
+            },
+            {
+              "scenario": "If lesion elevation changed from flat to 2mm raised, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "depth"
+            },
+            {
+              "scenario": "If network pattern changed from regular to irregular, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "architecture"
+            },
+            {
+              "scenario": "If applied force changed from 100g to 500g, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "pressure_intensity"
+            },
+            {
+              "scenario": "If blanching time changed from 1 second to 5 seconds, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "color_shift"
+            },
+            {
+              "scenario": "If focal depth changed from surface to 1mm subsurface, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "focus_plane"
+            },
+            {
+              "scenario": "If vessel visibility changed from invisible to clearly dotted, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "vascular_visibility"
+            },
+            {
+              "scenario": "If light source changed from polarized to non-polarized, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "lighting_mode"
+            },
+            {
+              "scenario": "If device tilt changed from 0 degrees to 45 degrees, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "angle_of_incidence"
+            },
+            {
+              "scenario": "If border transition changed from sharp to diffuse, would your judgment about 'Dermoscopic Depth Perception' change?",
+              "attribute": "texture_gradient"
+            }
+          ]
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dermoscopic Depth Perception"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Temporal Observation",
+          "Dynamic physiological response monitoring"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dermoscopic Depth Perception",
+          "researcher_branch": "Dynamic physiological response monitoring"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that static AI crops flatten critical architectural depth needed for accurate diagnosis. This spatial intuition is indeed a cornerstone of dermatological expertise.",
+          "pivot": {
+            "limitation": "If the conversation remains solely on spatial depth, it overlooks how temporal changes in physiology might also be lost in static AI inputs.",
+            "research_goal": "The researcher is trying to understand the full spectrum of sensory information that static AI fails to capture, including both spatial architecture and temporal dynamics.",
+            "compelling_reason": "While depth perception is vital, understanding dynamic responses ensures the evaluation of AI tools covers all dimensions of clinical uncertainty, not just structural ones.",
+            "coarse_scenario": "I completely agree that losing that sense of depth is a major flaw in these tools, but I also need to understand if watching a lesion change over time is something you rely on that static images miss, so we can capture the full range of what AI isn't seeing."
+          }
+        },
+        "weight": 4.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dynamic Visual Inspection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Spatial Positioning & Ergonomics",
+          "Impact of skin tension on visual morphology"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Visual Inspection",
+          "researcher_branch": "Impact of skin tension on visual morphology"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Lighting Conditions",
+            "Viewing Angle",
+            "Skin Tension",
+            "Patient Posture",
+            "Contact Pressure",
+            "Observation Distance",
+            "Motion Dynamics",
+            "Inspection Duration"
+          ],
+          "probes": [
+            {
+              "attribute": "Lighting Conditions",
+              "question": "Which lighting source provides the most critical diagnostic information: natural sunlight, clinical overhead lighting, or polarized dermoscopic light?",
+              "choices": [
+                "Natural sunlight",
+                "Clinical overhead lighting",
+                "Polarized dermoscopic light"
+              ]
+            },
+            {
+              "attribute": "Viewing Angle",
+              "question": "Which viewing perspective reveals the most structure: a perpendicular view, a 45-degree oblique view, or a grazing angle view?",
+              "choices": [
+                "Perpendicular view",
+                "45-degree oblique view",
+                "Grazing angle view"
+              ]
+            },
+            {
+              "attribute": "Skin Tension",
+              "question": "When evaluating lesion borders, do you prefer relaxed skin, moderately stretched skin, or fully taut skin?",
+              "choices": [
+                "Relaxed skin",
+                "Moderately stretched skin",
+                "Fully taut skin"
+              ]
+            },
+            {
+              "attribute": "Patient Posture",
+              "question": "Does the lesion morphology appear most stable when the patient is standing, sitting upright, or lying supine?",
+              "choices": [
+                "Standing",
+                "Sitting upright",
+                "Lying supine"
+              ]
+            },
+            {
+              "attribute": "Contact Pressure",
+              "question": "How much device pressure do you apply during inspection: no contact, light contact pressure, or firm compression?",
+              "choices": [
+                "No contact",
+                "Light contact pressure",
+                "Firm compression"
+              ]
+            },
+            {
+              "attribute": "Observation Distance",
+              "question": "At what distance is your primary judgment formed: at arm's length, within 30cm, or under magnification only?",
+              "choices": [
+                "At arm's length",
+                "Within 30cm",
+                "Under magnification only"
+              ]
+            },
+            {
+              "attribute": "Motion Dynamics",
+              "question": "Which motion pattern yields the best insight: a single static hold, a slow sweeping motion, or rapid repositioning?",
+              "choices": [
+                "Single static hold",
+                "Slow sweeping motion",
+                "Rapid repositioning"
+              ]
+            },
+            {
+              "attribute": "Inspection Duration",
+              "question": "When is the critical information gathered: in under 5 seconds, between 5-15 seconds, or after 15+ seconds?",
+              "choices": [
+                "In under 5 seconds",
+                "Between 5-15 seconds",
+                "After 15+ seconds"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If ambient lux changed from 500 to 50, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Lighting Conditions"
+            },
+            {
+              "scenario": "If the camera axis shifted from 90 degrees to 30 degrees relative to the skin surface, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Viewing Angle"
+            },
+            {
+              "scenario": "If the skin surrounding the lesion was stretched by 10% versus left completely relaxed, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Skin Tension"
+            },
+            {
+              "scenario": "If the patient moved from a seated position to a standing position, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Patient Posture"
+            },
+            {
+              "scenario": "If the device pressure increased from 0g to 500g against the skin, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Contact Pressure"
+            },
+            {
+              "scenario": "If the viewing distance increased from 20cm to 100cm, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Observation Distance"
+            },
+            {
+              "scenario": "If the inspection motion changed from stationary to a continuous rotating motion, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Motion Dynamics"
+            },
+            {
+              "scenario": "If the observation time was limited from 30 seconds to 2 seconds, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Inspection Duration"
+            }
+          ]
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dynamic Visual Inspection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Physical & Environmental Contextualization",
+          "Environmental Lighting Control",
+          "Dynamic illumination workflow"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_02",
+        "researcher_lca_id": "q_01__res_L2_00_01",
+        "conflict": {
+          "expert_branch": "Dynamic Visual Inspection",
+          "researcher_branch": "Dynamic illumination workflow"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Lighting Source Type",
+            "Viewing Angle Variation",
+            "Light Transition Timing",
+            "Light Intensity Level",
+            "Surface Reflectivity",
+            "Shadow Contrast Depth",
+            "Inspection Motion Speed",
+            "Initial Scan Distance"
+          ],
+          "probes": [
+            {
+              "attribute": "Lighting Source Type",
+              "question": "Which lighting source do you prioritize for the initial detection of surface anomalies?",
+              "choices": [
+                "Ambient Room Light",
+                "Focused Diagnostic Light",
+                "Combined Simultaneous Use"
+              ]
+            },
+            {
+              "attribute": "Viewing Angle Variation",
+              "question": "When rotating the object, which angle range yields the most critical structural information?",
+              "choices": [
+                "0-30 degrees",
+                "30-60 degrees",
+                "60-90 degrees"
+              ]
+            },
+            {
+              "attribute": "Light Transition Timing",
+              "question": "At what point in the inspection do you switch from ambient to focused light?",
+              "choices": [
+                "Immediately upon pickup",
+                "After initial visual pass",
+                "Only when suspicion arises"
+              ]
+            },
+            {
+              "attribute": "Light Intensity Level",
+              "question": "Which intensity setting best reveals subsurface cracks without causing glare?",
+              "choices": [
+                "Low Intensity",
+                "Medium Intensity",
+                "High Intensity"
+              ]
+            },
+            {
+              "attribute": "Surface Reflectivity",
+              "question": "How does the material's shine affect your choice of lighting angle?",
+              "choices": [
+                "Matte requires direct light",
+                "Glossy requires oblique light",
+                "No adjustment needed"
+              ]
+            },
+            {
+              "attribute": "Shadow Contrast Depth",
+              "question": "What level of shadowing indicates a critical structural defect versus a surface scratch?",
+              "choices": [
+                "Soft Shadows",
+                "Hard Shadows",
+                "No Shadows"
+              ]
+            },
+            {
+              "attribute": "Inspection Motion Speed",
+              "question": "How fast should the light source move across the surface during the scan?",
+              "choices": [
+                "Slow and Steady",
+                "Quick Sweeps",
+                "Static Hold"
+              ]
+            },
+            {
+              "attribute": "Initial Scan Distance",
+              "question": "From what distance do you begin the dynamic illumination workflow?",
+              "choices": [
+                "Arm's Length",
+                "Close Focus (<10cm)",
+                "Mid-Range (30cm)"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If Lighting Source Type changed from Ambient Room Light to Focused Diagnostic Light, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Lighting Source Type"
+            },
+            {
+              "scenario": "If Viewing Angle Variation changed from 45 degrees to 10 degrees, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Viewing Angle Variation"
+            },
+            {
+              "scenario": "If Light Transition Timing changed from 'After initial visual pass' to 'Immediately upon pickup', would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Light Transition Timing"
+            },
+            {
+              "scenario": "If Light Intensity Level changed from 1000 lumens to 3000 lumens, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Light Intensity Level"
+            },
+            {
+              "scenario": "If Surface Reflectivity changed from Matte to High Gloss, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Surface Reflectivity"
+            },
+            {
+              "scenario": "If Shadow Contrast Depth changed from Soft Shadows to Hard Shadows, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Shadow Contrast Depth"
+            },
+            {
+              "scenario": "If Inspection Motion Speed changed from 5 cm/s to 20 cm/s, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Inspection Motion Speed"
+            },
+            {
+              "scenario": "If Initial Scan Distance changed from 30cm to 5cm, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Initial Scan Distance"
+            }
+          ]
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_03",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dynamic Visual Inspection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Visual Hierarchy & Scope",
+          "Surrounding Context Comparison",
+          "Background skin normalization"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Visual Inspection",
+          "researcher_branch": "Background skin normalization"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Lighting Conditions",
+            "Viewing Angle",
+            "Color Variation",
+            "Structural Depth",
+            "Surrounding Skin Contrast",
+            "Texture Gradient",
+            "Border Diffuseness",
+            "Reflectance Specularity"
+          ],
+          "probes": [
+            {
+              "attribute": "Lighting Conditions",
+              "question": "When assessing the lesion, which lighting artifact impacts your confidence more?",
+              "choices": [
+                "Overexposure washing out color",
+                "Underexposure hiding structure",
+                "Uneven shadows creating false borders"
+              ]
+            },
+            {
+              "attribute": "Viewing Angle",
+              "question": "Which angle shift provides the most critical diagnostic information?",
+              "choices": [
+                "Perpendicular straight-on",
+                "45-degree oblique",
+                "Rotational axis shift"
+              ]
+            },
+            {
+              "attribute": "Color Variation",
+              "question": "When evaluating color, which discrepancy triggers immediate concern?",
+              "choices": [
+                "Internal color variegation",
+                "Contrast against surrounding skin",
+                "Absence of expected pigment"
+              ]
+            },
+            {
+              "attribute": "Structural Depth",
+              "question": "How do you prioritize structural cues?",
+              "choices": [
+                "Surface elevation only",
+                "Subsurface depth perception",
+                "Combination of both"
+              ]
+            },
+            {
+              "attribute": "Surrounding Skin Contrast",
+              "question": "How heavily do you weigh the background skin tone in your assessment?",
+              "choices": [
+                "Primary reference baseline",
+                "Secondary confirmation only",
+                "Ignored in favor of lesion intrinsic features"
+              ]
+            },
+            {
+              "attribute": "Texture Gradient",
+              "question": "Which textural change is most significant at the lesion edge?",
+              "choices": [
+                "Abrupt stop in skin lines",
+                "Gradual blending of texture",
+                "Complete loss of texture"
+              ]
+            },
+            {
+              "attribute": "Border Diffuseness",
+              "question": "Regarding the lesion boundary, which characteristic is more problematic?",
+              "choices": [
+                "Sharp, well-defined edges",
+                "Fuzzy, ill-defined edges",
+                "Irregular, notched edges"
+              ]
+            },
+            {
+              "attribute": "Reflectance Specularity",
+              "question": "How does surface shine influence your judgment?",
+              "choices": [
+                "Indicates moisture/keratin",
+                "Obscures underlying pigment",
+                "Irrelevant to diagnosis"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If ambient lux changed from 500 to 50, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Lighting Conditions"
+            },
+            {
+              "scenario": "If camera incidence changed from 90 degrees to 45 degrees, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Viewing Angle"
+            },
+            {
+              "scenario": "If lesion hue shifted from uniform brown to multi-colored, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Color Variation"
+            },
+            {
+              "scenario": "If elevation changed from flat macule to raised papule, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Structural Depth"
+            },
+            {
+              "scenario": "If background skin tone changed from pale to erythematous, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Surrounding Skin Contrast"
+            },
+            {
+              "scenario": "If skin line continuity changed from interrupted to continuous, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Texture Gradient"
+            },
+            {
+              "scenario": "If edge clarity changed from sharp to fuzzy, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Border Diffuseness"
+            },
+            {
+              "scenario": "If surface glare changed from matte to glossy, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Reflectance Specularity"
+            }
+          ]
+        },
+        "weight": 2.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_03",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dynamic Visual Inspection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Instrumental Skin Manipulation",
+          "Visual reveal through compression"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Visual Inspection",
+          "researcher_branch": "Visual reveal through compression"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Lighting Variation",
+            "Viewing Angle",
+            "Applied Pressure",
+            "Surface Deformation",
+            "Color Shift Dynamics",
+            "Subsurface Opacity",
+            "Manipulation Duration",
+            "Tissue Resistance"
+          ],
+          "probes": [
+            {
+              "attribute": "Lighting Variation",
+              "question": "Which lighting adjustment yields higher diagnostic confidence during inspection?",
+              "choices": [
+                "Increasing brightness intensity",
+                "Shifting light source position",
+                "Changing color temperature"
+              ]
+            },
+            {
+              "attribute": "Viewing Angle",
+              "question": "Which perspective change is more critical for revealing structural defects?",
+              "choices": [
+                "Rotating the object horizontally",
+                "Tilting the object vertically",
+                "Changing observer distance"
+              ]
+            },
+            {
+              "attribute": "Applied Pressure",
+              "question": "Is the diagnostic signal stronger during which phase of physical interaction?",
+              "choices": [
+                "During the application of pressure",
+                "During the release of pressure",
+                "While holding steady pressure"
+              ]
+            },
+            {
+              "attribute": "Surface Deformation",
+              "question": "Do you rely more on which visual cue when compressing the surface?",
+              "choices": [
+                "Visible skin stretching",
+                "Visible skin indentation",
+                "Surface texture distortion"
+              ]
+            },
+            {
+              "attribute": "Color Shift Dynamics",
+              "question": "When color changes under stress, which temporal characteristic is the primary indicator?",
+              "choices": [
+                "The speed of color change",
+                "The final hue reached",
+                "The uniformity of the shift"
+              ]
+            },
+            {
+              "attribute": "Subsurface Opacity",
+              "question": "Are you primarily targeting visibility of which hidden feature during compression?",
+              "choices": [
+                "Vascular structures",
+                "Structural density variations",
+                "Fluid accumulation"
+              ]
+            },
+            {
+              "attribute": "Manipulation Duration",
+              "question": "Does the inspection validity depend on which timing protocol?",
+              "choices": [
+                "A quick snap assessment",
+                "A sustained hold",
+                "Repeated cyclic pressing"
+              ]
+            },
+            {
+              "attribute": "Tissue Resistance",
+              "question": "Is the decision driven primarily by which sensory feedback modality?",
+              "choices": [
+                "Visual sinkage",
+                "Tactile feedback from the tool",
+                "Auditory cues from the material"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If light intensity changed from 300 lux to 1000 lux, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Lighting Variation"
+            },
+            {
+              "scenario": "If the tilt range changed from 15 degrees to 60 degrees, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Viewing Angle"
+            },
+            {
+              "scenario": "If the force magnitude changed from light touch to firm press, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Applied Pressure"
+            },
+            {
+              "scenario": "If the indentation depth changed from 0.5mm to 3mm, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Surface Deformation"
+            },
+            {
+              "scenario": "If the color transition speed changed from immediate to 5 seconds, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Color Shift Dynamics"
+            },
+            {
+              "scenario": "If the visibility depth changed from 1mm to 10mm subsurface, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Subsurface Opacity"
+            },
+            {
+              "scenario": "If the pressure hold time changed from 1 second to 10 seconds, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Manipulation Duration"
+            },
+            {
+              "scenario": "If the material hardness changed from soft tissue to rigid plastic, would your judgment about 'Dynamic Visual Inspection' change?",
+              "attribute": "Tissue Resistance"
+            }
+          ]
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_03",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Holistic Visual Field",
+          "Dynamic Visual Inspection"
+        ],
+        "aligned_path_researcher": [
+          "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+          "Dynamic Interaction & Temporal Flow",
+          "Temporal Observation",
+          "Dynamic physiological response monitoring"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Dynamic Visual Inspection",
+          "researcher_branch": "Dynamic physiological response monitoring"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Dynamic Visual Inspection",
+            "target_concept": "Tilting a bill to check the watermark",
+            "structural_mapping": {
+              "inputs": "A flat, static image of the object",
+              "logic": "Change the angle or light to reveal hidden structural details",
+              "outputs": "Verification of authenticity that a snapshot cannot provide"
+            },
+            "explanation": "Both the researcher's idea of waiting for blood flow and your habit of tilting for depth share the same core logic: a single static view is blind to critical information, requiring change to reveal the truth. The difference is only whether the viewer moves or the object changes."
+          },
+          "scenario": "When you tilt the dermoscope to catch the glare, are you seeking depth cues from the angle, or do you ever wait to see if the redness changes on its own over time?"
+        },
+        "weight": 4.5
+      }
+    ],
+    "metadata": {
+      "created_at": "2026-03-28T04:15:02.613824",
+      "llm_provider": "openai",
+      "question_id": "q_01",
+      "question_text": "Could you walk me through your typical workflow when examining a suspicious skin lesion? What critical parts of your examination go far beyond simply 'looking at a cropped photo' of the spot, which is",
+      "expert_leaves": 10,
+      "researcher_leaves": 9,
+      "link_count": 29,
+      "alignment_stats": {
+        "leaf_alignments": 29,
+        "concept_alignments": 6,
+        "misaligned_leaves": 29
+      },
+      "construction_method": "math-based",
+      "depends_on": []
+    }
+  },
   "question_graphs": [
     {
       "question_id": "q_01",
       "question_text": "Could you walk me through your typical workflow when examining a suspicious skin lesion? What critical parts of your examination go far beyond simply 'looking at a cropped photo' of the spot, which is typically what an AI does?",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-28T04:15:02.613824",
-        "llm_provider": "openai",
-        "question_id": "q_01",
-        "question_text": "Could you walk me through your typical workflow when examining a suspicious skin lesion? What critical parts of your examination go far beyond simply 'looking at a cropped photo' of the spot, which is",
-        "expert_leaves": 10,
-        "researcher_leaves": 9,
-        "link_count": 29,
-        "alignment_stats": {
-          "leaf_alignments": 29,
-          "concept_alignments": 6,
-          "misaligned_leaves": 29
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
         "researcher_bg": "An HCI researcher focused on optimizing image classification accuracy and system efficiency, but lacking an understanding of the nuanced, multi-sensory realities of clinical skin examinations",
@@ -2216,28 +4392,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_02",
       "question_text": "When visually diagnosing a complex skin condition, how much do you rely on non-visual factors—like the tactile feel of the lesion or the patient's verbal history—and how do you mentally weigh these against the visual evidence?",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-28T04:15:10.591211",
-        "llm_provider": "openai",
-        "question_id": "q_02",
-        "question_text": "When visually diagnosing a complex skin condition, how much do you rely on non-visual factors—like the tactile feel of the lesion or the patient's verbal history—and how do you mentally weigh these ag",
-        "expert_leaves": 11,
-        "researcher_leaves": 9,
-        "link_count": 52,
-        "alignment_stats": {
-          "leaf_alignments": 52,
-          "concept_alignments": 8,
-          "misaligned_leaves": 52
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
         "researcher_bg": "An HCI researcher focused on optimizing image classification accuracy and system efficiency, but lacking an understanding of the nuanced, multi-sensory realities of clinical skin examinations",
@@ -6104,34 +8264,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_03",
       "question_text": "If an AI system flags a lesion as '90% likely malignant' based solely on its algorithmic image analysis, what specific medical context or 'visual proof' must the AI provide for you to actually trust and adopt its recommendation?",
-      "depends_on": [
-        "q_01",
-        "q_02"
-      ],
-      "metadata": {
-        "created_at": "2026-03-28T04:18:28.871094",
-        "llm_provider": "openai",
-        "question_id": "q_03",
-        "question_text": "If an AI system flags a lesion as '90% likely malignant' based solely on its algorithmic image analysis, what specific medical context or 'visual proof' must the AI provide for you to actually trust a",
-        "expert_leaves": 11,
-        "researcher_leaves": 10,
-        "link_count": 43,
-        "alignment_stats": {
-          "leaf_alignments": 43,
-          "concept_alignments": 9,
-          "misaligned_leaves": 43
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01",
-          "q_02"
-        ]
-      },
       "graph": {
         "topic": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
         "researcher_bg": "An HCI researcher focused on optimizing image classification accuracy and system efficiency, but lacking an understanding of the nuanced, multi-sensory realities of clinical skin examinations",
@@ -8465,32 +10603,15 @@
             "q_02"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01",
+        "q_02"
+      ]
     },
     {
       "question_id": "q_04",
       "question_text": "Looking at your heavy daily clinical burden, what is the most critical gap between the 'highly accurate diagnostic AI' that tech developers want to build, and the actual, practical support you desperately need in your daily practice?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-28T04:16:00.020633",
-        "llm_provider": "openai",
-        "question_id": "q_04",
-        "question_text": "Looking at your heavy daily clinical burden, what is the most critical gap between the 'highly accurate diagnostic AI' that tech developers want to build, and the actual, practical support you despera",
-        "expert_leaves": 6,
-        "researcher_leaves": 10,
-        "link_count": 27,
-        "alignment_stats": {
-          "leaf_alignments": 27,
-          "concept_alignments": 9,
-          "misaligned_leaves": 27
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
         "researcher_bg": "An HCI researcher focused on optimizing image classification accuracy and system efficiency, but lacking an understanding of the nuanced, multi-sensory realities of clinical skin examinations",
@@ -9961,7 +12082,52 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     }
-  ]
+  ],
+  "cache_key": "ce97a23c74c97149",
+  "status": "ready",
+  "error": "",
+  "transcript_summary": {
+    "main_bullets": [
+      {
+        "id": "mb_01",
+        "label": "Could you walk me through your typical workflow",
+        "keywords": [],
+        "source_question": "1. Could you walk me through your typical workflow when examining a suspicious skin lesion? What critical parts of your examination go far beyond simply 'looking at a cropped photo' of the spot, which is typically what an AI does?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_02",
+        "label": "When visually diagnosing a complex skin condition, how",
+        "keywords": [],
+        "source_question": "2. When visually diagnosing a complex skin condition, how much do you rely on non-visual factors—like the tactile feel of the lesion or the patient's verbal history—and how do you mentally weigh these against the visual evidence?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_03",
+        "label": "If an AI system flags a lesion as",
+        "keywords": [],
+        "source_question": "3. If an AI system flags a lesion as '90% likely malignant' based solely on its algorithmic image analysis, what specific medical context or 'visual proof' must the AI provide for you to actually trust and adopt its recommendation?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_04",
+        "label": "Looking at your heavy daily clinical burden, what",
+        "keywords": [],
+        "source_question": "4. Looking at your heavy daily clinical burden, what is the most critical gap between the 'highly accurate diagnostic AI' that tech developers want to build, and the actual, practical support you desperately need in your daily practice?",
+        "sub_bullets": []
+      }
+    ],
+    "last_updated_turn": 0
+  },
+  "_meta": {
+    "topic": "Exploring the multi-sensory diagnostic workflows, visual intuition, and trust challenges of dermatologists when evaluating clinical AI decision support tools",
+    "researcher_bg": "An HCI researcher focused on optimizing image classification accuracy and system efficiency, but lacking an understanding of the nuanced, multi-sensory realities of clinical skin examinations",
+    "expert_bg": "A clinical dermatologist who heavily relies on holistic visual intuition, tactile feedback, and patient history, often finding standard AI image-analyzers rigid and disconnected from real-world medical practice",
+    "saved_at": "2026-03-28T04:18:29.097759"
+  }
 }

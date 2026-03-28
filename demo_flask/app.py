@@ -56,29 +56,27 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Mrs. Chen
+INTERVIEWEE_DEMOGRAPHICS = """Name: Sarah Jenkins
 
-Professional Role: Senior Community Care Coordinator / Elderly Services Program Manager 
+Professional Role: Senior 3D Animator & VFX Workflow Supervisor
 
-Work Experience: Over 10 years of experience managing care teams and coordinating daily operations in community centers and home visit programs. Frequently handles complex task allocation, crisis intervention, and family communication. She routinely manages high-stress care environments and deeply understands the intense daily workload of frontline care staff.
+Work Experience: 15 years in the animation and visual effects industry. She oversees the entire pipeline from receiving rough storyboards to finalizing the 3D block-outs and polished splines.
 
 Expertise:
 
-Deeply familiar with the huge gap between formalized care protocols and the messy, unpredictable reality of daily caregiving.
+Possesses an exceptional eye for timing, weight, and the physics of movement.
 
-Skilled at balancing strict administrative requirements with sudden client emergencies.
+Highly skilled at translating abstract emotional cues from a director into highly specific physical poses and curve adjustments.
 
-Highly capable of relying on professional intuition to manage team burnout, allocate limited resources, and de-escalate conflicts with demanding family members.
-
-Often identifies operational bottlenecks and staff fatigue long before they appear in formal management reports.
+Often physically acts out the character's movement in the studio to capture the internal "rhythm" before touching the software.
 
 Core Challenges & Pain Points:
 
-Profoundly understands the heavy cognitive load and emotional exhaustion caused by understaffing, redundant paperwork, and fragmented communication channels.
+Profoundly understands the massive gap between a "mechanically correct" movement and a "soulful, believable" performance.
 
-Finds it extremely frustrating when technology designers or policymakers create "solutions" that actually add more administrative burden rather than reducing it.
+Finds it extremely frustrating when outsiders (like software engineers or producers) view animation simply as "moving a 3D puppet from point A to point B."
 
-Often feels that the most difficult parts of her job—such as managing erratic client behaviors, mediating family disputes, and handling the emotional weight of the job—are completely invisible to system developers. System developers usually focus only on the end-user (the elderly client) and completely ignore the workflow needs of the care worker.
+Struggles to explicitly teach junior animators the "feeling" of weight and anticipation, because so much of her expertise is locked in her own physical muscle memory and artistic intuition.
 
 
 """
