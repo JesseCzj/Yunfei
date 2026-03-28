@@ -41,25 +41,21 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Understanding the physical constraints, mechanical latency, and hardware iteration bottlenecks when designing intuitive teleoperation interfaces for competitive robots."
+INTERVIEW_TOPIC = "Uncovering the  the Gap Between AI Algorithmic Medical Image Analysis and Real-World Radiology Workflows"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: David Chen
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Diagnostic Radiologist (Sub-specializing in Thoracic Imaging)
 
-Professional Role: Senior Mechanical Engineer / Robotics Hardware Lead
+Work Experience: Over 15 years of experience in the Radiology Department of a Grade-A tertiary hospital. Daily workload involves interpreting 100-200 CT/MRI scans. A lead member of the Lung Cancer Screening Task Force. Has participated in multiple pilot programs for "AI-Assisted Nodule Detection" but remains highly critical of their clinical utility.
 
-Work Experience: Over 8 years designing complex mechanical structures for competitive robotics (like Robomaster). He manages the entire hardware lifecycle from CAD modeling to CNC machining and physical assembly.
-
-Expertise:
-
-Deeply understands physical constraints like mass, inertia, friction, and torque.
-
-Prioritizes the reliability and survivability of the robot in extreme conditions.
+Expertise: Master of "Spatial Gestalt" diagnosis—the ability to mentally reconstruct a 3D pathology from 2D slices. Expert at identifying subtle morphological nuances such as Spiculation, Pleural Indentation , and Internal Bronchogram . Heavily relies on Longitudinal Comparison (comparing current scans with priors from 2-5 years ago) to determine the "Doubling Time" of a nodule, which is his gold standard for malignancy.
 
 Core Challenges & Pain Points:
 
-Intensely frustrated when HCI or software designers map human gestures directly to heavy mechanical arms, because human hands have no inertia, but a 10kg metal arm will break its own gears if it tries to stop instantly.
+The "Cropped Box" Fallacy: Deeply annoyed by AI developers who treat a lung nodule as a localized 2D patch. He knows a nodule's meaning changes entirely based on its location (hilar vs. peripheral) and the patient's background (e.g., history of tuberculosis or heavy smoking).
 
-Hates the asymmetrical expectation of iteration speed. HCI researchers want to A/B test 5 different camera positions in an afternoon, completely ignoring the days required to redesign and machine a new metal camera mount."""
+Contextual Blindness: Frustrated that AI tools cannot access the EHR (Electronic Health Record). An AI flags a "90% malignant" spot, but he knows the patient had a similar-looking infection 3 months ago that is now resolving.
+
+Workflow Fragmentation: Hates "Second Reader" AI models that force him to click through a list of 50 "potential nodules," 40 of which are obvious vascular shadows or noise, effectively doubling his reading time instead of halving it."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
