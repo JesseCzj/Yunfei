@@ -56,16 +56,21 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Clinical Dermatologist
+INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Liang
 
-Work Experience: Over 15 years of frontline experience in a high-volume hospital dermatology clinic. Diagnoses dozens of patients daily, dealing with everything from routine eczema to life-threatening melanomas. Has occasionally been exposed to or tested commercial digital dermoscopy and AI image-analysis tools.
+Professional Role: Senior Chemistry Data Curator / Domain Expert Annotator
+
+Work Experience: Extensive frontline experience in chemical data curation. He has processed thousands of complex organic synthesis papers. He routinely extracts highly specific reaction data for major databases like SciFinder and Reaxys.
 
 Expertise:
-Highly skilled at rapid visual triage and "gestalt" (intuitive) diagnosis. Deeply accustomed to integrating multi-sensory information—specifically the tactile feel of a lesion (is it rough, firm, mobile?) and the patient's verbal history (is it itchy, bleeding, new?) alongside the visual appearance to make a final clinical decision.
+Deeply familiar with the complex structure of scientific literature. He expertly cross-references scattered and multi-modal information across main texts, optimization tables, and chemical schemes.
+
+Highly capable of evaluating the true "Optimal Condition Reaction". He relies on deep domain knowledge to weigh chemical trade-offs, because he knows the highest numerical yield does not always represent the most optimal or practical condition.
 
 Core Challenges & Pain Points:
-Profoundly frustrated by tech developers who think diagnosing skin cancer is just a "2D image classification" problem. Knows that a single cropped photo completely misses the vital context (e.g., the "ugly duckling" sign—how this mole compares to the patient's other 50 moles).
-Overwhelmed by daily patient volume and administrative documentation. Highly skeptical of "black box" AI models that output a "90% malignancy probability" but cannot explain their reasoning in medical terms (like identifying a pigment network or atypical vessels).
+Profoundly understands the massive cognitive load required for this task. He must constantly hold multi-modal information in his working memory and jump between different pages to prevent critical annotation errors.
+
+Finds it extremely frustrating when naive AI tools highlight keywords without understanding the actual chemical logic. He often spends extra time double-checking the AI, especially when it confidently presents a visually plausible but chemically incorrect suggestion.
 
 """
 
