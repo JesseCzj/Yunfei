@@ -41,20 +41,11 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Exploring the cognitive load, implicit knowledge mapping, and Human-AI friction when chemistry experts translate unstructured, abbreviated experimental text into standardized, machine-readable synthesis recipes."
+INTERVIEW_TOPIC = "Exploring the manual workflows, reliability metrics, and the critical need for biological explainability when biologists use AI-based virtual cell models for genetic perturbation"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Chen
-Professional Role: Senior Cheminformatics Specialist / Reaction Data Engineer
-
-Work Experience:Extensive frontline experience in chemical data standardization. He has processed thousands of dense, jargon-heavy experimental paragraphs from both modern and legacy chemistry journals, translating them into step-by-step digital action sequences (e.g., add, stir, heat, wash, extract).
-
-Expertise:
-Deeply familiar with chemical shorthand and laboratory pragmatics (e.g., knowing what "rt", "brine", or "quenched" actually entails in a lab). 
-Highly capable of inferring "missing steps". He relies on deep bench-chemistry experience to fill in the blanks when authors use vague phrases like "worked up in the usual manner" or "a catalytic amount", knowing exactly what solvents or actions are implicitly required.
-
-Core Challenges & Pain Points:
-Profoundly understands the massive cognitive load of reading poorly formatted, highly abbreviated text while simultaneously mentally reconstructing the physical lab operations.
-Finds it extremely frustrating when naive Large Language Models (LLMs) or NLP tools treat chemistry text like standard English. He is annoyed when AI extracts actions out of chronological sequence, misses implicit washing/drying steps, or hallucinates exact quantities for vague terms. He spends a lot of time correcting AI that cannot understand the physical reality of a chemistry lab"""
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Biologist / Computational Biologist specializing in Gene Regulation and Drug DiscoveryWork Experience: Extensive frontline experience conducting genetic perturbation experiments (e.g., CRISPR knockouts) both manually in the wet-lab and computationally. Frequently evaluates AI predictions and gene regulatory networks against real biological data and existing literature.Expertise:
+Deeply familiar with the biological mechanisms underlying cellular responses. Highly capable of cross-referencing AI outputs with extensive literature reviews to determine if a predicted gene perturbation result is a real biological discovery or just an algorithmic hallucination.Core Challenges & Pain Points:
+Profoundly frustrated by AI models acting as "black boxes"—where the model can highly accurately predict gene expression changes, but fails to explain the underlying biological mechanism (which is essential for drug discovery). Finds it challenging to evaluate the true "reliability" of virtual cell models because standard AI metrics (like loss or accuracy) often do not translate to biological validity."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
