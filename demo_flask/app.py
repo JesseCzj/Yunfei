@@ -56,17 +56,17 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Clinical Dermatologist
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Computational Biologist / Bioinformatician
 
-Work Experience: Over 15 years of frontline experience in a high-volume hospital dermatology clinic. Diagnoses dozens of patients daily, dealing with everything from routine eczema to life-threatening melanomas. Has occasionally been exposed to or tested commercial digital dermoscopy and AI image-analysis tools.
+Work Experience: Extensive frontline experience analyzing high-dimensional single-cell RNA-seq and spatial transcriptomics data. Has successfully identified, validated, and published findings on novel cell states. Highly proficient in using standard bioinformatics pipelines and platforms like Seurat and Scanpy.
 
 Expertise:
-Highly skilled at rapid visual triage and "gestalt" (intuitive) diagnosis. Deeply accustomed to integrating multi-sensory information—specifically the tactile feel of a lesion (is it rough, firm, mobile?) and the patient's verbal history (is it itchy, bleeding, new?) alongside the visual appearance to make a final clinical decision.
+Deeply familiar with the ambiguity and complexity of defining novel cell states from complex datasets.
+Highly capable of balancing statistical clustering signals with biological intuition, and understanding what constitutes "believable" evidence (e.g., marker genes, pathway enrichment, wet-lab validation).
 
 Core Challenges & Pain Points:
-Profoundly frustrated by tech developers who think diagnosing skin cancer is just a "2D image classification" problem. Knows that a single cropped photo completely misses the vital context (e.g., the "ugly duckling" sign—how this mole compares to the patient's other 50 moles).
-Overwhelmed by daily patient volume and administrative documentation. Highly skeptical of "black box" AI models that output a "90% malignancy probability" but cannot explain their reasoning in medical terms (like identifying a pigment network or atypical vessels).
-
+Profoundly understands the extreme difficulty of biological interpretation—algorithmic clusters often do not cleanly map to valid biological cell types.
+Finds it challenging to formalize the subjective "rules of thumb" used to tune clustering parameters (like resolution) or to decide whether a continuous spectrum is a new state or just technical noise (e.g., batch effects). Constantly frustrated by the tedious, manual iteration required when biological interpretation falls short.
 
 """
 
