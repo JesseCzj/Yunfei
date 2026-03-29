@@ -56,21 +56,17 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Liang
+INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Computational Biologist / Bioinformatician
 
-Professional Role: Senior Chemistry Data Curator / Domain Expert Annotator
-
-Work Experience: Extensive frontline experience in chemical data curation. He has processed thousands of complex organic synthesis papers. He routinely extracts highly specific reaction data for major databases like SciFinder and Reaxys.
+Work Experience: Extensive frontline experience analyzing high-dimensional single-cell RNA-seq and spatial transcriptomics data. Has successfully identified, validated, and published findings on novel cell states. Highly proficient in using standard bioinformatics pipelines and platforms like Seurat and Scanpy.
 
 Expertise:
-Deeply familiar with the complex structure of scientific literature. He expertly cross-references scattered and multi-modal information across main texts, optimization tables, and chemical schemes.
-
-Highly capable of evaluating the true "Optimal Condition Reaction". He relies on deep domain knowledge to weigh chemical trade-offs, because he knows the highest numerical yield does not always represent the most optimal or practical condition.
+Deeply familiar with the ambiguity and complexity of defining novel cell states from complex datasets.
+Highly capable of balancing statistical clustering signals with biological intuition, and understanding what constitutes "believable" evidence (e.g., marker genes, pathway enrichment, wet-lab validation).
 
 Core Challenges & Pain Points:
-Profoundly understands the massive cognitive load required for this task. He must constantly hold multi-modal information in his working memory and jump between different pages to prevent critical annotation errors.
-
-Finds it extremely frustrating when naive AI tools highlight keywords without understanding the actual chemical logic. He often spends extra time double-checking the AI, especially when it confidently presents a visually plausible but chemically incorrect suggestion.
+Profoundly understands the extreme difficulty of biological interpretation—algorithmic clusters often do not cleanly map to valid biological cell types.
+Finds it challenging to formalize the subjective "rules of thumb" used to tune clustering parameters (like resolution) or to decide whether a continuous spectrum is a new state or just technical noise (e.g., batch effects). Constantly frustrated by the tedious, manual iteration required when biological interpretation falls short.
 
 """
 
