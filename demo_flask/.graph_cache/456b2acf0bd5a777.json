@@ -1,27 +1,3011 @@
 {
-  "created_at": "2026-03-29T04:52:31.453465",
-  "question_graph_count": 4,
+  "graph": {
+    "topic": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+    "researcher_bg": "An HCI researcher focusing on AI-assisted data annotation and visual search interfaces. The researcher wants to understand the cognitive load of cross-referencing multi-modal data but lacks formal training in organic synthesis and chemical trade-offs",
+    "expert_bg": "A Senior Chemistry Data Curator (Dr. Liang) who annotates reaction data for databases like SciFinder or Reaxys. He manages massive volumes of literature and heavily relies on domain intuition to filter out misleading AI suggestions",
+    "expert_tree": {
+      "tower": "expert",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "description": "Interview topic: Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__exp_L1_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L1_00": {
+          "id": "q_01__exp_L1_00",
+          "tower": "expert",
+          "layer": "L1",
+          "label": "Expert Annotation Workflow & Cognitive Friction",
+          "description": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__exp_L2_00_00",
+            "q_01__exp_L2_00_01",
+            "q_01__exp_L2_00_02",
+            "q_01__exp_L2_00_03"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_L2_00_00": {
+          "id": "q_01__exp_L2_00_00",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Initial Scoping & Orientation",
+          "description": "The preliminary workflow phase of identifying optimization targets before data extraction begins.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_00_00",
+            "q_01__exp_leaf_00_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_00_00": {
+          "id": "q_01__exp_leaf_00_00_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Abstract-Conclusion Orientation",
+          "description": "You always start by skimming the abstract and conclusion to sense what reactions were tested and what the authors claim is optimal before diving into data.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "high-level skimming",
+            "target identification"
+          ]
+        },
+        "q_01__exp_leaf_00_00_01": {
+          "id": "q_01__exp_leaf_00_00_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Optimization Metric Ambiguity",
+          "description": "Authors often don't clearly state what they optimized for, so you have to infer if they prioritized yield, selectivity, or time from messy tables.",
+          "parent_id": "q_01__exp_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "unclear optimization goals",
+            "messy tables"
+          ]
+        },
+        "q_01__exp_L2_00_01": {
+          "id": "q_01__exp_L2_00_01",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Data Fragmentation & Verification",
+          "description": "The challenge of locating and trusting reaction conditions scattered across different sections of a paper.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_01_00",
+            "q_01__exp_leaf_00_01_01",
+            "q_01__exp_leaf_00_01_02",
+            "q_01__exp_leaf_00_01_03"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_01_00": {
+          "id": "q_01__exp_leaf_00_01_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Scheme-Table Mismatch",
+          "description": "Schemes are often illustrative or outdated compared to tables; relying on the picture alone misses variables or shows non-optimal conditions.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "illustrative schemes",
+            "outdated graphics"
+          ]
+        },
+        "q_01__exp_leaf_00_01_01": {
+          "id": "q_01__exp_leaf_00_01_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "The Footnote Trap",
+          "description": "Critical conditions like temperature or catalyst loading are hidden in tiny footnotes or implied through experiment structure, and you miss them if you aren't zooming in.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "hidden variables",
+            "side notes"
+          ]
+        },
+        "q_01__exp_leaf_00_01_02": {
+          "id": "q_01__exp_leaf_00_01_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Methods-Text Discrepancy",
+          "description": "The methods section or tables might claim one 'optimal' yield, but the discussion text implies a different reality, forcing you to decide which one to curate.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "text vs data",
+            "methods mismatch"
+          ]
+        },
+        "q_01__exp_leaf_00_01_03": {
+          "id": "q_01__exp_leaf_00_01_03",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Expert Intuition & Gut Checks",
+          "description": "You develop a gut feeling about certain data; if something feels off or too perfect, you instinctively double-check before trusting the yield over the AI.",
+          "parent_id": "q_01__exp_L2_00_01",
+          "children_ids": [],
+          "attributes": [
+            "domain_knowledge",
+            "heuristic"
+          ],
+          "aliases": [
+            "trust gut over model",
+            "reading between lines"
+          ]
+        },
+        "q_01__exp_L2_00_02": {
+          "id": "q_01__exp_L2_00_02",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Defining True Optimality",
+          "description": "Judging whether a reported condition is actually useful or just statistically best in a narrow context.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_02_00",
+            "q_01__exp_leaf_00_02_01",
+            "q_01__exp_leaf_00_02_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_02_00": {
+          "id": "q_01__exp_leaf_00_02_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Yield vs. Selectivity Conflict",
+          "description": "A condition might give 95% yield but terrible selectivity, making it 'optimal' for mass but useless for synthesis, yet authors often highlight the yield alone.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "quality trade-offs",
+            "misleading metrics"
+          ]
+        },
+        "q_01__exp_leaf_00_02_01": {
+          "id": "q_01__exp_leaf_00_02_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Suspiciously Perfect Yields",
+          "description": "When you see a 99% yield or enthusiastic text hype, your instinct screams 'weighed wet' or unpurified data, so you downgrade confidence until proven otherwise.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [
+            "data_quality",
+            "skepticism"
+          ],
+          "aliases": [
+            "text hype",
+            "unpurified data"
+          ]
+        },
+        "q_01__exp_leaf_00_02_02": {
+          "id": "q_01__exp_leaf_00_02_02",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Standard vs Refined Conditions",
+          "description": "It's hard to know if a reaction was run under standard conditions versus something more refined, affecting whether you can label it 'optimal' for general use.",
+          "parent_id": "q_01__exp_L2_00_02",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "generalizability",
+            "context missing"
+          ]
+        },
+        "q_01__exp_L2_00_03": {
+          "id": "q_01__exp_L2_00_03",
+          "tower": "expert",
+          "layer": "L2",
+          "label": "Human-AI Collaboration Friction",
+          "description": "Specific bottlenecks where automated extraction tools fail to match expert curation standards.",
+          "parent_id": "q_01__exp_L1_00",
+          "children_ids": [
+            "q_01__exp_leaf_00_03_00",
+            "q_01__exp_leaf_00_03_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__exp_leaf_00_03_00": {
+          "id": "q_01__exp_leaf_00_03_00",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "AI Context Blindness",
+          "description": "The AI extracts the bolded yield but misses context like failed attempts, side reactions, or discussion nuances that invalidate the data.",
+          "parent_id": "q_01__exp_L2_00_03",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "misses failed attempts",
+            "reasoning nuances"
+          ]
+        },
+        "q_01__exp_leaf_00_03_01": {
+          "id": "q_01__exp_leaf_00_03_01",
+          "tower": "expert",
+          "layer": "leaf",
+          "label": "Override Decision Triggers",
+          "description": "You know instantly when to ignore the AI's suggestion based on visual patterns or layout, but it's hard to write a rule for that visual pattern recognition.",
+          "parent_id": "q_01__exp_L2_00_03",
+          "children_ids": [],
+          "attributes": [
+            "ai_interaction",
+            "workflow_efficiency"
+          ],
+          "aliases": [
+            "visual pattern recognition",
+            "instant override"
+          ]
+        }
+      }
+    },
+    "researcher_tree": {
+      "tower": "researcher",
+      "root_id": "q_01__shared_root",
+      "nodes": {
+        "q_01__shared_root": {
+          "id": "q_01__shared_root",
+          "tower": "shared",
+          "layer": "root",
+          "label": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "description": "Interview topic: Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "parent_id": null,
+          "children_ids": [
+            "q_01__res_L1_00",
+            "q_01__res_L1_01",
+            "q_01__res_L1_02"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L1_00": {
+          "id": "q_01__res_L1_00",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Information Foraging & Navigation Sequences",
+          "description": "Understanding the sequential path and physical navigation strategies experts use to locate scattered data points within a document.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_00_00",
+            "q_01__res_L2_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_00_00": {
+          "id": "q_01__res_L2_00_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Search Initiation & Pathing",
+          "description": "Investigating where the search begins and the non-linear jumps required to gather data.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_00_00",
+            "q_01__res_leaf_00_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_00_00": {
+          "id": "q_01__res_leaf_00_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Identify primary entry points for condition searches",
+          "description": "Determine whether experts consistently start with chemical schemes, experimental tables, or main text to minimize initial search time.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Information Scent",
+            "Search Strategy"
+          ]
+        },
+        "q_01__res_leaf_00_00_01": {
+          "id": "q_01__res_leaf_00_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Map frequency of non-linear page jumps",
+          "description": "Quantify how often experts must jump between distant pages (e.g., Scheme on page 2, Table on page 10) during a single extraction task.",
+          "parent_id": "q_01__res_L2_00_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Navigation Cost",
+            "Context Switching"
+          ]
+        },
+        "q_01__res_L2_00_01": {
+          "id": "q_01__res_L2_00_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Cross-Referencing Mechanics",
+          "description": "Analyzing the specific actions taken to verify connections between disparate document elements.",
+          "parent_id": "q_01__res_L1_00",
+          "children_ids": [
+            "q_01__res_leaf_00_01_00",
+            "q_01__res_leaf_00_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_00_01_00": {
+          "id": "q_01__res_leaf_00_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Observe physical comparison actions",
+          "description": "Document whether experts rely on scrolling, splitting screens, or printing to visually compare distant text and tables.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Viewport Management",
+            "Interaction Techniques"
+          ]
+        },
+        "q_01__res_leaf_00_01_01": {
+          "id": "q_01__res_leaf_00_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Identify visual cues for data location",
+          "description": "Understand what visual markers (e.g., bold yields, specific keywords) signal experts to stop scanning and start extracting.",
+          "parent_id": "q_01__res_L2_00_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Visual Attention",
+            "Information Scent"
+          ]
+        },
+        "q_01__res_L1_01": {
+          "id": "q_01__res_L1_01",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Cognitive Offloading & State Tracking",
+          "description": "Exploring how experts manage working memory and track progress when data is not centrally located.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_01_00",
+            "q_01__res_L2_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_01_00": {
+          "id": "q_01__res_L2_01_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Temporary Memory Aids",
+          "description": "Examining tools or methods used to hold intermediate data while navigating between document sections.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_00_00",
+            "q_01__res_leaf_01_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_00_00": {
+          "id": "q_01__res_leaf_01_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Catalog external note-taking behaviors",
+          "description": "Identify if experts write down conditions temporarily to free cognitive load while searching for matching schemes.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "External Cognition",
+            "Working Memory"
+          ]
+        },
+        "q_01__res_leaf_01_00_01": {
+          "id": "q_01__res_leaf_01_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Analyze progress marking strategies",
+          "description": "Determine how experts visually mark a paper as 'in-progress' vs 'complete' to prevent re-work during navigation.",
+          "parent_id": "q_01__res_L2_01_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Status Tracking",
+            "Feedback Loops"
+          ]
+        },
+        "q_01__res_L2_01_01": {
+          "id": "q_01__res_L2_01_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Visual Anchoring Strategies",
+          "description": "Understanding how experts mentally or visually bind related elements that are spatially separated.",
+          "parent_id": "q_01__res_L1_01",
+          "children_ids": [
+            "q_01__res_leaf_01_01_00",
+            "q_01__res_leaf_01_01_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_01_01_00": {
+          "id": "q_01__res_leaf_01_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Determine structure-to-table linking methods",
+          "description": "Explore how experts confirm a specific chemical structure in a scheme corresponds to a specific row in an optimization table.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Visual Mapping",
+            "Mental Model"
+          ]
+        },
+        "q_01__res_leaf_01_01_01": {
+          "id": "q_01__res_leaf_01_01_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Assess handling of ambiguous visual links",
+          "description": "Investigate workflows when explicit labels connecting schemes to tables are missing or unclear.",
+          "parent_id": "q_01__res_L2_01_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Error Recovery",
+            "Ambiguity Resolution"
+          ]
+        },
+        "q_01__res_L1_02": {
+          "id": "q_01__res_L1_02",
+          "tower": "researcher",
+          "layer": "L1",
+          "label": "Interface Affordances & Layout Preferences",
+          "description": "Identifying specific tool features and layout configurations that facilitate or hinder the navigation workflow.",
+          "parent_id": "q_01__shared_root",
+          "children_ids": [
+            "q_01__res_L2_02_00",
+            "q_01__res_L2_02_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_L2_02_00": {
+          "id": "q_01__res_L2_02_00",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Document Interaction Tools",
+          "description": "Evaluating the utility of existing PDF reader features during the extraction workflow.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_00_00",
+            "q_01__res_leaf_02_00_01"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_00_00": {
+          "id": "q_01__res_leaf_02_00_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Evaluate utility of reader-specific features",
+          "description": "Assess reliance on zoom, find, or bookmark tools specifically for locating condition data versus general reading.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Interface Affordances",
+            "Tool Utility"
+          ]
+        },
+        "q_01__res_leaf_02_00_01": {
+          "id": "q_01__res_leaf_02_00_01",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Compare digital vs. print navigation preferences",
+          "description": "Understand if experts prefer digital searchability or print spatiality for this specific cross-referencing task.",
+          "parent_id": "q_01__res_L2_02_00",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Modality Preference",
+            "Spatial Memory"
+          ]
+        },
+        "q_01__res_L2_02_01": {
+          "id": "q_01__res_L2_02_01",
+          "tower": "researcher",
+          "layer": "L2",
+          "label": "Multi-View Coordination",
+          "description": "Exploring desires for linked views that could reduce manual navigation effort.",
+          "parent_id": "q_01__res_L1_02",
+          "children_ids": [
+            "q_01__res_leaf_02_01_00"
+          ],
+          "attributes": [],
+          "aliases": []
+        },
+        "q_01__res_leaf_02_01_00": {
+          "id": "q_01__res_leaf_02_01_00",
+          "tower": "researcher",
+          "layer": "leaf",
+          "label": "Gauge interest in automatic element linking",
+          "description": "Determine if experts would trust automated highlighting that connects text mentions to table entries to reduce scrolling.",
+          "parent_id": "q_01__res_L2_02_01",
+          "children_ids": [],
+          "attributes": [],
+          "aliases": [
+            "Brushing & Linking",
+            "Automation Trust"
+          ]
+        }
+      }
+    },
+    "links": [
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Abstract-Conclusion Orientation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Identify primary entry points for condition searches"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "Abstract-Conclusion Orientation",
+          "researcher_branch": "Identify primary entry points for condition searches"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Optimization Metric Ambiguity",
+            "target_concept": "Reading the verdict before the evidence",
+            "structural_mapping": {
+              "inputs": "Ambiguous reaction tables and messy metrics",
+              "logic": "Require final claim to interpret data value",
+              "outputs": "Confident identification of the truly optimal condition"
+            },
+            "explanation": "The researcher seeks data entry points, but like needing a verdict to understand evidence, the expert requires the conclusion to resolve metric ambiguity before trusting tables."
+          },
+          "scenario": "When you open a new paper, do you find you must know the authors' claimed optimal result before you can trust which numbers in the tables actually matter?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Abstract-Conclusion Orientation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Abstract-Conclusion Orientation",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Optimization Metric Ambiguity",
+            "target_concept": "Reading the review to understand the rating",
+            "structural_mapping": {
+              "inputs": "Messy data tables / Star rating and review text",
+              "logic": "Infer priority from context / Read text to interpret score",
+              "outputs": "Validated optimal condition / Accurate quality judgment"
+            },
+            "explanation": "Both the researcher's visual search and the expert's ambiguity resolution seek key data, but like 'Reading the review to understand the rating', the expert's familiar concept shows that locating the number (rating) fails without the claim (review) to interpret it."
+          },
+          "scenario": "When you're scanning a paper, do you find you need to read their conclusion first to know which bolded numbers actually matter, rather than just spotting the highlights?"
+        },
+        "weight": 4.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Abstract-Conclusion Orientation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Temporary Memory Aids",
+          "Catalog external note-taking behaviors"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Abstract-Conclusion Orientation",
+          "researcher_branch": "Catalog external note-taking behaviors"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Abstract-Conclusion Orientation",
+            "target_concept": "Checking map endpoints before driving",
+            "structural_mapping": {
+              "inputs": "Dense research paper / Complex driving route",
+              "logic": "Skim start/end to filter scope / Check start/end to plan path",
+              "outputs": "Reduced cognitive load / Reduced memory load"
+            },
+            "explanation": "The researcher expects load management to look like writing notes, but the expert manages load by filtering scope early, just like checking a map's destination prevents you from needing to memorize every turn."
+          },
+          "scenario": "When you skim the abstract first, do you find you need to write down fewer conditions than if you started reading the tables immediately?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Abstract-Conclusion Orientation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Determine structure-to-table linking methods"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_01",
+        "conflict": {
+          "expert_branch": "Abstract-Conclusion Orientation",
+          "researcher_branch": "Determine structure-to-table linking methods"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Abstract-Conclusion Orientation",
+            "target_concept": "Trusting the bill total",
+            "structural_mapping": {
+              "inputs": "Complex itemized reaction table vs. Itemized receipt",
+              "logic": "Accept summary claim (conclusion) vs. Accept total sum",
+              "outputs": "Identified optimal condition vs. Accepted cost"
+            },
+            "explanation": "The researcher assumes you verify every line item (structure-to-table), but like trusting a bill total, you often accept the author's conclusion without re-checking every detail unless the numbers look suspicious."
+          },
+          "scenario": "When the conclusion explicitly names the optimal reaction, do you still verify the structure matches the table row, or do you just take their word for it?"
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Abstract-Conclusion Orientation"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Abstract-Conclusion Orientation",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the necessity of reading abstracts and conclusions first to establish contextual framing before examining specific data points. This ensures they understand the authors' claims about optimal reactions before diving into the details.",
+          "pivot": {
+            "limitation": "Focusing solely on this orientation workflow overlooks how interface tools might support or hinder the transition from that high-level understanding to specific data extraction.",
+            "research_goal": "The researcher is trying to understand if automated linking between text and tables can reduce physical navigation effort without breaking the expert's cognitive flow.",
+            "compelling_reason": "While contextual framing is critical, understanding the efficiency gains from automation helps determine if tools can handle the tedious scrolling once the context is established, balancing understanding with workload.",
+            "coarse_scenario": "I agree that establishing that context from the abstract is crucial before diving in, but I'm also curious if having automatic links ready would help you navigate the data faster once you've established that frame, or if it feels distracting."
+          }
+        },
+        "weight": 3.0000000000000004
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Optimization Metric Ambiguity"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Optimization Metric Ambiguity",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that the primary cognitive bottleneck lies in interpreting ambiguous optimization metrics within messy tables rather than simply locating data.",
+          "pivot": {
+            "limitation": "Focusing exclusively on interpretation ambiguity overlooks how experts initially navigate the document to find the relevant tables amidst complex literature.",
+            "research_goal": "The researcher aims to understand the visual foraging patterns and specific markers that trigger the transition from scanning to extracting.",
+            "compelling_reason": "Understanding visual cues is crucial because even if metrics are ambiguous, identifying how experts locate potential data sources informs the design of tools that reduce search friction before interpretation begins.",
+            "coarse_scenario": "I understand that inferring the optimization intent is the real challenge, but I also need to understand what visual markers stop your scanning process, because even ambiguous data needs to be found before it can be interpreted."
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Optimization Metric Ambiguity"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Assess handling of ambiguous visual links"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_01",
+        "conflict": {
+          "expert_branch": "Optimization Metric Ambiguity",
+          "researcher_branch": "Assess handling of ambiguous visual links"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Optimization Metric Ambiguity",
+            "target_concept": "Guessing the win condition from a scoreboard",
+            "structural_mapping": {
+              "inputs": "Raw numbers displayed without context (Table values)",
+              "logic": "Inferring the goal based on patterns rather than labels (Inferring yield vs. time)",
+              "outputs": "Understanding what counts as success (Determining optimal condition)"
+            },
+            "explanation": "Both concepts involve resolving uncertainty to proceed. The target concept shows that like the researcher checking visual links, the expert infers missing info, but the expert infers meaning (metrics) while the researcher infers structure (links)."
+          },
+          "scenario": "When you find a table with unlabeled numbers, is your main struggle figuring out which diagram it belongs to, or inferring whether they optimized for speed or yield?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_00_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Initial Scoping & Orientation",
+          "Optimization Metric Ambiguity"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Optimization Metric Ambiguity",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Abstract-Conclusion Orientation",
+            "target_concept": "Knowing the win condition",
+            "structural_mapping": {
+              "inputs": "Game state (Paper data)",
+              "logic": "Identify win condition (Infer metric)",
+              "outputs": "Valid move (Extract condition)"
+            },
+            "explanation": "Your tool links text to tables like connecting a playbook to a scorecard, but like my need to know the win condition first, linking them fails if the text doesn't define what counts as winning."
+          },
+          "scenario": "When you find a paper where the authors never say what they optimized, does linking their text mentions to the table help you guess the metric, or is that info just missing?"
+        },
+        "weight": 8.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Scheme-Table Mismatch"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Identify primary entry points for condition searches"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "Scheme-Table Mismatch",
+          "researcher_branch": "Identify primary entry points for condition searches"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that chemical schemes are often illustrative and unreliable compared to tables for extracting optimal conditions. This mismatch creates significant verification work and risk of error.",
+          "pivot": {
+            "limitation": "If the conversation stays on the expert's accuracy concerns, the researcher misses the initial navigation behavior.",
+            "research_goal": "The researcher needs to understand where the expert starts searching to optimize workflow efficiency.",
+            "compelling_reason": "Combining the expert's verification needs with the researcher's entry point data allows for tools that prevent errors at the source.",
+            "coarse_scenario": "I understand that schemes can be misleading, but knowing you start there helps us design tools that warn you about mismatches immediately."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Scheme-Table Mismatch"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Determine structure-to-table linking methods"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_01",
+        "conflict": {
+          "expert_branch": "Scheme-Table Mismatch",
+          "researcher_branch": "Determine structure-to-table linking methods"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Methods-Text Discrepancy",
+            "target_concept": "Trusting the receipt over the menu photo",
+            "structural_mapping": {
+              "inputs": "Menu Photo (Scheme) and Itemized Bill (Table)",
+              "logic": "Photo is staged/idealized; Bill is factual record",
+              "outputs": "Ignore photo, trust bill"
+            },
+            "explanation": "The researcher asks how to verify the photo matches the bill (linking methods). The expert knows the photo is often staged (mismatch), so they skip verification and trust the bill. This reveals why 'linking' fails when the visual is illustrative, just as text overrides methods claims."
+          },
+          "scenario": "When you're extracting conditions, do you try to match the scheme structure to the table row, or do you find the scheme is often just decorative and skip it?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Scheme-Table Mismatch"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Assess handling of ambiguous visual links"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_01",
+        "conflict": {
+          "expert_branch": "Scheme-Table Mismatch",
+          "researcher_branch": "Assess handling of ambiguous visual links"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Methods-Text Discrepancy",
+            "target_concept": "Checking a receipt against your grocery bag",
+            "structural_mapping": {
+              "inputs": "Two conflicting records of reality (Scheme/Table vs. Receipt/Bag)",
+              "logic": "Cross-referencing items to verify consistency and truth",
+              "outputs": "Decision on whether to trust the record or the physical evidence"
+            },
+            "explanation": "Both concepts involve cross-referencing two sources to validate truth. The receipt analogy shows that whether the friction is reading faded ink (researcher's ambiguous links) or finding wrong items (expert's mismatch), the bottleneck is the verification step itself."
+          },
+          "scenario": "When the scheme clearly points to a table but the yields don't add up, do you spend more time hunting for the connection or debating which number is actually true?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "The Footnote Trap"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Identify primary entry points for condition searches"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "The Footnote Trap",
+          "researcher_branch": "Identify primary entry points for condition searches"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical risk of missing hidden conditions in footnotes, which ensures data accuracy and completeness. This concern highlights the necessity of thorough verification during the extraction workflow.",
+          "pivot": {
+            "limitation": "If the discussion remains solely on the expert's current concern, it overlooks how the initial search path influences overall workflow efficiency before the deep-dive verification phase begins.",
+            "research_goal": "The researcher is trying to understand whether experts consistently start with chemical schemes, experimental tables, or main text to minimize initial search time.",
+            "compelling_reason": "Understanding entry points is important for the interview goal because optimizing the start of the workflow complements the expert's focus on accuracy by reducing time spent before verification even occurs.",
+            "coarse_scenario": "I completely agree that missing those footnotes is a major risk, but I also need to understand where you start looking first. If we can streamline that initial entry point, it gives you more time to catch those hidden details later."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "The Footnote Trap"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Map frequency of non-linear page jumps"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "The Footnote Trap",
+          "researcher_branch": "Map frequency of non-linear page jumps"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "The Footnote Trap",
+            "target_concept": "Missing the asterisk on a price tag",
+            "structural_mapping": {
+              "inputs": "A product shelf label / A reaction scheme page",
+              "logic": "Glancing at the main number vs. reading the tiny constraint",
+              "outputs": "Unexpected total cost / Invalid reaction condition"
+            },
+            "explanation": "Your count tracks walking between rooms, but like missing a price asterisk, the real slowdown happens when you stand in one spot and miss the tiny note that changes everything."
+          },
+          "scenario": "When you're curating a reaction, do you lose more time traveling between distant pages, or pausing to spot critical conditions hidden in the fine print on the same page?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "The Footnote Trap"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "The Footnote Trap",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scheme-Table Mismatch",
+            "target_concept": "Package picture vs. ingredients list",
+            "structural_mapping": {
+              "inputs": "Visual summary (Scheme/Bold Text) vs. Detailed specification (Table/Footnote)",
+              "logic": "Assume visual represents reality vs. Verify text for actual components",
+              "outputs": "Illustrative understanding (Missing conditions) vs. Accurate replication (Correct conditions)"
+            },
+            "explanation": "The researcher expects visual cues to guide extraction like a 'package picture' accurately showing contents. The expert's concept reveals the 'picture' is often illustrative, requiring an 'ingredients list' check. The analogy shows that trusting visual prominence leads to missing the hidden critical data."
+          },
+          "scenario": "When you scan a new paper, do you ever find that the boldest yield on the page is actually wrong compared to the tiny text at the bottom?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "The Footnote Trap"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Temporary Memory Aids",
+          "Catalog external note-taking behaviors"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "The Footnote Trap",
+          "researcher_branch": "Catalog external note-taking behaviors"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scheme-Table Mismatch",
+            "target_concept": "Reading the headline instead of the fine print",
+            "structural_mapping": {
+              "inputs": "Prominent visual data vs hidden detailed text",
+              "logic": "Assuming main view is complete vs searching for obscured details",
+              "outputs": "Incomplete understanding vs accurate extraction"
+            },
+            "explanation": "The researcher views note-taking as a memory aid, but like checking fine print when headlines mislead, your notes act as verification tools for hidden data, similar to how you cross-check schemes against tables."
+          },
+          "scenario": "When you hunt for a specific catalyst temperature, do you write it down because you'll forget it, or because you can't see it alongside the reaction scheme?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "The Footnote Trap"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Determine structure-to-table linking methods"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_01",
+        "researcher_lca_id": "q_01__res_L2_01_01",
+        "conflict": {
+          "expert_branch": "The Footnote Trap",
+          "researcher_branch": "Determine structure-to-table linking methods"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "The Footnote Trap",
+            "target_concept": "Missing oven temperature hidden in recipe headnote",
+            "structural_mapping": {
+              "inputs": "Reaction paper with tables and schemes",
+              "logic": "Scanning standard locations for conditions vs. scanning recipe steps for temp",
+              "outputs": "Missing critical data vs. burnt dish"
+            },
+            "explanation": "The researcher assumes linking is like following recipe steps where info is explicit, but your experience matches the target concept where critical details are hidden outside the standard list, making the expected method unreliable."
+          },
+          "scenario": "When you link a structure to a table, have you ever found the critical condition was actually hidden in a footnote instead?"
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "The Footnote Trap"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "The Footnote Trap",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "The Footnote Trap",
+            "target_concept": "missing the asterisk",
+            "structural_mapping": {
+              "inputs": "Prominent text and hidden qualifiers",
+              "logic": "Scanning main content versus checking peripheral details",
+              "outputs": "Validated understanding versus overlooked constraints"
+            },
+            "explanation": "Both concepts rely on the user seeing a connection between data points, but like missing an asterisk invalidates a headline, missing a footnote invalidates the reaction, showing linking helps only if the data is visible."
+          },
+          "scenario": "When you verify a reaction yield, do you spend more time scrolling between sections, or hunting for the specific constraints hidden in the footnotes that define if that yield is real?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Methods-Text Discrepancy"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Methods-Text Discrepancy",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Expert Intuition & Gut Checks",
+            "target_concept": "Conflicting recipe steps",
+            "structural_mapping": {
+              "inputs": "Table yield value vs. Discussion text nuance",
+              "logic": "Visual claim conflicts with textual reality -> Trust heuristic fails -> Verification workflow initiates",
+              "outputs": "Curated data point based on resolved truth"
+            },
+            "explanation": "The researcher treats visual cues like a clear ingredient list meant to speed up prep, but the expert experiences them like conflicting recipe steps that trigger a gut check—you can't just cook faster, you must stop to resolve the error before proceeding."
+          },
+          "scenario": "When you see a bolded yield that looks optimal, do you treat that visual cue as a green light to extract, or does it actually signal you to pause and verify the text first?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Methods-Text Discrepancy"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Temporary Memory Aids",
+          "Analyze progress marking strategies"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Methods-Text Discrepancy",
+          "researcher_branch": "Analyze progress marking strategies"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Expert Intuition & Gut Checks",
+            "target_concept": "Signing a receipt before counting the change",
+            "structural_mapping": {
+              "inputs": "Claimed yield in text / Cash handed over",
+              "logic": "Trust claim to mark done / Sign receipt to finish transaction",
+              "outputs": "Data curated / Transaction closed"
+            },
+            "explanation": "Both concepts rely on a signal to indicate 'work is done.' The researcher's progress mark is like signing the receipt (confirming presence), while the expert's verification is like counting the change (confirming value). The analogy clarifies why the expert withholds the 'done' signal until the discrepancy is resolved."
+          },
+          "scenario": "When you find conflicting yields in a paper, do you mark it as finished reading, or do you keep it open until you know which number is actually right?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Methods-Text Discrepancy"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Methods-Text Discrepancy",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Scheme-Table Mismatch",
+            "target_concept": "Catching a price mismatch",
+            "structural_mapping": {
+              "inputs": "Listed price vs. Charged amount",
+              "logic": "System assumes match vs. Human checks for difference",
+              "outputs": "Correct total vs. Undetected overcharge"
+            },
+            "explanation": "Just as an auto-filled bill might hide a price change you need to catch, the researcher's auto-link assumes text and tables match, obscuring the discrepancies the expert relies on to verify data."
+          },
+          "scenario": "When you see a table yield that contradicts the text, would automatic linking save you time or make you worry it's hiding the conflict you need to resolve?"
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Methods-Text Discrepancy"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Identify primary entry points for condition searches"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "Methods-Text Discrepancy",
+          "researcher_branch": "Identify primary entry points for condition searches"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical need to resolve conflicts between methods tables and discussion text to ensure data integrity during curation.",
+          "pivot": {
+            "limitation": "Focusing solely on verification overlooks the initial navigation sequence that determines how efficiently the expert locates the data requiring verification.",
+            "research_goal": "The researcher seeks to map primary entry points like chemical schemes or experimental tables to understand search initiation patterns.",
+            "compelling_reason": "Understanding the entry point is crucial for the researcher to design tools that reduce initial search time, allowing the expert to dedicate more resources to the necessary verification work.",
+            "coarse_scenario": "I understand that verifying these discrepancies is vital for accuracy, but could you show me where you typically start looking? Understanding that first step helps us build tools that get you to the verification phase more efficiently."
+          }
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Expert Intuition & Gut Checks"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Map frequency of non-linear page jumps"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "Expert Intuition & Gut Checks",
+          "researcher_branch": "Map frequency of non-linear page jumps"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "domain_knowledge",
+            "heuristic",
+            "data_consistency",
+            "pattern_recognition",
+            "risk_tolerance",
+            "source_credibility",
+            "verification_cost",
+            "outcome_criticality"
+          ],
+          "probes": [
+            {
+              "attribute": "domain_knowledge",
+              "question": "Is your hesitation driven by specific regulatory codes, general industry standards, or internal company policies?",
+              "choices": [
+                "Specific regulatory codes",
+                "General industry standards",
+                "Internal company policies"
+              ]
+            },
+            {
+              "attribute": "heuristic",
+              "question": "Do you rely more on rule-of-thumb thresholds, historical case comparisons, or peer consensus?",
+              "choices": [
+                "Rule-of-thumb thresholds",
+                "Historical case comparisons",
+                "Peer consensus"
+              ]
+            },
+            {
+              "attribute": "data_consistency",
+              "question": "When data looks suspicious, is it usually due to internal contradictions, external benchmark mismatches, or formatting anomalies?",
+              "choices": [
+                "Internal contradictions",
+                "External benchmark mismatches",
+                "Formatting anomalies"
+              ]
+            },
+            {
+              "attribute": "pattern_recognition",
+              "question": "Does your gut check trigger more on sudden statistical outliers, subtle trend deviations, or recurring error signatures?",
+              "choices": [
+                "Sudden statistical outliers",
+                "Subtle trend deviations",
+                "Recurring error signatures"
+              ]
+            },
+            {
+              "attribute": "risk_tolerance",
+              "question": "Do you verify immediately upon minor doubt, only when error impact is high, or after initial AI confidence score review?",
+              "choices": [
+                "Immediately upon minor doubt",
+                "Only when error impact is high",
+                "After initial AI confidence score review"
+              ]
+            },
+            {
+              "attribute": "source_credibility",
+              "question": "Is your skepticism higher for automated system inputs, human-entered data, or third-party vendor feeds?",
+              "choices": [
+                "Automated system inputs",
+                "Human-entered data",
+                "Third-party vendor feeds"
+              ]
+            },
+            {
+              "attribute": "verification_cost",
+              "question": "Do you skip checks when verification exceeds 5 minutes, verify regardless of time cost, or delegate check if time exceeds 2 minutes?",
+              "choices": [
+                "Skip checks if verification exceeds 5 minutes",
+                "Verify regardless of time cost",
+                "Delegate check if time exceeds 2 minutes"
+              ]
+            },
+            {
+              "attribute": "outcome_criticality",
+              "question": "Is your intuition sharper when the result affects financial compliance, operational safety, or client reporting?",
+              "choices": [
+                "Financial compliance",
+                "Operational safety",
+                "Client reporting"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If specific regulatory codes changed from strict to flexible, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "domain_knowledge"
+            },
+            {
+              "scenario": "If historical case comparisons changed from 10 years of data to 1 year, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "heuristic"
+            },
+            {
+              "scenario": "If internal contradictions changed from none to minor, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "data_consistency"
+            },
+            {
+              "scenario": "If sudden statistical outliers changed from 5% deviation to 1% deviation, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "pattern_recognition"
+            },
+            {
+              "scenario": "If error impact changed from low financial loss to high reputational damage, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "risk_tolerance"
+            },
+            {
+              "scenario": "If automated system inputs changed from verified vendors to unknown APIs, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "source_credibility"
+            },
+            {
+              "scenario": "If verification time changed from 30 seconds to 30 minutes, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "verification_cost"
+            },
+            {
+              "scenario": "If operational safety changed from routine maintenance to emergency shutdown, would your judgment about 'Expert Intuition & Gut Checks' change?",
+              "attribute": "outcome_criticality"
+            }
+          ]
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_03",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Expert Intuition & Gut Checks"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Expert Intuition & Gut Checks",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "The Footnote Trap",
+            "target_concept": "Double-checking a sale price",
+            "structural_mapping": {
+              "inputs": "Bold yield number / Bold sale price tag",
+              "logic": "Instinctive distrust requiring context check / Instinctive distrust requiring condition check",
+              "outputs": "Verified reaction condition / Final actual price"
+            },
+            "explanation": "The researcher assumes visual cues mean 'start extracting,' but like a sale price, the expert treats them as 'start verifying' signals where the obvious number triggers a search for hidden conditions before trusting the value."
+          },
+          "scenario": "When you see a perfect 99% yield bolded in a table, do you immediately write it down, or does that number actually make you pause to hunt for the footnote explaining why it's so high?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_03",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Expert Intuition & Gut Checks"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Temporary Memory Aids",
+          "Analyze progress marking strategies"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Expert Intuition & Gut Checks",
+          "researcher_branch": "Analyze progress marking strategies"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the critical role of intuition and instinctive double-checking to ensure data accuracy against AI outputs. This verification process is vital for maintaining high-quality extraction results.",
+          "pivot": {
+            "limitation": "Focusing solely on verification overlooks how experts manage their workflow state to avoid unnecessary repetition or loss of place during long sessions.",
+            "research_goal": "The researcher aims to understand how visual progress marking strategies help experts track completion status and navigate complex documents efficiently.",
+            "compelling_reason": "While verification ensures accuracy, understanding state tracking ensures the overall workflow remains sustainable and prevents cognitive overload from managing unfinished tasks.",
+            "coarse_scenario": "I completely agree that double-checking based on instinct is vital for accuracy, but I also need to understand how you visually mark your progress so you don't lose track of what's finished versus what still needs that review."
+          }
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_01_03",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Data Fragmentation & Verification",
+          "Expert Intuition & Gut Checks"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Expert Intuition & Gut Checks",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert prioritizes the necessity of human intuition and skepticism when validating reaction yields against AI outputs. This emphasis on data validity ensures that potential errors are caught before they influence decision-making.",
+          "pivot": {
+            "limitation": "If the conversation remains only on skepticism, it misses how interface affordances might support or hinder that verification workflow.",
+            "research_goal": "The researcher is trying to understand whether automatic element linking can reduce physical effort like scrolling without undermining the expert's trust.",
+            "compelling_reason": "While validity is crucial, the sustainability of the workflow depends on whether tools can reduce the friction of locating data for those essential gut checks.",
+            "coarse_scenario": "I hear that verifying the yield is your top priority, but could you tell me if having the system automatically link those text mentions to the table entries would make your verification process faster, or would it just add another layer of suspicion?"
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Yield vs. Selectivity Conflict"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Yield vs. Selectivity Conflict",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Suspiciously Perfect Yields",
+            "target_concept": "Spotting a 'Too Good to Be True' deal",
+            "structural_mapping": {
+              "inputs": "A prominent positive indicator (Bold Yield / Low Price)",
+              "logic": "Surface-level efficiency vs. Experienced skepticism (Extract / Buy vs. Verify / Hesitate)",
+              "outputs": "Risk of hidden defect if accepted blindly (Bad Synthesis / Defective Product)"
+            },
+            "explanation": "To the expert, the researcher's 'visual cue' behaves like a suspiciously low price: it looks like a shortcut to finding value, but actually signals a need to inspect for hidden defects before proceeding."
+          },
+          "scenario": "When you see a bolded 95% yield in a scheme, does that visual marker signal you to start extracting, or does it actually warn you to check if the product is pure first?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Yield vs. Selectivity Conflict"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Assess handling of ambiguous visual links"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Yield vs. Selectivity Conflict",
+          "researcher_branch": "Assess handling of ambiguous visual links"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Suspiciously Perfect Yields",
+            "target_concept": "Hiring a candidate with perfect grades but no work history",
+            "structural_mapping": {
+              "inputs": "Candidate profile (Reaction data sheet)",
+              "logic": "High surface metric masks missing practical viability (Grades/Yield vs History/Selectivity)",
+              "outputs": "Rejection or low confidence (Not optimal)"
+            },
+            "explanation": "Both concepts create a 'stop and check' moment in the workflow. This analogy shows that while the researcher treats the stop as a missing map connection, the expert experiences it as a missing proof of quality, like a grade without a transcript."
+          },
+          "scenario": "When you see a 95% yield without selectivity data, is your hesitation because the table layout is confusing, or because the essential number needed to judge success is simply absent?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Yield vs. Selectivity Conflict"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Yield vs. Selectivity Conflict",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that highlighted conditions must reflect true synthesis viability rather than just mass yield to avoid misleading optimizations. This distinction ensures data validity remains the priority over simple metrics.",
+          "pivot": {
+            "limitation": "Focusing solely on data validity overlooks how the expert currently locates and verifies that data within the document layout.",
+            "research_goal": "The researcher aims to understand if automatic linking features are trusted to navigate between text and tables efficiently.",
+            "compelling_reason": "Even if data validity is paramount, the interface must still facilitate rapid access to that data without excessive manual searching to be useful.",
+            "coarse_scenario": "While ensuring the data itself is valid is crucial, I need to know if having the system automatically link those text mentions to table entries would save you time, even if you still have to verify the selectivity yourself."
+          }
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Suspiciously Perfect Yields"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Suspiciously Perfect Yields",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "data_quality",
+            "skepticism",
+            "purification_status",
+            "measurement_precision",
+            "reaction_complexity",
+            "literature_comparison",
+            "operator_experience",
+            "visual_appearance"
+          ],
+          "probes": [
+            {
+              "attribute": "data_quality",
+              "question": "What missing element most reduces your confidence in a high yield claim?",
+              "choices": [
+                "Raw spectral data",
+                "Replication count",
+                "Standard deviation metrics"
+              ]
+            },
+            {
+              "attribute": "skepticism",
+              "question": "Which signal triggers your skepticism faster?",
+              "choices": [
+                "Numerical perfection (99%)",
+                "Enthusiastic text description",
+                "Both equally"
+              ]
+            },
+            {
+              "attribute": "purification_status",
+              "question": "What assumption do you make about the product state before verification?",
+              "choices": [
+                "Fully dried",
+                "Solvent-wet",
+                "Partially purified"
+              ]
+            },
+            {
+              "attribute": "measurement_precision",
+              "question": "Which numerical format suggests the highest risk of fabrication?",
+              "choices": [
+                "Integer (99%)",
+                "One decimal (99.0%)",
+                "Two decimals (99.00%)"
+              ]
+            },
+            {
+              "attribute": "reaction_complexity",
+              "question": "In which context is a 99% yield most believable?",
+              "choices": [
+                "Simple salt formation",
+                "Multi-step synthesis",
+                "Enzymatic conversion"
+              ]
+            },
+            {
+              "attribute": "literature_comparison",
+              "question": "When a yield exceeds literature precedents, what is the primary suspect?",
+              "choices": [
+                "Calculation error",
+                "Impurity inclusion",
+                "Equipment calibration"
+              ]
+            },
+            {
+              "attribute": "operator_experience",
+              "question": "Which seniority level triggers higher initial suspicion for a 99% yield?",
+              "choices": [
+                "Intern",
+                "Senior Chemist",
+                "No Difference"
+              ]
+            },
+            {
+              "attribute": "visual_appearance",
+              "question": "Which physical description alongside a high yield raises the most concern?",
+              "choices": [
+                "Crystalline solid",
+                "Amorphous oil",
+                "Viscous gum"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If raw spectral data changed from 'unavailable' to 'attached', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "data_quality"
+            },
+            {
+              "scenario": "If the text description changed from 'excellent result' to 'standard outcome', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "skepticism"
+            },
+            {
+              "scenario": "If the protocol note changed from 'dried overnight' to 'weighed immediately', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "purification_status"
+            },
+            {
+              "scenario": "If the reported yield changed from '99%' to '99.15%', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "measurement_precision"
+            },
+            {
+              "scenario": "If the reaction type changed from '10-step synthesis' to 'acid-base neutralization', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "reaction_complexity"
+            },
+            {
+              "scenario": "If the literature max yield changed from '85%' to '99%', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "literature_comparison"
+            },
+            {
+              "scenario": "If the researcher's title changed from 'Intern' to 'Principal Investigator', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "operator_experience"
+            },
+            {
+              "scenario": "If the product description changed from 'white powder' to 'clear oil', would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "visual_appearance"
+            }
+          ]
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_01",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Suspiciously Perfect Yields"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Suspiciously Perfect Yields",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "data_quality",
+            "skepticism",
+            "purification_state",
+            "measurement_method",
+            "source_credibility",
+            "theoretical_plausibility",
+            "solvent_residual",
+            "documentation_completeness"
+          ],
+          "probes": [
+            {
+              "attribute": "data_quality",
+              "question": "When assessing data quality, which missing element reduces confidence more: raw instrument logs or calibrated weight records?",
+              "choices": [
+                "Raw instrument logs",
+                "Calibrated weight records",
+                "Neither matters"
+              ]
+            },
+            {
+              "attribute": "skepticism",
+              "question": "Does your skepticism arise primarily from prior personal replication failures or conflicting published literature?",
+              "choices": [
+                "Prior personal replication failures",
+                "Conflicting published literature",
+                "General industry reputation"
+              ]
+            },
+            {
+              "attribute": "purification_state",
+              "question": "Which state triggers more doubt about a 99% yield: crude isolate or chromatographically pure sample?",
+              "choices": [
+                "Crude isolate",
+                "Chromatographically pure sample",
+                "Both equally"
+              ]
+            },
+            {
+              "attribute": "measurement_method",
+              "question": "Which calculation method do you scrutinize more heavily: gravimetric weight or internal standard NMR?",
+              "choices": [
+                "Gravimetric weight",
+                "Internal standard NMR",
+                "UV-Vis absorption"
+              ]
+            },
+            {
+              "attribute": "source_credibility",
+              "question": "Which source attribute influences your trust more: the author's seniority or the journal's impact factor?",
+              "choices": [
+                "Author's seniority",
+                "Journal's impact factor",
+                "Institutional affiliation"
+              ]
+            },
+            {
+              "attribute": "theoretical_plausibility",
+              "question": "Is a yield more suspicious if it equals 100% exactly or if it exceeds 95% without explanation?",
+              "choices": [
+                "Equals 100% exactly",
+                "Exceeds 95% without explanation",
+                "Any value over 90%"
+              ]
+            },
+            {
+              "attribute": "solvent_residual",
+              "question": "Which residual contaminant is the more common cause of inflated yields in your experience: water or volatile organics?",
+              "choices": [
+                "Water",
+                "Volatile organics",
+                "Inorganic salts"
+              ]
+            },
+            {
+              "attribute": "documentation_completeness",
+              "question": "Which supporting evidence is non-negotiable for validating high yields: 1H NMR spectra or HPLC purity traces?",
+              "choices": [
+                "1H NMR spectra",
+                "HPLC purity traces",
+                "Mass spectrometry data"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If raw instrument logs changed from available to unavailable, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "data_quality"
+            },
+            {
+              "scenario": "If prior personal replication failures changed from none to multiple, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "skepticism"
+            },
+            {
+              "scenario": "If the product state changed from crude isolate to chromatographically pure sample, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "purification_state"
+            },
+            {
+              "scenario": "If the calculation method changed from gravimetric weight to internal standard NMR, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "measurement_method"
+            },
+            {
+              "scenario": "If the author's seniority changed from junior researcher to principal investigator, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "source_credibility"
+            },
+            {
+              "scenario": "If the reported yield changed from 99% to 100% exactly, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "theoretical_plausibility"
+            },
+            {
+              "scenario": "If the suspected residual contaminant changed from water to volatile organics, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "solvent_residual"
+            },
+            {
+              "scenario": "If the supporting evidence changed from 1H NMR spectra to HPLC purity traces, would your judgment about 'Suspiciously Perfect Yields' change?",
+              "attribute": "documentation_completeness"
+            }
+          ]
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Standard vs Refined Conditions"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Map frequency of non-linear page jumps"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "Standard vs Refined Conditions",
+          "researcher_branch": "Map frequency of non-linear page jumps"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that distinguishing between standard and refined conditions is a critical semantic bottleneck affecting label accuracy. This concern highlights the complexity of defining true optimality within the data.",
+          "pivot": {
+            "limitation": "Focusing exclusively on semantic ambiguity misses the physical navigation costs that the researcher needs to identify to prevent experts from failing to access required information.",
+            "research_goal": "The researcher seeks to quantify the frequency of non-linear page jumps to map how information foraging sequences impact overall workflow efficiency.",
+            "compelling_reason": "While semantic interpretation is crucial, the researcher finds understanding navigation friction important because excessive page jumps can compound cognitive fatigue, reducing the expert's capacity to resolve those semantic ambiguities.",
+            "coarse_scenario": "I agree that interpreting condition types is the harder cognitive task. However, I need to measure how much jumping around the document adds to your fatigue, because reducing those jumps might free up mental energy for those exact interpretations."
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Standard vs Refined Conditions"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Standard vs Refined Conditions",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the difficulty in distinguishing standard versus refined conditions to ensure reaction optimality. This distinction is vital for accurate data labeling.",
+          "pivot": {
+            "limitation": "Focusing solely on condition validity overlooks the preliminary cognitive step of locating where that condition data resides within the literature.",
+            "research_goal": "The researcher aims to identify specific visual cues that signal experts to stop scanning and begin extraction.",
+            "compelling_reason": "Mapping these location signals is essential for reducing search friction, which supports the expert's broader goal of efficient quality validation.",
+            "coarse_scenario": "While validating condition quality is critical, I also need to understand what visual markers signal you to stop scanning and start extracting, so we can design tools that help you find those valid conditions faster."
+          }
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Standard vs Refined Conditions"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Temporary Memory Aids",
+          "Analyze progress marking strategies"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Standard vs Refined Conditions",
+          "researcher_branch": "Analyze progress marking strategies"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Suspiciously Perfect Yields",
+            "target_concept": "Signing for a package without opening it",
+            "structural_mapping": {
+              "inputs": "Reaction data and text claims vs. Package exterior and shipping label",
+              "logic": "Assessing confidence before marking status vs. Checking weight before signing receipt",
+              "outputs": "Optimal label confidence vs. Proof of delivery signature"
+            },
+            "explanation": "The researcher treats marking a paper 'complete' like signing a delivery receipt—it tracks that you touched it. You treat it like verifying the contents—if the yield looks suspicious, you haven't truly 'received' the data yet. Both use a 'done' flag, but one tracks workflow while the other tracks trust."
+          },
+          "scenario": "When you see a suspiciously perfect yield that needs verification, do you mark that paper as 'done' in your notes, or do you keep it open until you trust the data?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Standard vs Refined Conditions"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Assess handling of ambiguous visual links"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Standard vs Refined Conditions",
+          "researcher_branch": "Assess handling of ambiguous visual links"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Suspiciously Perfect Yields",
+            "target_concept": "Trusting a headline without reading the full story",
+            "structural_mapping": {
+              "inputs": "A standout claim (99% yield / bold headline / isolated table)",
+              "logic": "Instinctive skepticism requiring context verification before acceptance",
+              "outputs": "Delayed confidence or downgraded trust until proof is found"
+            },
+            "explanation": "Both the ambiguous visual links and the suspicious yields feel like reading a headline without the story; you see the claim but lack the supporting evidence to trust it immediately, forcing a verification pause."
+          },
+          "scenario": "When you spot a suspiciously perfect yield, do you feel that same hesitation to trust it as when you can't tell which data table belongs to a specific reaction scheme?"
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Standard vs Refined Conditions"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Document Interaction Tools",
+          "Compare digital vs. print navigation preferences"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Standard vs Refined Conditions",
+          "researcher_branch": "Compare digital vs. print navigation preferences"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Suspiciously Perfect Yields",
+            "target_concept": "Spotting staged photos in a house listing",
+            "structural_mapping": {
+              "inputs": "Perfect yield numbers or enthusiastic text",
+              "logic": "Instinctively downgrading confidence due to potential hidden flaws",
+              "outputs": "Lower trust in 'optimal' label"
+            },
+            "explanation": "This illustrates that the expert's bottleneck is interpretive skepticism, not navigation speed; like doubting a staged home, switching from paper to screen doesn't remove the suspicion that the data is 'cleaned up' to look better than it is."
+          },
+          "scenario": "When you see a 99% yield, does having a searchable PDF stop you from wondering if the product was weighed wet, or is that doubt inherent to the text itself regardless of format?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_02_02",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Defining True Optimality",
+          "Standard vs Refined Conditions"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Standard vs Refined Conditions",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ConceptualGap",
+        "assistance_payload": {
+          "analogy": {
+            "source_concept": "Suspiciously Perfect Yields",
+            "target_concept": "Seeing a sale price without knowing the original cost",
+            "structural_mapping": {
+              "inputs": "High yield number or enthusiastic text",
+              "logic": "Instinctive distrust requiring context verification",
+              "outputs": "Downgrade confidence until proven otherwise"
+            },
+            "explanation": "Both involve focusing on a specific number, but like a sale price, highlighting it doesn't confirm value; your bottleneck is verifying the context behind the digit, not just locating it."
+          },
+          "scenario": "When you spot a suspiciously perfect yield, does knowing exactly where it lives in the table help you trust it, or do you still need to dig for the purification details?"
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "AI Context Blindness"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Identify primary entry points for condition searches"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "AI Context Blindness",
+          "researcher_branch": "Identify primary entry points for condition searches"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes the risk of AI context blindness, where extracting bolded yields without surrounding nuance compromises data validity. This concern highlights the critical need for accuracy in chemical data extraction.",
+          "pivot": {
+            "limitation": "Focusing solely on validation risks overlooking how much time is consumed simply locating the data before verification can even begin.",
+            "research_goal": "The researcher aims to identify primary entry points to understand the initial information foraging sequence and navigation paths.",
+            "compelling_reason": "Mapping these entry points allows the team to optimize search efficiency, ensuring the expert has more time available for the deep verification they prioritize.",
+            "coarse_scenario": "I agree that catching those context errors is vital for accuracy, but if you could show me exactly where you first look for conditions, we might find ways to cut down the search time so you have more energy for that verification."
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_00_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "AI Context Blindness"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Search Initiation & Pathing",
+          "Map frequency of non-linear page jumps"
+        ],
+        "lca_layer": "L2",
+        "expert_lca_id": "q_01__exp_L2_00_00",
+        "researcher_lca_id": "q_01__res_L2_00_00",
+        "conflict": {
+          "expert_branch": "AI Context Blindness",
+          "researcher_branch": "Map frequency of non-linear page jumps"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that AI context blindness leads to invalid data extraction because semantic nuances are missed. This concern highlights a critical validity issue for the automated system.",
+          "pivot": {
+            "limitation": "If the conversation stays only on semantic validity, the researcher misses quantifying the physical navigation costs experts endure while locating that information.",
+            "research_goal": "The researcher is trying to understand the frequency of non-linear page jumps to map the information foraging sequences.",
+            "compelling_reason": "The expert's focus on validity is crucial, but the researcher's focus on navigation metrics is also important to understand the full cognitive load of the extraction workflow.",
+            "coarse_scenario": "I understand that invalid data is a major risk, but I also need to measure how many page jumps you make, because mapping that navigation cost helps us design a workflow that saves you time regardless of the AI's accuracy."
+          }
+        },
+        "weight": 7.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "AI Context Blindness"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Observe physical comparison actions"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "AI Context Blindness",
+          "researcher_branch": "Observe physical comparison actions"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that AI context blindness regarding failed attempts and side reactions poses a significant risk to data validity.",
+          "pivot": {
+            "limitation": "Focusing solely on semantic errors overlooks how the expert physically locates and verifies that context within the document layout.",
+            "research_goal": "The researcher aims to understand the specific navigation mechanics, such as scrolling or screen splitting, used to cross-reference distant data points.",
+            "compelling_reason": "Mapping these physical actions reveals where the interface fails to support the cognitive work of connecting physical text to semantic meaning.",
+            "coarse_scenario": "While I agree that the AI missing context is critical, I need to see how you physically scroll or split screens to find that context yourself, because those actions show us exactly where the interface needs to support your verification process."
+          }
+        },
+        "weight": 6.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "AI Context Blindness"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "AI Context Blindness",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "Visual Formatting",
+            "Failed Attempts",
+            "Side Reactions",
+            "Discussion Nuances",
+            "Data Proximity",
+            "Source Authority",
+            "Replication Status",
+            "Methodology Complexity",
+            "Temporal Context",
+            "Exception Frequency"
+          ],
+          "probes": [
+            {
+              "attribute": "Visual Formatting",
+              "question": "When scanning a paper, which visual marker triggers your skepticism first?",
+              "choices": [
+                "Bolded Yields",
+                "Italicized Warnings",
+                "Footnote References"
+              ]
+            },
+            {
+              "attribute": "Failed Attempts",
+              "question": "When evaluating a synthesis route, which omission is most critical?",
+              "choices": [
+                "Failed Attempts",
+                "Low Yields",
+                "Purification Issues"
+              ]
+            },
+            {
+              "attribute": "Side Reactions",
+              "question": "Which side reaction information invalidates a yield most?",
+              "choices": [
+                "Byproduct Formation",
+                "Catalyst Deactivation",
+                "Solvent Incompatibility"
+              ]
+            },
+            {
+              "attribute": "Discussion Nuances",
+              "question": "Which qualifier suggests the data is unreliable?",
+              "choices": [
+                "Typically",
+                "Reproducibly",
+                "Optimized"
+              ]
+            },
+            {
+              "attribute": "Data Proximity",
+              "question": "Where must a warning appear to invalidate a yield?",
+              "choices": [
+                "In the Same Sentence",
+                "The Previous Paragraph",
+                "The Experimental Section"
+              ]
+            },
+            {
+              "attribute": "Source Authority",
+              "question": "Which source type requires the least verification?",
+              "choices": [
+                "High-Impact Journal",
+                "Known Lab Group",
+                "Peer-Reviewed Preprint"
+              ]
+            },
+            {
+              "attribute": "Replication Status",
+              "question": "Does independent replication matter more than which factor?",
+              "choices": [
+                "Original Author Reputation",
+                "Methodology Detail",
+                "Yield Magnitude"
+              ]
+            },
+            {
+              "attribute": "Methodology Complexity",
+              "question": "Which step complexity raises red flags?",
+              "choices": [
+                "Cryogenic Conditions",
+                "Anhydrous Requirements",
+                "Exotic Reagents"
+              ]
+            },
+            {
+              "attribute": "Temporal Context",
+              "question": "Does data older than 10 years require which level of check?",
+              "choices": [
+                "Full Re-validation",
+                "Partial Verification",
+                "No Extra Checks"
+              ]
+            },
+            {
+              "attribute": "Exception Frequency",
+              "question": "How often must a cue be wrong to be ignored?",
+              "choices": [
+                "1 in 10 times",
+                "1 in 100 times",
+                "1 in 1000 times"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If Visual Formatting changed from Bold Text to Underlined Text, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Visual Formatting"
+            },
+            {
+              "scenario": "If Failed Attempts changed from Explicitly Stated to Implicitly Suggested, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Failed Attempts"
+            },
+            {
+              "scenario": "If Side Reactions changed from Minor Impurities to Toxic Byproducts, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Side Reactions"
+            },
+            {
+              "scenario": "If Discussion Nuances changed from 'Good Yield' to 'Acceptable Yield', would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Discussion Nuances"
+            },
+            {
+              "scenario": "If Data Proximity changed from Adjacent Sentence to Separate Page, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Data Proximity"
+            },
+            {
+              "scenario": "If Source Authority changed from Nature Journal to Unknown Repository, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Source Authority"
+            },
+            {
+              "scenario": "If Replication Status changed from Unreplicated to Triple-Verified, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Replication Status"
+            },
+            {
+              "scenario": "If Methodology Complexity changed from Standard Benchtop to Glovebox Required, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Methodology Complexity"
+            },
+            {
+              "scenario": "If Temporal Context changed from 2023 Publication to 1995 Publication, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Temporal Context"
+            },
+            {
+              "scenario": "If Exception Frequency changed from 5% Error Rate to 0.1% Error Rate, would your judgment about 'AI Context Blindness' change?",
+              "attribute": "Exception Frequency"
+            }
+          ]
+        },
+        "weight": 5.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_00_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "AI Context Blindness"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Document Interaction Tools",
+          "Evaluate utility of reader-specific features"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "AI Context Blindness",
+          "researcher_branch": "Evaluate utility of reader-specific features"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert emphasizes that AI context blindness regarding failed attempts and side reactions is a critical friction point in data extraction.",
+          "pivot": {
+            "limitation": "Focusing solely on AI errors misses how the interface tools themselves impact the expert's workflow efficiency before the AI is even engaged.",
+            "research_goal": "The researcher is trying to understand if specific reader features like zoom or find are actually useful for locating condition data versus general reading.",
+            "compelling_reason": "Understanding tool utility is necessary to design an interface that efficiently gets the expert to the validation stage where context matters most.",
+            "coarse_scenario": "I agree that validating the context is the biggest hurdle, and I want to make sure we solve that; to do that, I need to understand if the current tools you use to find those conditions are actually helping you get to the validation stage faster."
+          }
+        },
+        "weight": 6.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_00",
+        "researcher_leaf_id": "q_01__res_leaf_02_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "AI Context Blindness"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Interface Affordances & Layout Preferences",
+          "Multi-View Coordination",
+          "Gauge interest in automatic element linking"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "AI Context Blindness",
+          "researcher_branch": "Gauge interest in automatic element linking"
+        },
+        "relation_type": "ScopeGap",
+        "assistance_payload": {
+          "validate_focus": "The expert is prioritizing the risk of AI context blindness, where automated extraction misses critical nuances like failed attempts that invalidate data. This focus on data validity is essential for ensuring reliable chemical insights.",
+          "pivot": {
+            "limitation": "Focusing solely on accuracy risks overlooks how interface navigation tools impact workflow efficiency before the validation stage occurs.",
+            "research_goal": "The researcher aims to determine if experts value navigational aids, such as automatic element linking, enough to adopt them despite needing manual verification.",
+            "compelling_reason": "Exploring this interest helps identify whether speed improvements are worthwhile even when accuracy safeguards remain a human responsibility.",
+            "coarse_scenario": "We absolutely need to address that accuracy risk you mentioned, but would you still find value in automatic linking to reduce scrolling if you knew you had to manually verify the context yourself?"
+          }
+        },
+        "weight": 5.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_01",
+        "researcher_leaf_id": "q_01__res_leaf_00_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "Override Decision Triggers"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Information Foraging & Navigation Sequences",
+          "Cross-Referencing Mechanics",
+          "Identify visual cues for data location"
+        ],
+        "lca_layer": "root",
+        "expert_lca_id": "q_01__shared_root",
+        "researcher_lca_id": "q_01__shared_root",
+        "conflict": {
+          "expert_branch": "Override Decision Triggers",
+          "researcher_branch": "Identify visual cues for data location"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "ai_interaction",
+            "workflow_efficiency",
+            "visual_density",
+            "data_confidence",
+            "contextual_anomaly",
+            "layout_consistency",
+            "risk_severity",
+            "verification_cost"
+          ],
+          "probes": [
+            {
+              "attribute": "ai_interaction",
+              "question": "When overriding the AI, is your hesitation driven by the suggestion's format, the suggestion's timing, or the suggestion's source?",
+              "choices": [
+                "Suggestion format",
+                "Suggestion timing",
+                "Suggestion source"
+              ]
+            },
+            {
+              "attribute": "workflow_efficiency",
+              "question": "Which factor prioritizes your decision to bypass the AI: saving time, reducing clicks, or maintaining flow?",
+              "choices": [
+                "Saving time",
+                "Reducing clicks",
+                "Maintaining flow"
+              ]
+            },
+            {
+              "attribute": "visual_density",
+              "question": "Does visual clutter trigger an override when the screen is crowded, when text is small, or when colors clash?",
+              "choices": [
+                "Screen is crowded",
+                "Text is small",
+                "Colors clash"
+              ]
+            },
+            {
+              "attribute": "data_confidence",
+              "question": "What signal makes you distrust the AI most: low confidence scores, missing metadata, or conflicting data points?",
+              "choices": [
+                "Low confidence scores",
+                "Missing metadata",
+                "Conflicting data points"
+              ]
+            },
+            {
+              "attribute": "contextual_anomaly",
+              "question": "When something feels 'off', is it usually due to unexpected values, unusual patterns, or outlier positions?",
+              "choices": [
+                "Unexpected values",
+                "Unusual patterns",
+                "Outlier positions"
+              ]
+            },
+            {
+              "attribute": "layout_consistency",
+              "question": "Which layout shift causes you to ignore AI: moved fields, changed fonts, or altered spacing?",
+              "choices": [
+                "Moved fields",
+                "Changed fonts",
+                "Altered spacing"
+              ]
+            },
+            {
+              "attribute": "risk_severity",
+              "question": "In high-stakes situations, do you override based on financial impact, compliance risk, or reputational damage?",
+              "choices": [
+                "Financial impact",
+                "Compliance risk",
+                "Reputational damage"
+              ]
+            },
+            {
+              "attribute": "verification_cost",
+              "question": "What makes manual check worth the effort: high complexity, high ambiguity, or high consequence?",
+              "choices": [
+                "High complexity",
+                "High ambiguity",
+                "High consequence"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If the AI suggestion pop-up delay changed from instant to 2 seconds, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "ai_interaction"
+            },
+            {
+              "scenario": "If the number of clicks to correct an error changed from 1 to 5, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "workflow_efficiency"
+            },
+            {
+              "scenario": "If the number of data fields per screen changed from 10 to 50, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "visual_density"
+            },
+            {
+              "scenario": "If the AI confidence percentage changed from 95% to 60%, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "data_confidence"
+            },
+            {
+              "scenario": "If the historical average value changed from 100 to 1000 while AI suggests 150, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "contextual_anomaly"
+            },
+            {
+              "scenario": "If the primary data field position changed from top-left to bottom-right, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "layout_consistency"
+            },
+            {
+              "scenario": "If the potential error cost changed from $10 to $10,000, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "risk_severity"
+            },
+            {
+              "scenario": "If the time required to manually verify changed from 5 seconds to 5 minutes, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "verification_cost"
+            }
+          ]
+        },
+        "weight": 3.5
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_00",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "Override Decision Triggers"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Determine structure-to-table linking methods"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Override Decision Triggers",
+          "researcher_branch": "Determine structure-to-table linking methods"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "ai_interaction",
+            "workflow_efficiency",
+            "visual_clutter_density",
+            "structural_complexity",
+            "error_consequence_severity",
+            "interface_layout_proximity",
+            "confidence_threshold",
+            "data_consistency_check"
+          ],
+          "probes": [
+            {
+              "attribute": "ai_interaction",
+              "question": "When overriding the AI, is the trigger primarily based on the AI's displayed confidence score or the AI's historical accuracy in this specific module?",
+              "choices": [
+                "Displayed confidence score",
+                "Historical accuracy in module",
+                "Both equally"
+              ]
+            },
+            {
+              "attribute": "workflow_efficiency",
+              "question": "Which trade-off do you prioritize when overriding: minimizing click-count or maximizing verification depth?",
+              "choices": [
+                "Minimizing click-count",
+                "Maximizing verification depth"
+              ]
+            },
+            {
+              "attribute": "visual_clutter_density",
+              "question": "Does your override instinct activate more frequently when the scheme contains fewer than 5 structures or more than 15 structures?",
+              "choices": [
+                "Fewer than 5 structures",
+                "More than 15 structures",
+                "No difference"
+              ]
+            },
+            {
+              "attribute": "structural_complexity",
+              "question": "Is your hesitation to trust the link driven by the number of stereocenters or the presence of unusual functional groups?",
+              "choices": [
+                "Number of stereocenters",
+                "Presence of unusual functional groups"
+              ]
+            },
+            {
+              "attribute": "error_consequence_severity",
+              "question": "Which outcome influences your override decision more: downstream synthesis failure or data reporting inconsistency?",
+              "choices": [
+                "Downstream synthesis failure",
+                "Data reporting inconsistency",
+                "Both equally"
+              ]
+            },
+            {
+              "attribute": "interface_layout_proximity",
+              "question": "Does the physical distance between the structure image and the table row affect your trust: adjacent placement or separate pane placement?",
+              "choices": [
+                "Adjacent placement",
+                "Separate pane placement"
+              ]
+            },
+            {
+              "attribute": "confidence_threshold",
+              "question": "At what internal certainty level do you intervene: when you feel slightly uneasy or only when you are certain the AI is wrong?",
+              "choices": [
+                "When feeling slightly uneasy",
+                "Only when certain AI is wrong"
+              ]
+            },
+            {
+              "attribute": "data_consistency_check",
+              "question": "Do you rely more on matching molecular weights or matching reaction conditions to validate the link?",
+              "choices": [
+                "Matching molecular weights",
+                "Matching reaction conditions",
+                "Neither, I rely on visual structure"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If the AI's displayed confidence score changed from 95% to 60%, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "ai_interaction"
+            },
+            {
+              "scenario": "If the verification process changed from requiring 3 clicks to requiring 1 click, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "workflow_efficiency"
+            },
+            {
+              "scenario": "If the number of concurrent structures on screen changed from 3 to 20, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "visual_clutter_density"
+            },
+            {
+              "scenario": "If the molecule's stereocenter count changed from 0 to 5, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "structural_complexity"
+            },
+            {
+              "scenario": "If the penalty for a wrong link changed from a data flag to a wasted synthesis batch, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "error_consequence_severity"
+            },
+            {
+              "scenario": "If the spatial gap between structure and table changed from 0 pixels to 500 pixels, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "interface_layout_proximity"
+            },
+            {
+              "scenario": "If your required internal certainty changed from 'gut feeling' to 'verified calculation', would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "confidence_threshold"
+            },
+            {
+              "scenario": "If the available validation data changed from molecular weight only to full NMR spectra, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "data_consistency_check"
+            }
+          ]
+        },
+        "weight": 4.0
+      },
+      {
+        "expert_leaf_id": "q_01__exp_leaf_00_03_01",
+        "researcher_leaf_id": "q_01__res_leaf_01_01_01",
+        "aligned_path_expert": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Expert Annotation Workflow & Cognitive Friction",
+          "Human-AI Collaboration Friction",
+          "Override Decision Triggers"
+        ],
+        "aligned_path_researcher": [
+          "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+          "Cognitive Offloading & State Tracking",
+          "Visual Anchoring Strategies",
+          "Assess handling of ambiguous visual links"
+        ],
+        "lca_layer": "L1",
+        "expert_lca_id": "q_01__exp_L1_00",
+        "researcher_lca_id": "q_01__res_L1_01",
+        "conflict": {
+          "expert_branch": "Override Decision Triggers",
+          "researcher_branch": "Assess handling of ambiguous visual links"
+        },
+        "relation_type": "TacitGap",
+        "assistance_payload": {
+          "attributes": [
+            "ai_interaction",
+            "workflow_efficiency",
+            "visual_density",
+            "spatial_proximity",
+            "color_coding_consistency",
+            "confidence_threshold",
+            "layout_symmetry",
+            "error_history_context"
+          ],
+          "probes": [
+            {
+              "attribute": "ai_interaction",
+              "question": "Which signal triggers the override: AI confidence score, Explanation text clarity, or Suggestion timing?",
+              "choices": [
+                "AI confidence score",
+                "Explanation text clarity",
+                "Suggestion timing"
+              ]
+            },
+            {
+              "attribute": "workflow_efficiency",
+              "question": "Is the priority preventing rework, saving click time, or maintaining flow state?",
+              "choices": [
+                "Preventing rework",
+                "Saving click time",
+                "Maintaining flow state"
+              ]
+            },
+            {
+              "attribute": "visual_density",
+              "question": "Does clutter make you trust the AI less, make you scan faster, or cause immediate rejection?",
+              "choices": [
+                "Trust the AI less",
+                "Scan faster",
+                "Cause immediate rejection"
+              ]
+            },
+            {
+              "attribute": "spatial_proximity",
+              "question": "Is the decision based on elements being too close together, too far apart, or misaligned?",
+              "choices": [
+                "Elements too close together",
+                "Elements too far apart",
+                "Misaligned"
+              ]
+            },
+            {
+              "attribute": "color_coding_consistency",
+              "question": "Do you override when colors clash with standards, when colors are missing, or when shading is inconsistent?",
+              "choices": [
+                "Colors clash with standards",
+                "Colors are missing",
+                "Shading is inconsistent"
+              ]
+            },
+            {
+              "attribute": "confidence_threshold",
+              "question": "Is your trigger based on immediate gut hesitation, calculated risk assessment, or complete certainty of error?",
+              "choices": [
+                "Immediate gut hesitation",
+                "Calculated risk assessment",
+                "Complete certainty of error"
+              ]
+            },
+            {
+              "attribute": "layout_symmetry",
+              "question": "Do you ignore suggestions when the layout looks balanced, when it looks broken, or when whitespace is irregular?",
+              "choices": [
+                "Layout looks balanced",
+                "Layout looks broken",
+                "Whitespace is irregular"
+              ]
+            },
+            {
+              "attribute": "error_history_context",
+              "question": "Which factor weighs heavier: Recent similar failures, Known buggy modules, or User-reported issues?",
+              "choices": [
+                "Recent similar failures",
+                "Known buggy modules",
+                "User-reported issues"
+              ]
+            }
+          ],
+          "hypothetical_scenarios": [
+            {
+              "scenario": "If the AI confidence score changed from 95% to 75%, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "ai_interaction"
+            },
+            {
+              "scenario": "If correcting the AI took 5 clicks instead of 1, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "workflow_efficiency"
+            },
+            {
+              "scenario": "If the number of on-screen elements doubled, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "visual_density"
+            },
+            {
+              "scenario": "If the gap between the scheme and table increased by 50 pixels, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "spatial_proximity"
+            },
+            {
+              "scenario": "If the warning color changed from red to orange, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "color_coding_consistency"
+            },
+            {
+              "scenario": "If you felt 90% sure instead of 100% sure, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "confidence_threshold"
+            },
+            {
+              "scenario": "If the left panel was 20% wider than the right panel, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "layout_symmetry"
+            },
+            {
+              "scenario": "If you had encountered this specific error yesterday, would your judgment about 'Override Decision Triggers' change?",
+              "attribute": "error_history_context"
+            }
+          ]
+        },
+        "weight": 3.0000000000000004
+      }
+    ],
+    "metadata": {
+      "created_at": "2026-03-29T04:46:30.661724",
+      "llm_provider": "openai",
+      "question_id": "q_01",
+      "question_text": "Could you describe your common annotation workflow for these chemistry papers? When you search for the 'optimal condition reaction', how do you navigate the scattered information across the main text,",
+      "expert_leaves": 11,
+      "researcher_leaves": 11,
+      "link_count": 45,
+      "alignment_stats": {
+        "leaf_alignments": 45,
+        "concept_alignments": 10,
+        "misaligned_leaves": 45
+      },
+      "construction_method": "math-based",
+      "depends_on": []
+    }
+  },
   "question_graphs": [
     {
       "question_id": "q_01",
       "question_text": "Could you describe your common annotation workflow for these chemistry papers? When you search for the 'optimal condition reaction', how do you navigate the scattered information across the main text, optimization tables, and chemical schemes?",
-      "depends_on": [],
-      "metadata": {
-        "created_at": "2026-03-29T04:46:30.661724",
-        "llm_provider": "openai",
-        "question_id": "q_01",
-        "question_text": "Could you describe your common annotation workflow for these chemistry papers? When you search for the 'optimal condition reaction', how do you navigate the scattered information across the main text,",
-        "expert_leaves": 11,
-        "researcher_leaves": 11,
-        "link_count": 45,
-        "alignment_stats": {
-          "leaf_alignments": 45,
-          "concept_alignments": 10,
-          "misaligned_leaves": 45
-        },
-        "construction_method": "math-based",
-        "depends_on": []
-      },
       "graph": {
         "topic": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
         "researcher_bg": "An HCI researcher focusing on AI-assisted data annotation and visual search interfaces. The researcher wants to understand the cognitive load of cross-referencing multi-modal data but lacks formal training in organic synthesis and chemical trade-offs",
@@ -3024,32 +6008,12 @@
           "construction_method": "math-based",
           "depends_on": []
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "question_id": "q_02",
       "question_text": "What are the main challenges you face when you extract these complex reaction data? For example, do you struggle more with synthesizing the multi-modal information, or do you find correcting the misleading AI highlights more difficult?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-29T04:46:30.651319",
-        "llm_provider": "openai",
-        "question_id": "q_02",
-        "question_text": "What are the main challenges you face when you extract these complex reaction data? For example, do you struggle more with synthesizing the multi-modal information, or do you find correcting the misle",
-        "expert_leaves": 4,
-        "researcher_leaves": 8,
-        "link_count": 21,
-        "alignment_stats": {
-          "leaf_alignments": 21,
-          "concept_alignments": 7,
-          "misaligned_leaves": 21
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
         "researcher_bg": "An HCI researcher focusing on AI-assisted data annotation and visual search interfaces. The researcher wants to understand the cognitive load of cross-referencing multi-modal data but lacks formal training in organic synthesis and chemical trade-offs",
@@ -4613,32 +7577,14 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     },
     {
       "question_id": "q_03",
       "question_text": "When you face a massive volume of complex literature during a continuous batch labeling task, what is your general mindset? Which specific phase of this cross-referencing process—or your interaction with the AI—causes you the most cognitive exhaustion?",
-      "depends_on": [
-        "q_02"
-      ],
-      "metadata": {
-        "created_at": "2026-03-29T04:52:31.264425",
-        "llm_provider": "openai",
-        "question_id": "q_03",
-        "question_text": "When you face a massive volume of complex literature during a continuous batch labeling task, what is your general mindset? Which specific phase of this cross-referencing process—or your interaction w",
-        "expert_leaves": 6,
-        "researcher_leaves": 9,
-        "link_count": 25,
-        "alignment_stats": {
-          "leaf_alignments": 25,
-          "concept_alignments": 8,
-          "misaligned_leaves": 25
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_02"
-        ]
-      },
       "graph": {
         "topic": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
         "researcher_bg": "An HCI researcher focusing on AI-assisted data annotation and visual search interfaces. The researcher wants to understand the cognitive load of cross-referencing multi-modal data but lacks formal training in organic synthesis and chemical trade-offs",
@@ -6366,32 +9312,14 @@
             "q_02"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_02"
+      ]
     },
     {
       "question_id": "q_04",
       "question_text": "Many experienced curators rely on their 'chemical intuition' to quickly judge which reaction condition is truly the optimal one, especially when several entries show similar yields. If you had to explain this trade-off to a novice annotator or an AI developer, what two or three objective rules actually underlie this 'gut feeling'?",
-      "depends_on": [
-        "q_01"
-      ],
-      "metadata": {
-        "created_at": "2026-03-29T04:46:30.669996",
-        "llm_provider": "openai",
-        "question_id": "q_04",
-        "question_text": "Many experienced curators rely on their 'chemical intuition' to quickly judge which reaction condition is truly the optimal one, especially when several entries show similar yields. If you had to expl",
-        "expert_leaves": 9,
-        "researcher_leaves": 8,
-        "link_count": 35,
-        "alignment_stats": {
-          "leaf_alignments": 35,
-          "concept_alignments": 8,
-          "misaligned_leaves": 35
-        },
-        "construction_method": "math-based",
-        "depends_on": [
-          "q_01"
-        ]
-      },
       "graph": {
         "topic": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
         "researcher_bg": "An HCI researcher focusing on AI-assisted data annotation and visual search interfaces. The researcher wants to understand the cognitive load of cross-referencing multi-modal data but lacks formal training in organic synthesis and chemical trade-offs",
@@ -9524,7 +12452,52 @@
             "q_01"
           ]
         }
-      }
+      },
+      "depends_on": [
+        "q_01"
+      ]
     }
-  ]
+  ],
+  "cache_key": "456b2acf0bd5a777",
+  "status": "ready",
+  "error": "",
+  "transcript_summary": {
+    "main_bullets": [
+      {
+        "id": "mb_01",
+        "label": "Could you describe your common annotation workflow for",
+        "keywords": [],
+        "source_question": "1. Could you describe your common annotation workflow for these chemistry papers? When you search for the 'optimal condition reaction', how do you navigate the scattered information across the main text, optimization tables, and chemical schemes?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_02",
+        "label": "What are the main challenges you face when",
+        "keywords": [],
+        "source_question": "2. What are the main challenges you face when you extract these complex reaction data? For example, do you struggle more with synthesizing the multi-modal information, or do you find correcting the misleading AI highlights more difficult?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_03",
+        "label": "When you face a massive volume of complex",
+        "keywords": [],
+        "source_question": "3. When you face a massive volume of complex literature during a continuous batch labeling task, what is your general mindset? Which specific phase of this cross-referencing process—or your interaction with the AI—causes you the most cognitive exhaustion?",
+        "sub_bullets": []
+      },
+      {
+        "id": "mb_04",
+        "label": "Many experienced curators rely on their 'chemical intuition'",
+        "keywords": [],
+        "source_question": "4. Many experienced curators rely on their 'chemical intuition' to quickly judge which reaction condition is truly the optimal one, especially when several entries show similar yields. If you had to explain this trade-off to a novice annotator or an AI developer, what two or three objective rules actually underlie this 'gut feeling'?",
+        "sub_bullets": []
+      }
+    ],
+    "last_updated_turn": 0
+  },
+  "_meta": {
+    "topic": "Understanding the annotation workflows, cognitive bottlenecks, and Human-AI collaboration friction when chemistry experts extract \"Optimal Condition Reactions\" from complex literature",
+    "researcher_bg": "An HCI researcher focusing on AI-assisted data annotation and visual search interfaces. The researcher wants to understand the cognitive load of cross-referencing multi-modal data but lacks formal training in organic synthesis and chemical trade-offs",
+    "expert_bg": "A Senior Chemistry Data Curator (Dr. Liang) who annotates reaction data for databases like SciFinder or Reaxys. He manages massive volumes of literature and heavily relies on domain intuition to filter out misleading AI suggestions",
+    "saved_at": "2026-03-29T04:52:31.573577"
+  }
 }
