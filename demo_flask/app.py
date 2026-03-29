@@ -41,21 +41,20 @@ def save_transcript(messages: List[Dict[str, Any]]) -> None:
 
 INTERVIEWEE_MODEL = "qwen3-max"
 
-INTERVIEW_TOPIC = "Uncovering the  the Gap Between AI Algorithmic Medical Image Analysis and Real-World Radiology Workflows"
+INTERVIEW_TOPIC = "This study investigates the visual and cognitive challenges biologists face when manually constructing and verifying cross-sample cell developmental trajectories from multi-sample scRNA-seq data."
 
-INTERVIEWEE_DEMOGRAPHICS = """Professional Role: Senior Diagnostic Radiologist (Sub-specializing in Thoracic Imaging)
+INTERVIEWEE_DEMOGRAPHICS = """Name: Dr. Roberts.
 
-Work Experience: Over 15 years of experience in the Radiology Department of a Grade-A tertiary hospital. Daily workload involves interpreting 100-200 CT/MRI scans. A lead member of the Lung Cancer Screening Task Force. Has participated in multiple pilot programs for "AI-Assisted Nodule Detection" but remains highly critical of their clinical utility.
+Professional Role: Senior Bioinformatician / Principal Investigator in Developmental Biology.
 
-Expertise: Master of "Spatial Gestalt" diagnosis—the ability to mentally reconstruct a 3D pathology from 2D slices. Expert at identifying subtle morphological nuances such as Spiculation, Pleural Indentation , and Internal Bronchogram . Heavily relies on Longitudinal Comparison (comparing current scans with priors from 2-5 years ago) to determine the "Doubling Time" of a nodule, which is his gold standard for malignancy.
+Work Experience: Extensive experience in processing multi-sample scRNA-seq datasets (e.g., mouse embryonic development), performing clustering, batch-effect removal, and trajectory inference.
 
-Core Challenges & Pain Points:
+Current Situation: Currently tasked with mapping complex spatial correspondences across highly variable single-cell distributions from different developmental stages; operating under high cognitive and emotional load due to the exhaustive manual effort required to validate cross-sample trajectories.
 
-The "Cropped Box" Fallacy: Deeply annoyed by AI developers who treat a lung nodule as a localized 2D patch. He knows a nodule's meaning changes entirely based on its location (hilar vs. peripheral) and the patient's background (e.g., history of tuberculosis or heavy smoking).
-
-Contextual Blindness: Frustrated that AI tools cannot access the EHR (Electronic Health Record). An AI flags a "90% malignant" spot, but he knows the patient had a similar-looking infection 3 months ago that is now resolving.
-
-Workflow Fragmentation: Hates "Second Reader" AI models that force him to click through a list of 50 "potential nodules," 40 of which are obvious vascular shadows or noise, effectively doubling his reading time instead of halving it."""
+Expertise & Skills:
+(1) Highly proficient in using standardized tools (e.g., Seurat, Harmony, PAGA) for intra-sample analysis, but acutely aware of their limitations in cross-sample connections.
+(2) Possesses a mature "biological intuition," capable of quickly gauging true evolutionary relationships through subtle objective visual cues (e.g., spatial density gradients, contour map overlaps, and developmental directions).
+(3) Experienced in guiding novice researchers to rigorously validate visual hypotheses using Gene Set Enrichment Analysis (GSEA) and specific Gene Ontology (GO) terms to avoid false positives."""
 
 
 INTERVIEWEE_PERSONA_PROMPT_V1 = """You are roleplaying as a domain expert being interviewed by a researcher.
