@@ -24,19 +24,15 @@
               </div>
             </div>
           {% else %}
-            {# ====== DSAG Initialization Section ====== #}
+            {% if not dsag_ready %}
+            {# ====== DSAG Initialization Section (only shown before initialization) ====== #}
             <div class="dsag-init-section">
               <div class="panel-header">
                 <h2 class="panel-title">Setup</h2>
                 <span class="dsag-status-badge" id="dsagStatusBadge">
-                  {% if dsag_ready %}
-                    <span class="badge badge-ready">Ready</span>
-                  {% else %}
-                    <span class="badge badge-inactive">Not initialized</span>
-                  {% endif %}
+                  <span class="badge badge-inactive">Not initialized</span>
                 </span>
               </div>
-              {% if not dsag_ready %}
               {# ---- Saved Configurations ---- #}
               <div class="dsag-cached-section" id="dsagCachedSection" style="display:none;">
                 <label class="dsag-field-label">Saved Configurations</label>
@@ -75,12 +71,10 @@
                 </div>
                 <div class="dsag-init-status" id="dsagInitStatus"></div>
               </form>
-              {% else %}
-              <div class="dsag-ready-info"></div>
-              {% endif %}
             </div>
 
             <hr class="panel-divider" />
+            {% endif %}
 
             <div class="panel-header">
               <h2 class="panel-title">Interview Questionnaire</h2>
